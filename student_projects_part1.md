@@ -25,6 +25,21 @@
 | 17          | **Honeybee Hive**     | 12. Funktionales Programmieren             | Generatoren zur Verarbeitung von Nektar-Streams       |
 | 18          | **Sloth’s Hotel**     | 8. Structural Design Patterns              | Zustandsbasierte Muster für Entspannungsprozesse      |
 
+---
+
+### Zusammenfassende Übersichtstabelle für die Vorlesung
+
+| **Aufgabe**                 | **Fokus-Thema (Topic)** | **Methodisches Werkzeug** |
+|-----------------------------|-------------------------|---------------------------|
+| **Pinguin / Chamäleon**     | Statistik / Bayes       | PyMC3 / Random            |
+| **Panda / Hirsch**          | Metaprogrammierung      | Decorators / Descriptors  |
+| **Bär / Wolf**              | Statische Typisierung   | MyPy / Type Hints         |
+| **Fuchs (Post) / Elefant**  | Datenmenge / Speicher   | Dask / GC-Profiling       |
+| **Eule (Bücher / Night)**   | Memory / Async          | `gc` / `asyncio`          |
+| **Hase / Bienen**           | Funktional / Lazy       | Generators / Itertools    |
+| **Biber / Fuchs (Express)** | Performance / JIT       | Cython / Numba            |
+| **Waschbär / Faultier**     | Software-Architektur    | Design Patterns           |
+
 ## Methodischer Leitfaden zur Abgabe
 
 Jede Gruppe muss zusätzlich zum Code ein kurzes **Paper (4-6 Seiten)** einreichen, das folgende Struktur hat:
