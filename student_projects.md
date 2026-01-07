@@ -233,6 +233,8 @@ Aufgabe: Entwickle ein digitales Gedächtnis für "Ella Elefant", um:
 
 - **Erinnerungs-Bot:** Benachrichtige andere Tiere an wichtige Jahrestage oder Migrationsstarts.
 
+**TOPIC 1.:** Memory Management: Reference Counting vs. Cyclic Garbage Collection
+
 ---
 
 ### Aufgabe 16: Mole’s Metro Map – U-Bahn-Bau unter der Wiese
