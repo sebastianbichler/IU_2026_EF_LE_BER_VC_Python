@@ -8,7 +8,7 @@ Die folgenden Schwerpunkte sind speziell auf Python zugeschnitten und bieten die
 fortgeschrittene Konzepte einzutauchen, die über die Grundlagen hinausgehen. Jeder Schwerpunkt ist mit einer
 wissenschaftlichen Fragestellung, relevanten Publikationen und einer praktischen Anwendung im Projektkontext verknüpft.
 
-1. Memory Management: Reference Counting vs. Cyclic Garbage Collection
+### 1. Memory Management: Reference Counting vs. Cyclic Garbage Collection
 
 Python nutzt primär Reference Counting, ergänzt durch einen zyklischen GC. Dies ist ein direkter Kontrast zum
 Mark-and-Sweep in C#.
