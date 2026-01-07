@@ -2,7 +2,7 @@
 
 ---
 
-## Wissenschaftliche Schwerpunkte in Python
+## Wissenschaftliche Schwerpunkte in Python (TOPICS)
 
 Die folgenden Schwerpunkte sind speziell auf Python zugeschnitten und bieten die Möglichkeit, tief in
 fortgeschrittene Konzepte einzutauchen, die über die Grundlagen hinausgehen. Jeder Schwerpunkt ist mit einer
