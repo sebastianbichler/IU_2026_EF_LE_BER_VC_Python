@@ -10,13 +10,13 @@ Aufgabe: Erstelle eine Python-basierte Anwendung, in der Pingu, der Pinguin, ein
 verwendet, um:
 
 - **Inventar zu verwalten** (Fischarten, Menge, Frische)
--
+
 - **Kundenbestellungen abzuwickeln** (andere Tiere, die das Restaurant besuchen)
--
+
 - **Gewinne und Ausgaben zu erfassen** (Eisblockmiete, Kosten für Fischlieferanten)
--
+
 - **Rezepte vorzuschlagen** (basierend auf dem vorhandenen Fischbestand)
--
+
 - **Kundenpräferenzen zu erlernen** (sei hier kreativ)
 
 Python vs Science:
@@ -40,11 +40,11 @@ Aufgabe: Erstelle eine Python-basierte Anwendung, in der Panda ein gemütliches 
 Tee-Therapie für Waldtiere eröffnet und Code verwendet, um:
 
 - **Spa-Dienstleistungen zu verwalten**
--
+
 - **Kundentermine abzuwickeln** (andere Tiere, die das Spa besuchen)
--
+
 - **Gewinne und Ausgaben zu erfassen** (Warmwasser, Tee und andere Spa-Lieferanten)
--
+
 - **Kundenpräferenzen zu erlernen und Buchungsvorschläge zu machen** (sei hier kreativ)
 
 Python vs Science:
@@ -67,15 +67,15 @@ Idee: Wie kann ein Bär Python nutzen, um seine Honigproduktion zu automatisiere
 Aufgabe: Erstelle eine Python-basierte Anwendung, in der ein Bär eine Honigfabrik eröffnet und Python verwendet, um:
 
 - **Inventar zu verwalten** (Honigsorten, Menge, Frische)
--
+
 - **Produktionslinien zu steuern** (welche neue Honigsorte eingeführt werden soll)
--
+
 - **Honig im gesamten Wald zu verkaufen**
--
+
 - **Visualisierungen** der verkauften Honigmengen der letzten 3 Monate zu erstellen
--
+
 - **Klassen für Bienen, Blumen, Gläser und Maschinen zu verwenden**
--
+
 - **Kundenpräferenzen zu erlernen und Kaufvorschläge zu machen** (sei hier kreativ)
 
 Python vs Science:
@@ -99,15 +99,15 @@ Aufgabe: Erstelle eine Python-basierte Anwendung, in der Felix, der Fuchs, einen
 verwendet, um:
 
 - **Pakete zu verwalten** (Größe, Gewicht, Empfänger, Lieferstatus)
--
+
 - **Lieferrouten zu optimieren** (kürzeste Wege zwischen Tierbehausungen berechnen)
--
+
 - **Kundenaufträge abzuwickeln** (Abholung und Zustellung für Waldtiere)
--
+
 - **Gewinne und Ausgaben zu erfassen** (Transportkosten, Lagermiete, Verpackungsmaterial)
--
+
 - **Lieferzeiten vorherzusagen** (basierend auf Entfernung und Wetterbedingungen)
--
+
 - **Kundenbewertungen zu sammeln und auszuwerten** (sei hier kreativ)
 
 Python vs Science:
@@ -131,15 +131,15 @@ Aufgabe: Erstelle eine Python-basierte Anwendung, in der Olivia, die Eule, eine 
 Code verwendet, um:
 
 - **Buchbestände zu verwalten** (Titel, Autor, Genre, Verfügbarkeit)
--
+
 - **Ausleihen und Rückgaben zu organisieren** (welches Tier hat welches Buch)
--
+
 - **Mahnungen zu erstellen** (bei überfälligen Büchern)
--
+
 - **Gewinne und Ausgaben zu erfassen** (Neuanschaffungen, Reparaturen, Mitgliedsbeiträge)
--
+
 - **Buchempfehlungen zu generieren** (basierend auf dem Lesegeschmack der Tiere)
--
+
 - **Statistiken zu erstellen** (beliebteste Bücher, aktivste Leser) (sei hier kreativ)
 
 Python vs Science:
@@ -162,17 +162,17 @@ Gemüse zu versorgen?
 Aufgabe: Erstelle eine Python-basierte Anwendung, in der Rudi, der Hase, einen Gemüsehof gründet und Code verwendet, um:
 
 - **Anbauflächen zu verwalten** (Gemüsesorten, Pflanzzeit, Erntezeitpunkt)
--
+
 - **Lagerbestände zu überwachen** (Menge, Frische, Haltbarkeit)
--
+
 - **Kundenbestellungen abzuwickeln** (Abo-Kisten für Waldtiere)
--
+
 - **Gewinne und Ausgaben zu erfassen** (Saatgut, Dünger, Wasserkosten)
--
+
 - **Ernteerträge zu visualisieren** (Diagramme der letzten Saisons)
--
+
 - **Klassen für Gemüsesorten, Beete, Kunden und Lieferungen zu verwenden**
--
+
 - **Saisonale Angebote und Rezeptvorschläge zu erstellen** (sei hier kreativ)
 
 Python vs Science:
@@ -196,19 +196,19 @@ Aufgabe: Erstelle eine Python-basierte Anwendung, in der Wolfgang, der Wolf, ein
 verwendet, um:
 
 - **Teams zu verwalten** (Mannschaftsnamen, Spieler, Positionen, Trikotnummern)
--
+
 - **Spielpläne zu erstellen** (Hin- und Rückrunden, Spieltermine, Spielorte)
--
+
 - **Spielergebnisse zu erfassen** (Tore, Gelbe/Rote Karten, Torschützen)
--
+
 - **Tabellenstand zu berechnen** (Punkte, Tordifferenz, Platzierung)
--
+
 - **Gewinne und Ausgaben zu erfassen** (Ticketverkäufe, Stadionmiete, Schiedsrichterkosten)
--
+
 - **Spielerstatistiken zu visualisieren** (Torjäger, beste Verteidiger, Fairplay-Wertung)
--
+
 - **Klassen für Spieler, Teams, Spiele und Stadien zu verwenden**
--
+
 - **Spielvorhersagen zu erstellen** (basierend auf bisherigen Ergebnissen) (sei hier kreativ)
 
 - Python vs Science:
@@ -231,19 +231,19 @@ Aufgabe: Erstelle eine Python-basierte Anwendung, in der Diego, der Hirsch, ein 
 eröffnet und Code verwendet, um:
 
 - **Mitgliedschaften zu verwalten** (Tiernamen, Mitgliedschaftstyp, Ablaufdatum)
--
+
 - **Kurspläne zu erstellen** (Yoga, Krafttraining, Ausdauerlauf, Schwimmkurse)
--
+
 - **Kursbuchungen abzuwickeln** (Anmeldungen, Wartelisten, Absagen)
--
+
 - **Trainingsfortschritte zu dokumentieren** (Gewicht, Ausdauer, persönliche Rekorde)
--
+
 - **Gewinne und Ausgaben zu erfassen** (Mitgliedsbeiträge, Gerätekosten, Trainerhonorare)
--
+
 - **Fitnessberichte zu visualisieren** (Fortschrittskurven der letzten Monate)
--
+
 - Klassen für Mitglieder, Kurse, Trainer und Geräte zu verwenden
--
+
 - Personalisierte Trainingspläne zu empfehlen (basierend auf Zielen und Fortschritt) (sei hier kreativ)
 
 - Python vs Science:

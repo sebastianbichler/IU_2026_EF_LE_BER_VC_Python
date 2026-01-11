@@ -38,12 +38,15 @@
 
 ## #2 2026-01-12, Monday (3 UE)
 - discussion about project ideas
+- Development Environments ready? IDE? VENV?
+- recap of previous lesson
 - MIT-Experiment
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (in Teams-Group)
 - Variables, Data Types, and Control Structures
+  - DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (in Teams-Group)
 
 ## 2026-01-04
 - student projects: added scientific focus
+- Teams-Group: added members
 
 ## #1 2026-01-05, Monday (3 UE)
 - Teams-Group:
