@@ -1,0 +1,6 @@
+# Erzwingt LF für alle Textdateien beim Commit
+* text=auto eol=lf
+
+# Spezifische Dateitypen explizit festlegen
+*.py text eol=lf
+*.md text eol=lf

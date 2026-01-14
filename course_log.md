@@ -42,6 +42,8 @@
 
 - TODO: clean up code (update to conventions, exercises, oli)
 - TODO solve formating problems
+  - .gitattributes (END OF LINE)
+  - ruff
 - TODO finish group assignment for project ideas ((Leon Kinski, Oliver Mayer)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
 - functions
