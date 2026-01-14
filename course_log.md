@@ -40,12 +40,15 @@
 
 ## #3 2026-01-19, Monday (3 UE)
 
+- TODO: clean up code (update to conventions, exercises, oli)
+- TODO solve formating problems (dotnet format not working as expected)
+- TODO finish group assignment for project ideas ((Leon Kinski, Oliver Mayer)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
 - functions
 - exceptions and error handling
 
 ## #2 2026-01-12, Monday (3 UE)
-- TODO: clean up code (update to conventions, exercises, oli)
+
 - discussion about project ideas
 - Development Environments ready? IDE? VENV?
 - recap of previous lesson
