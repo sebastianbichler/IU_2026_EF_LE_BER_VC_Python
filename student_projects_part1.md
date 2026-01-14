@@ -5,7 +5,7 @@
 ## Allgemeines
 - Das Modul wird als Projekt durchgeführt: [MyCampus_Lehrformat Projekt](https://mycampus-classic.iu.org/course/view.php?id=7293)
 - Die Prüfungsfortm nennt sich "Portfolio": [Prüfungsleitfaden_Portfolio](https://mycampus-classic.iu.org/mod/resource/view.php?id=373242)
-- Abgaben erfolgen über Pepple: 
+- Abgaben erfolgen über Pepple:
   - [MyCampus_Pepple](https://mycampus.iubh.de/course/view.php?id=5966&_gl=1*gbk8b3*_gcl_au*MTEwNjExMjg4OS4xNzYwMjc4ODQ1)
   - https://v3.pebblepad.co.uk/spa/#/home?type=start
 - Wir arbeiten über die Teams-Gruppe: DLBDSIPWP01 - Python (Link)
@@ -22,7 +22,7 @@
 - Requirements definieren
 - Definiertes Setup in der Readme Datei beschrieben (Python Umgebung, welche Pakete benötigt werden, App starten, welche Features implementiert etc.)
 - lesbarer, strukturierter und dokumentierter Code (Programmiert wird in Englisch!)
-- (Beispielhaft) Unit-Tests implementiert 
+- (Beispielhaft) Unit-Tests implementiert
 - (Beispielhaft) 3 Integration-Tests implementiert und dem Software Requirement zugeordnet
 - CI-Pipeline dokumentiert (Befehlsreihenfolge, requirments.txt)
 - Dokumentation inklusive Nutzungsanweisung (How-to-use-app z.B. in der Readme)
@@ -30,7 +30,7 @@
 ---
 
 ## Projekt – Konzeptionsphase
-- Sich mit der Aufgabenstellung auseinandersetzen – Was soll die Anwendung können? Was ist der Zweck der Anwendung? 
+- Sich mit der Aufgabenstellung auseinandersetzen – Was soll die Anwendung können? Was ist der Zweck der Anwendung?
 - Requirements definieren und priorisieren
 - Software Design: Use-Case-Diagram
 - Was brauche ich für die Umsetzung? (z.B. Datensätze, Bibliotheken)
@@ -49,7 +49,7 @@
 ## Projekt – Finalisierungsphase
 - Umsetzung der Aufgabenstellung als Python-Projekt
 - Source Code
-- Dokumentation (innerhalb des Projektes) inkl. Requirements, Software Design 
+- Dokumentation (innerhalb des Projektes) inkl. Requirements, Software Design
 - Vollständige Readme Datei
 - CI/CD Umsetzung (requirments.txt, Unittests, Integrationtests)
 

@@ -1,6 +1,6 @@
 Ein Beispiel vom "manuellen" Verständnis hin zur professionellen Automatisierung und Bereitstellung.
 
-Hier ist der systematische Leitfaden. Als Datensatz werden der klassische **"Iris"** und **"Titanic"** Datensatz verwendet, da diese als CSV online leicht verfügbar sind. 
+Hier ist der systematische Leitfaden. Als Datensatz werden der klassische **"Iris"** und **"Titanic"** Datensatz verwendet, da diese als CSV online leicht verfügbar sind.
 Wir nutzen hier beispielhaft einen Datensatz über Verkaufszahlen oder Wetterdaten (CSV).
 
 ---
@@ -39,7 +39,7 @@ with open("daten.csv", "r") as f:
     for line in f:
         spalten = line.strip().split(",")
         # Datentyp-Konvertierung (Cast)
-        wert = float(spalten[0]) 
+        wert = float(spalten[0])
         daten.append(wert)
 
 durchschnitt = sum(daten) / len(daten)
@@ -223,21 +223,21 @@ def home():
     ax.set_title('Average Sepal Length by Species')
     ax.set_xlabel('Species')
     ax.set_ylabel('Average Sepal Length (cm)')
-    
+
     # --- Hier beginnt der "Trick": Diagramm in Base64 umwandeln ---
-    
+
     # 1. Diagramm in einen Speicher-Puffer schreiben (nicht auf die Festplatte)
     img_buffer = io.BytesIO()
     fig.savefig(img_buffer, format='png', bbox_inches='tight') # 'tight' entfernt unnötigen Weißraum
     img_buffer.seek(0) # Cursor an den Anfang des Puffers setzen
-    
+
     # 2. Den Inhalt des Puffers in Base64 umwandeln
     img_base64 = base64.b64encode(img_buffer.read()).decode('utf-8')
-    
+
     # 3. Den Puffer schließen und das Matplotlib-Figure-Objekt leeren
     img_buffer.close()
     plt.close(fig) # Sehr wichtig, um Speicherlecks zu vermeiden!
-    
+
     # Flask rendert das HTML-Template und übergibt den Base64-String
     return render_template("index.html", plot_url=f"data:image/png;base64,{img_base64}")
 
@@ -267,11 +267,11 @@ Hier betten wir den empfangenen Base64-String als Bild ein.
 </head>
 <body>
     <h1>Iris Data Visualization</h1>
-    
+
     <p>This plot shows the average sepal length for different Iris species.</p>
-    
+
     <img src="{{ plot_url }}" alt="Average Sepal Length Plot">
-    
+
     <p>Data provided by the classic Iris dataset.</p>
 </body>
 </html>
@@ -299,7 +299,7 @@ Hier betten wir den empfangenen Base64-String als Bild ein.
 
 ---
 
-## Nächste mögliche Schritte 
+## Nächste mögliche Schritte
 - Einbinden von nicht nur statisches Diagrammen, sondern interaktiver Plots (z.B. mit Plotly oder Bokeh) in Flask? Das wäre der nächste Level für die Visualisierung.
 - ...oder das Hinzufügen von Benutzer-Input, um verschiedene Analysen dynamisch zu generieren!
 - Deployment der Flask-App auf einem Cloud-Dienst wie Heroku oder AWS.
@@ -335,4 +335,3 @@ Hier betten wir den empfangenen Base64-String als Bild ein.
 - Data Science Workflows automatisieren mit Airflow oder Prefect in Verbindung mit der Flask-App.
 
 ---
-
