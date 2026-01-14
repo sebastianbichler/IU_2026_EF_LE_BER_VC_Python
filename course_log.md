@@ -40,7 +40,6 @@
 
 ## #3 2026-01-19, Monday (3 UE)
 
-- TODO: clean up code (update to conventions, exercises, oli)
 - TODO finish group assignment for project ideas ((Leon Kinski, Oliver Mayer)
 - in IDE line endings set to LF (Linux/Mac)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
