@@ -1,0 +1,14 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+    -   id: end-of-file-fixer      # Stellt sicher, dass Dateien mit Leerzeile enden
+    -   id: trailing-whitespace    # Entfernt unnötige Leerzeichen am Zeilenende
+    -   id: mixed-line-ending      # Erzwingt einheitliche Zeilenendungen (LF)
+        args: ['--fix=lf']
+
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.6
+    hooks:
+    -   id: ruff                   # Linter Check
+    -   id: ruff-format            # Formatter Check (das "dotnet format" Äquivalent)
