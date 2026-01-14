@@ -45,7 +45,7 @@
 - exceptions and error handling
 
 ## #2 2026-01-12, Monday (3 UE)
-
+- TODO: clean up code (update to conventions, exercises, oli)
 - discussion about project ideas
 - Development Environments ready? IDE? VENV?
 - recap of previous lesson
