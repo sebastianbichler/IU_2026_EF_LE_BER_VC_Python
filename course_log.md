@@ -41,7 +41,7 @@
 ## #3 2026-01-19, Monday (3 UE)
 
 - TODO: clean up code (update to conventions, exercises, oli)
-- TODO solve formating problems (dotnet format not working as expected)
+- TODO solve formating problems
 - TODO finish group assignment for project ideas ((Leon Kinski, Oliver Mayer)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
 - functions
