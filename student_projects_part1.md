@@ -4,7 +4,7 @@
 
 ## Allgemeines
 - Das Modul wird als Projekt durchgeführt: [MyCampus_Lehrformat Projekt](https://mycampus-classic.iu.org/course/view.php?id=7293)
-- Die Prüfungsfortm nennt sich "Portfolio": [Prüfungsleitfaden_Portfolio](https://mycampus-classic.iu.org/mod/resource/view.php?id=373242)
+- Die Prüfungsform nennt sich "Portfolio": [Prüfungsleitfaden_Portfolio](https://mycampus-classic.iu.org/mod/resource/view.php?id=373242)
 - Abgaben erfolgen über Pepple:
   - [MyCampus_Pepple](https://mycampus.iubh.de/course/view.php?id=5966&_gl=1*gbk8b3*_gcl_au*MTEwNjExMjg4OS4xNzYwMjc4ODQ1)
   - https://v3.pebblepad.co.uk/spa/#/home?type=start
@@ -65,7 +65,7 @@ https://github.com/iubh/DLBDSIPWP01_D
 ## (Mögliche) Themen für die Vorlesung:
 
 - Setup der Python-Umgebung(en): VSC, Anaconda, Jupyter Notebooks/Lab,PyCharm, virtuelle Environments
-- Linter & Formatter: Pylint, Black, Flake8
+- Linter & Formatter: Pylint, Ruff, Black, Flake8
 - Modules & Packages: pip, venv, conda, poetry
 - Datenstrukturen in Python: Listen, Tupel, Sets, Dictionaries
 - Funktionen & Module in Python
