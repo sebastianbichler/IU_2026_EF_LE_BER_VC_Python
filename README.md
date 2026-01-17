@@ -118,10 +118,15 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 - Halte dich an das DRY-Prinzip (Don't Repeat Yourself).
 - Verwende weitere Design-Patterns, wo sinnvoll (gerade für Standardsituationen).
 - Nutze Linter (z.B. ruff, flake8, pylint), um Codequalität zu gewährleisten.
-- Verwende Type Hints für bessere Lesbarkeit und Wartbarkeit.
 - Committe regelmäßig und mit aussagekräftigen Nachrichten.
 - Committe kleine Änderungen lokal und push nur funktionierenden Code (regelmäßig).
+- Verwende Type Hints für bessere Lesbarkeit und Wartbarkeit.
+  ```python
 
+  def add(a: int, b: int) -> int:
+
+      return a + b
+  ```
 ---
 
 ## Nützliche Ressourcen
@@ -155,34 +160,32 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 
 ## Code snippets
 
-- **Aktuelle virtuelle Umgebung anzeigen:** which python (Linux/Mac) oder where python (Windows)
-- **Formatierung standardisieren**: ruff format
-- **Code-Qualität prüfen**: ruff check .
-- **Virtuelle Umgebung erstellen**: python -m venv env_name
-- **Check line endings:** git ls-files --eol
-- pre-commit run --all-files
-- **Virtuelle Umgebung aktivieren**: source env_name/bin/activate (Linux/Mac) oder env_name\Scripts\activate (Windows)
 - **Pakete installieren**: pip install package_name
 - **Abhängigkeiten speichern**: pip freeze > requirements.txt
 - **Abhängigkeiten installieren**: pip install -r requirements.txt
+- **Virtuelle Umgebung erstellen**: `python -m venv env_name`
+- **Virtuelle Umgebung aktivieren**: `source env_name/bin/activate (Linux/Mac)` oder `env_name\Scripts\activate (Windows)`
+- **Aktuelle virtuelle Umgebung anzeigen:** `which python (Linux/Mac)` oder `where python (Windows)`
+- **Formatierung standardisieren**: `ruff format`
+- **Code-Qualität prüfen**: `ruff check .`
+- **Check line endings:** `git ls-files --eol`
+- **Pre-Commit-Checks:** `pre-commit run --all-files`
+- **Interaktive Python-Shell starten:** `python -m IPython`
 - **Jupyter Notebook starten**: jupyter notebook
 - **JupyterLab starten**: jupyter lab
+- **Unit-Tests ausführen**: python -m unittest discover tests
+- **Code mit Type Hints versehen**:
+- **Git-Origin/Remote-Repository**:`git remote -v`
+- **Default-Branch:** `git remote show origin`
+- **Lokaler aktueller Branch:** `git branch --show-current`
 - **Git-Branch erstellen**: git checkout -b branch_name
 - **Änderungen committen**: git commit -m "Commit message"
 - **Code pushen**: git push origin branch_name
-- **Code pullen**: git pull origin branch_name
+- **Code fetch**: git fetch origin branch_name
+- **Code pull**: git pull origin branch_name
 - **Code mergen**: git merge branch_name
-- **Neuen Branch erstellen**: git checkout -b feature/branch_name
 - **Datei zu Git hinzufügen**: git add file_name
 - **Alle Änderungen zu Git hinzufügen**: git add .
 - **Git-Status anzeigen**: git status
 - **Git-Log anzeigen**: git log
-- **Unit-Tests ausführen**: python -m unittest discover tests
-- **Code mit Type Hints versehen**:
-
-  ```python
-
-  def add(a: int, b: int) -> int:
-
-      return a + b
-  ```
+- **Einen Commit zurücksetzen**: git reset --hard commit_hash
