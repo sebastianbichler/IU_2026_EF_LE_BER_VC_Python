@@ -4,18 +4,16 @@
 
 ### Gruppen
 
-| #  | Mitglied 1 | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 4 | Thema   |
-|----|------------|------------|------------|------------|------------|---------|
-| 1  | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 2  | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 3  | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 4  | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 5  | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 6  | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 7  | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 8  | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 9  | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 10 | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
-| 11 | Mitglied 1 | Mitglied 2 | Mitglied 3 | Mitglied 3 | Mitglied 4 | Thema 1 |
+| # | Mitglied 1        | Mitglied 1            | Mitglied 2             | Thema                               |
+|---|-------------------|-----------------------|------------------------|-------------------------------------|
+| 1 | Beier, Maurice    | Rödiger, Marcus       | Oelsner, Luise         | (6) JIT Compilation (Numba)         |
+| 2 | Hahn, Leonie      | Hartman, Oliver       | Martens, Malte         | (4) Vectorization (NumPy)           |
+| 3 | Cingöz, Ahmet     | Niederhuber, Marco    | Strauß, Tim-Oliver     | (12) Funktionales Programmieren     |
+| 4 | Kosheliev, Mykyta | Bespalova, Yelyzaveta | ?                      | (9) Typisierung (MyPy)              |
+| 5 | Hintze, Finnley   | Römhild, Maximilian   | Reimer, Lasse          | (7) Probabilistische Programmierung |
+| 6 | Wagner, Johannes  | Hertzsch, Konrad      | Zinecker, Richard      | (5) Metaprogrammierung              |
+| 7 | Mühl, Kevin       | Cai, Zichao           | Großebokermann, Jannis | (1) Memory Management               |
+| 8 | Mannstein, Max    | Donalies, Philipp     | Gärtner, Cedric        | (9) Typisierung (MyPy)              |
+| 9 | Nimschofsky, Nico | Beier, Julius         | ?                      | (8) Structural Design Patterns      |
 
 ---
