@@ -12,7 +12,7 @@
 
 ## #11 2026-02-23, Monday (3 UE)
 
-- consulting for student projects
+- Consulting for student projects
 
 ## #10 2026-02-10, Tuesday (3 UE)
 
@@ -24,46 +24,46 @@
 
 ## #6 2026-01-27, Tuesday (3 UE)
 
-- presentation of project designs by student groups (first implementation phase)
+- Presentation of project designs by student groups (first implementation phase)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf (in Teams-Group)
 - Best Practices
 
 ## #5 2026-01-26, Monday (3 UE)
 
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (in Teams-Group)
-- moduls and packages
+- Moduls and packages
 
 ## #4 2026-01-26, Tuesday (3 UE)
 
-- presentation of project concepts by student groups
-- recap of previous lesson
+- Presentation of project concepts by student groups
+- Recap of previous lesson
 
 ## #3 2026-01-19, Monday (3 UE)
 
-- TODO finish group assignment for project ideas ((Leon Kinski, Oliver Mayer)
-- in IDE line endings set to LF (Linux/Mac)
+- TODO Finish group assignment for project ideas ((Leon Kinski, Oliver Mayer)
+- TODO set line endings to LF (Linux/Mac)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
-- functions
-- exceptions and error handling
+- Functions
+- Exceptions and error handling
 
 ## 2026-01-14
 
-- solved formating problems
-    - .gitattributes (END OF LINE)
-    - ruff
+- Solved formating problems
+  - .gitattributes (END OF LINE)
+  - ruff
 
 ## #2 2026-01-12, Monday (3 UE)
 
-- discussion about project ideas
+- Discussion about project ideas
 - Development Environments ready? IDE? VENV?
-- recap of previous lesson
+- Recap of previous lesson
 - MIT-Experiment
 - Variables, Data Types, and Control Structures
     - DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (in Teams-Group)
 
 ## 2026-01-04
 
-- student projects: added scientific focus
+- Student projects: added scientific focus
 - Teams-Group: added members
 
 ## #1 2026-01-05, Monday (3 UE)
