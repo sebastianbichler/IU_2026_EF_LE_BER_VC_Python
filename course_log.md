@@ -47,9 +47,10 @@
 - exceptions and error handling
 
 ## 2026-01-14
+
 - solved formating problems
-  - .gitattributes (END OF LINE)
-  - ruff
+    - .gitattributes (END OF LINE)
+    - ruff
 
 ## #2 2026-01-12, Monday (3 UE)
 

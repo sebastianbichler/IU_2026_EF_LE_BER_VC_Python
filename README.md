@@ -155,6 +155,7 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 
 ## Code snippets
 
+- **Aktuelle virtuelle Umgebung anzeigen:** which python (Linux/Mac) oder where python (Windows)
 - **Formatierung standardisieren**: ruff format
 - **Code-Qualität prüfen**: ruff check .
 - **Virtuelle Umgebung erstellen**: python -m venv env_name
