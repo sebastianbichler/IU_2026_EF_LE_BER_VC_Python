@@ -41,16 +41,27 @@
 ## #3 2026-01-19, Monday (3 UE)
 
 - TODO Finish group assignment for project ideas ((Leon Kinski, Oliver Mayer)
-- TODO set line endings to LF (Linux/Mac)
+- TODO set line endings to LF (Linux/Mac) in your IDE (VSCode, PyCharm, etc.)
+- Presentation of main aspect of student projects (me):
+  - Memory Management
+  - Vectorization (NumPy),
+  - Metaprogramming,
+  - Probabilistic Programming (2x))
+  - Typing (MyPy)
+  - Functional Programming
+  - JIT Compilation (Numba)
+  - Structural Design Patterns
+- time for group project work
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (from slide 23, in Teams-Group)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
-- Functions
-- Exceptions and error handling
+    - Functions
+    - Exceptions and error handling
 
 ## 2026-01-14
 
 - Solved formating problems
-  - .gitattributes (END OF LINE)
-  - ruff
+    - .gitattributes (END OF LINE)
+    - ruff
 
 ## #2 2026-01-12, Monday (3 UE)
 
@@ -59,7 +70,7 @@
 - Recap of previous lesson
 - MIT-Experiment
 - Variables, Data Types, and Control Structures
-    - DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (in Teams-Group)
+    - DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (until slide 22, in Teams-Group)
 
 ## 2026-01-04
 
