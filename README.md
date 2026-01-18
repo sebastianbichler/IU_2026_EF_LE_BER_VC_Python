@@ -171,21 +171,24 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 - **Check line endings:** `git ls-files --eol`
 - **Pre-Commit-Checks:** `pre-commit run --all-files`
 - **Interaktive Python-Shell starten:** `python -m IPython`
-- **Jupyter Notebook starten**: jupyter notebook
-- **JupyterLab starten**: jupyter lab
-- **Unit-Tests ausführen**: python -m unittest discover tests
+- **Jupyter Notebook starten**: `jupyter notebook`
+- **JupyterLab starten**: `jupyter lab`
+- **Unit-Tests ausführen**: `python -m unittest discover tests`
 - **Code mit Type Hints versehen**:
 - **Git-Origin/Remote-Repository**:`git remote -v`
 - **Default-Branch:** `git remote show origin`
 - **Lokaler aktueller Branch:** `git branch --show-current`
-- **Git-Branch erstellen**: git checkout -b branch_name
-- **Änderungen committen**: git commit -m "Commit message"
-- **Code pushen**: git push origin branch_name
-- **Code fetch**: git fetch origin branch_name
-- **Code pull**: git pull origin branch_name
-- **Code mergen**: git merge branch_name
-- **Datei zu Git hinzufügen**: git add file_name
-- **Alle Änderungen zu Git hinzufügen**: git add .
-- **Git-Status anzeigen**: git status
-- **Git-Log anzeigen**: git log
-- **Einen Commit zurücksetzen**: git reset --hard commit_hash
+- **Git-Branch erstellen**: `git checkout -b branch_name`
+- **Änderungen committen**: `git commit -m "Commit message"`
+- **Code pushen**: `git push origin branch_name`
+- **Code fetch**: `git fetch origin branch_name`
+- **Code pull**: `git pull origin branch_name`
+- **Ziel-Branch wählen**: `git checkout main`
+- **Code mergen**: `git merge branch_name`
+- **Merge abbrechen (bei Fehlern)**: `git merge --abort`
+- **Datei zu Git hinzufügen**: `git add file_name`
+- **Alle Änderungen zu Git hinzufügen**: `git add .`
+- **Pull-Request abrufen**: `git fetch origin pull/ID/head:lokaler-branch-name`
+- **Git-Status anzeigen**: `git status`
+- **Git-Log anzeigen**: `git log`
+- **Einen Commit zurücksetzen**: `git reset --hard commit_hash`
