@@ -3,6 +3,7 @@ import time
 from datetime import datetime, timedelta
 from models import HammockBooking, MovementTracker, CONFIG
 from states import RestingState, SleepingState, EatingState
+from streamlit_extras.let_it_rain import rain
 
 # --- Setup & Session State ---
 st.set_page_config(page_title="Sloth Resort", page_icon="🦥")
@@ -80,8 +81,15 @@ elif menu == "Hammock Booking":
             try:
                 # Pydantic Validierung feuert hier
                 booking = HammockBooking(guest_name=name, nights=nights)
+                rain(
+                    emoji="🦥",
+                    font_size=80,
+                    falling_speed=7,
+                    animation_length="10s",
+                )
                 st.balloons()
-                st.success(f"Booking confirmed for {booking.guest_name}!")
+                st.snow()
+
             except ValueError as e:
                 # Pydantic Fehlermeldung anzeigen (ohne Traceback)
                 # Wir holen uns den sauberen Text aus dem Fehler
@@ -149,8 +157,10 @@ elif menu == "Wake-Up Service":
 
         # Ergebnis-Box
         st.success("✅ Alarm set!")
-        st.info(f"""
+        st.info(
+            f"""
             **Requested Time:** {wanted_time.strftime("%H:%M")}\n
             **+ Sloth Delay:** {delay} hours\n
             **ACTUAL Alarm:** {real_wake_up_dt.strftime("%H:%M")} ({real_wake_up_dt.strftime("%A")})
-            """)
+            """
+        )
