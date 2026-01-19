@@ -1,0 +1,6 @@
+# Core Logic
+pydantic>=2.4.0
+
+# Testing & Dev
+pytest>=7.4.0
+faker>=19.0.0
