@@ -8,10 +8,10 @@ from pydantic import BaseModel, Field, field_validator, ValidationInfo
 CONFIG_PATH = Path("data/config.json")
 
 DEFAULT_CONFIG = {
-    "min_booking_days": 7, 
+    "min_booking_days": 7,
     "max_steps_for_discount": 500,
     "discount_high_threshold": 100,
-    "wake_up_delay_hours": 3
+    "wake_up_delay_hours": 3,
 }
 
 try:
@@ -32,18 +32,20 @@ except json.JSONDecodeError:
 
 # --- DATA MODELS ---
 
+
 class HammockBooking(BaseModel):
     """
     Manages booking logic for hammocks.
-    
+
     Addressed Requirements:
     - REQ-FUN-001: Minimum Duration Check (Booking must be >= 7 days).
     - REQ-NFR-005: Object Oriented Design using Pydantic Models.
     """
+
     guest_name: str
     nights: int
 
-    @field_validator('nights')
+    @field_validator("nights")
     @classmethod
     def validate_duration(cls, v: int, info: ValidationInfo) -> int:
         """
@@ -52,21 +54,24 @@ class HammockBooking(BaseModel):
         """
         # Load rule from config
         min_days = CONFIG.get("min_booking_days", 7)
-        
+
         if v < min_days:
             # Rejection logic for REQ-FUN-001
-            raise ValueError(f"Too stressful! Min {min_days} nights required. (REQ-FUN-001)")
+            raise ValueError(
+                f"Too stressful! Min {min_days} nights required. (REQ-FUN-001)"
+            )
         return v
 
 
 class MovementTracker(BaseModel):
     """
     Calculates discounts based on inactivity.
-    
+
     Addressed Requirements:
     - REQ-FUN-003: Step Input (validated >= 0).
     - REQ-FUN-004: Inverse Discount Logic (less steps = more discount).
     """
+
     # REQ-FUN-003: Input validation ensuring non-negative steps
     steps_today: int = Field(ge=0, description="Steps taken by the guest")
 

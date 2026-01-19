@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
 
+
 class SlothState(ABC):
     """
     Abstract Base Class for the State Pattern.
     Defines the interface for all sloth states.
     """
+
     @property
     @abstractmethod
     def name(self) -> str:
@@ -22,6 +24,7 @@ class SlothState(ABC):
     def move(self) -> str:
         pass
 
+
 class RestingState(SlothState):
     name = "Resting 🛋️"
 
@@ -33,6 +36,7 @@ class RestingState(SlothState):
 
     def move(self) -> str:
         return "Moving very slowly to the hammock."
+
 
 class SleepingState(SlothState):
     name = "Sleeping 💤"
@@ -46,6 +50,7 @@ class SleepingState(SlothState):
 
     def move(self) -> str:
         return "Dreaming of moving... but staying put."
+
 
 class EatingState(SlothState):
     name = "Eating 🍃"
