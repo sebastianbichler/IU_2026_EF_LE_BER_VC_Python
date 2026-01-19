@@ -17,8 +17,6 @@ Um die Anforderung "lesbarer, strukturierter Code" technisch zu erzwingen, werde
     * *Warum:* Ruff ersetzt ältere Tools wie Flake8 oder Pylint. Er ist in Rust geschrieben und extrem schnell. Er hilft uns, potenzielle Bugs und Verstöße gegen PEP8 (Styleguide) in Echtzeit zu finden.
 * **Black** (Formatter)
     * *Warum:* Ein "uncompromising code formatter". Er formatiert den Code automatisch beim Speichern. Das garantiert einen einheitlichen Coding-Style im gesamten Projekt und verhindert Diskussionen über Einrückungen oder Klammersetzung.
-* **Mypy** (Static Type Checker)
-    * *Warum:* Python ist dynamisch typisiert, was zu Laufzeitfehlern führen kann. Mypy erzwingt die Auswertung von Type Hints (z.B. `def func(x: int) -> str:`). Dies ist im wissenschaftlichen Kontext ("Python vs Science") ein Qualitätsmerkmal für robuste Software.
 
 ---
 
