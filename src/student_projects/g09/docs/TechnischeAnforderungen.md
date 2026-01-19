@@ -1,20 +1,24 @@
 # Projekt-Ressourcenplanung: Sloth’s Slow-Motion Hotel
 
-Diese Dokumentation definiert die notwendigen technischen, datenseitigen und infrastrukturellen Ressourcen für die Umsetzung des Projekts. Ziel ist ein moderner, robuster Tech-Stack, der professionelle Software-Entwicklung (Clean Code) unterstützt.
+Diese Dokumentation definiert die notwendigen technischen, datenseitigen und infrastrukturellen Ressourcen für die Umsetzung des Projekts. Ziel ist ein moderner, robuster Tech-Stack, der professionelle Software-Entwicklung (Clean Code) unterstützt und wissenschaftlichen Standards genügt.
 
 ---
 
 ## 1. Entwicklungsumgebung (Development Environment)
 
 ### Python Version
-* **Python 3.13**
-    * *Grund:* Wir benötigen Zugriff auf das `match` / `case` Statement (Structural Pattern Matching), welches erst ab Python 3.10 verfügbar ist. Dies ist essenziell für die elegante Umsetzung des **State Patterns** im Zustandsautomaten des Gastes.
+* **Python 3.13** (oder 3.10+)
+    * *Warum:* Wir benötigen Zugriff auf das `match` / `case` Statement (Structural Pattern Matching), welches erst ab Python 3.10 eingeführt wurde. Dies ist essenziell für die elegante und lesbare Umsetzung des **State Patterns** (Zustandsautomat des Gastes), da es komplexe `if-elif-else`-Ketten ersetzt.
 
 ### Code Quality Tools (Modern Standards)
 Um die Anforderung "lesbarer, strukturierter Code" technisch zu erzwingen, werden folgende Tools in die Pipeline integriert:
-* **Ruff** (oder Flake8): Ein moderner, extrem schneller Linter, um PEP8-Konformität zu prüfen.
-* **Black**: Ein "uncompromising code formatter", der unseren Code automatisch formatiert. Damit garantieren wir einheitlichen Stil ohne manuelle Diskussionen.
-* **Mypy**: Für statische Typ-Prüfung (Static Type Checking). Da wir wissenschaftlich arbeiten, ist Typ-Sicherheit (Type Hints) ein Muss.
+
+* **Ruff** (Linter)
+    * *Warum:* Ruff ersetzt ältere Tools wie Flake8 oder Pylint. Er ist in Rust geschrieben und extrem schnell. Er hilft uns, potenzielle Bugs und Verstöße gegen PEP8 (Styleguide) in Echtzeit zu finden.
+* **Black** (Formatter)
+    * *Warum:* Ein "uncompromising code formatter". Er formatiert den Code automatisch beim Speichern. Das garantiert einen einheitlichen Coding-Style im gesamten Projekt und verhindert Diskussionen über Einrückungen oder Klammersetzung.
+* **Mypy** (Static Type Checker)
+    * *Warum:* Python ist dynamisch typisiert, was zu Laufzeitfehlern führen kann. Mypy erzwingt die Auswertung von Type Hints (z.B. `def func(x: int) -> str:`). Dies ist im wissenschaftlichen Kontext ("Python vs Science") ein Qualitätsmerkmal für robuste Software.
 
 ---
 
@@ -23,70 +27,78 @@ Um die Anforderung "lesbarer, strukturierter Code" technisch zu erzwingen, werde
 Wir unterscheiden zwischen Standard-Bibliotheken (Core) und externen, modernen Frameworks, die über `pip` installiert werden.
 
 ### A. Externe Bibliotheken ("Modern Stack")
-Diese Pakete müssen in der `requirements.txt` definiert werden.
+Diese Pakete bilden das technologische Rückgrat und müssen in der `requirements.txt` definiert werden.
 
-1.  **Pydantic** (Daten-Validierung)
-    * *Zweck:* Anstatt händisch `if`-Abfragen zu schreiben, um zu prüfen, ob Schritte negativ sind oder Buchungen < 7 Tage dauern, nutzen wir Pydantic-Models.
-    * *Use-Case:* Validierung des User-Inputs (z.B. bei der Eingabe der Schritte für den Rabatt).
-2.  **Pytest** (Testing Framework)
-    * *Zweck:* Ersatz für das veraltete `unittest`. Pytest ist der aktuelle Industrie-Standard. Es erlaubt schlankere Tests und bessere Fehlerberichte ("Fixtures" statt "Setup/Teardown").
-3.  **Faker** (Daten-Generierung)
-    * *Zweck:* Um realistische Testdaten (Namen von Gästen, zufällige Datumsangaben) für unsere Simulationen zu erzeugen.
+1.  **Streamlit** (GUI & Frontend)
+    * *Zweck:* Framework zur Erstellung von Web-Applikationen rein mit Python.
+    * *Warum:* Im Gegensatz zu veralteten GUI-Frameworks wie `tkinter` oder komplexen Web-Stacks (Django/React) ermöglicht Streamlit **Rapid Prototyping**. Es ist der Standard im Data-Science-Bereich. Es erlaubt uns, die Logik (Buchung, State Pattern) interaktiv und visuell ansprechend zu präsentieren, ohne Zeit mit HTML/CSS zu verlieren.
+2.  **Pydantic** (Daten-Validierung & Parsing)
+    * *Zweck:* Definition von Datenmodellen mit automatischer Validierung.
+    * *Warum:* Anstatt händisch fehleranfällige `if`-Abfragen zu schreiben (z.B. `if age < 0: raise Error`), definieren wir deklarative Modelle. Pydantic garantiert, dass Daten, die in unser System gelangen (z.B. User-Input in der GUI oder JSON-Imports), korrekt typisiert sind und den Geschäftsregeln (Requirements) entsprechen.
+3.  **Pytest** (Testing Framework)
+    * *Zweck:* Framework zum Schreiben und Ausführen von Tests.
+    * *Warum:* Ersatz für das eingebaute, aber verbale `unittest`. Pytest ist der aktuelle Industrie-Standard. Es erlaubt schlankere Tests ohne Boilerplate-Code und bietet mit "Fixtures" ein mächtiges Werkzeug für Setup/Teardown-Szenarien (z.B. Erstellen eines Test-Gastes vor jedem Test).
+4.  **Faker** (Synthetische Daten)
+    * *Zweck:* Generierung von Fake-Daten.
+    * *Warum:* Um realistische Simulationen durchzuführen, benötigen wir diverse Namen, Adressen oder Szenarien, ohne echte Personendaten zu verletzen (GDPR/DSGVO Compliance Simulation).
 
 ### B. Python Standard Library (Built-in)
-Wird für die Kernlogik verwendet, um Abhängigkeiten gering zu halten.
+Wird für die Kernlogik verwendet, um externe Abhängigkeiten gering zu halten ("Keep it simple").
 
-* **`abc` (Abstract Base Classes):** Zwingend erforderlich für die saubere Architektur des **State Patterns** (Definition von Interfaces).
-* **`datetime` / `time`:** Für die Zeit-Logik (Reifezeit der Blätter, 3h Weck-Verzögerung).
-* **`json`:** Zum Speichern und Laden der Persistenz-Daten.
-* **`logging`:** Für professionelle Ausgaben statt einfacher `print()` Befehle (Requirement: Dokumentierter Code).
+* **`abc` (Abstract Base Classes):**
+    * *Warum:* Zwingend erforderlich für die architektonisch saubere Umsetzung des **State Patterns**. Wir definieren damit ein striktes Interface (`SlothState`), das alle konkreten Zustände (`Sleeping`, `Eating`) implementieren müssen.
+* **`datetime` / `time`:**
+    * *Warum:* Essenziell für die Business-Logik (Berechnung von 7 Tagen Mindestaufenthalt, Addieren von 3 Stunden Verzögerung beim Weckruf).
+* **`json`:**
+    * *Warum:* Dient als leichtgewichtige "Datenbank" (Persistenzschicht), da für dieses Projekt kein SQL-Server gefordert ist.
+* **`logging`:**
+    * *Warum:* Professionelle Software nutzt keine `print()`-Statements für Statusmeldungen, sondern Logging mit verschiedenen Levels (INFO, WARNING, ERROR).
 
 ---
 
 ## 3. Datensätze (Data Strategy)
 
-Da keine externe Datenbank (SQL) gefordert ist, aber "Datensätze" notwendig sind, arbeiten wir mit **dateibasierter Persistenz (JSON)**.
+Da keine externe Datenbank (SQL) gefordert ist, aber "Datensätze" notwendig sind, arbeiten wir mit **dateibasierter Persistenz (JSON)**. Dies ermöglicht einfaches Backup und menschliche Lesbarkeit.
 
 ### A. Synthetische Stammdaten (Master Data)
-Diese Dateien werden initial angelegt:
+Diese Dateien sind statisch oder werden initial angelegt:
+* `data/config.json`: Zentrale Konfigurationsdatei (z.B. Schwellenwerte für Rabatte, Mindestbuchungsdauer). Vermeidet Hardcoding im Quellcode.
 * `data/menu_catalog.json`: Eine Datenbank mit Blättern, ihren Reifezeiten und Preisen.
-    * *Beispiel:* Eukalyptus (Premium), Eiche (Standard).
 
 ### B. Transaktionsdaten (Dynamic Data)
-Diese Dateien werden durch die App verändert:
+Diese Dateien werden durch die App zur Laufzeit verändert:
 * `data/bookings.json`: Speichert aktive Buchungen.
-    * *Struktur:* `GuestID`, `RoomType`, `StartDate`, `EndDate` (Pydantic validiert hier die 7-Tage-Regel).
-* `data/guest_stats.json`: Speichert die Bewegungsprofile.
-    * *Inhalt:* Schritte pro Tag, errechneter Rabatt-Level, aktueller "Faulheits-Status" (State).
+* `data/guest_stats.json`: Speichert Bewegungsprofile für statistische Auswertungen im Paper.
 
 ---
 
 ## 4. Infrastruktur & Dokumentation
 
 ### Versionskontrolle
-* **Git:** Lokales Repository.
-* **.gitignore:** Ausschluss von `venv/`, `__pycache__/` und `.pytest_cache/`.
+* **Git:** Lokales Repository zur Nachverfolgung von Änderungen.
+* **.gitignore:** Ausschluss von `venv/`, `__pycache__/` und `.pytest_cache/`, um das Repository sauber zu halten.
 
 ### Visualisierung
-* **Mermaid.js:** Für die dynamische Generierung von Diagrammen (Use-Case, State-Machine) direkt in der Markdown-Dokumentation (README.md).
+* **Mermaid.js:** Erlaubt "Diagrams as Code". Diagramme (Use-Case, State-Machine) werden direkt in Markdown geschrieben. Das macht sie versionierbar und leicht änderbar, im Gegensatz zu exportierten PNG-Dateien.
 
 ### CI/CD Simulation
-* **Makefile** (oder `tasks.py`): Ein Skript, das die Pipeline-Befehle bündelt.
-    * `make install` -> Installiert Requirements.
-    * `make format` -> Führt Black & Ruff aus.
-    * `make test` -> Führt Pytest aus.
+* **Pipeline-Skript (Simulation):** Ein Skript, das die Schritte einer echten CI-Pipeline (Build -> Lint -> Test) lokal ausführt, um die geforderte Qualitätssicherung nachzuweisen.
 
 ---
 
 ## 5. Zusammenfassung der `requirements.txt`
 
-```text
-# Core Logic
-pydantic>=2.4.0
+Hier ist der finale Inhalt der Abhängigkeits-Datei für die Abgabe:
 
-# Testing & Quality (Dev Dependencies)
-pytest>=7.4.0
-pytest-cov>=4.1.0   # Für Test-Coverage Berichte
-black>=23.9.0
-ruff>=0.1.0
-faker>=19.0.0
+```text
+# --- Application Core ---
+streamlit>=1.28.0   # GUI Framework
+pydantic>=2.4.0     # Data Validation
+
+# --- Testing & Quality (Dev Dependencies) ---
+pytest>=7.4.0       # Testing Framework
+pytest-cov>=4.1.0   # Test Coverage Reports
+faker>=19.0.0       # Data Generation
+black>=23.9.0       # Code Formatting
+ruff>=0.1.0         # Linting
+mypy>=1.6.0         # Static Type Checking

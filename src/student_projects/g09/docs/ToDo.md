@@ -22,11 +22,11 @@
 - [x] **Projekt-Setup**
   - [x] Python-Projektstruktur erstellen
   - [x] `README.md` Datei anlegen (Initial)
-- [ ] **Erste Implementierung**
-  - [ ] Minimalistische, lauffähige Python App programmieren
-  - [ ] Mindestens 2 Requirements implementieren
-- [ ] **Initiale Dokumentation**
-  - [ ] Konzeption als Markdown-Datei im Projekt integrieren
+- [x] **Erste Implementierung**
+  - [x] Minimalistische, lauffähige Python App programmieren
+  - [x] Mindestens 2 Requirements implementieren
+- [x] **Initiale Dokumentation**
+  - [x] Konzeption als Markdown-Datei im Projekt integrieren
 
 ## Phase 3: Finalisierungsphase
 
