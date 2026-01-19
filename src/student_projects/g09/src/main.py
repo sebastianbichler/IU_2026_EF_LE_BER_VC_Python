@@ -33,7 +33,7 @@ def run_app():
     # Test Case D: Invalid Booking (Too short)
     try:
         print("Attempting to book for 3 nights...")
-        booking_short = HammockBooking(guest_name="Flash", nights=3)
+        HammockBooking(guest_name="Flash", nights=3)
         print("SUCCESS: Booking confirmed.")
     except ValidationError as e:
         # We expect this error!

@@ -100,7 +100,7 @@ elif menu == "Movement Tracker":
     tracker = MovementTracker(steps_today=steps)
     discount = tracker.calculate_discount()
 
-    st.metric(label="Discount Percentage", value=f"{discount*100}%", delta=None)
+    st.metric(label="Discount Percentage", value=f"{discount * 100}%", delta=None)
 
     if discount >= 0.5:
         st.success("Excellent! You barely moved!")
@@ -148,9 +148,9 @@ elif menu == "Wake-Up Service":
             time.sleep(1.5)  # Kurzes Feedback-Delay
 
         # Ergebnis-Box
-        st.success(f"✅ Alarm set!")
+        st.success("✅ Alarm set!")
         st.info(f"""
-            **Requested Time:** {wanted_time.strftime('%H:%M')}\n
+            **Requested Time:** {wanted_time.strftime("%H:%M")}\n
             **+ Sloth Delay:** {delay} hours\n
-            **ACTUAL Alarm:** {real_wake_up_dt.strftime('%H:%M')} ({real_wake_up_dt.strftime('%A')})
+            **ACTUAL Alarm:** {real_wake_up_dt.strftime("%H:%M")} ({real_wake_up_dt.strftime("%A")})
             """)
