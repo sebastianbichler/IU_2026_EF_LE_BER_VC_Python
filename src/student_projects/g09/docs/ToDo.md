@@ -8,8 +8,8 @@
 - [x] **Requirements definieren und priorisieren**
   - [x] Muss-Kriterien festlegen
   - [x] Kann-Kriterien festlegen
-- [ ] **Software Design**
-  - [ ] Use-Case-Diagramm erstellen
+- [x] **Software Design**
+  - [x] Sequenz-/State-Diagramm erstellen
 - [ ] **Ressourcenplanung**
   - [ ] Datensätze beschaffen
   - [ ] Benötigte Bibliotheken identifizieren
