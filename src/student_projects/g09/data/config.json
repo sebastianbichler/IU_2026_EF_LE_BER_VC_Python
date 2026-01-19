@@ -1,0 +1,6 @@
+{
+    "min_booking_days": 7,
+    "max_steps_for_discount": 500,
+    "discount_high_threshold": 100,
+    "wake_up_delay_hours": 3
+}
