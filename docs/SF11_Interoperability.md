@@ -2,7 +2,7 @@
 
 ---
 
-Thema 11: Interoperabilität – C-Extensions & Cython
+# Thema 11: Interoperabilität – C-Extensions & Cython
 
 ### 1. Einleitung & Kontext
 
@@ -80,17 +80,12 @@ Cython
 
 
 # Wir definieren Typen für Variablen, damit Cython daraus reinen C-Code macht
-def calculate_distance_cy(int n
-
-):
-cdef
-double
-result = 0.0
-cdef
-int
-i
-for i in range(n):
-    result += (i ** 0.5)
+def calculate_distance_cy(int n):
+    cdef double
+    result = 0.0
+    cdef int i
+    for i in range(n):
+        result += (i ** 0.5)
 return result
 
 # Aufruf der kompilierten Funktion
@@ -134,7 +129,8 @@ Millionen von GPS-Punkten auf Korrelationen prüft, als Cython-Modul kompiliert.
 Entwicklungsgeschwindigkeit von Python für 90% des Codes, aber die Hardware-Leistung von C für die kritischen 10%.
 
 > **Merksatz:** "Python ist der Projektmanager, der die Aufgaben verteilt. C-Extensions sind die Spezialarbeiter, die
-> schwere Arbeit ohne zu zögern erledigen. Cython ist der Übersetzer, der dem Manager hilft, die Anweisungen direkt in der
+> schwere Arbeit ohne zu zögern erledigen. Cython ist der Übersetzer, der dem Manager hilft, die Anweisungen direkt in
+> der
 > Sprache der Arbeiter zu geben."
 
 ---
