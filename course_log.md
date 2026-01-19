@@ -35,8 +35,14 @@
 
 ## #4 2026-01-26, Tuesday (3 UE)
 
-- Presentation of project concepts by student groups
-- Recap of previous lesson
+- SF 11 unf 12
+- E-Mail Ahmet (work in notbeooks, no other GUI required)
+- Time for group project work
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (from slide 23, in Teams-Group)
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
+    - Functions<
+    - Exceptions and error handling
+- Presentation of project concepts by student groups (if there is time)
 
 ## #3 2026-01-19, Monday (3 UE)
 
@@ -51,11 +57,6 @@
   - Functional Programming
   - JIT Compilation (Numba)
   - Structural Design Patterns
-- time for group project work
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (from slide 23, in Teams-Group)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
-    - Functions
-    - Exceptions and error handling
 
 ## 2026-01-14
 
