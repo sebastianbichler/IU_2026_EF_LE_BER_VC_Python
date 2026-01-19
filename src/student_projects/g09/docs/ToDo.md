@@ -2,12 +2,12 @@
 
 ## Phase 1: Konzeptionsphase
 
-- [ ] **Aufgabenstellung auseinandersetzen**
-  - [ ] Was soll die Anwendung können? (Funktionalitäten)
-  - [ ] Was ist der Zweck der Anwendung? (Zielsetzung)
-- [ ] **Requirements definieren und priorisieren**
-  - [ ] Muss-Kriterien festlegen
-  - [ ] Kann-Kriterien festlegen
+- [x] **Aufgabenstellung auseinandersetzen**
+  - [x] Was soll die Anwendung können? (Funktionalitäten)
+  - [x] Was ist der Zweck der Anwendung? (Zielsetzung)
+- [x] **Requirements definieren und priorisieren**
+  - [x] Muss-Kriterien festlegen
+  - [x] Kann-Kriterien festlegen
 - [ ] **Software Design**
   - [ ] Use-Case-Diagramm erstellen
 - [ ] **Ressourcenplanung**
