@@ -1,0 +1,30 @@
+{
+  "description": "Seed data for Elephant Memory Cloud - Small initial dataset",
+  "elephants": [
+    {
+      "name": "Ella",
+      "birth_year": 1990,
+      "gender": "F"
+    },
+    {
+      "name": "Emma",
+      "birth_year": 2005,
+      "gender": "F"
+    },
+    {
+      "name": "Eric",
+      "birth_year": 2008,
+      "gender": "M"
+    }
+  ],
+  "herds": [
+    {
+      "name": "Delta Herd",
+      "territory": "Okavango Delta"
+    },
+    {
+      "name": "Savanna Pride",
+      "territory": "Central Plains"
+    }
+  ]
+}
