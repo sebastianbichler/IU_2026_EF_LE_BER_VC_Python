@@ -17,7 +17,7 @@ sequenceDiagram
     note right of Sid: Szenario: Buchung & Validierung
     Sid->>GUI: Input: Name="Sid", Nights=7
     GUI->>Model: Erstelle HammockBooking(nights=7)
-    
+
     activate Model
     Model->>Config: get("min_booking_days")
     Config-->>Model: 7
@@ -34,12 +34,12 @@ sequenceDiagram
     note right of Sid: Szenario: Validierungsfehler
     Sid->>GUI: Input: Name="Flash", Nights=3
     GUI->>Model: Erstelle HammockBooking(nights=3)
-    
+
     activate Model
     Model->>Config: get("min_booking_days")
     Model-->>GUI: Raise ValueError("Too stressful!")
     deactivate Model
-    
+
     GUI-->>Sid: Zeige Error: "Min 7 nights required"
     end
 
@@ -47,7 +47,7 @@ sequenceDiagram
     rect rgb(240, 240, 255)
     note right of Sid: Szenario: Weckruf Service
     Sid->>GUI: Wähle Zeit: 08:00 Uhr
-    
+
     GUI->>GUI: Check: Ist 08:00 < Jetzt? (Morgen-Logik)
     GUI->>Config: get("wake_up_delay_hours")
     Config-->>GUI: 3
@@ -61,7 +61,7 @@ sequenceDiagram
     note right of State: Aktueller Status: SleepingState
     Sid->>GUI: Klick Button "Attempt to Eat"
     GUI->>State: Zugriff auf st.session_state['sloth_state']
-    
+
     GUI->>State: current_state.eat()
     State-->>GUI: Return "ERROR: Cannot eat while sleeping!"
     GUI-->>Sid: Zeige Error Box
