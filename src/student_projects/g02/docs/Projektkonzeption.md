@@ -1,88 +1,51 @@
-# 📄 Projekt-Konzeption: Squirrel Secret Stash
+# Projektkonzept: Squirrel Secret Stash – Die Nuss-Zentralbank
 
-| Metadaten | Details |
-| :--- | :--- |
-| **Projekt** | Squirrel Secret Stash |
-| **Modul** | DLBDSIPWP01 – Python & Scientific Computing |
-| **Thema** | Vectorization & SIMD mit NumPy |
-| **Status** | Konzeptionsphase |
-| **Datum** | 20.01.2025 |
+## 1. Projektübersicht & Zielsetzung
+
+### Was ist der Zweck der Anwendung?
+"Sammy Squirrel" steht vor einer logistischen Herausforderung: Die Verwaltung von tausenden Nussverstecken, Kreditvergaben an Nachbarn und die Überlebensplanung für den Winter übersteigen die Kapazität eines normalen Eichhörnchenhirns.
+
+Das Ziel ist die Entwicklung einer **hochperformanten Python-Anwendung**, die als "Nuss-Zentralbank" fungiert. Sie soll nicht nur Bestände verwalten, sondern durch wissenschaftliche Methoden (Vektorisierung) beweisen, dass moderne Array-Programmierung (NumPy) herkömmlichen Schleifen bei großen Datenmengen (Big Data) überlegen ist.
+
+### Was soll die Anwendung können?
+1.  **Verwaltung:** Digitalisierung des Vorratsnetzwerks (CRUD-Operationen für Verstecke).
+2.  **Analyse:** Berechnung komplexer Szenarien (Zinseszins, Winterprognosen) für Tausende von Datensätzen gleichzeitig.
+3.  **Wissenschaftlicher Beweis:** Implementierung eines Benchmarks, der die Rechenzeit von nativem Python (`for`-loops) gegen NumPy (SIMD/Vectorization) vergleicht.
 
 ---
 
-## 1. Einleitung und Zweck der Anwendung
+## 2. Requirements (Anforderungen)
 
-Das Projektziel ist die Entwicklung eines **High-Performance-Vorratssystems** für "Sammy Squirrel", ein Eichhörnchen mit Ambitionen zum Nuss-Tycoon, das ein Netzwerk von über **1.000.000 Verstecken** verwalten muss.
+Wir priorisieren die Anforderungen nach **MoSCoW** (Must have, Should have, Could have, Won't have).
 
-Anders als bei herkömmlichen Lager-Apps, die einzelne Objekte verwalten, ist der Zweck dieser Anwendung die **Maximierung der Datenverarbeitungsgeschwindigkeit**. Die Software soll Sammy dabei unterstützen, Millionen von Datenpunkten (Nüsse, Orte, Haltbarkeiten) in Millisekunden zu analysieren, um den harten Winter zu überleben.
+### 2.1 Funktionale Anforderungen (Functional Requirements)
 
-Die Applikation dient als Verwaltungszentrale für:
-* **Massendaten-Kartierung:** Geografische Verwaltung von Millionen Verstecken.
-* **Finanz-Simulation:** Zinseszins-Berechnungen für an Nachbarn verliehene Nüsse.
-* **Risiko-Analyse:** Überlebensprognosen basierend auf Kälte und Kalorienvorrat.
-* **Sicherheits-Audit:** Erkennung von Diebstählen durch Musteranalyse im Bestand.
+#### **Priorität 1: Must Have (Kernfunktionalität)**
+* **F01 – Versteck-Verwaltung:** Das System muss Datensätze für Verstecke speichern können.
+    * Attribute: ID, Koordinaten $(x, y)$, Baumart, Erdtiefe (cm), Nussart (Hasel, Walnuss, Eichel), Menge, Haltbarkeitsdatum.
+* **F02 – Datengenerierung:** Ein Modul zur Erzeugung von Dummy-Daten (mindestens 10.000 bis 1.000.000 Verstecke), um die Performance-Tests überhaupt sinnvoll zu machen.
+* **F03 – Diebstahl-Erkennung:** Logik zum Vergleich von `Soll-Bestand` vs. `Ist-Bestand`. Wenn `Ist < Soll`, muss eine Warnung ausgegeben werden (Simulation von Eichelhäher-Angriffen).
+* **F04 – Performance-Benchmark (Das wissenschaftliche Herzstück):**
+    * Es müssen zwei Implementierungen für rechenintensive Aufgaben vorliegen:
+        1.  **Iterativ:** Klassische Python `for`-Schleifen.
+        2.  **Vektorisiert:** NumPy Arrays unter Nutzung von SIMD (Single Instruction, Multiple Data).
+    * Die Zeitdifferenz muss gemessen und ausgegeben werden.
 
-## 2. Wissenschaftlicher Fokus
+#### **Priorität 2: Should Have (Komplexe Logik)**
+* **F05 – Zinseszins-Rechner:** Berechnung der schuldbaren Nüsse von Nachbarn über $n$ Jahre.
+    * Formel: $A = P(1 + \frac{r}{n})^{nt}$
+    * Dies muss massenhaft für tausende "Kreditverträge" gleichzeitig berechnet werden (Vektorisierung!).
+* **F06 – Winterprognose:** Berechnung, ob der aktuelle Gesamtbestand basierend auf einer simulierten Kältewelle (Kalorienverbrauch pro Tag * Tage) ausreicht.
 
-Im Rahmen des Moduls wird ein spezifischer wissenschaftlicher Schwerpunkt auf **High Performance Computing** gelegt.
+#### **Priorität 3: Could Have (Optionale UI)**
+* **F07 – Grafische Benutzeroberfläche (GUI):**
+    * Eine einfache Oberfläche (z.B. mit `Tkinter` oder `CustomTkinter`), um Daten einzugeben und die Benchmark-Ergebnisse grafisch anzuzeigen.
+    * Visualisierung der Verstecke auf einer "Karte" (Scatterplot).
 
-* **Topic:** Vectorization & SIMD mit NumPy.
-* **Konkrete Umsetzung:** Einsatz von **Array-orientierter Programmierung** statt klassischer Kontrollstrukturen (Schleifen). Nutzung von `numpy`, um CPU-Instruktionen (SIMD – *Single Instruction, Multiple Data*) direkt anzusprechen.
-* **Ziel:** Die Berechnungen (z.B. Zinseszins für 1 Mio. Datensätze) müssen signifikant schneller sein als in reinem Python.
-* **Memory Management:** Anstatt Millionen einzelner Objekte (Overhead) zu erzeugen, wird **Data Oriented Design** (*Structure of Arrays*) genutzt, um Speicher-Lokalität (Cache Hits) zu optimieren.
+### 2.2 Nicht-funktionale Anforderungen (Non-Functional Requirements)
 
-## 3. Funktionale Anforderungen (Functional Requirements)
+* **NF01 – Performance:** Die NumPy-Implementierung muss bei großen Datensätzen ($N > 100.000$) signifikant schneller sein (Faktor 10x - 100x) als die native Python-Lösung.
+* **NF02 – Reproduzierbarkeit:** Die Benchmark-Ergebnisse müssen bei jedem Durchlauf konsistent messbar sein.
 
-Die Requirements werden mit englischen IDs definiert, um die direkte Zuordnung im Code (als Kommentare/Docstrings) zu ermöglichen.
 
-### 3.1 Versteck-Kartierung (Mapping Core)
-Das System muss die Geodaten und Attribute massenhaft verwalten.
-* **REQ-FUN-001 (Stash Generation):** Das System muss synthetische Daten für $N$ Verstecke (Standard: 1.000.000) generieren (Koordinaten $x,y$, Baumart, Erdtiefe).
-* **REQ-FUN-002 (Inventory Tracking):** Jedes Versteck muss Bestände für Haselnüsse, Walnüsse und Eicheln inkl. Haltbarkeitsdatum führen.
 
-### 3.2 Finanz-Mathematik (Compound Interest)
-Sammy verleiht Nüsse und erwartet Rendite.
-* **REQ-FUN-003 (Vectorized Interest):** Berechnung des Endkapitals nach der Formel $A = P(1+r)^t$.
-    * *Constraint:* Die Berechnung muss für alle Verstecke *gleichzeitig* (vektorisiert) erfolgen, nicht iterativ.
-
-### 3.3 Winter-Prognose (Survival Analytics)
-Reicht der Vorrat bei aktueller Kälte?
-* **REQ-FUN-004 (Calorie Broadcasting):** Das System berechnet den Gesamtkalorienwert pro Versteck und vergleicht ihn mittels Broadcasting mit dem temperaturabhängigen Kalorienbedarf des Winters.
-* **REQ-FUN-005 (Critical Alert):** Verstecke, die den Winter nicht überstehen, müssen als Boolean-Maske identifiziert und ausgegeben werden.
-
-### 3.4 Diebstahl-Erkennung (Anomaly Detection)
-Vergleich von Soll- und Ist-Zustand.
-* **REQ-FUN-006 (Theft Scanning):** Das System vergleicht `expected_inventory` mit `current_inventory`. Differenzen müssen ohne `if`-Abfragen, sondern mittels Matrix-Subtraktion und Filterung erkannt werden.
-
-### 3.5 Benutzeroberfläche (UI & GUI)
-Die Interaktion mit dem System.
-* **REQ-FUN-007 (CLI Control):** Das Hauptinterface ist eine Kommandozeile zur Steuerung der Simulationen und Ausgabe von Statistiken.
-* **REQ-FUN-008 (Dashboard GUI – *Optional*):** Eine grafische Oberfläche (z.B. mittels `tkinter` oder `matplotlib` Integration), die:
-    * Die Karte der Verstecke visualisiert (Scatterplot/Heatmap).
-    * Buttons zum Starten der Analysen bereitstellt.
-    * *Hinweis:* Die GUI dient primär der Visualisierung; die Rechenlogik bleibt strikt im NumPy-Backend getrennt.
-
-## 4. Nicht-Funktionale Anforderungen (NFR)
-
-Diese Anforderungen definieren die Qualität und technische Umgebung des Projekts.
-
-* **REQ-NFR-001 (Language):** Der gesamte Quellcode (Variablennamen, Funktionen, Klassen) sowie Kommentare müssen in **Englisch** verfasst sein.
-* **REQ-NFR-002 (Documentation):** Der Code muss mittels Docstrings und einer README.md dokumentiert sein.
-* **REQ-NFR-003 (Testing):** Es müssen Unit-Tests (für mathematische Korrektheit) und mindestens 3 Integrationstests (für den gesamten Workflow) implementiert werden.
-* **REQ-NFR-004 (Performance Benchmark):** Die Anwendung muss einen Vergleichsmodus besitzen, der die Ausführungszeit von "Native Python Loops" vs. "NumPy Vectorization" misst und den Speedup-Faktor ausgibt.
-* **REQ-NFR-005 (CI/CD):** Der Build- und Testprozess muss über eine dokumentierte Pipeline-Logik (Simulation oder `requirements.txt` + Test-Skript) nachvollziehbar sein.
-
-## 5. System-Akteure (Use Case Analyse)
-
-### Akteur 1: Sammy Squirrel (User/Manager)
-* Initialisiert das Universum (Anzahl der Verstecke).
-* Startet Finanz- und Wetter-Simulationen.
-* Liest Performance-Berichte (Wie viel Zeit wurde durch NumPy gespart?).
-* Betrachtet die Karte der gefährdeten Verstecke (via CLI-Stats oder optionaler GUI).
-
-### Akteur 2: The Winter (System Environment)
-* Stellt Anforderungen an den Kalorienverbrauch (Simulierter Parameter).
-* Beeinflusst die Haltbarkeit der Vorräte.
-
-### Akteur 3: The Jay (Eichelhäher – Störfaktor)
-* Verursacht zufällige Daten-Abweichungen (Diebstahl), die vom System erkannt werden müssen.
