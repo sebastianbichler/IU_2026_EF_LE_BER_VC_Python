@@ -39,7 +39,7 @@ Essen wird erst freigegeben, wenn die Zeit reif ist.
 *   **REQ-FR-05 - M - Maturity Calc:** Algorithmus zur Berechnung der Blattreife. Nahrungsmittel dürfen erst nach Erreichen des optimalen Reifegrads ausgegeben werden.
 
 ### 3.4 Zeitmanagement
-*   **REQ-FR-06 - M - Delayed Alarm:** Implementierung einer Zwangspause bei Weckrufen. Zwischen Wunschzeit $t$ und Alarm $t_{real}$ muss eine feste Verzögerung von $\Delta t = 3h$ addiert werden ($t_{real} = t + 3h$).
+*   **REQ-FR-06 - M - Delayed Alarm:** Der Wecker löst mit einer Verzögerung von 3h aus.
 
 ### 3.5 Zustandsmodellierung
 *   **REQ-FR-07 - M - Guest States:** Jeder Gast befindet sich zu jedem Zeitpunkt in einem exklusiven Zustand (`Sleeping`, `Resting`, `Eating`).
