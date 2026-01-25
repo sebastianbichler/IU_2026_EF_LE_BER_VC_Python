@@ -26,6 +26,7 @@
 - group project work time (breakt out sessions)
 
 ## #8 2026-02-03, Tuesday (3 UE)
+- GUI (tkinter, etc.)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion6.pdf (in Teams-Group)
   - Best Practices
 ## #7 2026-02-02, Monday (3 UE)
