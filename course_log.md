@@ -8,37 +8,51 @@
 
 ## #12 2026-02-24, Tuesday (3 UE)
 
+- group project work time (breakt out sessions)
 - consulting for student projects
+- code review session
 
 ## #11 2026-02-23, Monday (3 UE)
 
-- Consulting for student projects
+- group project work time (breakt out sessions)
+- code review session
 
 ## #10 2026-02-10, Tuesday (3 UE)
 
+- group project work time (breakt out sessions)
+
 ## #9 2026-02-09, Monday (3 UE)
 
-## #8 2026-02-03, Tuesday (3 UE)
+- group project work time (breakt out sessions)
 
+## #8 2026-02-03, Tuesday (3 UE)
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion6.pdf (in Teams-Group)
+  - Best Practices
 ## #7 2026-02-02, Monday (3 UE)
 
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf (in Teams-Group)
+  - OOP
+- group project work time
+-
 ## #6 2026-01-27, Tuesday (3 UE)
 
 - Presentation (P2) of project concepts by student groups (if there is time) or work in breakout-rooms
 - Presentation of project designs by student groups (first implementation phase)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf (in Teams-Group)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (in Teams-Group)
-- Moduls and packages
-- Best Practices
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (see Teams-Group)
+  - Moduls and packages
 
 ## #5 2026-01-26, Monday (3 UE)
 
+- Check local linter and formatter setup
+  - use ruff for both linting and formatting
+  - delete black if installed in order to avoid conflicts
 - How to turn-in instructions via PebblePad (pdf)
-- Check on voluntary homework (FS), show new basic examples
-- Group 7 visualization (which diagram)
-- Check local linter and formatter setup (ruff, black)
+  - only final report is required to be turned in
+  - however, test it today
+- Group 7 visualization (which diagram) ???
 - Presentation (Part1) of project concepts by student groups (if there is time) or work in breakout-rooms
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
+- Check on voluntary homework (FS), show new basic examples
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (see Teams-Group)
   - Functions
   - Exceptions and error handling
 
