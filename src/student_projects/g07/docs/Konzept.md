@@ -1,162 +1,230 @@
-# Elephant Memory Cloud (Gedankenstütze)
+# Elephant Memory Cloud
 
-## Projektübersicht
+## 1. Projektkontext
 
-### Ziel des Projekts
-Entwicklung eines Python-Prototyps als „digitales Gedächtnis"
-- Verwaltung von Ereignissen, Stammbäumen und Wasserstellen
-- Wissenschaftlicher Schwerpunkt: Memory Management und zyklische Garbage Collection in Python
+* **Modul:** Einführung in die Programmierung mit Python (5. Semester)
+* **Projektzeitraum:** 05.01.2026 – März 2026
+* **Gruppengröße:** 3 Personen
+* **Vorkenntnisse:** Keine praktischen Python-Erfahrungen
+* **Abgabe Konzeptionsphase:** 26.01.2026
 
-### Rahmenbedingungen
-- **Studiengang:** Duales Studium Informatik, 5. Semester
-- **Gruppenarbeit:** 3 Personen
-- **Vorkenntnisse:** Keine Python-Vorkenntnisse
-- **Fokus:** Nachvollziehbarkeit statt Produktreife
+Dieses Dokument beschreibt die konzeptionelle Planung des Projekts *Elephant Memory Cloud* mit Fokus auf funktionale und nicht‑funktionale Anforderungen sowie den wissenschaftlichen Untersuchungsschwerpunkt *Memory Management in Python*.
 
-## Kernfunktionen
+---
 
-### 1. Ereignisse indexieren
-- Jahr
-- Ort (Wasserstelle)
-- Beteiligte Herden / Elefanten
+## 2. Projektidee & Zielsetzung
 
-### 2. Stammbäume verwalten und visualisieren
-- Verwandtschaftsbeziehungen
-- Graph mit möglichen Zyklen
+Die *Elephant Memory Cloud* ist ein Python‑Prototyp eines digitalen Gedächtnisses für „Ella Elefant“.
+Ziel ist **nicht** die Entwicklung eines produktionsreifen Systems, sondern:
 
-### 3. Wasserstellen-Suche
-- Basierend auf historischen Trockenzeiten
-- Regelbasierte Logik (keine KI)
+* das strukturierte Modellieren komplexer Objektbeziehungen,
+* die gezielte Erzeugung zirkulärer Referenzen,
+* und deren Analyse im Kontext von Reference Counting und zyklischer Garbage Collection.
 
-### 4. Erinnerungs-Bot
-- Jahrestage
-- Start von Migrationen
-- Konsolenausgabe oder Logfile
+Die thematische Einbettung (Savanne, Elefanten, Wasserstellen) dient ausschließlich der Veranschaulichung.
 
-## Wissenschaftlicher Schwerpunkt (TOPIC 1)
+---
 
-### Vergleich
-- Reference Counting
-- Cyclic Garbage Collection
+## 3. Abgrenzung & Mindestumfang (Konzeptionsabgabe)
 
-### Problem
-Zirkuläre Referenzen in Verwandtschaftsgraphen
+### Mindestumfang (verpflichtend)
 
-### Ziel
-- Nachweis von Memory Leaks ohne GC
-- Messbarer Effekt des zyklischen Garbage Collectors
+* Definiertes Datenmodell mit absichtlich erzeugten Zyklen
+* Reproduzierbare GC‑Experimente
+* Messung und Dokumentation von Speicherverhalten
+* Funktionsfähige, einfache Visualisierung
 
-## Arbeitsteilung (3 Personen)
+### Erweiterungen (optional)
 
-### Person A – Datenmodell & Memory
-- Klassen: Elefant, Herde, Ereignis
-- Erzeugen zyklischer Referenzen
-- Memory-Messungen
-- GC-Analyse & Dokumentation
+* Komfortfunktionen im UI
+* Erweiterte Visualisierungen
+* Zusätzliche Analysemetriken
 
-### Person B – Logik & Suche
-- Ereignis-Index
-- Wasserstellen-Suche
-- Erinnerungs-Bot
-- Funktionale Tests
+---
 
-### Person C – Visualisierung
-- Stammbäume als Graphen
-- Diagramme für Memory-Auswertung
-- Einfache CLI oder Minimal-UI
+## 4. Funktionale Anforderungen
 
-## Technologien & Tools
+### F01 – Ereignisse erfassen
 
-### Programmiersprache
-- Python 3.11+
+Das System muss Ereignisse mit folgenden Attributen speichern können:
 
-### Standardbibliothek
-- `gc`
-- `sys`
-- `tracemalloc`
-- `weakref`
-- `datetime`
-- `math`
-- `heapq`
+* Jahr
+* Ort (Wasserstelle)
+* Beteiligte Elefanten / Herden
 
-### Externe Bibliotheken (empfohlen)
-- `networkx` (Graphen, Stammbäume)
-- `matplotlib` (Visualisierung, Diagramme)
+### F02 – Ereignisse indexieren
 
-### Optionale Alternativen
-- `objgraph` (Objektvisualisierung)
-- `memory_profiler` (Speicheranalyse)
-- `graphviz` (Graph-Darstellung)
+Das System muss Ereignisse effizient nach Jahr und Ort durchsuchen können.
 
-## Datenmodellierung
+### F03 – Elefanten modellieren
 
-### Objektorientierter Ansatz
-- Reine Python-Objekte
-- Bewusst erzeugte Zyklen:
-  - Elefant ↔ Eltern / Kinder
-  - Elefant ↔ Herde
-  - Ereignis ↔ beteiligte Elefanten
-- Keine ORM-Frameworks
+Das System muss einzelne Elefanten als Objekte abbilden können.
 
-## Wasserstellen-Suche
-- Historische Ereignisdaten aus Trockenzeiten
-- Vereinfachte Koordinaten
-- Entfernung + Häufigkeit als Entscheidungsgrundlage
-- Keine Machine-Learning-Verfahren
+### F04 – Verwandtschaftsbeziehungen abbilden
 
-## Erinnerungs-Bot
-- Zeitbasierte Trigger (Simulation)
-- Ausgabe:
-  - Konsole
-  - Logfile
-- Keine externen Messenger-Dienste
+Das System muss Eltern‑, Kind‑ und Herdenbeziehungen zwischen Elefanten modellieren.
 
-## Memory- & GC-Analyse
+### F05 – Zirkuläre Referenzen erzeugen
 
-### Vorgehen
+Das System muss absichtlich zirkuläre Referenzen zwischen Objekten erzeugen (z. B. Eltern ↔ Kinder).
+
+### F06 – Stammbäume visualisieren
+
+Das System muss Verwandtschaftsgraphen visuell darstellen können.
+
+### F07 – Wasserstellen‑Suche
+
+Das System muss auf Basis historischer Ereignisdaten eine einfache Suche nach Wasserstellen ermöglichen.
+
+### F08 – Erinnerungs‑Bot
+
+Das System muss zeitbasierte Erinnerungen (Jahrestage, Migrationen) ausgeben können.
+
+### F09 – Speicherverhalten messen
+
+Das System muss Speicherverbrauch und Objektanzahl während der Laufzeit erfassen.
+
+### F10 – GC‑Vergleich ermöglichen
+
+Das System muss identische Szenarien mit aktivierter und deaktivierter Garbage Collection ausführen können.
+
+---
+
+## 5. Nicht‑funktionale Anforderungen
+
+### NF01 – Nachvollziehbarkeit
+
+Der Code muss didaktisch nachvollziehbar und kommentiert sein.
+
+### NF02 – Reproduzierbarkeit
+
+Alle Experimente müssen reproduzierbar dokumentiert sein.
+
+### NF03 – Messbarkeit
+
+Speicherverhalten muss quantitativ erfasst werden.
+
+### NF04 – Begrenzter Scope
+
+Keine Cloud‑Architektur, keine Persistenzdatenbanken, keine KI/ML‑Verfahren.
+
+### NF05 – Performance‑Abgrenzung
+
+Ab einer großen Anzahl von Knoten kann die Visualisierung primär durch Browser‑Rendering limitiert sein. Dies stellt **kein** Memory‑Problem der Python‑Applikation dar und wird explizit dokumentiert.
+
+### NF06 – Plattformunabhängigkeit
+
+Das System muss lokal auf Standard‑Entwicklungsrechnern lauffähig sein.
+
+---
+
+## 6. Wissenschaftlicher Schwerpunkt: Memory Management
+
+### 6.1 Theoretischer Hintergrund
+
+* Reference Counting in Python
+* Zyklische Garbage Collection
+* Problem zirkulärer Objektgraphen
+
+**Begriffliche Abgrenzung:**
+Es werden keine klassischen Memory Leaks untersucht, sondern leak‑ähnliches Verhalten durch nicht freigegebene Referenzzyklen.
+
+### 6.2 Hypothesen
+
+* H1: Ohne zyklische GC steigt die Anzahl nicht freigegebener Objekte mit der Größe des Objektgraphen.
+* H2: Mit aktivierter GC werden zyklische Referenzen nach Entfernen externer Referenzen aufgelöst.
+
+### 6.3 Messgrößen
+
+* Speicherverbrauch (RAM)
+* Anzahl existierender Objekte
+* Anzahl und Dauer von GC‑Zyklen
+
+### 6.4 Versuchsaufbau
+
 1. Aufbau großer zyklischer Objektgraphen
-2. Entfernen von Referenzen
-3. Beobachtung:
-   - Speicherverbrauch
-   - Anzahl Objekte
-   - GC-Zyklen
-4. Vergleich:
-   - GC deaktiviert vs. aktiviert
-5. Ergebnisse grafisch darstellen
+2. Entfernen externer Referenzen
+3. Vergleich:
 
-## Projektstruktur (Vorschlag)
+   * GC deaktiviert
+   * GC aktiviert
+4. Grafische Auswertung
+
+---
+
+## 7. Visualisierung & UI
+
+### Technologie
+
+* **Streamlit** als Web‑UI
+
+### Zweck der Visualisierung
+
+* Verständnis komplexer Verwandtschaftsgraphen
+* Unterstützung der GC‑Analyse
+
+### Abgrenzung
+
+Bei sehr großen Stammbäumen kann die Performance primär durch das Browser‑Rendering limitiert sein. Diese Grenze wird dokumentiert und nicht als Speicherproblem interpretiert.
+
+---
+
+## 8. Technologien & Bibliotheken
+
+### Python Standardbibliothek
+
+* gc
+* sys
+* tracemalloc
+* weakref
+* datetime
+
+### Externe Bibliotheken
+
+* streamlit (UI)
+* networkx (Graphmodellierung)
+* matplotlib (Diagramme)
+* graphviz (Graphdarstellung, optional)
+* objgraph (Objektanalyse, optional)
+
+Alle verwendeten Bibliotheken werden im Projekt explizit dokumentiert und begründet.
+
+---
+
+## 9. Projektstruktur (geplant)
 
 ```
-models/
-memory/
-search/
-bot/
-visualization/
 data/
-main.py
+docs/
+memory/
+models/
+search/
+static/
+templates/
+tests/
+app.py
+README.md
 ```
 
-## Zeitplanung (Richtwert)
+---
 
-| Woche | Aufgaben |
-|-------|----------|
-| 1 | Python-Grundlagen, Setup |
-| 2 | Datenmodelle |
-| 3 | Ereignisse & Suche |
-| 4 | Visualisierung |
-| 5 | GC-Experimente |
-| 6 | Messungen & Diagramme |
-| 7 | Dokumentation |
-| 8 | Puffer / Präsentation |
+## 10. Arbeitsteilung
 
-## Wichtige Hinweise
+* **Person A:** Datenmodell, Zyklen, GC‑Experimente
+* **Person B:** Logik, Suche, Bot
+* **Person C:** Visualisierung, Streamlit‑UI, Diagramme
 
-⚠️ **Hinweise zur Umsetzung:**
-- Kein Cloud-Overengineering
-- Keine KI / ML
-- Fokus auf Messbarkeit und Nachweis
-- GC nicht nur erklären, sondern experimentell belegen
+---
 
-## Ressourcen
+## 11. Verlinkung externer Dokumente
 
-- [Garbage Collection in Python](https://www.geeksforgeeks.org/python/garbage-collection-python/)
+* UML‑Diagramme: `docs/uml/`
+* GC‑Messprotokolle: `docs/experiments/`
+* Feature‑Planung: `docs/features.md`
+* Epics & User Stories: `docs/epics_stories.md`
+* Wissenschaftliche Quellen: `docs/references.md`
+
+---
+
+
+Eine vollständige Literaturliste wird separat gepflegt.
