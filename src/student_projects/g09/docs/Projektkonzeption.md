@@ -14,41 +14,45 @@ Das Projekt ist Teil des Moduls *DLBDSIPWP01* und zeigt beispielhaft moderne Sof
 *   **Duck Typing:** Nutzung der dynamischen Typisierung von Python, um lose Kopplung zwischen den Systemkomponenten zu gewährleisten.
 
 ## 3. Funktionale Anforderungen
-Alle Anforderungen haben IDs, um sie im Code wiederzufinden. Da der Code auf Englisch geschrieben wird, sind auch die IDs englisch.
+Alle Anforderungen haben IDs, um sie im Code wiederzufinden. Da der Code auf Englisch geschrieben wird, sind auch die IDs englisch. Die Klassifizierung nach Priorität erfolgt durch die MoSCoW-Methode.
+M - Must
+S - Should
+C - Could
+W - Won't
 
 ### 3.1 Buchungsverwaltung
 Das System kümmert sich um die Langzeit-Buchung von Hängematten passend zum Hotel-Konzept.
 
-*   **REQ-FR-01 - Min Duration:** Buchungen müssen eine Mindestdauer von 7 Tagen aufweisen. Anfragen für kürzere Zeiträume werden systemseitig abgelehnt.
-*   **REQ-FR-02 - Availability:** Prüfung der Verfügbarkeit von Hängematten für den angefragten Zeitraum.
+*   **REQ-FR-01 - M - Min Duration:** Buchungen müssen eine Mindestdauer von 7 Tagen aufweisen. Anfragen für kürzere Zeiträume werden systemseitig abgelehnt.
+*   **REQ-FR-02 - C - Availability:** Prüfung der Verfügbarkeit von Hängematten für den angefragten Zeitraum.
 
 ### 3.2 Inzentivierung & Tracking
 Ein Belohnungssystem motiviert die Gäste durch Rabatte, wenn sie sich wenig bewegen.
 
-*   **REQ-FR-03 - Step Input:** Erfassungsschnittstelle für tägliche Schrittdaten der Gäste.
-*   **REQ-FR-04 - Inverse Discount:** Berechnung eines dynamischen Rabatts basierend auf der Inaktivität.
+*   **REQ-FR-03 - M - Step Input:** Erfassungsschnittstelle für tägliche Schrittdaten der Gäste.
+*   **REQ-FR-04 - M - Inverse Discount:** Berechnung eines dynamischen Rabatts basierend auf der Inaktivität.
     *   *Logik:* Geringere Schrittzahl führt zu höherem Rabatt. Hektische Aktivität reduziert den Nachlass auf Null.
 
 ### 3.3 Verpflegungslogistik
 Essen wird erst freigegeben, wenn die Zeit reif ist.
 
-*   **REQ-FR-05 - Maturity Calc:** Algorithmus zur Berechnung der Blattreife. Nahrungsmittel dürfen erst nach Erreichen des optimalen Reifegrads ausgegeben werden.
+*   **REQ-FR-05 - M - Maturity Calc:** Algorithmus zur Berechnung der Blattreife. Nahrungsmittel dürfen erst nach Erreichen des optimalen Reifegrads ausgegeben werden.
 
 ### 3.4 Zeitmanagement
-*   **REQ-FR-06 - Delayed Alarm:** Implementierung einer Zwangspause bei Weckrufen. Zwischen Wunschzeit $t$ und Alarm $t_{real}$ muss eine feste Verzögerung von $\Delta t = 3h$ addiert werden ($t_{real} = t + 3h$).
+*   **REQ-FR-06 - M - Delayed Alarm:** Implementierung einer Zwangspause bei Weckrufen. Zwischen Wunschzeit $t$ und Alarm $t_{real}$ muss eine feste Verzögerung von $\Delta t = 3h$ addiert werden ($t_{real} = t + 3h$).
 
 ### 3.5 Zustandsmodellierung
-*   **REQ-FR-07 - Guest States:** Jeder Gast befindet sich zu jedem Zeitpunkt in einem exklusiven Zustand (`Sleeping`, `Resting`, `Eating`).
-*   **REQ-FR-08 - State Transition:** Validierung von Zustandswechseln. Ungültige Transitionen werden durch die Architektur unterbunden.
+*   **REQ-FR-07 - M - Guest States:** Jeder Gast befindet sich zu jedem Zeitpunkt in einem exklusiven Zustand (`Sleeping`, `Resting`, `Eating`).
+*   **REQ-FR-08 - M - State Transition:** Validierung von Zustandswechseln. Ungültige Transitionen werden durch die Architektur unterbunden.
 
 ## 4. Qualitätsanforderungen
 Allgemeine technische Vorgaben für das Projekt.
 
-*   **REQ-NFR-01 - Language:** Codebasis, Kommentare und interne Dokumentation sind in **Englisch** zu halten.
-*   **REQ-NFR-02 - Documentation:** Durchgängige Dokumentation mittels Python-Docstrings und zentraler README.
-*   **REQ-NFR-03 - Testing:** Testabdeckung durch Unit-Tests sowie mind. 3 Integrationstests.
-*   **REQ-NFR-04 - CI/CD:** Definition eines reproduzierbaren Build- und Testprozesses (z.B. via Skript oder Pipeline-Config).
-*   **REQ-NFR-05 - Architecture:** Konsequente Anwendung objektorientierter Prinzipien (OOP) und Separation of Concerns.
+*   **REQ-NFR-01 - M - Language:** Codebasis, Kommentare und interne Dokumentation sind in **Englisch** zu halten.
+*   **REQ-NFR-02 - S - Documentation:** Durchgängige Dokumentation mittels Python-Docstrings und zentraler README.
+*   **REQ-NFR-03 - S - Testing:** Testabdeckung durch Unit-Tests sowie mind. 3 Integrationstests.
+*   **REQ-NFR-04 - C - CI/CD:** Definition eines reproduzierbaren Build- und Testprozesses (z.B. via Skript oder Pipeline-Config).
+*   **REQ-NFR-05 - M - Architecture:** Konsequente Anwendung objektorientierter Prinzipien (OOP) und Separation of Concerns.
 
 ## 5. Akteure
 *   **Sid Sloth (Hotel Manager):** Interagiert mit dem System zur Verwaltung von Buchungen, Eingabe von Metriken und Steuerung der operativen Abläufe.
