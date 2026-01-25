@@ -41,6 +41,7 @@
 - Presentation of project designs by student groups (first implementation phase)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (see Teams-Group)
   - Moduls and packages
+  - Dörn: Appendix A: Important modules with its description
 
 ## #5 2026-01-26, Monday (3 UE)
 
