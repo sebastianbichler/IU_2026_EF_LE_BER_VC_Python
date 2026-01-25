@@ -165,9 +165,11 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 
 ## Code snippets
 
-- **Pakete installieren**: pip install package_name
-- **Abhängigkeiten speichern**: pip freeze > requirements.txt
-- **Abhängigkeiten installieren**: pip install -r requirements.txt
+- **Pakete installieren**: `pip install package_name`
+- **Abhängigkeiten speichern**:
+  - `pip freeze > requirements.txt`
+  - `python -m pip freeze | Set-Content -Path requirements.txt -Encoding utf8NoBOM`
+- **Abhängigkeiten installieren**: `pip install -r requirements.txt`
 - **Virtuelle Umgebung erstellen**: `python -m venv env_name`
 - **Virtuelle Umgebung aktivieren**: `source env_name/bin/activate (Linux/Mac)` oder
   `env_name\Scripts\activate (Windows)`
