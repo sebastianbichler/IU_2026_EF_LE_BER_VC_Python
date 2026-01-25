@@ -1,0 +1,19 @@
+# Hello World example
+''' These lines will be ignored;
+this is a multi-line comment.'''
+
+print('What is your name?')
+#name = input()
+#print('Hello ' + name)
+
+print('Hello World!')
+print("Hello World!")
+
+a=1; b=2; c=3; d=4; e=5
+
+result = a + b + c + d\
+    + e
+
+print(result)
+
+print(a/0)

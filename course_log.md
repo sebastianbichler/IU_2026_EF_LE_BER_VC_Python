@@ -24,39 +24,46 @@
 
 ## #6 2026-01-27, Tuesday (3 UE)
 
+- Presentation (P2) of project concepts by student groups (if there is time) or work in breakout-rooms
 - Presentation of project designs by student groups (first implementation phase)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf (in Teams-Group)
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (in Teams-Group)
+- Moduls and packages
 - Best Practices
 
 ## #5 2026-01-26, Monday (3 UE)
 
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (in Teams-Group)
-- Moduls and packages
+- How to turn-in instructions via PebblePad (pdf)
+- Check on voluntary homework (FS), show new basic examples
+- Group 7 visualization (which diagram)
+- Check local linter and formatter setup (ruff, black)
+- Presentation (Part1) of project concepts by student groups (if there is time) or work in breakout-rooms
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
+  - Functions
+  - Exceptions and error handling
 
 ## #4 2026-01-26, Tuesday (3 UE)
 
 - SF 11 unf 12
-- E-Mail Ahmet (work in notbeooks, no other GUI required)
+- E-Mail Ahmet (work in notebeooks, no other GUI required)
 - Time for group project work
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (from slide 23, in Teams-Group)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
-    - Functions<
-    - Exceptions and error handling
 - Presentation of project concepts by student groups (if there is time)
+  - G09: streamlit
 
 ## #3 2026-01-19, Monday (3 UE)
 
 - TODO Finish group assignment for project ideas ((Leon Kinski, Oliver Mayer)
 - TODO set line endings to LF (Linux/Mac) in your IDE (VSCode, PyCharm, etc.)
 - Presentation of main aspect of student projects (me):
-  - Memory Management
-  - Vectorization (NumPy),
-  - Metaprogramming,
-  - Probabilistic Programming (2x))
-  - Typing (MyPy)
-  - Functional Programming
-  - JIT Compilation (Numba)
-  - Structural Design Patterns
+    - Memory Management
+    - Vectorization (NumPy),
+    - Metaprogramming,
+    - Probabilistic Programming (2x))
+    - Typing (MyPy)
+    - Functional Programming
+    - JIT Compilation (Numba)
+    - Structural Design Patterns
 
 ## 2026-01-14
 
