@@ -210,9 +210,9 @@ README.md
 
 ## 10. Arbeitsteilung
 
-* **Person A:** Datenmodell, Zyklen, GC‑Experimente
-* **Person B:** Logik, Suche, Bot
-* **Person C:** Visualisierung, Streamlit‑UI, Diagramme
+* **Teilbereich A:** Datenmodell, Zyklen, GC‑Experimente
+* **Teilbereich B:** Logik, Suche, Bot
+* **Teilbereich C:** Visualisierung, Streamlit‑UI, Diagramme
 
 ---
 
