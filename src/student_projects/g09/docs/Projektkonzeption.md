@@ -1,73 +1,59 @@
 # Projektkonzeption: Sloth’s Slow-Motion Hotel
 
-## 1. Einleitung und Zweck der Anwendung
-Das Projektziel ist die Entwicklung einer spezialisierten Hotel-Management-Software für **"Sid Sloth"**, einen Hotelmanager, der ein Luxus-Resort für Faultiere betreibt.
+## 1. Management Summary
+Dieses Dokument beschreibt die Anforderungen und die technische Architektur für das "Sloth’s Slow-Motion Hotel". Die Software hilft Hotelmanager Sid Sloth dabei, sein spezielles Resort für Faultiere zu verwalten.
 
-Anders als bei herkömmlicher Hotelsoftware, bei der Effizienz und Schnelligkeit im Vordergrund stehen, ist der **Zweck dieser Anwendung die Maximierung der Langsamkeit**. Die Software soll Sid dabei unterstützen, die philosophischen Grundsätze des Resorts technisch durchzusetzen: Entschleunigung, Ruhe und minimale Bewegung.
+Anders als normale Hotel-Programme, bei denen alles schnell gehen muss, steht hier **Langsamkeit** im Mittelpunkt. Alle Funktionen – von der Buchung bis zum Service – sollen Hektik vermeiden und entspanntes Verhalten belohnen.
 
-Die Applikation dient als Verwaltungszentrale für:
-- Langzeit-Buchungen (Hängematten).
-- Die Berechnung von Rabatten basierend auf Inaktivität (Bewegungs-Tracker).
-- Die kulinarische Versorgung mit exakt gereiften Blättern.
-- Einen Weckservice, der die Ruhe der Gäste respektiert (durch absichtliche Verzögerung).
+## 2. Technischer Fokus und Architektur
+Das Projekt ist Teil des Moduls *DLBDSIPWP01* und zeigt beispielhaft moderne Software-Architektur. Wichtig sind hier nicht möglichst viele Funktionen, sondern ein sauberer und gut strukturierter Code.
 
-## 2. Wissenschaftlicher Fokus (Python vs. Science)
-Im Rahmen des Moduls *DLBDSIPWP01* wird in diesem Projekt ein spezifischer wissenschaftlicher Schwerpunkt auf **Software-Architektur** gelegt.
+### Kernkonzepte
+*   **Structural Design Patterns:** Einsatz von Mustern zur Erhöhung der Flexibilität.
+*   **Behavioral Patterns (State Pattern):** Die Zustandslogik der Gäste (*Sleeping*, *Resting*, *Eating*) wird über das State Pattern abgebildet. Dies verhindert invalide Zustandsübergänge (z.B. Essen während des Schlafens) und kapselt das Verhalten sauber.
+*   **Duck Typing:** Nutzung der dynamischen Typisierung von Python, um lose Kopplung zwischen den Systemkomponenten zu gewährleisten.
 
-* **Topic:** Structural Design Patterns (Fokus auf Flexibilität).
-* **Konkrete Umsetzung:** Implementierung des **State Patterns** (Verhaltensmuster).
-* **Ziel:** Die verschiedenen Phasen der "Langsamkeit" eines Gastes (z.B. *Schlafen, Ruhen, Langsames Essen*) sollen sauber modelliert werden. Das System muss erkennen, dass ein Gast im Zustand "Schlafen" beispielsweise nicht essen kann.
-* **Duck Typing:** Es wird Python-typisches "Duck Typing" verwendet, um flexible Schnittstellen für verschiedene Arten von "faulen Objekten" zu ermöglichen, ohne strikte Vererbungshierarchien zu erzwingen.
+## 3. Funktionale Anforderungen
+Alle Anforderungen haben IDs, um sie im Code wiederzufinden. Da der Code auf Englisch geschrieben wird, sind auch die IDs englisch. Die Klassifizierung nach Priorität erfolgt durch die MoSCoW-Methode.
+M - Must
+S - Should
+C - Could
+W - Won't
 
----
+### 3.1 Buchungsverwaltung
+Das System kümmert sich um die Langzeit-Buchung von Hängematten passend zum Hotel-Konzept.
 
-## 3. Funktionale Anforderungen (Functional Requirements)
-Da der Code in Englisch verfasst wird, werden die Requirements hier bereits mit englischen IDs definiert, um die Zuordnung im Code (als Kommentare/Docstrings) zu erleichtern.
+*   **REQ-FR-01 - M - Min Duration:** Buchungen müssen eine Mindestdauer von 7 Tagen aufweisen. Anfragen für kürzere Zeiträume werden systemseitig abgelehnt.
+*   **REQ-FR-02 - C - Availability:** Prüfung der Verfügbarkeit von Hängematten für den angefragten Zeitraum.
 
-### 3.1 Hängematten-Management (Booking)
-Das System muss Buchungen verwalten, die der extremen Faulheit der Gäste entsprechen.
-- **REQ-FUN-001 (Min Duration):** Eine Buchung muss für mindestens 7 Tage erfolgen. Kürzere Aufenthalte sind zu stressig und werden vom System abgelehnt.
-- **REQ-FUN-002 (Availability):** Das System muss prüfen, ob eine Hängematte im gewünschten Zeitraum frei ist.
+### 3.2 Inzentivierung & Tracking
+Ein Belohnungssystem motiviert die Gäste durch Rabatte, wenn sie sich wenig bewegen.
 
-### 3.2 Bewegungs-Tracker (Incentives)
-Das System belohnt Faulheit monetär.
-- **REQ-FUN-003 (Step Input):** Der User (Sid) kann die täglichen Schritte eines Gastes eingeben.
-- **REQ-FUN-004 (Inverse Discount):** Je weniger Schritte, desto höher der Rabatt.
-    - *Zielwert:* Nahe 0 Schritte = Maximaler Rabatt.
-    - *Logik:* Hohe Schrittzahl = Geringer/Kein Rabatt (Strafe für Hektik).
+*   **REQ-FR-03 - M - Step Input:** Erfassungsschnittstelle für tägliche Schrittdaten der Gäste.
+*   **REQ-FR-04 - M - Inverse Discount:** Berechnung eines dynamischen Rabatts basierend auf der Inaktivität.
+    *   *Logik:* Geringere Schrittzahl führt zu höherem Rabatt. Hektische Aktivität reduziert den Nachlass auf Null.
 
-### 3.3 Menüplan (Leaf Gourmet)
-Verwaltung der Nahrungsmittel basierend auf Zeit.
-- **REQ-FUN-005 (Maturity Calc):** Berechnung der Reifezeit von Blättern. Das System darf Blätter nur freigeben, wenn sie den Status "perfekt gereift" erreicht haben.
+### 3.3 Verpflegungslogistik
+Essen wird erst freigegeben, wenn die Zeit reif ist.
 
-### 3.4 Weckruf-Service (Wake-Up)
-Ein Wecker, der nicht stresst.
-- **REQ-FUN-006 (Delayed Alarm):** Wenn ein Gast um Zeit $t$ geweckt werden möchte, darf der Alarm frühestens um $t + 3$ Stunden ausgelöst werden. Das System muss diese Verzögerung automatisch addieren.
+*   **REQ-FR-05 - M - Maturity Calc:** Algorithmus zur Berechnung der Blattreife. Nahrungsmittel dürfen erst nach Erreichen des optimalen Reifegrads ausgegeben werden.
 
-### 3.5 Zustands-Management (State Pattern)
-- **REQ-FUN-007 (Guest States):** Ein Gast muss immer einen definierten Zustand haben.
-    - *States:* `Sleeping`, `Resting`, `Eating`.
-- **REQ-FUN-008 (State Transition):** Der Gast kann den Zustand wechseln (z.B. von *Sleeping* zu *Resting*), aber unlogische Wechsel (z.B. *Sleeping* zu *Eating*) müssen behandelt oder blockiert werden.
+### 3.4 Zeitmanagement
+*   **REQ-FR-06 - M - Delayed Alarm:** Der Wecker löst mit einer Verzögerung von 3h aus.
 
----
+### 3.5 Zustandsmodellierung
+*   **REQ-FR-07 - M - Guest States:** Jeder Gast befindet sich zu jedem Zeitpunkt in einem exklusiven Zustand (`Sleeping`, `Resting`, `Eating`).
+*   **REQ-FR-08 - M - State Transition:** Validierung von Zustandswechseln. Ungültige Transitionen werden durch die Architektur unterbunden.
 
-## 4. Nicht-Funktionale Anforderungen (NFR)
-Diese Anforderungen definieren die Qualität und technische Umgebung des Projekts.
+## 4. Qualitätsanforderungen
+Allgemeine technische Vorgaben für das Projekt.
 
-- **REQ-NFR-001 (Language):** Der gesamte Quellcode (Variablennamen, Funktionen, Klassen) sowie Kommentare müssen in **Englisch** verfasst sein.
-- **REQ-NFR-002 (Documentation):** Der Code muss mittels Docstrings und einer README.md dokumentiert sein.
-- **REQ-NFR-003 (Testing):** Es müssen Unit-Tests und mindestens 3 Integrationstests implementiert werden.
-- **REQ-NFR-004 (CI/CD):** Der Build- und Testprozess muss über eine dokumentierte Pipeline-Logik (Simulation oder `requirements.txt` + Test-Skript) nachvollziehbar sein.
-- **REQ-NFR-005 (Architecture):** Der Code muss objektorientiert (OOP) aufgebaut sein und die Trennung der Verantwortlichkeiten (Separation of Concerns) beachten.
+*   **REQ-NFR-01 - M - Language:** Codebasis, Kommentare und interne Dokumentation sind in **Englisch** zu halten.
+*   **REQ-NFR-02 - S - Documentation:** Durchgängige Dokumentation mittels Python-Docstrings und zentraler README.
+*   **REQ-NFR-03 - S - Testing:** Testabdeckung durch Unit-Tests sowie mind. 3 Integrationstests.
+*   **REQ-NFR-04 - C - CI/CD:** Definition eines reproduzierbaren Build- und Testprozesses (z.B. via Skript oder Pipeline-Config).
+*   **REQ-NFR-05 - M - Architecture:** Konsequente Anwendung objektorientierter Prinzipien (OOP) und Separation of Concerns.
 
----
-
-## 5. System-Akteure (Use Case Analyse)
-- **Akteur 1: Sid Sloth (Manager)**
-    - Erfasst Buchungen.
-    - Gibt Schrittdaten in den Tracker ein.
-    - Prüft den Menüplan.
-    - Setzt Weckzeiten.
-- **Akteur 2: Sloth Guest (System-Objekt)**
-    - Hat einen Zustand (State).
-    - Hat eine Rechnung (Preis minus Faulheits-Rabatt).
+## 5. Akteure
+*   **Sid Sloth (Hotel Manager):** Interagiert mit dem System zur Verwaltung von Buchungen, Eingabe von Metriken und Steuerung der operativen Abläufe.
+*   **Sloth Guest (System Entity):** Repräsentiert den Gast im System inkl. Zustandsverwaltung und Abrechnungsdaten.
