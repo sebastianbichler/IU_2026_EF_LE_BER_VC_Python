@@ -10,7 +10,7 @@ graph LR
         UC1([Dienstleistungstypen <br/> konfigurieren])
         UC_FIN_1([Betriebsausgaben <br/> erfassen])
         UC_FIN_2([Finanz-Bericht <br/> generieren])
-        
+
         %% Guest Use Cases
         UC2([Behandlung <br/> buchen])
         UC_HIST([Buchungshistorie <br/> einsehen])
@@ -39,10 +39,10 @@ graph LR
     style UC1 fill:#d1e7ff,stroke:#004085,stroke-width:2px,color:#000
     style UC_FIN_1 fill:#d1e7ff,stroke:#004085,stroke-width:2px,color:#000
     style UC_FIN_2 fill:#d1e7ff,stroke:#004085,stroke-width:2px,color:#000
-    
+
     style UC2 fill:#d4edda,stroke:#155724,stroke-width:2px,color:#000
     style UC_HIST fill:#d4edda,stroke:#155724,stroke-width:2px,color:#000
-    
+
     style UC3 fill:#fff3cd,stroke:#856404,stroke-width:2px,color:#000
     style UC4 fill:#f8d7da,stroke:#721c24,stroke-width:2px,color:#000
 ```

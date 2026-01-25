@@ -8,7 +8,7 @@
 Das Ziel ist die Entwicklung einer **hochperformanten Python-Anwendung**, die als "Nuss-Zentralbank" fungiert. Sie soll nicht nur Bestände verwalten, sondern durch wissenschaftliche Methoden beweisen, dass moderne Array-Programmierung herkömmlichen Schleifen bei großen Datenmengen überlegen ist.
 
 ### Was soll die Anwendung können?
-1.  **Verwaltung:** Digitalisierung des Vorratsnetzwerks 
+1.  **Verwaltung:** Digitalisierung des Vorratsnetzwerks
 2.  **Analyse:** Berechnung komplexer Szenarien (Zinseszins, Winterprognosen) für Tausende von Datensätzen gleichzeitig
 3.  **Wissenschaftlicher Beweis:** Implementierung eines Benchmarks, der die Rechenzeit von nativem Python (`for`-loops) gegen NumPy (SIMD/Vectorization) vergleicht
 
@@ -18,13 +18,13 @@ Das Ziel ist die Entwicklung einer **hochperformanten Python-Anwendung**, die al
 
 Wir priorisieren die Anforderungen nach MoSCoW
 
-### 2.1 Funktionale Anforderungen 
+### 2.1 Funktionale Anforderungen
 
 #### **Priorität 1: Must Have**
 * **F01 – Versteck-Verwaltung:** Das System muss Datensätze für Verstecke speichern können
     * Attribute: ID, Koordinaten, Erdtiefe, Nussart, Menge, Haltbarkeitsdatum
 * **F02 – Datengenerierung:** Ein Modul zur Erzeugung von Dummy-Daten, um die Performance-Tests überhaupt sinnvoll zu machen
-* **F03 – Diebstahl-Erkennung:** Logik zum Vergleich von `Soll-Bestand` vs. `Ist-Bestand`. Wenn `Ist < Soll`, muss eine Warnung ausgegeben werden 
+* **F03 – Diebstahl-Erkennung:** Logik zum Vergleich von `Soll-Bestand` vs. `Ist-Bestand`. Wenn `Ist < Soll`, muss eine Warnung ausgegeben werden
 * **F04 – Performance-Benchmark:**
         1.  **Iterativ:** Klassische Python `for`-Schleifen
         2.  **Vektorisiert:** NumPy Arrays unter Nutzung von SIMD
@@ -40,7 +40,7 @@ Wir priorisieren die Anforderungen nach MoSCoW
     * Eine einfache Oberfläche, um Daten einzugeben und die Benchmark-Ergebnisse grafisch anzuzeigen.
     * Visualisierung der Verstecke auf einer "Karte".
 
-### 2.2 Nicht-funktionale Anforderungen 
+### 2.2 Nicht-funktionale Anforderungen
 
 * **NF01 – Performance:** Die NumPy-Implementierung muss bei großen Datensätzen signifikant schneller sein als die native Python-Lösung.
 * **NF02 – Reproduzierbarkeit:** Die Benchmark-Ergebnisse müssen bei jedem Durchlauf konsistent messbar sein.
@@ -115,7 +115,7 @@ classDiagram
 
 Für die Umsetzung der "Squirrel Secret Stash" Anwendung benötigen wir spezifische Werkzeuge. Da der Fokus auf dem wissenschaftlichen Vergleich liegt, ist die Wahl der Bibliotheken entscheidend
 
-### 4.1 Benötigte Bibliotheken 
+### 4.1 Benötigte Bibliotheken
 
 Diese Pakete müssen in der Python-Umgebung installiert werden.
 

@@ -14,7 +14,7 @@ B: Use-Case-Diagramme, Visualisierungen zur Planung, Umsetzung:
 C: Feature-Planung:
 	-Stammbaumvisualisierung inkl. zirkulärer Refs -> Eher Rendering (Browser-Memory)-Problematik als Python-Problematik
 	-APIs für Importe: Stammbäume, Trockenzeiten
-	-Erweiterungsmöglichkeiten (über Memory-Fragen hinaus); 
+	-Erweiterungsmöglichkeiten (über Memory-Fragen hinaus);
 		-Einsatz von Vektordatenbank für spätere KI-Einbindung
 			-Implikationen für Performanz von Abfragen
 			-Implikationen für Komplexität der Datenverwaltung
