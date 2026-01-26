@@ -6,7 +6,16 @@ Anhand eines thematisch eingebetteten Szenarios (Elefanten, Stammbäume, Ereigni
 
 ## 1.1 Installation
 
-Die allgemeinen Voraussetzungen hinsichtlich Python, virtuellen Umgebungen und der Installation von Abhängigkeiten (pip) ist dem übergeordneten Projekt zu entnehmen.
+Die allgemeinen Voraussetzungen hinsichtlich Python, virtuellen Umgebungen und der globalen Installation von Abhängigkeiten (pip) ist dem übergeordneten Projekt zu entnehmen.
+
+Projektspezifische Abhängigkeiten: `pip install -r requirements.txt`
+Virtuelle Umbegung erstellen & Programm starten:
+```
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+streamlit run app.py
+```
 
 ## 1.2 Bibliotheken (Kurzüberblick)
 
