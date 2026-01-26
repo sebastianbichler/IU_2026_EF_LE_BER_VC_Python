@@ -10,7 +10,7 @@ Das Projekt ist Teil des Moduls *DLBDSIPWP01* und zeigt beispielhaft moderne Sof
 
 ### Kernkonzepte
 *   **Structural Design Patterns:** Einsatz von Mustern zur Erhöhung der Flexibilität.
-*   **Behavioral Patterns (State Pattern):** Die Zustandslogik der Gäste (*Sleeping*, *Resting*, *Eating*) wird über das State Pattern abgebildet. Dies verhindert invalide Zustandsübergänge (z.B. Essen während des Schlafens) und kapselt das Verhalten sauber.
+*   **State Pattern:** Die Zustandslogik der Gäste (*Sleeping*, *Resting*, *Eating*) wird über das State Pattern abgebildet. Dies verhindert invalide Zustandsübergänge und kapselt das Verhalten sauber.
 *   **Duck Typing:** Nutzung der dynamischen Typisierung von Python, um lose Kopplung zwischen den Systemkomponenten zu gewährleisten.
 
 ## 3. Funktionale Anforderungen
