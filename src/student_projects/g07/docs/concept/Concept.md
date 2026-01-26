@@ -223,9 +223,6 @@ README.md
 * GC‑Messprotokolle: `docs/experiments/`
 * Feature‑Planung: `docs/features.md`
 * Epics & User Stories: `docs/epics_stories.md`
-* Wissenschaftliche Quellen: `docs/references.md`
+* Quellen: `docs/references.md`
 
 ---
-
-
-Eine vollständige Literaturliste wird separat gepflegt.
