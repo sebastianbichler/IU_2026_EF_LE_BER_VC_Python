@@ -5,7 +5,7 @@
 **„Leistungsanalyse von JIT-Kompilierungsstrategien in dynamischen Sprachen:  
 Ein Vergleich zwischen methodenbasierter (Numba) und tracingbasierter (PyPy) JIT-Kompilierung bei unstrukturierten algorithmischen Workloads.“**
 
-## Erläuterung 🧠
+## Erläuterung 📌
 
 Ziel des Projekts **„FoxExpress“** ist die Entwicklung einer vereinfachten Logistik-Software, mit der:
 
