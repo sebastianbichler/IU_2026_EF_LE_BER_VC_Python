@@ -88,7 +88,7 @@ class DataGenerator:
             if current_gen >= max_gen:
                 return
             
-            num_children = random.randint(2, children_per_elephant + 1)
+            num_children = random.randint(1, children_per_elephant + 1)
             birth_year = start_year + (current_gen * 15)
             
             for i in range(num_children):

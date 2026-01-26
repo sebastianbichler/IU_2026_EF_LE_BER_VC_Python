@@ -1,8 +1,5 @@
-"""
-Memory monitoring and garbage collection utilities.
-"""
+"""Memory monitoring utilities."""
 
-from .monitor import MemoryMonitor, track_memory
-from .gc_analyzer import GarbageCollectionAnalyzer
+from .monitor import MemoryMonitor
 
-__all__ = ['MemoryMonitor', 'track_memory', 'GarbageCollectionAnalyzer']
+__all__ = ['MemoryMonitor']

@@ -3,9 +3,10 @@ Elephant model with circular references for family relationships.
 This demonstrates Python's cyclic garbage collection.
 """
 
-import weakref
-from typing import Optional, List, Set
-from datetime import date
+from typing import Optional, List, Set, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from models.herd import Herd
 
 
 class Elephant:
@@ -14,62 +15,39 @@ class Elephant:
     
     CIRCULAR REFERENCE WARNING:
     - parent/children create bidirectional references
-    - Without proper cleanup, this creates memory cycles
+    - Python's cyclic GC handles cleanup automatically
     """
     
-    # Class-level tracking for memory analysis
     _instances: Set[int] = set()
     _instance_count = 0
     
-    def __init__(
-        self, 
-        name: str, 
-        birth_year: int,
-        gender: str,
-        use_weak_refs: bool = False
-    ):
+    def __init__(self, name: str, birth_year: int, gender: str):
         """
         Args:
             name: Elephant's name
             birth_year: Year of birth
             gender: 'M' or 'F'
-            use_weak_refs: If True, uses weak references for parent (experiment)
         """
         self.name = name
         self.birth_year = birth_year
         self.gender = gender
-        self.use_weak_refs = use_weak_refs
-        
-        # CIRCULAR REFERENCE: parent ↔ children
-        if use_weak_refs:
-            self._parent: Optional[weakref.ref] = None
-        else:
-            self._parent: Optional['Elephant'] = None
-            
+        self._parent: Optional['Elephant'] = None
         self.children: List['Elephant'] = []
-        self.herd: Optional['Herd'] = None  # Another potential circular reference
+        self.herd: Optional['Herd'] = None
         
-        # Track instance for memory monitoring
         Elephant._instance_count += 1
         Elephant._instances.add(id(self))
         self._id = Elephant._instance_count
     
     @property
     def parent(self) -> Optional['Elephant']:
-        """Get parent, handling both strong and weak references."""
-        if self.use_weak_refs and self._parent is not None:
-            return self._parent()  # Dereference weak reference
+        """Get parent elephant."""
         return self._parent
     
     @parent.setter
     def parent(self, value: Optional['Elephant']):
-        """Set parent, creating the circular reference."""
-        if self.use_weak_refs and value is not None:
-            self._parent = weakref.ref(value)
-        else:
-            self._parent = value
-        
-        # Automatically add this elephant as child of parent
+        """Set parent, creating circular reference."""
+        self._parent = value
         if value is not None and self not in value.children:
             value.children.append(self)
     
@@ -86,10 +64,7 @@ class Elephant:
         return [child for child in self.parent.children if child != self]
     
     def get_descendants(self, max_depth: int = 10) -> List['Elephant']:
-        """
-        Recursively get all descendants.
-        WARNING: This traverses circular references!
-        """
+        """Recursively get all descendants."""
         descendants = []
         visited = set()
         
@@ -97,7 +72,6 @@ class Elephant:
             if depth > max_depth or id(elephant) in visited:
                 return
             visited.add(id(elephant))
-            
             for child in elephant.children:
                 descendants.append(child)
                 _traverse(child, depth + 1)
@@ -120,11 +94,11 @@ class Elephant:
     
     @classmethod
     def get_instance_count(cls) -> int:
-        """Get number of living instances (for memory analysis)."""
+        """Get number of living instances."""
         return len(cls._instances)
     
     @classmethod
     def reset_tracking(cls):
-        """Reset tracking (for benchmarks)."""
+        """Reset tracking."""
         cls._instances.clear()
         cls._instance_count = 0

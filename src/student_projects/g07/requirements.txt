@@ -1,2 +1,3 @@
 streamlit>=1.30.0
 psutil>=5.9.0
+plotly>=5.18.0

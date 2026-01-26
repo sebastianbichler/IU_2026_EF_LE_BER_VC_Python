@@ -1,41 +1,49 @@
 # 🐘 Elephant Memory Cloud
 
-A comprehensive archive management system demonstrating Python's cyclic garbage collection at scale. Since elephants never forget, they use Python to manage the massive archive of the African savannah.
+A comprehensive Streamlit dashboard demonstrating Python's cyclic garbage collection at scale through an interactive elephant archive management system.
 
-## 🎯 Project Goals
+## 🎯 Project Purpose
 
-1. **Large-Scale Data Management**: Index events, family trees (who's related to whom?), and historical water source data
-2. **Efficient Search**: "Where's the nearest water source?" based on historical drought data
-3. **Memory Management**: Demonstrate Python's cyclic garbage collection handling thousands of circular references
-4. **Reminder Bot**: Notify animals of important anniversaries or migration starts
+This project visualizes how Python's cyclic garbage collector handles circular references by creating thousands of interconnected elephant family relationships. Watch in real-time as Python's mark-and-sweep algorithm successfully frees memory that reference counting alone cannot handle.
 
 ## 🚀 Features
 
-### 📊 Dashboard
-- **Real-time Memory Monitoring**: Live statistics showing memory usage, object counts, and GC metrics
-- **Circular Reference Tracking**: Monitor thousands of parent-child relationships in memory
-- **Performance Metrics**: Memory per elephant, GC efficiency, and more
+### 🏠 Dashboard
+- **2-Step GC Demonstration**: 
+  - Step 1: Break references (elephants become orphaned but stay in memory)
+  - Step 2: Run GC (Python's cyclic collector frees the orphaned objects)
+- **Live Memory Visualization**: Interactive pie chart showing Streamlit overhead, active elephants, orphaned elephants, and other data
+- **Real-time Metrics**: Process memory, Python objects, GC generation counts, and circular reference tracking
 
-### 🗄️ Large-Scale Data Generation
-- **Configurable Family Trees**: Generate 5-20 families with 2-10 generations each
+### 🗄️ Data Generation
+- **Natural Family Trees**: Generate 1-20 families with 2-10 generations
+- **Variable Children**: Each elephant has 1-N children (randomly assigned for natural variation)
 - **Multiple Herds**: Create 5-50 herds with automatic elephant assignment
 - **Historical Events**: Generate up to 10,000 events (migrations, births, droughts)
-- **Water Source Database**: 10 water sources with 25+ years of availability data
-- **Progress Tracking**: Real-time progress bars during generation
+- **Water Sources**: 10 water sources with 25+ years of drought/availability data
+- **Progress Tracking**: Real-time progress bar during generation
 
-### 🔍 Efficient Search Engine
-- **In-Memory Indexes**: O(1) lookup using dictionary-based indexes
-- **Nearest Water Source**: Find closest water by coordinates with availability check
-- **Drought History**: Search drought years across all water sources
-- **Event Timeline**: Search events by year, location, type, or elephant
-- **Migration Alerts**: Anniversary notifications for historical migrations
-- **Search Statistics**: Monitor index performance and coverage
+### 🔍 Search Engine
+- **6 Search Types**:
+  - Nearest Water Source (spatial search with availability check)
+  - Drought History (search by year range)
+  - Events by Year (with interactive bar chart)
+  - Elephant Timeline (individual elephant history)
+  - Migration Alerts (anniversary notifications)
+  - Search Statistics (index performance metrics)
+- **In-Memory Indexes**: O(1) dictionary lookups for fast queries
 
-### 📈 Analytics
-- **Memory Impact Analysis**: See memory usage per elephant and per circular reference
-- **GC Statistics**: Monitor all 3 generations of Python's garbage collector
-- **Dataset Visualization**: Interactive charts showing data distribution
-- **Export Capability**: Save current dataset to JSON
+### 🌳 Genealogy
+- **Family Overview**: Total families, average size, generation depth, circular references, orphans
+- **Interactive Family Tree**: Hierarchical visualization using NetworkX and Plotly
+  - Color-coded by generation
+  - Hover for details (name, birth year, children count)
+  - Automatic layout positioning
+- **Relationship Analysis**:
+  - Children distribution chart (0 children = red, others = blue)
+  - Age distribution over time (area chart)
+  - Oldest and youngest elephants
+  - Average children and average age metrics
 
 ## 🏃 Quick Start
 
@@ -43,10 +51,10 @@ A comprehensive archive management system demonstrating Python's cyclic garbage 
 
 ```bash
 # Clone or navigate to the project directory
-cd src/student_projects/g07
+cd elephant_memory_cloud
 
 # Create virtual environment
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
@@ -64,35 +72,49 @@ The dashboard will open at **http://localhost:8501**
 ### First Steps
 
 1. **Go to "Data Generation" tab**
-2. **Configure parameters** (start with 5 families, 5 generations, 1000 events)
-3. **Click "Generate Large Dataset"** and watch the progress
-4. **Explore Search tab** to query the data
-5. **Check Analytics tab** to see memory impact
+2. **Configure parameters** (recommended: 5 families, 5 generations, 3 max children, 1000 events)
+3. **Click "Generate Large Dataset"** - watch the progress bar
+4. **Return to Dashboard tab** to see live memory usage
+5. **Try the 2-step GC demo**:
+   - Click "Break References" → elephants become orphaned (stay in memory)
+   - Click "Run GC" → Python's cyclic GC frees them
+6. **Explore Search tab** to query the generated data
+7. **Check Genealogy tab** to visualize family trees and relationships
 
 ## 🏗️ Architecture
 
 ### In-Memory Storage
 All data lives in Python memory with **circular references intact**:
-- Elephants ↔ Parents/Children (circular parent-child relationships)
+- Elephants ↔ Parents/Children (bidirectional parent-child relationships)
 - Elephants ↔ Herds (bidirectional membership)
 - Events → Elephants (historical references)
 
-This architecture is **perfect for demonstrating Python's cyclic GC** because:
-- Traditional reference counting would leak memory
-- Python's mark-and-sweep collector handles cycles efficiently
-- We can monitor GC performance at scale
+This architecture **demonstrates Python's cyclic GC** because:
+- Traditional reference counting alone would leak memory (cycles prevent refcount reaching 0)
+- Python's mark-and-sweep collector identifies unreachable cycles
+- The 2-step demo proves this: orphaned objects stay in memory until GC runs
+
+### Visualization Stack
+- **Streamlit**: Dashboard framework
+- **Plotly**: Interactive charts (pie, bar, area, network graphs)
+- **psutil**: Process memory monitoring
+
+### Family Tree Implementation
+- **Native Python dictionaries**: Graph structure (nodes & edges)
+- **Custom hierarchical layout**: Automatic positioning by generation
+- **Plotly visualization**: Interactive tree with hover details
 
 ### Search Performance
 - **Dictionary-based indexes** for O(1) lookups
 - Year index: `{2020: [event1, event2, ...]}`
 - Elephant index: `{"Ella": [event1, event2, ...]}`
-- Location index: Grid-based spatial indexing
+- Spatial index: Grid-based for water source queries
 
 ## 📁 Project Structure
 
 ```
 elephant_memory_cloud/
-├── streamlit_app.py           # Main Streamlit dashboard (4 tabs)
+├── app.py                     # Main Streamlit dashboard (4 tabs)
 ├── requirements.txt           # Python dependencies
 ├── README.md                  # This file
 │
@@ -106,13 +128,12 @@ elephant_memory_cloud/
 ├── memory/                    # Memory management & monitoring
 │   ├── __init__.py
 │   ├── monitor.py            # Process memory monitoring
-│   ├── gc_analyzer.py        # Circular reference detection
 │   └── store.py              # In-memory object store
 │
 ├── data/                      # Data generation
 │   ├── __init__.py
-│   ├── generator.py          # Large-scale data generation
-│   └── default_data.json     # Seed data
+│   └── generator.py          # Large-scale data generation
+
 │
 └── search/                    # Search engine
     ├── __init__.py
