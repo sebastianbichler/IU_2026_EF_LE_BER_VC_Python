@@ -1,33 +1,27 @@
 ```mermaid
-graph LR
+flowchart LR
     %% --- STYLING ---
     classDef actorStyle fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:black;
-    classDef systemStyle fill:#fff,stroke:#333,stroke-width:3px,rx:10,ry:10,color:black;
+    classDef systemStyle fill:#ffffff,stroke:#333333,stroke-width:3px,rx:10,ry:10,color:black;
 
-    %% --- ENTITIES ---
+    %% --- KNOTEN ---
     Guest(Sloth Guest<br>Kunde):::actorStyle
-    Sid(Sid Sloth<br>Manager):::actorStyle
     System(Sloth's Slow-Motion<br>Hotel System):::systemStyle
+    Sid(Sid Sloth<br>Manager):::actorStyle
 
-    %% --- DATA FLOWS: GUEST -> SYSTEM ---
-    Guest -- "Buchungsdaten<br>Wunschzeitraum" --> System
-    Guest -- "Aktivitätsdaten<br>Schritte" --> System
-    Guest -- "Service-Anfrage<br>Essen / Wecken" --> System
-    Guest -- "Zustandsänderung<br>Schlafen / Wachen" --> System
+    %% --- FLUSS: GAST <-> SYSTEM ---
+    %% Wir bündeln die Eingaben in einen Pfeil für saubere Linienführung
+    Guest -- "Eingabe:<br>1. Buchung & Schritte<br>2. Service & Status" --> System
+    
+    %% Wir bündeln die Ausgaben
+    System -- "Ausgabe:<br>1. Bestätigung & Rabatt<br>2. Weckruf & Fehler" --> Guest
 
-    %% --- DATA FLOWS: SYSTEM -> GUEST ---
-    System -- "Buchungsbestätigung<br>oder Ablehnung" --> Guest
-    System -- "Rabatt-Information<br>Inverser Kalkulator" --> Guest
-    System -- "Service-Ausführung<br>Verzögerter Alarm / Essen" --> Guest
-    System -- "Fehlermeldung<br>Ungültiger Zustand" --> Guest
+    %% --- FLUSS: SID <-> SYSTEM ---
+    %% Manager Inputs
+    Sid -- "Konfiguration<br>(Regeln & Preise)" --> System
 
-    %% --- DATA FLOWS: SID -> SYSTEM ---
-    Sid -- "Konfiguration<br>Preise / Regeln" --> System
-    Sid -- "Abfrage<br>Statusbericht" --> System
-
-    %% --- DATA FLOWS: SYSTEM -> SID ---
-    System -- "Belegungsdaten<br>Report" --> Sid
-    System -- "Performance-Daten<br>Umsatz" --> Sid
+    %% Manager Outputs
+    System -- "Reporting<br>(Belegung & Umsatz)" --> Sid
 
 ```
 ```mermaid
