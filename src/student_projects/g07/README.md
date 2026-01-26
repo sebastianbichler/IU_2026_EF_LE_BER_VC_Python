@@ -8,7 +8,6 @@ Anhand eines thematisch eingebetteten Szenarios (Elefanten, Stammbäume, Ereigni
 
 Die allgemeinen Voraussetzungen hinsichtlich Python, virtuellen Umgebungen und der globalen Installation von Abhängigkeiten (pip) ist dem übergeordneten Projekt zu entnehmen.
 
-Projektspezifische Abhängigkeiten: `pip install -r requirements.txt`
 Virtuelle Umbegung erstellen & Programm starten:
 ```
 python -m venv venv
