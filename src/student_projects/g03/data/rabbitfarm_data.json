@@ -1,0 +1,58 @@
+{
+  "vegetables": [
+    {
+      "name": "Gurke",
+      "sort": "Deutsch",
+      "plant_date": "2025-01-26T00:00:00",
+      "harvest_date": "2025-01-26T00:00:00",
+      "bed_id": 1,
+      "shelf_life_days": 10,
+      "amount": 100.0
+    }
+  ],
+  "beds": [
+    {
+      "id": 1,
+      "name": "Gurke",
+      "size_m2": 100.0
+    }
+  ],
+  "customers": [
+    {
+      "name": "Max",
+      "species": "Hase",
+      "subscription_type": "wöchentlich"
+    }
+  ],
+  "inventory": [
+    {
+      "name": "Gurke",
+      "sort": "Deutsch",
+      "plant_date": "2025-01-26T00:00:00",
+      "harvest_date": "2025-01-26T00:00:00",
+      "bed_id": 1,
+      "shelf_life_days": 10,
+      "amount": 50.0
+    }
+  ],
+  "orders": [
+    {
+      "customer_name": "Max",
+      "customer_species": "Hase",
+      "customer_subscription_type": "wöchentlich",
+      "vegetables": [
+        {
+          "name": "Gurke",
+          "sort": "Deutsch",
+          "plant_date": "2025-01-26T00:00:00",
+          "harvest_date": "2025-01-26T00:00:00",
+          "bed_id": 1,
+          "shelf_life_days": 10,
+          "amount": 100.0
+        }
+      ],
+      "delivery_date": "2026-01-28T09:18:28.941905",
+      "price": 20.0
+    }
+  ]
+}
