@@ -97,6 +97,5 @@ pydantic>=2.4.0     # Data Validation
 pytest>=7.4.0       # Testing Framework
 pytest-cov>=4.1.0   # Test Coverage Reports
 faker>=19.0.0       # Data Generation
-black>=23.9.0       # Code Formatting
 ruff>=0.1.0         # Linting
 mypy>=1.6.0         # Static Type Checking
