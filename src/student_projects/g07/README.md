@@ -60,7 +60,7 @@ Das Verzeichnis `docs/` bündelt **alle konzeptionellen und planerischen Dokumen
 
 **Dokumente:**
 
-* `docs/phase_1/Konzept.md` – Gesamtkonzept & Anforderungen
+* `docs/concept/Conzept.md` – Gesamtkonzept & Anforderungen
 
 ### 2.2.2 t.b.d
 ### 2.2.3 t.b.d.
