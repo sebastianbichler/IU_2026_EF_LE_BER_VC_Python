@@ -146,3 +146,25 @@ Diese Pakete müssen in der Python-Umgebung installiert werden.
 
 * **IDE:** VS Code
 * **Version Control:** Git & GitHub
+
+---
+
+## 5. Use Case Diagramm
+Das Use Case Diagramm zeigt die funktionalen Anforderungen aus Sicht des Hauptakteurs Sammy Squirrel
+usecaseDiagram
+    actor "Sammy Squirrel" as User
+    actor "System" as System
+
+    User --> (Verstecke verwalten)
+    User --> (Dummy-Daten generieren)
+    User --> (Diebstahl erkennen)
+    User --> (Performance-Benchmark ausführen)
+    User --> (Zinseszins berechnen)
+    User --> (Winterüberleben prognostizieren)
+    User --> (Ergebnisse visualisieren)
+
+    (Performance-Benchmark ausführen) --> (Native Python Berechnung)
+    (Performance-Benchmark ausführen) --> (NumPy SIMD Berechnung)
+
+    (Winterüberleben prognostizieren) --> System
+    (Performance-Benchmark ausführen) --> System
