@@ -12,7 +12,7 @@ Dieses Dokument beschreibt die konzeptionelle Planung des Projekts *Elephant Mem
 
 ---
 
-## 2. Projektidee & Zielsetzung
+## 2. Projekt & Zielsetzung
 
 Die *Elephant Memory Cloud* ist ein Python‑Prototyp eines digitalen Gedächtnisses für „Ella Elefant“.
 Ziel ist **nicht** die Entwicklung eines produktionsreifen Systems, sondern:
@@ -33,6 +33,7 @@ Die thematische Einbettung (Savanne, Elefanten, Wasserstellen) dient ausschließ
 * Reproduzierbare GC‑Experimente
 * Messung und Dokumentation von Speicherverhalten
 * Funktionsfähige, einfache Visualisierung
+* siehe `./MVP.md`
 
 ### Erweiterungen (optional)
 
