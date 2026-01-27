@@ -1,4 +1,4 @@
-# RabbitFarm – Der Gemüsehof des Hasen 🥕🐇
+# RabbitFarm – Der Gemüsehof des Hasen
 
 ## 1. Projektüberblick
 
@@ -220,12 +220,3 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 - [ ] Testsuite vollständig.  
 - [ ] Dokumentation + wissenschaftlicher Teil final.  
 - [ ] Projekt-Reflexion (Abstract) schreiben.
-
----
-
-## 11. Offene Punkte / Ideen
-
-- [ ] Konkrete Beispielkunden & -rezepte ausarbeiten (Storytelling).  
-- [ ] Saisonale Events (z.B. „Karottenfestival“, „Salatwoche“).  
-- [ ] Erweiterung um einfache Weboberfläche.  
-- [ ] Optionale Export-/Importfunktionen für Daten (Backup).
