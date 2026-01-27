@@ -8,55 +8,78 @@
 
 ## #12 2026-02-24, Tuesday (3 UE)
 
+- group project work time (breakt out sessions)
 - consulting for student projects
+- code review session
 
 ## #11 2026-02-23, Monday (3 UE)
 
-- Consulting for student projects
+- group project work time (breakt out sessions)
+- code review session
 
 ## #10 2026-02-10, Tuesday (3 UE)
 
+- group project work time (breakt out sessions)
+
 ## #9 2026-02-09, Monday (3 UE)
 
-## #8 2026-02-03, Tuesday (3 UE)
+- group project work time (breakt out sessions)
 
+## #8 2026-02-03, Tuesday (3 UE)
+- GUI (tkinter, etc.)
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion6.pdf (in Teams-Group)
+  - Best Practices
 ## #7 2026-02-02, Monday (3 UE)
 
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf (in Teams-Group)
+  - OOP
+- group project work time
+-
 ## #6 2026-01-27, Tuesday (3 UE)
 
+- Presentation (P2) of project concepts by student groups (if there is time) or work in breakout-rooms
 - Presentation of project designs by student groups (first implementation phase)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf (in Teams-Group)
-- Best Practices
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (see Teams-Group)
+  - Moduls and packages
+  - Dörn: Appendix A: Important modules with its description
 
 ## #5 2026-01-26, Monday (3 UE)
 
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (in Teams-Group)
-- Moduls and packages
+- Check local linter and formatter setup
+  - use ruff for both linting and formatting
+  - delete black if installed in order to avoid conflicts
+- How to turn-in instructions via PebblePad (pdf)
+  - only final report is required to be turned in
+  - however, test it today
+- Group 7 visualization (which diagram) ???
+- Presentation (Part1) of project concepts by student groups (if there is time) or work in breakout-rooms
+- Check on voluntary homework (FS), show new basic examples
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (see Teams-Group)
+  - Functions
+  - Exceptions and error handling
 
 ## #4 2026-01-26, Tuesday (3 UE)
 
 - SF 11 unf 12
-- E-Mail Ahmet (work in notbeooks, no other GUI required)
+- E-Mail Ahmet (work in notebeooks, no other GUI required)
 - Time for group project work
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (from slide 23, in Teams-Group)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (in Teams-Group)
-    - Functions<
-    - Exceptions and error handling
 - Presentation of project concepts by student groups (if there is time)
+  - G09: streamlit
 
 ## #3 2026-01-19, Monday (3 UE)
 
 - TODO Finish group assignment for project ideas ((Leon Kinski, Oliver Mayer)
 - TODO set line endings to LF (Linux/Mac) in your IDE (VSCode, PyCharm, etc.)
 - Presentation of main aspect of student projects (me):
-  - Memory Management
-  - Vectorization (NumPy),
-  - Metaprogramming,
-  - Probabilistic Programming (2x))
-  - Typing (MyPy)
-  - Functional Programming
-  - JIT Compilation (Numba)
-  - Structural Design Patterns
+    - Memory Management
+    - Vectorization (NumPy),
+    - Metaprogramming,
+    - Probabilistic Programming (2x))
+    - Typing (MyPy)
+    - Functional Programming
+    - JIT Compilation (Numba)
+    - Structural Design Patterns
 
 ## 2026-01-14
 

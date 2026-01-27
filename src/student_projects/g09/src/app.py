@@ -3,7 +3,6 @@ import time
 from datetime import datetime, timedelta
 from models import HammockBooking, MovementTracker, CONFIG
 from states import RestingState, SleepingState, EatingState
-from streamlit_extras.let_it_rain import rain
 
 # --- Setup & Session State ---
 st.set_page_config(page_title="Sloth Resort", page_icon="🦥")
@@ -81,12 +80,6 @@ elif menu == "Hammock Booking":
             try:
                 # Pydantic Validierung feuert hier
                 booking = HammockBooking(guest_name=name, nights=nights)
-                rain(
-                    emoji="🦥",
-                    font_size=80,
-                    falling_speed=7,
-                    animation_length="10s",
-                )
                 st.balloons()
                 st.snow()
 

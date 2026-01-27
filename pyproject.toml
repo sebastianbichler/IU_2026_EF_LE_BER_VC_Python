@@ -1,0 +1,5 @@
+[tool.ruff.format]
+quote-style = "double"        # Entspricht Black Standard
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

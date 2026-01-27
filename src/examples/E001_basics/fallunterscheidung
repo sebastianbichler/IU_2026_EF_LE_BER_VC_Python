@@ -1,0 +1,13 @@
+digraph Fallunterscheidung {
+	rankdir=LR size=8
+	Start [label=Start]
+	Cond [label="Bedingung ?" shape=diamond]
+	A1 [label="Anweisung 1" shape=box]
+	A2 [label="Anweisung 2" shape=box]
+	Weiter [label="Weiterer Programmablauf"]
+	Start -> Cond
+	Cond -> A1 [label=Ja]
+	Cond -> A2 [label=Nein]
+	A1 -> Weiter
+	A2 -> Weiter
+}

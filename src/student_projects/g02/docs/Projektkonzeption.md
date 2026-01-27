@@ -8,7 +8,7 @@
 Das Ziel ist die Entwicklung einer **hochperformanten Python-Anwendung**, die als "Nuss-Zentralbank" fungiert. Sie soll nicht nur Bestände verwalten, sondern durch wissenschaftliche Methoden beweisen, dass moderne Array-Programmierung herkömmlichen Schleifen bei großen Datenmengen überlegen ist.
 
 ### Was soll die Anwendung können?
-1.  **Verwaltung:** Digitalisierung des Vorratsnetzwerks 
+1.  **Verwaltung:** Digitalisierung des Vorratsnetzwerks
 2.  **Analyse:** Berechnung komplexer Szenarien (Zinseszins, Winterprognosen) für Tausende von Datensätzen gleichzeitig
 3.  **Wissenschaftlicher Beweis:** Implementierung eines Benchmarks, der die Rechenzeit von nativem Python (`for`-loops) gegen NumPy (SIMD/Vectorization) vergleicht
 
@@ -18,13 +18,13 @@ Das Ziel ist die Entwicklung einer **hochperformanten Python-Anwendung**, die al
 
 Wir priorisieren die Anforderungen nach MoSCoW
 
-### 2.1 Funktionale Anforderungen 
+### 2.1 Funktionale Anforderungen
 
 #### **Priorität 1: Must Have**
 * **F01 – Versteck-Verwaltung:** Das System muss Datensätze für Verstecke speichern können
     * Attribute: ID, Koordinaten, Erdtiefe, Nussart, Menge, Haltbarkeitsdatum
 * **F02 – Datengenerierung:** Ein Modul zur Erzeugung von Dummy-Daten, um die Performance-Tests überhaupt sinnvoll zu machen
-* **F03 – Diebstahl-Erkennung:** Logik zum Vergleich von `Soll-Bestand` vs. `Ist-Bestand`. Wenn `Ist < Soll`, muss eine Warnung ausgegeben werden 
+* **F03 – Diebstahl-Erkennung:** Logik zum Vergleich von `Soll-Bestand` vs. `Ist-Bestand`. Wenn `Ist < Soll`, muss eine Warnung ausgegeben werden
 * **F04 – Performance-Benchmark:**
         1.  **Iterativ:** Klassische Python `for`-Schleifen
         2.  **Vektorisiert:** NumPy Arrays unter Nutzung von SIMD
@@ -40,7 +40,7 @@ Wir priorisieren die Anforderungen nach MoSCoW
     * Eine einfache Oberfläche, um Daten einzugeben und die Benchmark-Ergebnisse grafisch anzuzeigen.
     * Visualisierung der Verstecke auf einer "Karte".
 
-### 2.2 Nicht-funktionale Anforderungen 
+### 2.2 Nicht-funktionale Anforderungen
 
 * **NF01 – Performance:** Die NumPy-Implementierung muss bei großen Datensätzen signifikant schneller sein als die native Python-Lösung.
 * **NF02 – Reproduzierbarkeit:** Die Benchmark-Ergebnisse müssen bei jedem Durchlauf konsistent messbar sein.
@@ -49,6 +49,51 @@ Wir priorisieren die Anforderungen nach MoSCoW
 
 ## 3. Software Design & Architektur
 Das System folgt einer modularen Architektur mit einer strikten Trennung zwischen Datenerzeugung, Datenhaltung und den Rechenkernen, um einen Vergleich zu gewährleisten.
+
+```mermaid
+graph LR
+    %% Actors
+    subgraph Akteure
+        S((Sammy Admin))
+        T[System-Timer]
+        N((Nachbar))
+    end
+
+    %% System Boundary
+    subgraph "Squirrel Secret Stash System"
+        UC1(Verstecke digitalisieren)
+        UC2(Dummy-Daten generieren)
+        UC3(Diebstahl-Check durchführen)
+        UC4(Zinseszins berechnen)
+        UC5(Winterprognose erstellen)
+        UC6(Performance-Benchmark starten)
+        UC7(Statistiken visualisieren)
+    end
+
+    %% Relations Sammy
+    S --- UC1
+    S --- UC2
+    S --- UC6
+    S --- UC7
+
+    %% Relations Timer/System
+    T --- UC3
+    T --- UC5
+
+    %% Relations Neighbor
+    N --- UC4
+
+    %% Dependencies
+    UC6 -.->|include| UC4
+    UC6 -.->|include| UC3
+    UC7 -.->|extend| UC6
+
+    %% Styling
+    style S fill:#f9f,stroke:#333,stroke-width:2px
+    style N fill:#f9f,stroke:#333,stroke-width:2px
+    style T fill:#fff,stroke:#333,stroke-dasharray: 5 5
+```
+
 
 ```mermaid
 classDiagram
@@ -115,7 +160,7 @@ classDiagram
 
 Für die Umsetzung der "Squirrel Secret Stash" Anwendung benötigen wir spezifische Werkzeuge. Da der Fokus auf dem wissenschaftlichen Vergleich liegt, ist die Wahl der Bibliotheken entscheidend
 
-### 4.1 Benötigte Bibliotheken 
+### 4.1 Benötigte Bibliotheken
 
 Diese Pakete müssen in der Python-Umgebung installiert werden.
 
@@ -146,3 +191,10 @@ Diese Pakete müssen in der Python-Umgebung installiert werden.
 
 * **IDE:** VS Code
 * **Version Control:** Git & GitHub
+    User --> (Ergebnisse visualisieren)
+
+    (Performance-Benchmark ausführen) --> (Native Python Berechnung)
+    (Performance-Benchmark ausführen) --> (NumPy SIMD Berechnung)
+
+    (Winterüberleben prognostizieren) --> System
+    (Performance-Benchmark ausführen) --> System

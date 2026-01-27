@@ -43,7 +43,8 @@
 - erste minimalistische lauffähige Python App
 - möglichst 2 Requirements implementiert
 - Initiale Dokumentation im Python Projekt integriert (z.B. Konzeption als Markdown Datei)
-
+- Präsentation am 26.01.2026 (KW 5)
+-
 ---
 
 ## Projekt – Finalisierungsphase
@@ -52,6 +53,7 @@
 - Dokumentation (innerhalb des Projektes) inkl. Requirements, Software Design
 - Vollständige Readme Datei
 - CI/CD Umsetzung (requirments.txt, Unittests, Integrationtests)
+- Abgabe: 10.02.2026 (KW 7) über PebblePad
 
 ---
 

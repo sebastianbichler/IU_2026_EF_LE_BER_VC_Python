@@ -64,6 +64,8 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 | Numerik        | NumPy                   | Arrays & Matrizen         | Die Basis für fast alles.            |
 | Tabellen       | Pandas                  | Daten-Manipulation        | Excel in Python                      |
 | Statistik      | SciPy                   | Komplexe Berechnungen     | Integration, Optimierung, FFT.       |
+| Statistik      | arviz                   | Bayesian Analysis         | Visualisierung und Diagnose.         |
+| Statistik      | PyMC3                   | Bayesian Modeling         | Probabilistische Programmierung.     |
 | Visualisierung | Matplotlib              | Grafiken & Plots          | Sehr mächtig, etwas sperrig.         |
 | Stat. Visual.  | Seaborn                 | Schöne Grafiken           | Einfacher als Matplotlib.            |
 | Workflow       | JupyterLab              | Interaktives Arbeiten     | Browser-IDE für Daten-Exploration.   |
@@ -127,10 +129,12 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 
       return a + b
   ```
+
 ---
 
 ## Nützliche Ressourcen
 
+- [Python Package Index](https://pypi.org/)
 - [Python Official Documentation](https://docs.python.org/3/)
 - [NumPy Documentation](https://numpy.org/doc/)
 - [Pandas Documentation](https://pandas.pydata.org/docs/)
@@ -144,6 +148,7 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 - [Jupyter Documentation](https://jupyter.org/documentation)
 - [Flask Documentation](https://flask.palletsprojects.com/en/2.0.x/)
 - [Django Documentation](https://docs.djangoproject.com/en/stable/)
+- [Streamlit](https://pypi.org/project/streamlit/)
 - [PEP 8 Style Guide](https://www.python.org/dev/peps/pep-0008/)
 - [Real Python Tutorials](https://realpython.com/)
 - [Awesome Python](https://awesome-python.com/)
@@ -160,11 +165,15 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 
 ## Code snippets
 
-- **Pakete installieren**: pip install package_name
-- **Abhängigkeiten speichern**: pip freeze > requirements.txt
-- **Abhängigkeiten installieren**: pip install -r requirements.txt
+- **Pakete installieren**: `pip install package_name`
+- **Abhängigkeiten speichern**:
+  - `pip freeze > requirements.txt`
+  - `python -m pip freeze | Set-Content -Path requirements.txt -Encoding utf8NoBOM`
+  - after freeze, edit: pywinpty==3.0.2; platform_system == "Windows"
+- **Abhängigkeiten installieren**: `pip install -r requirements.txt`
 - **Virtuelle Umgebung erstellen**: `python -m venv env_name`
-- **Virtuelle Umgebung aktivieren**: `source env_name/bin/activate (Linux/Mac)` oder `env_name\Scripts\activate (Windows)`
+- **Virtuelle Umgebung aktivieren**: `source env_name/bin/activate (Linux/Mac)` oder
+  `env_name\Scripts\activate (Windows)`
 - **Aktuelle virtuelle Umgebung anzeigen:** `which python (Linux/Mac)` oder `where python (Windows)`
 - **Formatierung standardisieren**: `ruff format`
 - **Code-Qualität prüfen**: `ruff check .`

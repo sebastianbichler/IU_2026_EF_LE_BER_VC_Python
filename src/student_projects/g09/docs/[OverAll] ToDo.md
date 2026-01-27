@@ -13,9 +13,6 @@
 - [x] **Ressourcenplanung**
   - [x] Datensätze beschaffen
   - [x] Benötigte Bibliotheken identifizieren
-- [ ] **Präsentation der Konzeption**
-  - [ ] Handout erstellen
-  - [ ] Handout hochladen (z.B. PebblePad)
 
 ## Phase 2: Einarbeitungsphase
 
