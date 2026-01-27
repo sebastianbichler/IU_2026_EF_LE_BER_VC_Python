@@ -21,3 +21,4 @@
 | 27.01.2026    | Tim      | Readme - Einleitung schreiben | 02.02.2025 19:00|
 | 27.01.2026    | Tim      | Readme - Wissenschaftliche Fragestellung schreiben | 02.02.2025 19:00|
 | 27.01.2026    | Tim      | Readme - Theoretischer Hintergrund schreiben | 02.02.2025 19:00|
+| 27.01.2026    | Tim      | UML updaten (PDF und .md) - siehe ROADMAP | 30.01.2025 19:00|
