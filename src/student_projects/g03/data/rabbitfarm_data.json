@@ -53,6 +53,24 @@
       ],
       "delivery_date": "2026-01-28T09:18:28.941905",
       "price": 20.0
+    },
+    {
+      "customer_name": "Max",
+      "customer_species": "Hase",
+      "customer_subscription_type": "wöchentlich",
+      "vegetables": [
+        {
+          "name": "Gurke",
+          "sort": "Deutsch",
+          "plant_date": "2025-01-26T00:00:00",
+          "harvest_date": "2025-01-26T00:00:00",
+          "bed_id": 1,
+          "shelf_life_days": 10,
+          "amount": 100.0
+        }
+      ],
+      "delivery_date": "2026-01-30T09:10:16.103315",
+      "price": 12.0
     }
   ]
 }

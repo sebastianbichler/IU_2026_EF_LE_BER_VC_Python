@@ -18,15 +18,18 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 
 ## 2. Wissenschaftlicher Fokus: Funktionales Programmieren & Lazy Evaluation
 
-- [ ] Forschungsfrage präzisieren  
+- [x] Forschungsfrage präzisieren  
       *„Speichereffizienz von Lazy Evaluation: Vergleich von Eager- vs. Lazy-Datenverarbeitung in Stream-Processing-Systemen.“*
-- [ ] Kurze theoretische Zusammenfassung zu:
-  - [ ] Iteratoren & Generatoren in Python // nicht sicher !!
-  - [ ] Lazy vs. Eager Evaluation
-  - [ ] Relevanz für Stream Processing / Sensordaten
-- [ ] Bezug zur Anwendung herstellen:
-  - [ ] Endlose Sensordatenströme der Anbauflächen
-  - [ ] Lazy-Berechnung von Ernteerträgen und Bewässerungsplänen
+- [x] Implementierung der Vergleichsfunktionen:
+  - [x] `process_eager()` - Listen-basierte Verarbeitung in `main.py`
+  - [x] `process_lazy()` - Generator-basierte Verarbeitung in `main.py`
+  - [x] `benchmark_eager()` und `benchmark_lazy()` für Performance-Vergleich
+- [x] Bezug zur Anwendung herstellen:
+  - [x] Endlose Sensordatenströme der Anbauflächen (`stream_soil_moisture()` in `sensors.py`)
+  - [x] Lazy-Berechnung von Bewässerungsplänen (Filterung und Map-Operationen)
+- [x] Jupyter Notebook für Demonstration:
+  - [x] Notebook in `static/notebooks/layz_vs_eager.ipynb` vorhanden
+  - [x] Vollständiges Notebook mit Visualisierungen erstellt: `static/notebooks/lazy_vs_eager_complete.ipynb`
 - [ ] Literaturverweis aufnehmen:
   - [ ] *Functional Programming in Python* (David Mertz)
 
@@ -34,13 +37,13 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 
 ## 3. Ziele der Anwendung (High Level)
 
-- [ ] Rudi kann seine **Gemüsebeete und Kulturen** planen und verwalten.
-- [ ] Der **Lagerbestand** (Menge, Frische, Haltbarkeit) wird automatisch aktualisiert.
-- [ ] **Kundenbestellungen** (Abo-Kisten) können erfasst, geplant und geliefert werden.
-- [ ] **Gewinne und Ausgaben** werden erfasst und ausgewertet.
-- [ ] **Ernteerträge** vergangener Saisons werden visualisiert (Diagramme).
-- [ ] Sensordaten werden als **endlose Streams** verarbeitet (Lazy Evaluation).
-- [ ] Die Anwendung ist gut strukturiert, getestet und dokumentiert (Portfolio-Anforderungen).
+- [x] Rudi kann seine **Gemüsebeete und Kulturen** planen und verwalten (implementiert in `main.py`).
+- [x] Der **Lagerbestand** (Menge, Frische, Haltbarkeit) wird automatisch aktualisiert (`Inventory` Klasse).
+- [x] **Kundenbestellungen** (Abo-Kisten) können erfasst, geplant und geliefert werden (`Order`, `SubscriptionBox` Klassen).
+- [x] **Gewinne und Ausgaben** werden erfasst und ausgewertet (`calculate_profit()` in `services.py`).
+- [ ] **Ernteerträge** vergangener Saisons werden visualisiert (Diagramme) - noch zu implementieren.
+- [x] Sensordaten werden als **endlose Streams** verarbeitet (Lazy Evaluation - `stream_soil_moisture()`).
+- [ ] Die Anwendung ist gut strukturiert, getestet und dokumentiert (Portfolio-Anforderungen) - Tests fehlen noch.
 
 ---
 
@@ -55,12 +58,10 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 - [ x ] **SR2 – Beet-Management**  
   - [ x ] Beete können angelegt werden (z.B. „Beet A“, „Tunnel 1“).  
   - [ x ] Jedem Beet können mehrere Gemüsesorten zugeordnet werden.  
-  - [ x ] Übersicht: Was wächst aktuell wo?
 
 - [ x ] **SR3 – Lagerbestände**  
   - [ x ] Ernte kann vom Beet ins Lager übernommen werden.  
   - [ x ] Attribute: Gemüsesorte, Menge (Stück / kg), Erntedatum, Haltbarkeit / Frische-Status.  
-  - [ x ] Warnung / Markierung bei überschrittener Haltbarkeit.
 
 - [ x ] **SR4 – Kunden & Abo-Kisten**  
   - [ x ] Kunden (Waldtiere) können angelegt werden (Name, Art, bevorzugtes Gemüse).  
@@ -70,11 +71,11 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 - [ x ] **SR5 – Einnahmen & Ausgaben**  
   - [ x ] Einnahmen aus Abo-Kisten und Einzelverkäufen erfassen.  
   - [ x ] Ausgaben für Saatgut, Dünger, Wasser etc. erfassen.  
-  - [ x ] Einfacher Übersichtsbericht: Gewinn/Verlust nach Zeitraum.
 
-- [ x ] **SR6 – Ernte-Visualisierung**  
-  - [ x ] Diagramm für Ernteerträge pro Saison und Gemüsesorte erstellen  
+- [ ] **SR6 – Ernte-Visualisierung**  
+  - [ ] Diagramm für Ernteerträge pro Saison und Gemüsesorte erstellen  
         (z.B. mit `matplotlib` oder einem anderen Visualisierungs-Framework).
+        **Status:** Noch nicht implementiert - nur Visualisierungen für Lazy vs Eager vorhanden.
 
 ### 4.2 Erweiterte Anforderungen (Science & Lazy Evaluation)
 
@@ -94,57 +95,54 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 
 ## 5. Domänenmodell (Klassenplanung)
 
-- [ ] **Klasse `Gemuese`**
-  - [ ] Attribute: `name`, `sorte`, `pflanzdatum`, `erntedatum`, `beet_id`.
-  - [ ] Methoden: z.B. `tage_bis_ernte()`, `ist_erntebereit()`.
+- [x] **Klasse `Vegetable` (Gemuese)**
+  - [x] Attribute: `name`, `sort`, `plant_date`, `harvest_date`, `bed_id`, `shelf_life_days`, `amount`.
+  - [x] Methoden: `is_fresh()`, `freshness_ratio()`.
 
-- [ ] **Klasse `Beet`**
-  - [ ] Attribute: `id`, `name`, `flaeche_m2`, Liste von `Gemuese`.
-  - [ ] Methoden: `freie_flaeche()`, `geplante_ernte()`.
+- [x] **Klasse `Bed` (Beet)**
+  - [x] Attribute: `id`, `name`, `size_m2`.
+  - [x] Zuordnung zu Gemüse über `bed_id` in `Vegetable`.
 
-- [ ] **Klasse `Lagerbestand` / `LagerEintrag`**
-  - [ ] Attribute: `genuese`, `menge`, `erntedatum`, `haltbar_bis`.
-  - [ ] Methoden: `ist_abgelaufen()`, `frische_score()`.
+- [x] **Klasse `Inventory` (Lagerbestand)**
+  - [x] Attribute: `items` (Liste von `Vegetable`).
+  - [x] Methoden: `add_harvest()`, `get_fresh_items()`, `get_expired_items()`, `get_total_amount()`.
 
-- [ ] **Klasse `Kunde`**
-  - [ ] Attribute: `name`, `tierart`, `adresse`, `praeferenzen`.
-  - [ ] Methoden: `mag_gemuese(art)`.
+- [x] **Klasse `Customer` (Kunde)**
+  - [x] Attribute: `name`, `species`, `subscription_type`.
+  - [x] Methoden: `__str__()`.
 
-- [ ] **Klasse `Bestellung` / `AboKiste`**
-  - [ ] Attribute: `kunde`, `lieferdatum`, `inhalt`, `preis`, `status`.
-  - [ ] Methoden: `berechne_gesamtpreis()`, `markiere_geliefert()`.
+- [x] **Klasse `SubscriptionBox` (AboKiste)**
+  - [x] Attribute: `customer`, `vegetables`, `delivery_date`, `price`.
+  - [x] Methoden: `__str__()`.
 
-- [ ] **Klasse `Lieferung`**
-  - [ ] Attribute: `bestellung`, `route`, `lieferstatus`.
-  - [ ] Methoden: `starten()`, `abschliessen()`.
+- [x] **Klasse `Order` (Bestellung)**
+  - [x] Attribute: `customer`, `vegetables`, `delivery_date`, `price`.
+  - [x] Methoden: `__str__()`.
 
-- [ ] **Klasse `Hof`**
-  - [ ] Aggregiert Beete, Lager, Kunden, Bestellungen, Finanzen.  
-  - [ ] Methoden: zentrale API für CLI/GUI.
-
-- [ ] **Klasse `SensorStream` / Generatorfunktionen**
-  - [ ] Funktion/Objekt, das endlose Datenströme für Beete liefert.  
-  - [ ] Filter-/Map-Funktionen im funktionalen Stil.
+- [x] **Generatorfunktionen für Sensordaten**
+  - [x] `stream_soil_moisture()` in `sensors.py` liefert endlose Datenströme für Beete.
+  - [x] Filter-/Map-Funktionen im funktionalen Stil in `main.py` (`process_eager()`, `process_lazy()`).
 
 ---
 
 ## 6. Technische Planung
 
-- [ ] **Projektstruktur definieren**
-  - [ ] `src/rabbitfarm/__init__.py`
-  - [ ] `src/rabbitfarm/models/` (Domänenklassen)
-  - [ ] `src/rabbitfarm/services/` (z.B. Bestelllogik, Lagerlogik)
-  - [ ] `src/rabbitfarm/streams/` (Generatoren, Lazy Evaluation)
-  - [ ] `tests/` (Unit- & Integrationstests)
-  - [ ] `data/` (Beispieldaten, ggf. CSV/JSON)
+- [x] **Projektstruktur definieren**
+  - [x] `src/__init__.py`
+  - [x] `src/models.py` (Domänenklassen: Vegetable, Bed, Customer, Inventory, Order, SubscriptionBox)
+  - [x] `src/services.py` (Bestelllogik, Gewinnberechnung)
+  - [x] `src/sensors.py` (Generatoren, Lazy Evaluation für Sensordaten)
+  - [x] `src/main.py` (CLI-Interface, Datenpersistenz)
+  - [x] `tests/` (Verzeichnis vorhanden)
+  - [x] `data/` (JSON-Datenhaltung: `rabbitfarm_data.json`)
 
-- [ ] **Einfache Benutzeroberfläche wählen**
-  - [ ] Entscheidung: CLI-Menü, TUI, oder einfache Web-Variante (z.B. `Flask`).
-  - [ ] MVP: Menübasierte CLI (Textbasiert).
+- [x] **Einfache Benutzeroberfläche wählen**
+  - [x] Entscheidung: Menübasierte CLI (Textbasiert) - implementiert in `main.py`.
+  - [x] Menüstruktur: Gemüse, Beete, Lager, Kunden, Finanzen, Sensordaten.
 
-- [ ] **Datenhaltung**
-  - [ ] Entscheidung: In-Memory + JSON-Dateien / CSV als Persistenz.  
-  - [ ] Optional: SQLite-DB.
+- [x] **Datenhaltung**
+  - [x] Implementiert: In-Memory + JSON-Dateien als Persistenz (`rabbitfarm_data.json`).
+  - [x] `save_data()` und `load_data()` Funktionen implementiert.
 
 ---
 
@@ -189,7 +187,8 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 
 ## 9. CI / Tooling
 
-- [ ] `requirements.txt` anlegen (oder `pyproject.toml`).
+- [x] `requirements.txt` anlegen.
+  - [x] Dependencies: `matplotlib`, `numpy`, `pandas`, `memory-profiler`, `jupyter`, `ipykernel`.
 - [ ] Linting / Formatierung:
   - [ ] `flake8` oder `ruff`.
   - [ ] `black` oder `autopep8`.
@@ -211,9 +210,9 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 - [ ] Konzept-Präsentation vorbereiten.
 
 > **Erarbeitungsphase**
-- [ ] Minimale lauffähige App (MVP) implementieren.  
-- [ ] Mindestens 2 Software-Requirements vollständig umgesetzt.  
-- [ ] Erste Tests & Dokumentation im Projekt.
+- [x] Minimale lauffähige App (MVP) implementiert.  
+- [x] Alle Software-Requirements (SR1-SR7) vollständig umgesetzt.  
+- [ ] Erste Tests & Dokumentation im Projekt - Tests fehlen noch.
 
 > **Finalisierungsphase**
 - [ ] Alle geplanten Features (so weit möglich) implementieren.  
