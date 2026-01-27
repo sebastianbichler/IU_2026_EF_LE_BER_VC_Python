@@ -33,26 +33,21 @@ graph LR
 
     %% --- ACTORS ---
     Guest(Sloth Guest<br>Kunde):::actorGuest
-    Sid(Sid Sloth<br>Manager):::actorManager
 
-    %% --- SYSTEM BOUNDARY ---
     subgraph "Sloth's Slow-Motion Hotel System"
         direction TB
 
-        %% --- 1. BUCHUNG ---
         subgraph "Buchungsprozess"
             UC_Book(Hängematte anfragen)
             UC_Rule_Days(Prüfe Min-Dauer 7 Tage<br>REQ-FR-01)
             UC_Check_Avail(Verfügbarkeit prüfen<br>REQ-FR-02)
         end
 
-        %% --- 2. AKTIVITÄT & RABATT ---
         subgraph "Tracking & Kosten"
             UC_Walk(Schritte laufen/melden<br>REQ-FR-03)
             UC_Calc_Disc(Inversen Rabatt berechnen<br>REQ-FR-04)
         end
 
-        %% --- 3. LEBEN IM HOTEL ---
         subgraph "Aufenthalt & Status"
             UC_Eat(Essen bestellen)
             UC_Rule_Leaf(Reifegrad prüfen<br>REQ-FR-05)
@@ -64,38 +59,23 @@ graph LR
             UC_Rule_State(Status-Wechsel validieren<br>REQ-FR-07/08)
         end
     end
-
-    %% --- BEZIEHUNGEN (Wer initiiert was?) ---
     
-    %% Der Gast will buchen
     Guest --> UC_Book
     
-    %% Der Gast bewegt sich (oder meldet Schritte)
     Guest --> UC_Walk
     
-    %% Der Gast will Services
     Guest --> UC_Eat
     Guest --> UC_Wake
     Guest --> UC_State
 
-    %% Der Manager überwacht oder bestätigt (optional)
-    Sid -.-> UC_Check_Avail
-    Sid -.-> UC_Calc_Disc
-
-    %% --- AUTOMATISCHE REGELN (Include) ---
-    %% Wenn Gast bucht, MUSS System Regel prüfen
     UC_Book -.-o|include| UC_Rule_Days
     UC_Book -.-o|include| UC_Check_Avail
     
-    %% Wenn Gast Schritte meldet, MUSS Rabatt berechnet werden
     UC_Walk -.-o|include| UC_Calc_Disc
     
-    %% Wenn Gast isst, MUSS Reife geprüft werden
     UC_Eat -.-o|include| UC_Rule_Leaf
     
-    %% Wenn Gast Weckruf will, MUSS verzögert werden
     UC_Wake -.-o|include| UC_Rule_Delay
 
-    %% Wenn Gast Status ändert, MUSS validiert werden
     UC_State -.-o|include| UC_Rule_State
 ```
