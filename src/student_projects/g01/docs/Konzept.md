@@ -33,8 +33,6 @@ Konzeptionell besteht **„FoxExpress“** aus:
 - einem Routing-Modul zur Berechnung kürzester Wege mittels **Dijkstra-Algorithmus**  
 - einer grafischen Benutzeroberfläche  
 
-Die Oberfläche wird mit **Streamlit** realisiert.
-
 ## Methodik ⏱️
 
 Die Benchmark-Tests werden durchgeführt, indem:
@@ -51,3 +49,18 @@ Die Ergebnisse werden:
 - in der Oberfläche vergleichend dargestellt  
 
 Als Methodik wird insgesamt ein **experimenteller Vergleich identischer Workloads** gewählt.
+
+## Technologien & Entscheidungen 🛠️
+
+Zur Umsetzung der Anforderungen wurden folgende technische Entscheidungen getroffen:
+
+### Verwendete Bibliotheken
+
+- **NumPy:** Dient als performante Datenstruktur (Arrays/Matrizen) für den Graphen.
+    - *Begründung:* Zwingend erforderlich für **Numba**, da Numba Standard-Python-Listen nicht effizient optimieren kann.
+- **NetworkX:** Dient zur Modellierung und Generierung der Graphen (Knoten & Kanten).
+    - *Begründung:* Vereinfacht die Erstellung komplexer Test-Netzwerke, bevor diese für die Berechnung in Matrizen umgewandelt werden.
+- **Matplotlib / Streamlit Native Charts:** Dient zur Visualisierung der Ergebnisse und Graphen.
+    - *Begründung:* Reduktion der Komplexität (KISS-Prinzip) gegenüber externen Tools wie Plotly, bei ausreichender Funktionalität für wissenschaftliche Auswertungen.
+- **Subprocess (Std-Lib):** Dient zur Kommunikation zwischen der GUI und der PyPy-Umgebung.
+    - *Begründung:* Ermöglicht den Aufruf des externen PyPy-Interpreters direkt aus der laufenden CPython-Anwendung.
