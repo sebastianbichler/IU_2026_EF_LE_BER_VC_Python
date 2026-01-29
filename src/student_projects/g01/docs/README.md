@@ -20,18 +20,6 @@ Damit sollen Unterschiede zwischen:
 
 analyisert werden.
 
-
----
-
-## 🛠️ Technologien
-
-| Bereich             | Technologie                   |
-|---------------------|-------------------------------|
-| Frontend            | Streamlit                     |
-| Backend             | Python (CPyhton, PyPy, Numba) |
-| Versionskontrolle   | GitHub                        |
-| Projektmanagement   | GitHub                        |
-
 ---
 
 ## 👤 Gruppenmitglieder
@@ -39,3 +27,20 @@ analyisert werden.
 Luise Oelsner, Marcus Rödiger, Maurice Beier
 
 ---
+
+## 💡 Konzept
+
+[Konzept.md](https://github.com/sebastianbichler/IU_2026_EF_LE_BER_VC_Python/blob/main/src/student_projects/g01/docs/Konzept.md)
+
+---
+
+## 📝 Anforderungen
+
+[Anfoderungen.md](https://github.com/sebastianbichler/IU_2026_EF_LE_BER_VC_Python/blob/main/src/student_projects/g01/docs/Anforderungen.md)
+
+---
+
+## 📊 Diagramme
+
+[UseCaseDiagramm.md](https://github.com/sebastianbichler/IU_2026_EF_LE_BER_VC_Python/blob/main/src/student_projects/g01/docs/UseCaseDiagramm.md)<br>
+[Kontextdiagramm.md](https://github.com/sebastianbichler/IU_2026_EF_LE_BER_VC_Python/blob/main/src/student_projects/g01/docs/KontextDiagramm.md)
