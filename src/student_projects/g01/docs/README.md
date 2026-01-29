@@ -18,17 +18,17 @@ Luise Oelsner, Marcus Rödiger, Maurice Beier
 
 ## 💡 Konzept
 
-[Konzept.md](Konzept.md)
+[Konzept](Konzept.md)
 
 ---
 
 ## 📝 Anforderungen
 
-[Anforderungen.md](Anforderungen.md)
+[Anforderungen](Anforderungen.md)
 
 ---
 
 ## 📊 Diagramme
 
-[UseCaseDiagramm.md](UseCaseDiagramm.md)<br>
-[Kontextdiagramm.md](KontextDiagramm.md)
+[UseCaseDiagramm](UseCaseDiagramm.md)<br>
+[Kontextdiagramm](Kontextdiagramm.md)
