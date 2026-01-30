@@ -32,9 +32,12 @@
 ## Projekt – Konzeptionsphase
 - Sich mit der Aufgabenstellung auseinandersetzen – Was soll die Anwendung können? Was ist der Zweck der Anwendung?
 - Requirements definieren und priorisieren
-- Software Design: Use-Case-Diagram
+- Software Design: Kontext-Diagramme, Use-Case-Diagram, ...
 - Was brauche ich für die Umsetzung? (z.B. Datensätze, Bibliotheken)
-- Präsentation der eignen Konzeption (Handout in PeddlePad hochladen ?)
+- Beleuchtung des wissenschaftlichen Hintergrund (Auswahl mindestens eines Artikels)
+- Erste Ideen zum TechStack
+- Ablage hier im GitHub Repository
+- Push: offiziel am 19.01.2026 (KW 4), verlängert bis 02.02.2026
 
 ---
 
