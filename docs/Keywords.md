@@ -60,7 +60,7 @@ Einige Wörter sind nur in bestimmten Kontexten reserviert, um die Abwärtskompa
 
 ---
 
-### Ein kleiner "Pro-Tipp" für die Vorlesung:
+### Ein kleiner "Pro-Tipp":
 
 Die aktuelle Liste der Keywords kann jederzeit direkt in Python abgefragt werden:
 

@@ -31,32 +31,29 @@
   - Best Practices
 ## #7 2026-02-02, Monday (3 UE)
 
+- TODO Leonie Kinsky, Oliver Mayer: last call
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (see Teams-Group)
+  - Moduls and packages
+  - Dörn: Appendix A: Important modules with its description
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf (in Teams-Group)
   - OOP
 - group project work time
+- How to turn-in instructions via PebblePad (pdf)
+  - only final report is required to be turned in
+  - however, test it today
+- G07: use tabs instead of spaces for indentation in order to avoid formatting issues
 -
 ## #6 2026-01-27, Tuesday (3 UE)
 
 - Presentation (P2) of project concepts by student groups (if there is time) or work in breakout-rooms
-- Presentation of project designs by student groups (first implementation phase)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (see Teams-Group)
-  - Moduls and packages
-  - Dörn: Appendix A: Important modules with its description
+  - G3, G4, G5, G6, G7, G8, G9
 
 ## #5 2026-01-26, Monday (3 UE)
 
 - Check local linter and formatter setup
   - use ruff for both linting and formatting
   - delete black if installed in order to avoid conflicts
-- How to turn-in instructions via PebblePad (pdf)
-  - only final report is required to be turned in
-  - however, test it today
-- Group 7 visualization (which diagram) ???
-- Presentation (Part1) of project concepts by student groups (if there is time) or work in breakout-rooms
-- Check on voluntary homework (FS), show new basic examples
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (see Teams-Group)
-  - Functions
-  - Exceptions and error handling
+- Group presentations: 1, 2
 
 ## #4 2026-01-26, Tuesday (3 UE)
 
@@ -65,7 +62,7 @@
 - Time for group project work
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (from slide 23, in Teams-Group)
 - Presentation of project concepts by student groups (if there is time)
-  - G09: streamlit
+  - G09 work preview with streamlit
 
 ## #3 2026-01-19, Monday (3 UE)
 
