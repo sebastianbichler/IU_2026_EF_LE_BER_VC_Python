@@ -1,7 +1,7 @@
 from engine.mathKernel import MathKernel
 
-class NativePythonEngine(MathKernel):
 
+class NativePythonEngine(MathKernel):
     def find_stolen_nuts(self, data):
         stolen = 0
         for stash in data:

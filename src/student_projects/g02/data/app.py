@@ -4,8 +4,8 @@ from engine.nativeEngine import NativePythonEngine
 from engine.numpyEngine import NumpyVectorizedEngine
 from benchmark.performance import PerformanceMonitor
 
-class SquirrelApp:
 
+class SquirrelApp:
     def run_benchmark(self, n_samples: int):
         data = DataGenerator.generate_dataset(n_samples)
         storage = NutStorage(data)
@@ -14,13 +14,11 @@ class SquirrelApp:
         numpy_engine = NumpyVectorizedEngine()
 
         native_time = PerformanceMonitor.measure_execution_time(
-            native.find_stolen_nuts,
-            storage.get_data_as_native_list()
+            native.find_stolen_nuts, storage.get_data_as_native_list()
         )
 
         numpy_time = PerformanceMonitor.measure_execution_time(
-            numpy_engine.find_stolen_nuts,
-            storage.get_data_as_numpy()
+            numpy_engine.find_stolen_nuts, storage.get_data_as_numpy()
         )
 
         print(f"Native Python: {native_time:.6f}s")

@@ -12,7 +12,7 @@ flowchart LR
     %% --- FLUSS: GAST <-> SYSTEM ---
     %% Wir bündeln die Eingaben in einen Pfeil für saubere Linienführung
     Guest -- "Eingabe:<br>1. Buchung & Schritte<br>2. Service & Status" --> System
-    
+
     %% Wir bündeln die Ausgaben
     System -- "Ausgabe:<br>1. Bestätigung & Rabatt<br>2. Weckruf & Fehler" --> Guest
 
@@ -51,7 +51,7 @@ graph LR
         subgraph "Aufenthalt & Status"
             UC_Eat(Essen bestellen)
             UC_Rule_Leaf(Reifegrad prüfen<br>REQ-FR-05)
-            
+
             UC_Wake(Weckruf bestellen)
             UC_Rule_Delay(3h Verzögerung addieren<br>REQ-FR-06)
 
@@ -59,22 +59,22 @@ graph LR
             UC_Rule_State(Status-Wechsel validieren<br>REQ-FR-07/08)
         end
     end
-    
+
     Guest --> UC_Book
-    
+
     Guest --> UC_Walk
-    
+
     Guest --> UC_Eat
     Guest --> UC_Wake
     Guest --> UC_State
 
     UC_Book -.-o|include| UC_Rule_Days
     UC_Book -.-o|include| UC_Check_Avail
-    
+
     UC_Walk -.-o|include| UC_Calc_Disc
-    
+
     UC_Eat -.-o|include| UC_Rule_Leaf
-    
+
     UC_Wake -.-o|include| UC_Rule_Delay
 
     UC_State -.-o|include| UC_Rule_State

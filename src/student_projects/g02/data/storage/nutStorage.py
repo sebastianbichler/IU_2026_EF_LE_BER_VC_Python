@@ -7,7 +7,7 @@ class NutStorage:
         return [
             {
                 "amount": int(data["amount"][i]),
-                "expected_amount": int(data["expected_amount"][i])
+                "expected_amount": int(data["expected_amount"][i]),
             }
             for i in range(len(data["amount"]))
         ]

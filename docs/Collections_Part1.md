@@ -166,7 +166,7 @@ In der Cloud verarbeiten wir GPS-Daten.
 4. Wir implementieren `__lt__` in unserer `Elephant`-Klasse, damit wir eine Liste von Elefanten einfach mit
    `elephants.sort()` nach ihrem Alter oder Gewicht sortieren können.
 
-> **Merksatz für Studierende:** "In C# fragt man: 'Implementierst du das Interface?'. In Python fragt man: 'Hast du die
+> **Merksatz:** "In C# fragt man: 'Implementierst du das Interface?'. In Python fragt man: 'Hast du die
 > nötige Dunder-Methode?'. Wenn es wie eine Ente quakt (die Methode hat), dann ist es eine Ente (erfüllt das Interface)."
 
 ---

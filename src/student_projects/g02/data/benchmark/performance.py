@@ -1,7 +1,7 @@
 import time
 
-class PerformanceMonitor:
 
+class PerformanceMonitor:
     @staticmethod
     def measure_execution_time(func, data, runs=5):
         times = []

@@ -2,11 +2,35 @@
 
 ## 📌 Projektübersicht
 
-FoxExpress ist eine vereinfachte Logistik-Software, die für die fiktive Auftraggeberin „Fiona Fuchs“ entwickelt wird.  
-Als Dispatcherin eines Wald-Kurierdienstes plant sie Lieferungen zwischen den Bauen der Waldtiere und ist auf effiziente Routenoptimierung angewiesen.  
+Ziel des Projekts **„FoxExpress“** ist die Entwicklung einer vereinfachten Logistik-Software, mit der:
 
-Das Wegenetz des Waldes wird dabei als Graph abstrahiert, in dem unterschiedliche Weglängen und Gefahrenzonen (z. B. Wolfsgebiet-Passagen) berücksichtigt werden können.  
-Die narrative Einbettung dient der anschaulichen Domänenmodellierung, während der Schwerpunkt des Projekts auf der algorithmischen Routenberechnung sowie der Laufzeitanalyse verschiedener Python-Ausführungsumgebungen liegt.
+- Lieferungen erstellt und verwaltet werden können
+- kürzeste Lieferwege berechnet werden können
+
+Auf dieser Grundlage soll die Laufzeit identischer Algorithmen unter verschiedenen Python-Ausführungsumgebungen verglichen werden:
+
+- **CPython**
+- **PyPy**
+- **Numba**
+
+Damit sollen Unterschiede zwischen:
+
+- tracingbasierter JIT-Kompilierung (**PyPy**)
+- methodenbasierter JIT-Kompilierung (**Numba**)
+
+analyisert werden.
+
+
+---
+
+## 🛠️ Technologien
+
+| Bereich             | Technologie                   |
+|---------------------|-------------------------------|
+| Frontend            | Streamlit                     |
+| Backend             | Python (CPyhton, PyPy, Numba) |
+| Versionskontrolle   | GitHub                        |
+| Projektmanagement   | GitHub                        |
 
 ---
 
