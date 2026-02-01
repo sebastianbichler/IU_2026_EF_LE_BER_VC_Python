@@ -36,3 +36,8 @@ Dokumentation: Ein kurzes Paper (4-6 Seiten), das die gewählte Forschungsfrage 
 *(noch offen)*
 
 ---
+## Frage 4
+Abgabe in paddle? was ist der Stand?
+
+**Antwort:**  
+*(noch offen)*
