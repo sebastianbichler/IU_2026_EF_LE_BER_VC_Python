@@ -54,7 +54,7 @@ class SubscriptionBox:
     
     def __str__(self) -> str:
         veg_names = ", ".join([v.name for v in self.vegetables])
-        return f"Box für {self.customer.name} am {self.delivery_date.strftime('%Y-%m-%d')}: {veg_names} ({self.price:.2f}€)"
+        return f"Box für {self.customer.name} am {self.delivery_date.strftime('%d.%m.%Y')}: {veg_names} ({self.price:.2f}€)"
 
 
 @dataclass

@@ -212,8 +212,8 @@ def print_menu():
 def format_vegetable(veg, idx):
     return (str(idx) + ". " + veg.name + " (" + veg.sort + ")\n" +
             "   Beet: " + str(veg.bed_id) + ", Menge: " + str(veg.amount) + " kg\n" +
-            "   Pflanzung: " + veg.plant_date.strftime('%Y-%m-%d') + "\n" +
-            "   Ernte: " + veg.harvest_date.strftime('%Y-%m-%d'))
+            "   Pflanzung: " + veg.plant_date.strftime('%d.%m.%Y') + "\n" + #Auch hier angepasst
+            "   Ernte: " + veg.harvest_date.strftime('%d.%m.%Y')) #auch hier angepasst Datumsformat
 
 
 def list_vegetables():
@@ -242,10 +242,10 @@ def add_vegetable():
             print("Ungueltige Auswahl")
             return
         bed_id = beds[bed_idx].id
-        print("Pflanzdatum (YYYY-MM-DD):")
-        plant_date = datetime.strptime(input(), "%Y-%m-%d")
-        print("Erntedatum (YYYY-MM-DD):")
-        harvest_date = datetime.strptime(input(), "%Y-%m-%d")
+        print("Pflanzdatum (DD.MM.YYYY):") #Auch hier angepasst
+        plant_date = datetime.strptime(input(), "%d.%m.%Y")
+        print("Erntedatum (DD.MM.YYYY):")
+        harvest_date = datetime.strptime(input(), "%d.%m.%Y")
         shelf_life = int(input("Haltbarkeit Tage: "))
         amount = float(input("Menge kg: "))
         
@@ -441,7 +441,7 @@ def format_customer(cust, idx):
 
 def format_subscription_box(box, week_num):
     veg_names = ", ".join(map(lambda v: v.name, box.vegetables))
-    return ("Woche " + str(week_num) + " (" + box.delivery_date.strftime('%Y-%m-%d') + "):\n" +
+    return ("Woche " + str(week_num) + " (" + box.delivery_date.strftime('%d.%m.%Y') + "):\n" + # Anpassung Datum von Y-m-d auf d.m.Y
             "  Gemuese: " + veg_names + "\n" +
             "  Preis: " + str(box.price) + " Euro")
 
@@ -453,7 +453,7 @@ def create_subscription_box():
         print("Keine Kunden")
         return
     if not vegetables:
-        print("Keine Gemuese")
+        print("Kein Gemuese")
         return
     print("Kunden:")
     formatted_customers = map(lambda x: format_customer(x[1], x[0]), enumerate(customers, 1))
