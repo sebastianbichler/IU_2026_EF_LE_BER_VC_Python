@@ -1,37 +1,41 @@
 ```mermaid
 flowchart LR
-    %% Externe Akteure / Systeme
-    Bear["Bär / Produktionsleiter"]
-    Customer["Kunde / Abnehmer"]
-    QA["Qualitätsprüfung (extern)"]
-    Dev["Entwickler"]
-    IDE["IDE (z. B. VS Code)"]
-    CI["CI-Pipeline (optional)"]
-    MyPy["mypy (Type Checker)"]
-    FS["Dateisystem / Persistenz\n(z. B. JSON/CSV)"]
+    %% --- Styling Definitionen ---
+    classDef system fill:#f96,stroke:#333,stroke-width:2px,color:white;
+    classDef actor fill:#fff,stroke:#333,stroke-width:1px;
+    classDef external fill:#eee,stroke:#333,stroke-dasharray: 5 5;
 
-    %% Systemgrenze
-    System["Bear Honeyworks\n(Honigfabrik-Software)\n\n- Domänenmodell\n- Produktionslogik\n- Lagerverwaltung\n- Bestellverarbeitung\n- Typisierte Schnittstellen"]
+    %% --- Knoten (Nodes) ---
+    User["Nutzer - Fabrikleitung"]:::actor
 
-    %% Datenflüsse
-    Bear -->|Produktionsauftrag / Parameter| System
-    System -->|Produktionsreport / Status| Bear
+    %% Hauptsystem
+    System["Bear Honeyworks
+    Python Anwendung mit typisiertem Domänenmodell"]:::system
 
-    Customer -->|Bestellung (Sorte, Menge)| System
-    System -->|Bestellbestätigung / Rechnung| Customer
+    %% Externe Tools und Systeme
+    MyPyTool["mypy Type Checker
+    statische Typpruefung"]:::external
+    IDE["IDE
+    zeigt Typfehler und Hinweise"]:::external
+    CI["CI Pipeline optional
+    automatischer mypy Check"]:::external
+    FileSystem["Dateisystem optional
+    JSON CSV Logs"]:::external
 
-    QA -->|Qualitätsfreigabe / Bewertung| System
-    System -->|Prüfanforderung / Proben-Daten| QA
+    %% --- Beziehungen (Data Flow) ---
+    %% User Interaktion
+    User -- "1 Eingaben Produktion Lager Bestellung" --> System
+    System -- "6 Ausgabe Status Bestand Ergebnisse" --> User
 
-    %% Persistenz
-    System <--> |Speichern / Laden (Bestand, Orders)| FS
+    %% System interne Verarbeitung
+    System -- "2 Fuehrt Produktions und Lagerlogik aus" --> System
 
-    %% Typprüfung / Dev-Workflow
-    Dev -->|ändert Code| System
-    Dev -->|startet Checks| MyPy
-    IDE -->|führt mypy aus / zeigt Fehler| MyPy
-    CI -->|autom. Typcheck| MyPy
-    MyPy -->|Typfehler / Hinweise| Dev
+    %% mypy Check Ablauf
+    IDE -- "3 Startet mypy Check" --> MyPyTool
+    CI -- "3 Startet mypy Check" --> MyPyTool
+    MyPyTool -- "4 Analysiert Typannotationen" --> System
+    MyPyTool -- "5 Meldet Typfehler Hinweise" --> IDE
 
-    %% Verbindung mypy <-> Codebase (konzeptionell)
-    MyPy ---|analysiert Typannotationen| System
+    %% Persistenz optional
+    System -.-> |Optional| FileSystem
+    FileSystem -.-> |Optional| System
