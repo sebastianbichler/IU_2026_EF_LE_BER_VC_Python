@@ -3,7 +3,6 @@ Water source model with historical data tracking.
 """
 
 from typing import Dict, List, TYPE_CHECKING
-from datetime import date
 
 if TYPE_CHECKING:
     from models.elephant import Elephant

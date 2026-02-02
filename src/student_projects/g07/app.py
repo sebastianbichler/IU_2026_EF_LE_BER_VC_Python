@@ -9,7 +9,7 @@ import gc
 import sys
 import plotly.graph_objects as go
 from collections import Counter
-from models import Elephant, Herd, Event, WaterSource
+from models import Elephant
 from memory import MemoryMonitor
 from memory.store import get_store
 from data.generator import DataGenerator
@@ -652,6 +652,10 @@ with tab4:
             while root.parent and depth < 100:  # Prevent infinite loops
                 root = root.parent
                 depth += 1
+
+            # Warn if we hit the depth limit (possible data corruption)
+            if depth >= 100:
+                st.warning(f"⚠️ Elephant {elephant.name} has ancestry depth ≥100. Possible circular reference in parent chain.")
             
             max_depth = max(max_depth, depth)
             

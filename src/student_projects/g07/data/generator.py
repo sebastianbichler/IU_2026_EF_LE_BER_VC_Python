@@ -4,7 +4,6 @@ Demonstrates circular references in complex relationship graphs.
 """
 
 import random
-from datetime import datetime
 from typing import List, Tuple
 from models.elephant import Elephant
 from models.herd import Herd

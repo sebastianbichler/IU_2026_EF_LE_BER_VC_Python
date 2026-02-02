@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from models.elephant import Elephant
 from models.herd import Herd
-from models.event import Event, EventType
+from models.event import Event
 from models.water_source import WaterSource
 
 
@@ -34,8 +34,9 @@ class MemoryStore:
         self.water_sources.clear()
         self._elephant_by_name.clear()
         
-        # Also clear class-level storage in WaterSource
+        # Also clear class-level storage in WaterSource and Event
         WaterSource._all_sources.clear()
+        Event._all_events.clear()
     
     def clear_and_cleanup(self):
         """Clear all data and break circular references for full cleanup."""
@@ -54,8 +55,9 @@ class MemoryStore:
         self.water_sources.clear()
         self._elephant_by_name.clear()
         
-        # Also clear class-level storage in WaterSource
+        # Also clear class-level storage in WaterSource and Event
         WaterSource._all_sources.clear()
+        Event._all_events.clear()
         
         # Reset elephant tracking to clear stale IDs
         Elephant.reset_tracking()
@@ -118,7 +120,17 @@ class MemoryStore:
         """
         Export current state to JSON (simplified).
         Only exports basic data, not full circular references.
+        
+        Args:
+            filepath: Path where JSON file will be saved
+            
+        Raises:
+            ValueError: If filepath is invalid
+            IOError: If file cannot be written
         """
+        if not filepath:
+            raise ValueError("Filepath cannot be empty")
+        
         data = {
             "elephants": [
                 {
@@ -148,23 +160,28 @@ class MemoryStore:
             ]
         }
         
-        Path(filepath).parent.mkdir(parents=True, exist_ok=True)
-        with open(filepath, 'w') as f:
-            json.dump(data, f, indent=2)
+        try:
+            Path(filepath).parent.mkdir(parents=True, exist_ok=True)
+            with open(filepath, 'w') as f:
+                json.dump(data, f, indent=2)
+        except (IOError, OSError) as e:
+            raise IOError(f"Failed to write to {filepath}: {str(e)}")
     
     def get_circular_reference_count(self) -> int:
         """
         Count total circular references in memory.
-        Each parent-child relationship creates a cycle.
+        Each parent-child relationship creates a cycle (bidirectional).
+        Each herd membership creates an elephant↔herd reference.
         """
         count = 0
         for elephant in self.elephants:
-            # Each child relationship is a potential circular reference
+            # Each child relationship is bidirectional: parent→child and child→parent
+            # We count each unique relationship once (already counted via children list)
             count += len(elephant.children)
-            # Each herd membership is also a reference
-            for herd in self.herds:
-                if elephant in herd.members:
-                    count += 1
+            # Each elephant with a herd creates one elephant→herd reference
+            # (herd→elephant is already counted in herd.members)
+            if elephant.herd is not None:
+                count += 1
         return count
 
 

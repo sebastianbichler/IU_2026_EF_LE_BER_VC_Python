@@ -3,7 +3,7 @@ Herd model - represents a group of elephants.
 Also creates circular references: Herd ↔ Elephants
 """
 
-from typing import List, Set, TYPE_CHECKING
+from typing import List, Optional, TYPE_CHECKING
 from datetime import date
 
 if TYPE_CHECKING:
@@ -50,10 +50,13 @@ class Herd:
             self.members.remove(elephant)
             elephant.herd = None
     
-    def get_matriarch(self) -> 'Elephant':
+    def get_matriarch(self) -> Optional['Elephant']:
         """
         Get the oldest female elephant (matriarch).
         In real elephant herds, the oldest female leads.
+        
+        Returns:
+            The oldest female elephant, or None if no females exist.
         """
         females = [e for e in self.members if e.gender == 'F']
         if not females:

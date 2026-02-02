@@ -64,16 +64,30 @@ class Elephant:
         return [child for child in self.parent.children if child != self]
     
     def get_descendants(self, max_depth: int = 10) -> List['Elephant']:
-        """Recursively get all descendants."""
+        """Recursively get all descendants up to max_depth generations.
+        
+        Args:
+            max_depth: Maximum depth to traverse (prevents runaway recursion)
+            
+        Returns:
+            List of all descendant elephants
+        """
         descendants = []
         visited = set()
         
         def _traverse(elephant: 'Elephant', depth: int):
-            if depth > max_depth or id(elephant) in visited:
+            if depth >= max_depth:
                 return
-            visited.add(id(elephant))
+            
+            elephant_id = id(elephant)
+            if elephant_id in visited:
+                return
+            visited.add(elephant_id)
+            
             for child in elephant.children:
-                descendants.append(child)
+                # Add child before traversing to ensure it's in the list
+                if id(child) not in visited:
+                    descendants.append(child)
                 _traverse(child, depth + 1)
         
         _traverse(self, 0)
