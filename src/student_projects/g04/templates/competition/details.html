@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+
+{% block title %}Teams{% endblock %}
+
+{% block content %}
+
+<div class="py-4">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center mb-3 mb-md-0">
+                    <img src="{{ competition.logo_url }}" alt="Logo" class="img-fluid rounded shadow-sm"
+                        style="max-height: 120px;">
+                </div>
+                <div class="col-md-10">
+                    <h1 class="display-6 fw-bold mb-1">{{ competition.name }}</h1>
+                    <p class="text-muted mb-3">
+                        <span class="datetime" data-format="numeric"
+                            data-datetime="{{ competition.start_date }}"></span>
+                        <span> &ndash; </span>
+                        <span class="datetime" data-format="numeric" data-datetime="{{ competition.end_date }}"></span>
+                    </p>
+                    <p>{{ competition.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <h3 class="card-title h5 mb-0 font-weight-bold">Upcoming & Past Games</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="list-group rounded-0 rounded-bottom border-0">
+                {% for game in games %}
+                <div class="list-group-item py-4 border-0 border-bottom">
+                    <div class="row align-items-center text-center">
+
+                        <div class="pe-auto col-5 d-flex justify-content-end">
+                            <div data-clickable data-url="/teams/{{ game.team_1_id }}"
+                                class="d-flex align-items-center">
+                                {% set bg_class =
+                                'bg-success text-light bg-opacity-70' if (game.status == 'Finished' and game.score_1 >
+                                game.score_2) else
+                                'bg-danger text-light bg-opacity-70' if (game.status == 'Finished' and game.score_1 <
+                                    game.score_2) else '' %} {% set team_1=teams | selectattr('id', 'equalto' ,
+                                    game.team_1_id) | first %} <span
+                                    class="h5 mb-0 me-3 d-none d-md-block px-3 py-2 rounded {{ bg_class }}">{{
+                                    team_1.name }}</span>
+                                    <img src="{{ team_1.logo_url }}" alt="Team 1" class="rounded-circle border"
+                                        width="50" height="50">
+                            </div>
+                        </div>
+
+                        {% if game.status == 'Scheduled' %}
+                        <div class="col-2">
+                            <div class="text-dark rounded py-2 fw-bold h4 mb-0">
+                                VS
+                            </div>
+                            <small class="text-muted d-block mt-1"> Scheduled</small>
+                        </div>
+                        {% else %}
+                        <div class="col-2">
+                            <div class="bg-dark text-white rounded py-2 fw-bold h4 mb-0">
+                                {{ game.score_1 }} : {{ game.score_2 }}
+                            </div>
+                            {% if game.status == 'Ongoing' %}
+                            <small class="text-muted d-block mt-1">Ongoing</small>
+                            {% elif game.status == 'Finished' %}
+                            <small class="text-muted d-block mt-1">Finished</small>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <div class="col-5 d-flex justify-content-start">
+                            <div data-clickable data-url="/teams/{{ game.team_2_id }}"
+                                class="d-flex align-items-center">
+                                {% set team_2 = teams | selectattr('id', 'equalto', game.team_2_id) | first %}
+                                <img src="{{ team_2.logo_url }}" alt="Team 2" class="rounded-circle border" width="50"
+                                    height="50">
+                                {% set bg_class =
+                                'bg-success text-light bg-opacity-70' if (game.status == 'Finished' and game.score_1 <
+                                    game.score_2) else 'bg-danger text-light bg-opacity-70' if (game.status=='Finished'
+                                    and game.score_1> game.score_2) else
+                                    '' %}
+                                    <span class="h5 mb-0 ms-3 d-none d-md-block px-3 py-2 rounded {{ bg_class }}">{{
+                                        team_2.name }}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="text-center mt-2">
+                        <small class="text-muted">
+                            <span class="datetime" data-format="short" data-datetime="{{ game.start_date }}"></span>
+                        </small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4 scoreboard-card">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h3 class="card-title h5 mb-0 fw-bold">Scoreboard</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" class="ps-4" style="width: 50px;"></th>
+                            <th scope="col">Team</th>
+                            <th scope="col" class="text-center" title="Played">P</th>
+                            <th scope="col" class="text-center" title="Won">W</th>
+                            <th scope="col" class="text-center" title="Drawn">D</th>
+                            <th scope="col" class="text-center" title="Lost">L</th>
+                            <th scope="col" class="text-center d-none d-md-table-cell" title="Goals For">GF</th>
+                            <th scope="col" class="text-center d-none d-md-table-cell" title="Goals Against">GA</th>
+                            <th scope="col" class="text-center" title="Goal Difference">GD</th>
+                            <th scope="col" class="text-center ps-3 pe-4" title="Points">PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in scoreboard %}
+                        {% set team = teams | selectattr('id', 'equalto', entry.team_id) | first %}
+                        <tr class="table-primary-subtle lh-lg" data-clickable data-url="/teams/{{ team.id }}">
+                            <td class="ps-4 fw-bold">{{ scoreboard.index(entry) + 1 }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ team.logo_url }}" alt="{{ team.name }}" class="me-2" width="24"
+                                        height="24">
+                                    <span class="fw-bold">{{ team.name }}</span>
+                                </div>
+                            </td>
+                            <td class="text-center">{{ entry.played }}</td>
+                            <td class="text-center">{{ entry.won }}</td>
+                            <td class="text-center">{{ entry.drawn }}</td>
+                            <td class="text-center">{{ entry.lost }}</td>
+                            <td class="text-center d-none d-md-table-cell">{{ entry.goals_for }}</td>
+                            <td class="text-center d-none d-md-table-cell">{{ entry.goals_against }}</td>
+                            {% set text_color = 'text-success' if entry.goal_difference > 0 else 'text-danger' %}
+                            <td class="text-center fw-semibold {{ text_color }}">{{ entry.goal_difference }}</td>
+                            <td class="text-center ps-3 pe-4 fw-bold">{{ entry.points }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

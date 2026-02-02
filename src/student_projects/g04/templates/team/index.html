@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}Teams{% endblock %}
+
+{% block content %}
+    <h1>Team List</h1>
+
+    <ul>
+        {% for team in teams %}
+            <li><strong>{{ team.name }}</strong> (ID: {{ team.id }}) <img src="{{ team.logo_url }}" alt="{{ team.name }} Logo" width="50"></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -2,6 +2,29 @@ body {
     background: #f4f6f9;
 }
 
+main {
+    border: solid rgba(0,0,0,.15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0,0,0,.1), inset 0 .125em .5em rgba(0,0,0,.15);
+}
+
+/* Scoreboard Section */
+
+.scoreboard-card tbody tr:last-child,
+.scoreboard-card tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.scoreboard-card tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--bs-border-radius)!important;
+}
+
+.scoreboard-card tbody tr:last-child td:last-child {
+    border-bottom-right-radius: var(--bs-border-radius)!important;
+}
+
+/* News Section */
+
 .news-card {
     border-radius: 15px;
     overflow: hidden;
@@ -15,10 +38,6 @@ body {
 .news-image {
     height: 220px;
     object-fit: cover;
-}
-
-.navbar {
-    border-bottom: 3px solid #198754;
 }
 
 .news-card .card-body {

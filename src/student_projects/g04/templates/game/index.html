@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}Games{% endblock %}
+
+{% block content %}
+    <h1>Games List</h1>
+
+    <ul>
+        {% for game in games %}
+            <li><strong>{{ game.team_1_id }} vs {{ game.team_2_id }}</strong> (ID: {{ game.id }})</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

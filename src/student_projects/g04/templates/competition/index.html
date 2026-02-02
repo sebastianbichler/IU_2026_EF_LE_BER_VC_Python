@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}Teams{% endblock %}
+
+{% block content %}
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-3">
+    {% for competition in competitions %}
+    <a href="/competitions/{{ competition.id }}" class="text-decoration-none text-dark">
+        <div class="col">
+            <div class="card">
+                <img src="{{ competition.logo_url }}" class="card-img-top" alt="{{ competition.name }} Logo">
+                <div class="card-body">
+                    <h5 class="card-title">{{ competition.name }}</h5>
+                    <p class="card-text">{{ competition.description }}</p>
+                </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

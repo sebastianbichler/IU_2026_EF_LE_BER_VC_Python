@@ -10,8 +10,6 @@ def get_db():
     if db is None:
         uri = current_app.config.get('MONGO_URI')
 
-        print(uri)
-
         if not uri:
             raise RuntimeError('MONGO_URI is not set in app.config')
 
