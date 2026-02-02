@@ -114,22 +114,46 @@ Um die Typprüfung mit mypy sinnvoll und wartbar einzusetzen, wird Bear Honeywor
 Die fachliche Logik wird in klar getrennte Komponenten aufgeteilt, sodass jede Schicht eindeutige Typverträge besitzt.
 
 Ordnerstruktur (geplant)
-	•	src/
-	•	domain/ – Domänenmodell (reine Daten- und Fachobjekte)
-	•	bear.py (Bär / Produzent)
-	•	honey.py (Honigglas, Honigtypen, ggf. Qualitätsstufen)
-	•	order.py (Bestellung, Positionen)
-	•	services/ – Geschäftslogik / Use-Cases
-	•	production_service.py (Produktion erzeugt Gläser)
-	•	inventory_service.py (Einlagern, Entnehmen, Bestand)
-	•	order_service.py (Bestellungen prüfen & ausführen)
-	•	repositories/ – Datenzugriff / Speicherung (optional, auch in-memory)
-	•	inventory_repository.py
-	•	order_repository.py
-	•	cli/ oder app.py – Einstiegspunkt zum Testen der Abläufe (Demo für Prüfung)
-	•	tests/ – Unit-Tests (optional)
-	•	pyproject.toml oder mypy.ini – mypy-Konfiguration
+```mermaid 
+flowchart TB
+    Root["Bear Honeyworks Projekt"]
 
+    Root --> Src["src"]
+    Root --> Tests["tests"]
+    Root --> Config["mypy Konfiguration"]
+
+    %% src Struktur
+    Src --> Domain["domain"]
+    Src --> Services["services"]
+    Src --> Repos["repositories"]
+    Src --> App["app.py oder cli"]
+
+    %% domain
+    Domain --> Bear["bear.py
+    Bär Produzent"]
+    Domain --> Honey["honey.py
+    Honigglas Typen Qualitaet"]
+    Domain --> Order["order.py
+    Bestellung Positionen"]
+
+    %% services
+    Services --> ProdSvc["production_service.py
+    Honigproduktion"]
+    Services --> InvSvc["inventory_service.py
+    Lagerverwaltung"]
+    Services --> OrdSvc["order_service.py
+    Bestelllogik"]
+
+    %% repositories
+    Repos --> InvRepo["inventory_repository.py
+    Bestand Speicherung"]
+    Repos --> OrdRepo["order_repository.py
+    Bestellung Speicherung"]
+
+    %% config
+    Config --> PyProj["pyproject.toml"]
+    Config --> MyPyIni["mypy.ini"]
+```
 Warum so?
 	•	domain/ bleibt möglichst „clean“ (keine IO, keine Nebenwirkungen)
 	•	services/ kapseln Logik und validieren Typen/Schnittstellen
