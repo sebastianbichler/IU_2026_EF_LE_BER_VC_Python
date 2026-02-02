@@ -3,9 +3,9 @@ import os
 from dotenv import load_dotenv
 from flask import Flask
 
-from .routes.user_routes import user_bp
-from .routes.main_routes import main_bp
-from .routes.news_routes import news_bp
+from src.routes.user_routes import user_bp
+from src.routes.main_routes import main_bp
+from src.routes.news_routes import news_bp
 
 
 def create_app():
