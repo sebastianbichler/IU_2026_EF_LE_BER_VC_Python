@@ -26,7 +26,8 @@ class MemoryStore:
         self._elephant_by_name: Dict[str, Elephant] = {}
     
     def clear(self):
-        """Clear all data from memory."""
+        """Clear all data from memory (for demo - keeps circular references intact)."""
+        # Just remove from store, keep circular references for demo
         self.elephants.clear()
         self.herds.clear()
         self.events.clear()
@@ -35,6 +36,29 @@ class MemoryStore:
         
         # Also clear class-level storage in WaterSource
         WaterSource._all_sources.clear()
+    
+    def clear_and_cleanup(self):
+        """Clear all data and break circular references for full cleanup."""
+        # Break circular references before clearing
+        for elephant in self.elephants:
+            elephant._parent = None
+            elephant.children.clear()
+            elephant.herd = None
+        
+        for herd in self.herds:
+            herd.members.clear() if hasattr(herd, 'members') else None
+        
+        self.elephants.clear()
+        self.herds.clear()
+        self.events.clear()
+        self.water_sources.clear()
+        self._elephant_by_name.clear()
+        
+        # Also clear class-level storage in WaterSource
+        WaterSource._all_sources.clear()
+        
+        # Reset elephant tracking to clear stale IDs
+        Elephant.reset_tracking()
     
     def add_elephant(self, elephant: Elephant):
         """Add elephant to store."""

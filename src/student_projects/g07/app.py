@@ -6,14 +6,17 @@ Real-time memory monitoring, large-scale data generation, and efficient search.
 
 import streamlit as st
 import gc
+import sys
 import plotly.graph_objects as go
 from collections import Counter
 from models import Elephant, Herd, Event, WaterSource
-from models.event import EventType
 from memory import MemoryMonitor
 from memory.store import get_store
 from data.generator import DataGenerator
 from search.engine import ElephantSearchEngine
+
+# Color palette for charts
+CHART_COLORS = ['#3498db', '#2ecc71', '#f39c12', '#e74c3c', '#9b59b6', '#1abc9c', '#e67e22', '#34495e']
 
 # Page config
 st.set_page_config(
@@ -56,6 +59,7 @@ with tab1:
     # Get current stats
     gc.collect()
     gc_count = gc.get_count()
+    gc_objects = len(gc.get_objects())  # Capture once for consistent reporting
     memory_mb = st.session_state.monitor.get_process_memory_mb()
     store_stats = st.session_state.store.get_stats()
     
@@ -64,7 +68,7 @@ with tab1:
         st.metric("🐘 Total Elephants", f"{store_stats['total_elephants']:,}")
 
     with col2:
-        st.metric("🔗 Python Objects", f"{len(gc.get_objects()):,}")
+        st.metric("🔗 Python Objects", f"{gc_objects:,}")
         st.metric("👥 Herds", store_stats['total_herds'])
 
     with col3:
@@ -164,10 +168,29 @@ with tab1:
     col_chart, col_metrics = st.columns([2, 1])
     
     with col_chart:
-        gc.collect()
+        # Helper function to calculate deep memory size
+        def get_deep_size(obj, seen=None):
+            """Recursively calculate memory size of objects"""
+            if seen is None:
+                seen = set()
+            
+            obj_id = id(obj)
+            if obj_id in seen:
+                return 0
+            
+            seen.add(obj_id)
+            size = sys.getsizeof(obj)
+            
+            if isinstance(obj, dict):
+                size += sum(get_deep_size(k, seen) + get_deep_size(v, seen) for k, v in obj.items())
+            elif isinstance(obj, (list, tuple, set)):
+                size += sum(get_deep_size(item, seen) for item in obj)
+            elif hasattr(obj, '__dict__'):
+                size += get_deep_size(obj.__dict__, seen)
+            
+            return size
         
-        # Calculate memory breakdown
-        baseline_memory = 60  # Streamlit baseline overhead in MB
+        # Calculate memory breakdown using actual measurements
         total_memory = memory_mb
         
         # Determine elephant count based on state
@@ -178,55 +201,73 @@ with tab1:
         else:
             elephant_count = 0
         
-        # Calculate memory usage
-        elephants_memory = elephant_count * 0.05
-        events_memory = store_stats['total_events'] * 0.002
-        other_data_memory = (store_stats['total_herds'] + store_stats['total_water_sources']) * 0.01
+        # Calculate actual memory for each category (in bytes, then convert to MB)
+        elephants_memory = get_deep_size(st.session_state.store.elephants) / (1024 * 1024) if st.session_state.store.elephants else 0
+        events_memory = get_deep_size(st.session_state.store.events) / (1024 * 1024) if st.session_state.store.events else 0
+        herds_memory = get_deep_size(st.session_state.store.herds) / (1024 * 1024) if st.session_state.store.herds else 0
+        water_memory = get_deep_size(st.session_state.store.water_sources) / (1024 * 1024) if st.session_state.store.water_sources else 0
         
-        # Calculate remaining memory (Python overhead, GC structures, etc.)
-        data_memory = elephants_memory + events_memory + other_data_memory
-        other_memory = max(0, total_memory - baseline_memory - data_memory)
+        # Calculate data memory
+        data_memory = elephants_memory + events_memory + herds_memory + water_memory
+        
+        # Framework memory is the rest
+        framework_memory = max(0, total_memory - data_memory)
         
         # Create labels and values
         labels = []
         values = []
         colors = []
         
-        labels.append('🔹 Streamlit Framework')
-        values.append(baseline_memory)
+        # Always include Python Runtime but hide it by default
+        labels.append('🐍 Python Runtime')
+        values.append(framework_memory)
         colors.append('#95a5a6')
         
-        if elephant_count > 0:
+        if elephants_memory > 0.01:
             # Show if elephants are orphaned or active
             if st.session_state.references_broken:
-                labels.append('👻 Orphaned Elephants (in memory!)')
+                labels.append('👻 Orphaned Elephants')
                 colors.append('#e74c3c')  # Red for orphaned
             else:
                 labels.append('🐘 Elephants')
                 colors.append('#3498db')  # Blue for active
             values.append(elephants_memory)
         
-        if events_memory > 0:
+        if events_memory > 0.01:
             labels.append('📅 Events')
             values.append(events_memory)
             colors.append('#2ecc71')
         
-        if other_data_memory > 0:
-            labels.append('📊 Other Data')
-            values.append(other_data_memory)
+        if herds_memory > 0.01:
+            labels.append('👥 Herds')
+            values.append(herds_memory)
             colors.append('#f39c12')
         
-        if other_memory > 0:
-            labels.append('🧩 Other Objects')
-            values.append(other_memory)
+        if water_memory > 0.01:
+            labels.append('💧 Water Sources')
+            values.append(water_memory)
             colors.append('#9b59b6')
         
-        # Create pie chart
+        # Create pie chart - filter out Python Runtime for display, but keep in legend
+        display_labels = []
+        display_values = []
+        display_colors = []
+        
+        # Separate Python Runtime from data
+        python_runtime_value = 0
+        for i, label in enumerate(labels):
+            if label == '🐍 Python Runtime':
+                python_runtime_value = values[i]
+            else:
+                display_labels.append(label)
+                display_values.append(values[i])
+                display_colors.append(colors[i])
+        
         fig = go.Figure(data=[go.Pie(
-            labels=labels,
-            values=values,
+            labels=display_labels,
+            values=display_values,
             hole=0.4,
-            marker=dict(colors=colors),
+            marker=dict(colors=display_colors),
             textinfo='label+percent',
             textfont=dict(size=12),
             hovertemplate='<b>%{label}</b><br>%{value:.2f} MB<br>%{percent}<extra></extra>'
@@ -234,7 +275,7 @@ with tab1:
         
         fig.update_layout(
             title={
-                'text': f"Total Process Memory: {total_memory:.2f} MB",
+                'text': f"Data Memory: {data_memory:.2f} MB (Total: {total_memory:.2f} MB)",
                 'x': 0.5,
                 'xanchor': 'center'
             },
@@ -250,23 +291,43 @@ with tab1:
         )
         
         st.plotly_chart(fig, use_container_width=True)
+        st.caption(f"💡 Python Runtime ({python_runtime_value:.2f} MB) excluded from chart for clarity")
     
     with col_metrics:
-        st.markdown("### 📈 Memory Breakdown")
-        st.metric("Total Memory", f"{memory_mb:.2f} MB")
-        st.metric("Streamlit Overhead", f"{baseline_memory:.0f} MB")
+        st.markdown("### 📈 Detailed Memory Breakdown")
+        st.metric("Total Process Memory", f"{memory_mb:.2f} MB", help="Total memory used by this Python process")
         
-        if elephant_count > 0:
+        st.divider()
+        st.markdown("**📊 Data Components:**")
+        
+        # Data components
+        if elephants_memory > 0.01:
             if st.session_state.references_broken:
-                st.metric("👻 Orphaned Elephants", elephant_count, delta="Still in memory!", delta_color="inverse")
+                st.text(f"👻 Orphaned Elephants: {elephants_memory:.2f} MB")
+                st.caption(f"   {elephant_count:,} instances")
             else:
-                st.metric("🐘 Active Elephants", elephant_count)
-            st.metric("Elephant Memory", f"{elephants_memory:.2f} MB")
-        else:
-            st.info("🐘 No elephants in memory")
+                st.text(f"🐘 Elephants: {elephants_memory:.2f} MB")
+                st.caption(f"   {elephant_count:,} instances")
         
-        if store_stats['total_events'] > 0:
-            st.metric("📅 Events Memory", f"{events_memory:.2f} MB")
+        if events_memory > 0.01:
+            st.text(f"📅 Events: {events_memory:.2f} MB")
+            st.caption(f"   {store_stats['total_events']:,} instances")
+        
+        if herds_memory > 0.01:
+            st.text(f"👥 Herds: {herds_memory:.2f} MB")
+            st.caption(f"   {store_stats['total_herds']} instances")
+        
+        if water_memory > 0.01:
+            st.text(f"💧 Water Sources: {water_memory:.2f} MB")
+            st.caption(f"   {store_stats['total_water_sources']} instances")
+        
+        st.text(f"📦 Data Total: {data_memory:.2f} MB")
+        
+        st.divider()
+        st.markdown("**⚙️ Framework:**")
+        
+        st.text(f"🐍 Python Runtime: {framework_memory:.2f} MB")
+        st.caption(f"   Streamlit + Python + {gc_objects:,} GC objects")
     
     st.divider()
     
@@ -326,8 +387,11 @@ with tab2:
         st.info(f"📊 **Estimated Dataset**: ~{estimated_elephants:,} elephants (range: {range_low:,}-{range_high:,}), {num_events:,} events, {num_herds} herds")
         
         if st.button("🚀 Generate Large Dataset", type="primary", use_container_width=True):
-            # Clear existing data
-            st.session_state.store.clear()
+            # Clear existing data and run GC to free old elephants
+            st.session_state.store.clear_and_cleanup()  # Use cleanup version to break circular refs
+            st.session_state.search_engine.index_all([], [], [])  # Clear search indexes
+            gc.collect()
+            st.session_state.references_broken = False  # Reset state
             
             with st.spinner("Generating large dataset..."):
                 snapshot_before = st.session_state.monitor.take_snapshot("Before generation")
@@ -483,7 +547,7 @@ with tab3:
                             x=event_types,
                             y=counts,
                             marker=dict(
-                                color=['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6'][:len(event_types)]
+                                color=CHART_COLORS[:len(event_types)]
                             ),
                             text=counts,
                             textposition='auto',
@@ -703,8 +767,6 @@ with tab4:
                 node_color = []
                 node_hover = []
                 
-                colors = ['#3498db', '#2ecc71', '#f39c12', '#e74c3c', '#9b59b6', '#1abc9c', '#e67e22', '#34495e']
-                
                 for node_name, node_data in nodes.items():
                     x, y = pos[node_name]
                     node_x.append(x)
@@ -719,7 +781,7 @@ with tab4:
                     node_text.append(short_name)
                     
                     # Color by generation
-                    node_color.append(colors[generation % len(colors)])
+                    node_color.append(CHART_COLORS[generation % len(CHART_COLORS)])
                     
                     # Hover info
                     node_hover.append(f"<b>{node_name}</b><br>Born: {birth_year}<br>Children: {num_children}<br>Generation: {generation}")

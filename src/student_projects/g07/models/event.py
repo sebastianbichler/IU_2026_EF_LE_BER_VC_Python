@@ -2,9 +2,13 @@
 Event model for tracking significant occurrences.
 """
 
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 from datetime import date
 from enum import Enum
+
+if TYPE_CHECKING:
+    from models.elephant import Elephant
+    from models.herd import Herd
 
 
 class EventType(Enum):

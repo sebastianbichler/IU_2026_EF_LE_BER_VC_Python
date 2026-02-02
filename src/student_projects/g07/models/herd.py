@@ -3,8 +3,11 @@ Herd model - represents a group of elephants.
 Also creates circular references: Herd ↔ Elephants
 """
 
-from typing import List, Set
+from typing import List, Set, TYPE_CHECKING
 from datetime import date
+
+if TYPE_CHECKING:
+    from models.elephant import Elephant
 
 
 class Herd:
