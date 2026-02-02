@@ -162,43 +162,82 @@ Die fachliche Logik wird in klar getrennte Komponenten aufgeteilt, sodass jede S
 Ordnerstruktur (geplant)
 ```mermaid 
 flowchart TB
-    Root["Bear Honeyworks Projekt"]
+    Root["g08 bear honeyworks Projekt"]
 
+    %% Top level Ordner
+    Root --> Docs["docs"]
+    Root --> Data["data"]
     Root --> Src["src"]
+    Root --> Templates["templates"]
+    Root --> Static["static"]
     Root --> Tests["tests"]
-    Root --> Config["mypy Konfiguration"]
+    Root --> Scripts["scripts"]
 
-    %% src Struktur
-    Src --> Domain["domain"]
-    Src --> Services["services"]
-    Src --> Repos["repositories"]
-    Src --> App["app.py oder cli"]
+    %% Root Dateien
+    Root --> PyProj["pyproject.toml"]
+    Root --> Readme["README.md"]
+    Root --> Gitignore[".gitignore"]
+
+    %% docs
+    Docs --> DKonzept["Konzept.md"]
+    Docs --> DReq["Anforderungen.md"]
+    Docs --> DReadme["README.md"]
+
+    %% data
+    Data --> SampleOrders["sample_orders.json"]
+    Data --> SampleInv["sample_inventory.json"]
+    Data --> DataReadme["README.md"]
+
+    %% src
+    Src --> Pkg["bear_honeyworks"]
+    Src --> App["app.py"]
+
+    %% package
+    Pkg --> InitPkg["__init__.py"]
+    Pkg --> Domain["domain"]
+    Pkg --> Services["services"]
+    Pkg --> Repos["repositories"]
+    Pkg --> IO["io"]
+    Pkg --> CLI["cli"]
 
     %% domain
-    Domain --> Bear["bear.py
-    Bär Produzent"]
-    Domain --> Honey["honey.py
-    Honigglas Typen Qualitaet"]
-    Domain --> Order["order.py
-    Bestellung Positionen"]
+    Domain --> Bear["bear.py"]
+    Domain --> Honey["honey.py"]
+    Domain --> Order["order.py"]
+    Domain --> Inventory["inventory.py"]
 
     %% services
-    Services --> ProdSvc["production_service.py
-    Honigproduktion"]
-    Services --> InvSvc["inventory_service.py
-    Lagerverwaltung"]
-    Services --> OrdSvc["order_service.py
-    Bestelllogik"]
+    Services --> ProdSvc["production_service.py"]
+    Services --> InvSvc["inventory_service.py"]
+    Services --> OrdSvc["order_service.py"]
 
     %% repositories
-    Repos --> InvRepo["inventory_repository.py
-    Bestand Speicherung"]
-    Repos --> OrdRepo["order_repository.py
-    Bestellung Speicherung"]
+    Repos --> InvRepo["inventory_repository.py"]
+    Repos --> OrdRepo["order_repository.py"]
 
-    %% config
-    Config --> PyProj["pyproject.toml"]
-    Config --> MyPyIni["mypy.ini"]
+    %% io
+    IO --> JsonStore["json_store.py"]
+    IO --> Loaders["loaders.py"]
+
+    %% cli
+    CLI --> Main["main.py"]
+
+    %% templates
+    Templates --> TIndex["index.html"]
+    Templates --> TReport["report.html"]
+
+    %% static
+    Static --> Styles["styles.css"]
+    Static --> Assets["diagram assets"]
+
+    %% tests
+    Tests --> TInv["test_inventory_service.py"]
+    Tests --> TOrd["test_order_service.py"]
+    Tests --> TType["test_typing_examples.py"]
+
+    %% scripts
+    Scripts --> RunMyPy["run_mypy.sh"]
+    Scripts --> Demo["demo.sh"]
 ```
 ### Warum so?
 - domain/ bleibt möglichst „clean“ (keine IO, keine Nebenwirkungen)
