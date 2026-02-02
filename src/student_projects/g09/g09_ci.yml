@@ -1,0 +1,44 @@
+name: "G09 - Sloth Hotel CI"
+
+on:
+  push:
+    paths:
+      - "src/student_projects/g09/**"
+  pull_request:
+    paths:
+      - "src/student_projects/g09/**"
+
+defaults:
+  run:
+    working-directory: src/student_projects/g09
+
+jobs:
+  lint-and-test:
+    name: Lint, Type-Check & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Ruff Format Check
+        run: ruff format --check .
+
+      - name: Ruff Lint Check
+        run: ruff check .
+
+      - name: Mypy Static Type Check
+        run: mypy src/ --ignore-missing-imports
+
+      - name: Run Tests with Coverage
+        run: |
+          export PYTHONPATH=src
+          pytest tests/ --cov=src --cov-report=term-missing -v

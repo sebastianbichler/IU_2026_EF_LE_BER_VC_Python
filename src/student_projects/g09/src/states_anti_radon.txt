@@ -1,0 +1,8 @@
+states_anti_pattern.py
+    C 1:0 SlothAntiPattern - A (4)
+    M 12:4 SlothAntiPattern.get_state_name - A (4)
+    M 22:4 SlothAntiPattern.eat - A (4)
+    M 36:4 SlothAntiPattern.sleep - A (4)
+    M 50:4 SlothAntiPattern.move - A (4)
+    M 8:4 SlothAntiPattern.__init__ - A (1)
+    M 60:4 SlothAntiPattern.wake_up - A (1)
