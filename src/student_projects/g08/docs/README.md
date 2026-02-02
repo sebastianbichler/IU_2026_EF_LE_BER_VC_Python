@@ -36,8 +36,3 @@ Cedric Gärtner
 [Anforderungen](Anforderungen.md)
 
 ---
-
-## Diagramme
-
-[UseCaseDiagramm](UseCaseDiagramm.md)<br>
-[Kontextdiagramm](Kontextdiagramm.md)
