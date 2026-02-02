@@ -90,15 +90,15 @@ Das Ziel ist die Entwicklung einer **Python-basierten Farmverwaltungsanwendung**
     * Automatische Berechnung des täglichen Wasserbedarfs
     * Lazy-Evaluation für 365-Tage-Planung ohne Speicherüberlauf
 
-* **F18 – Rezeptvorschläge:**
-    * Kreative Rezeptideen basierend auf verfügbarem Gemüse
-    * Nutzung von Generatoren für dynamische Rezept-Kombinationen
-
-* **F19 – Saisonale Angebote:**
+* **F18 – Saisonale Angebote:**
     * Dynamische Rabatt-Aktionen für überschüssiges Gemüse
     * Anbindung an `get_expired_items()` Generator
 
 #### **Priorität 3: Could Have**
+
+* **F19 – Rezeptvorschläge:**
+    * Kreative Rezeptideen basierend auf verfügbarem Gemüse
+    * Nutzung von Generatoren für dynamische Rezept-Kombinationen
 
 * **F20 – Web-Dashboard:**
     * Interaktive Benutzeroberfläche (Flask/Streamlit)
@@ -145,15 +145,15 @@ Das Ziel ist die Entwicklung einer **Python-basierten Farmverwaltungsanwendung**
     * Automatische Berechnung des täglichen Wasserbedarfs
     * Lazy-Evaluation für 365-Tage-Planung ohne Speicherüberlauf
 
-* **F18 – Rezeptvorschläge:**
-    * Kreative Rezeptideen basierend auf verfügbarem Gemüse
-    * Nutzung von Generatoren für dynamische Rezept-Kombinationen
-
-* **F19 – Saisonale Angebote:**
+* **F18 – Saisonale Angebote:**
     * Dynamische Rabatt-Aktionen für überschüssiges Gemüse
     * Anbindung an `get_expired_items()` Generator
 
 #### **Priorität 3: Could Have** 💡 *Nice-to-Have*
+
+* **F19 – Rezeptvorschläge:**
+    * Kreative Rezeptideen basierend auf verfügbarem Gemüse
+    * Nutzung von Generatoren für dynamische Rezept-Kombinationen
 
 * **F20 – Web-Dashboard:**
     * Interaktive Benutzeroberfläche (Flask/Streamlit)
@@ -280,41 +280,99 @@ graph LR
 ```
 
 ### 3.3 Klassen-Diagramm (UML)
+```mermaid
+classDiagram
+    %% Domänenklassen (basierend auf src/models.py)
 
-![UML-Klassendiagramm](https://github.com/sebastianbichler/IU_2026_EF_LE_BER_VC_Python/blob/main/src/student_projects/g03/docs/UML%20Class%20Diagram%20(1).pdf)
+    class Vegetable {
+        -name : str
+        -sort : str
+        -plant_date : datetime
+        -harvest_date : datetime
+        -bed_id : int
+        -shelf_life_days : int
+        -amount : float
+        +is_fresh(current_date : Optional[datetime]) : bool
+        +freshness_ratio(current_date : Optional[datetime]) : float
+    }
 
-## 4. Ressourcenplanung & Tech Stack
+    class Bed {
+        -id : int
+        -name : str
+        -size_m2 : float
+    }
 
-### 4.1 Benötigte Bibliotheken
+    class Customer {
+        -name : str
+        -species : str
+        -subscription_type : str
+        +__str__() : str
+    }
 
-| Bibliothek | Verwendungszweck |
-| :--- | :--- | :--- | :--- |
-| **`itertools`** | Lazy Evaluation, `islice`, `cycle` |
-| **`functools`** | `reduce` für Finanzberechnungen |
-| **`dataclasses`** | Saubere Datenklassen |
-| **`datetime`** | Pflanzzeit, Erntezeit, Haltbarkeit |
-| **`json`** | Datenpersistenz |
-| **`tracemalloc`** | Speicherverbrauch-Messung |
-| **`time`** | Performance-Messung |
-| **`matplotlib`** | Visualisierung |
-| **`numpy`** | Numerische Operationen |
-| **`pandas`** | Datenanalyse |
-| **`memory_profiler`** | Erweiterte Speicher-Analyse |
-| **`jupyter`** | Experimente, Notebooks |
+    class SubscriptionBox {
+        -customer : Customer
+        -vegetables : List~Vegetable~
+        -delivery_date : datetime
+        -price : float
+        +__str__() : str
+    }
 
-### 4.2 Datenpersistenz
+    class Order {
+        -customer : Customer
+        -vegetables : List~Vegetable~
+        -delivery_date : datetime
+        -price : float
+        +__str__() : str
+    }
 
-JSON-basiert (`rabbitfarm_data.json`)
+    class Inventory {
+        -items : List~Vegetable~
+        +add_harvest(vegetable : Vegetable, amount : float)
+        +get_fresh_items(current_date : Optional[datetime]) : Generator~Vegetable~
+        +get_expired_items(current_date : Optional[datetime]) : Generator~Vegetable~
+        +get_total_amount() : float
+    }
 
-```json
-{
-  "vegetables": [...],
-  "beds": [...],
-  "customers": [...],
-  "inventory": [...],
-  "orders": [...]
-}
+    %% Beziehungen (aus `models.py` und globalen Daten in `main.py`)
+    Bed "1" --> "*" Vegetable : contains
+    Inventory "1" --> "*" Vegetable : stores
+    Customer "1" --> "*" Order : places
+    Customer "1" --> "*" SubscriptionBox : subscribes
+    Order "*" --> "*" Vegetable : includes
+    SubscriptionBox "*" --> "*" Vegetable : contains
+
+    %% Application / Main module (globale Sammlungen und I/O-Funktionen in main.py)
+    class Application {
+        -vegetables : List~Vegetable~
+        -beds : List~Bed~
+        -customers : List~Customer~
+        -inventory : Inventory
+        -orders : List~Order~
+        +save_data()
+        +load_data()
+        +add_vegetable()
+        +create_subscription_box()
+    }
+
+    class Sensors {
+        <<module>>
+        +stream_soil_moisture(bed_id, base_moisture)
+    }
+
+    class Services {
+        <<module>>
+        +generate_subscription_boxes(...)
+        +calculate_profit(orders, costs)
+    }
+
+    Application --> Bed : manages
+    Application --> Inventory : uses
+    Application --> Customer : manages
+    Application --> Order : manages
+    Services --> Application : used_by
+    Sensors --> Application : feeds
 ```
+
 
 **Vorteile:** Einfach, menschenlesbar, für Prototyp ausreichend
 
