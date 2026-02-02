@@ -29,6 +29,95 @@ Die Architektur folgt den Prinzipien der etablierten Entwurfsmuster wie sie von 
 * **State Pattern:** Die Zustandslogik der Gäste - Sleeping, Resting, Eating - wird über das State Pattern abgebildet. Dies verhindert invalide Zustandsübergänge und kapselt das Verhalten sauber.
 * **Duck Typing:** Nutzung der dynamischen Typisierung von Python um lose Kopplung zwischen den Systemkomponenten zu gewährleisten.
 
+* **native Implementierung:**
+```mermaid
+flowchart TD
+    Start["Gast fordert Nahrung an"] --> CheckState{"Prüfe aktuellen Zustand"}
+    
+    CheckState -- "Zustand ist Schlafend" --> Error1["Fehler: Aktion verweigert Gast schläft"]
+    style Error1 fill:#ffcccc,stroke:#333,stroke-width:2px
+    
+    CheckState -- "Zustand ist Essend" --> Action1["Aktion: Weiteressen erlaubt"]
+    style Action1 fill:#ccffcc,stroke:#333,stroke-width:2px
+
+    CheckState -- "Zustand ist Ruhend" --> Action2["Aktion: Zustandswechsel zu Essend durchführen"]
+    style Action2 fill:#ccffcc,stroke:#333,stroke-width:2px
+    
+    CheckState -- "Unbekannter Zustand" --> Error2["Kritischer Systemfehler"]
+    style Error2 fill:#ff0000,stroke:#fff,stroke-width:2px,color:#fff
+
+    subgraph Problemfeld
+    CheckState
+    end
+    style Problemfeld fill:#f9f,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5
+```
+
+* **State Pattern Architektur:**
+```mermaid
+classDiagram
+    direction LR
+    class GuestContext {
+        -currentState : StateInterface
+        +requestFood()
+        +requestSleep()
+        +setState(newState)
+    }
+    note for GuestContext "Der Kontext weiß nicht WIE gehandelt wird.<br/>Er delegiert nur an den aktuellen Zustand."
+
+    class StateInterface {
+        <<interface>>
+        +handleFood()
+        +handleSleep()
+    }
+
+    class SleepingState {
+        +handleFood() : Verweigern
+        +handleSleep() : Ignorieren
+    }
+    style SleepingState fill:#e6f3ff,stroke:#333
+
+    class RestingState {
+        +handleFood() : Wechsel zu EatingState
+        +handleSleep() : Wechsel zu SleepingState
+    }
+    style RestingState fill:#e6f3ff,stroke:#333
+
+    class EatingState {
+        +handleFood() : Ignorieren
+        +handleSleep() : Verweigern erst Ruhen
+    }
+    style EatingState fill:#e6f3ff,stroke:#333
+
+    GuestContext --> StateInterface : delegiert Aktionen an
+    StateInterface <|.. SleepingState : implementiert
+    StateInterface <|.. RestingState : implementiert
+    StateInterface <|.. EatingState : implementiert
+```
+* **Duck-Typing-Visualisierung:**
+```mermaid
+flowchart TB
+    Manager["Hotel System Manager"]
+    
+    subgraph Interface Erwartung
+        Requirement["Erwartet Objekt mit Methode:<br/>calculate_slowness_factor"]
+    end
+    
+    style Requirement fill:#fff2cc,stroke:#d6b656,stroke-width:2px
+
+    Manager -- nutzt --> Requirement
+
+    Requirement -. "wird erfüllt von" .-> SlothObj["Klasse: Sloth"]
+    Requirement -. "wird erfüllt von" .-> LorisObj["Klasse: SlowLoris"]
+    Requirement -. "wird erfüllt von" .-> TiredDev["Klasse: VeryTiredDeveloper"]
+
+    style SlothObj fill:#d5e8d4,stroke:#82b366
+    style LorisObj fill:#d5e8d4,stroke:#82b366
+    style TiredDev fill:#d5e8d4,stroke:#82b366
+
+    NoteNode["Notiz: Es gibt keine gemeinsame Basisklasse.<br/>Das System funktioniert weil die Methode existiert,<br/>nicht aufgrund von Vererbung."]
+```
+
+
 ## 3. Funktionale Anforderungen
 Alle Anforderungen haben IDs um sie im Code wiederzufinden. Da der Code auf Englisch geschrieben wird sind auch die IDs englisch. Die Klassifizierung nach Priorität erfolgt durch die MoSCoW-Methode:
 M - Must
