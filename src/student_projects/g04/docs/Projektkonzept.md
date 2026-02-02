@@ -41,3 +41,32 @@ Die Anwendung "Football League" wird als zentrales Informationsportal für Fußb
 * **Datenbank:** MongoDB
 * **DB-Anbindung:** PyMongo
 * **Type-Checker:** MyPy
+
+## 5. Statische Typisierung
+
+In diesem Abschnitt wird erklärt, wie Statische Typisierung dabei hilft, die Fehleranfälligkeit bei komplexen Berechnungen in der Anwendung zu minimieren.
+
+### MyPy
+
+MyPy ist ein statischer Typ-Prüfer für Python. Es erlaubt das Hinzufügen von Typ-Annotationen und prüft den Code vor der Ausführung, um sicherzustellen, dass keine falschen Datentypen (z. B. ein Text statt einer Zahl) in Berechnungen einfließen.
+
+#### Vorteile
+
+* **Frühe Fehlererkennung:** Logikfehler werden vor dem Starten der App gefunden.
+* **Bessere Dokumentation:** Andere Entwickler sehen sofort, welche Daten die Methoden erwarten.
+* **Sicheres Refactoring:** Wenn man die Struktur einer Klasse ändert, zeigt MyPy sofort alle Stellen im Code, die nun angepasst werden müssen.
+
+#### Nachteile
+
+* **Zusätzlicher Zeitaufwand:** Man muss mehr Code schreiben.
+* **Lernkurve:** Bei komplexen Typen muss man sich tiefer mit der MyPy-Syntax auskennen.
+* **Geringere Flexibilität:** Das Ändern von Variablentypen erfordert zusätzlichen Aufwand und kann bestimmte Programmieraufgaben erschweren.
+* **Falsches Sicherheitsgefühl:** MyPy prüft nur den statischen Code, keine Fehler, die erst zur Laufzeit durch falsche User-Eingaben entstehen.
+
+### Verwendung von MyPy in der Anwendung
+
+Die Anwendung enthält Daten mit komplexen Beziehungen und Daten, die komplexe Berechnungen erfordern. `GoalRecord` ist mit einem `Player`, einer `Team` und einem `Competition` verknüpft. `StatsService` muss die Statistiken daraus in mehreren Schritten berechnen.
+
+Beispiel für die Komplexität: Die Methode `get_team_stats(team_id, competition_id)` greift auf viele `GameStats` zu, die wiederum aus einzelnen `GoalRecord` und `CardRecord`-Objekten bestehen. Die Methode `get_competition_stats(competition_id)` berechnet wiederum die Statistiken für jedes `Team`, das an einem gemeinsamen `Competition` teilnimmt.
+
+Wenn bei der Berechnung der Tordifferenz oder der Rangliste versehentlich `player_id` (string) anstelle `goals_for` (int) hinzugefügt wird, meldet **MyPy** diesen Fehler sofort, bevor das Programm überhaupt abstürzt. Ohne **MyPy** wäre dieser Fehler in der NoSQL-Datenbank **MongoDB** unbemerkt geblieben.
