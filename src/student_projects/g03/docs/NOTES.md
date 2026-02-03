@@ -11,3 +11,5 @@
 - welche Tools sind explizit für die wissenschaftliche Fragestellung relevant (aufdröseln)
 - wie testen wir?
 - welche Versionen verwenden wir für die Wissenschaftliche arbeit
+- welche artikel gibt es (als konzept verstehen)
+- TEST: Pytest - funktionen testen
