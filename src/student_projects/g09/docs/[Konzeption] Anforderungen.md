@@ -35,13 +35,13 @@ flowchart TD
     Start["Gast fordert Nahrung an"] --> CheckState{"Prüfe aktuellen Zustand"}
     
     CheckState -- "Zustand ist Schlafend" --> Error1["Fehler: Aktion verweigert Gast schläft"]
-    style Error1 fill:#ffcccc,stroke:#333,stroke-width:2px
+    style Error1 fill:#fc5b5b,stroke:#333,stroke-width:2px
     
     CheckState -- "Zustand ist Essend" --> Action1["Aktion: Weiteressen erlaubt"]
-    style Action1 fill:#ccffcc,stroke:#333,stroke-width:2px
+    style Action1 fill:#407a40,stroke,stroke-width:2px
 
     CheckState -- "Zustand ist Ruhend" --> Action2["Aktion: Zustandswechsel zu Essend durchführen"]
-    style Action2 fill:#ccffcc,stroke:#333,stroke-width:2px
+    style Action2 fill:#407a40,stroke:#333,stroke-width:2px
     
     CheckState -- "Unbekannter Zustand" --> Error2["Kritischer Systemfehler"]
     style Error2 fill:#ff0000,stroke:#fff,stroke-width:2px,color:#fff
@@ -49,7 +49,7 @@ flowchart TD
     subgraph Problemfeld
     CheckState
     end
-    style Problemfeld fill:#f9f,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5
+    style Problemfeld fill:#44b393,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 * **State Pattern Architektur:**
@@ -74,19 +74,19 @@ classDiagram
         +handleFood() : Verweigern
         +handleSleep() : Ignorieren
     }
-    style SleepingState fill:#e6f3ff,stroke:#333
+    style SleepingState fill:#2f96a3,stroke:#333
 
     class RestingState {
         +handleFood() : Wechsel zu EatingState
         +handleSleep() : Wechsel zu SleepingState
     }
-    style RestingState fill:#e6f3ff,stroke:#333
+    style RestingState fill:#2f96a3,stroke:#333
 
     class EatingState {
         +handleFood() : Ignorieren
         +handleSleep() : Verweigern erst Ruhen
     }
-    style EatingState fill:#e6f3ff,stroke:#333
+    style EatingState fill:#2f96a3,stroke:#333
 
     GuestContext --> StateInterface : delegiert Aktionen an
     StateInterface <|.. SleepingState : implementiert
