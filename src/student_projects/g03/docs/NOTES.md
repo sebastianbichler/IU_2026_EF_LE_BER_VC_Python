@@ -6,3 +6,10 @@
 - mit UI (Viel übersicht.) - ipywidgets
 - Die wege zur lösung verstehen (readme)
 - bus. abkapseln
+- welche Tools verwenden wir
+- wie bauen wir das System auf und den Code (UML)
+- welche Tools sind explizit für die wissenschaftliche Fragestellung relevant (aufdröseln)
+- wie testen wir?
+- welche Versionen verwenden wir für die Wissenschaftliche arbeit
+- welche artikel gibt es (als konzept verstehen)
+- TEST: Pytest - funktionen testen

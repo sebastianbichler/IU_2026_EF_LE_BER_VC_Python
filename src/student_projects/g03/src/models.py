@@ -1,6 +1,6 @@
-from datetime import datetime
-from typing import List, Optional, Generator
 from dataclasses import dataclass, field
+from datetime import datetime
+from typing import Generator, List, Optional
 
 
 @dataclass
@@ -72,11 +72,8 @@ class Order:
 @dataclass
 class Inventory:
     items: List[Vegetable] = field(default_factory=list)
-    
-    def add_harvest(self, vegetable: Vegetable, amount: float, harvest_date: Optional[datetime] = None) -> None:
-        if harvest_date is None:
-            harvest_date = datetime.now()
-        
+
+    def add_harvest(self, vegetable: Vegetable, amount: float) -> None:
         veg = Vegetable(
             name=vegetable.name,
             sort=vegetable.sort,
