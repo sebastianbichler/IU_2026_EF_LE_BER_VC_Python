@@ -102,7 +102,7 @@ flowchart TB
         Requirement["Erwartet Objekt mit Methode:<br/>calculate_slowness_factor"]
     end
     
-    style Requirement fill:#fff2cc,stroke:#d6b656,stroke-width:2px
+    style Requirement fill:#407a40,stroke:#d6b656,stroke-width:2px
 
     Manager -- nutzt --> Requirement
 
@@ -110,9 +110,9 @@ flowchart TB
     Requirement -. "wird erfüllt von" .-> LorisObj["Klasse: SlowLoris"]
     Requirement -. "wird erfüllt von" .-> TiredDev["Klasse: VeryTiredDeveloper"]
 
-    style SlothObj fill:#d5e8d4,stroke:#82b366
-    style LorisObj fill:#d5e8d4,stroke:#82b366
-    style TiredDev fill:#d5e8d4,stroke:#82b366
+    style SlothObj fill:#44b393,stroke:#82b366
+    style LorisObj fill:#44b393,stroke:#82b366
+    style TiredDev fill:#44b393,stroke:#82b366
 
     NoteNode["Notiz: Es gibt keine gemeinsame Basisklasse.<br/>Das System funktioniert weil die Methode existiert,<br/>nicht aufgrund von Vererbung."]
 ```
