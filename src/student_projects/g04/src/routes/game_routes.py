@@ -16,7 +16,7 @@ def index_action(competition_id):
     if not competition:
         return render_template('not-found.html'), 404
 
-    games = game_service.get_games(competition_id)
+    games = game_service.get_games_by_competition_id(competition_id)
 
     for g in games:
         cards_cursor = game_service.db.cards.find({"game_id": g["_id"]})

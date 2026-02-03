@@ -3,11 +3,42 @@
 {% block title %}Games{% endblock %}
 
 {% block content %}
-    <h1>Games List</h1>
+<h1 class="mb-4">Games</h1>
 
-    <ul>
-        {% for game in games %}
-            <li><strong>{{ game.team_1_id }} vs {{ game.team_2_id }}</strong> (ID: {{ game.id }})</li>
-        {% endfor %}
-    </ul>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for game in games %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                       {{ game.team_1_name }} <strong>vs</strong> {{ game.team_2_name }}
+                    </h5>
+
+                    {% if game.score_1 is not none and game.score_2 is not none %}
+                        <p class="text-center fs-4">
+                            {{ game.score_1 }} : {{ game.score_2 }}
+                        </p>
+                    {% else %}
+                        <p class="text-center text-muted">
+                            Not played yet
+                        </p>
+                    {% endif %}
+
+                    <div class="d-grid mt-3">
+                        <a href="/games/{{ game.id }}/stats"
+                           class="btn btn-outline-primary">
+                            View statistics
+                        </a>
+                    </div>
+                </div>
+
+                {% if game.status %}
+                <div class="card-footer text-center text-muted small">
+                    Status: {{ game.status }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}
