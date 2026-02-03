@@ -1,5 +1,18 @@
 # Projektkonzept: Squirrel Secret Stash – Die Nuss-Zentralbank
 
+## Inhaltsverzeichnis
+
+1. [Projektübersicht & Zielsetzung](#1-projektübersicht--zielsetzung)
+    * [1.1 Wissenschaftlicher Hintergrund](#11-wissenschaftlicher-hintergrund-warum-numpy)
+2. [Requirements (Anforderungen)](#2-requirements-anforderungen)
+3. [Software Design & Architektur](#3-software-design--architektur)
+    * [3.1 Anwendungsfälle (Use Cases)](#31-anwendungsfälle--akteure-use-case-diagram)
+    * [3.2 System-Architektur](#32-system-architektur--komponenten)
+4. [Ressourcenplanung & Tech Stack](#4-ressourcenplanung--tech-stack)
+5. [Literaturverzeichnis](#5-literaturverzeichnis--wissenschaftliche-quellen)
+
+---
+
 ## 1. Projektübersicht & Zielsetzung
 
 ### Was ist der Zweck der Anwendung?
