@@ -3,7 +3,8 @@ from flask import Blueprint, jsonify, redirect, render_template, request, url_fo
 from ..services import competition_service
 from ..services import game_service
 from ..models.game_model import GameStatus
-
+from ..models.card_record_model import CardRecord
+from ..models.goal_record_model import GoalRecord
 # Web routes
 
 games_web_bp = Blueprint('games_web', __name__)
@@ -17,7 +18,14 @@ def index_action(competition_id):
 
     games = game_service.get_games(competition_id)
 
+    for g in games:
+        cards_cursor = game_service.db.cards.find({"game_id": g["_id"]})
+        goals_cursor = game_service.db.goals.find({"game_id": g["_id"]})
+        g["cards"] = [CardRecord.from_dict(c).to_dict() for c in cards_cursor]
+        g["goals"] = [GoalRecord.from_dict(go).to_dict() for go in goals_cursor]
+
     return render_template('game/index.html', games=games)
+
 
 
 # API endpoints

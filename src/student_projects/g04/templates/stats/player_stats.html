@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Player stats</title>
+</head>
+<body>
+
+<h1>Player statistics</h1>
+
+<div id="content">Loading...</div>
+
+<script>
+const playerId = "{{ player_id }}";
+const competitionId = "{{ competition_id }}";
+
+fetch(`/api/stats/player/${playerId}/competition/${competitionId}`)
+    .then(res => res.json())
+    .then(data => {
+        let html = `<h2>Goals (${data.goals.length})</h2><ul>`;
+        data.goals.forEach(g => {
+            html += `<li>
+                Game: ${g.game_id},
+                Time: ${g.time}
+            </li>`;
+        });
+        html += `</ul>`;
+
+        html += `<h2>Cards (${data.cards.length})</h2><ul>`;
+        data.cards.forEach(c => {
+            html += `<li>
+                Game: ${c.game_id},
+                Color: ${c.color},
+                Time: ${c.time}
+            </li>`;
+        });
+        html += `</ul>`;
+
+        document.getElementById("content").innerHTML = html;
+    });
+</script>
+
+</body>
+</html>

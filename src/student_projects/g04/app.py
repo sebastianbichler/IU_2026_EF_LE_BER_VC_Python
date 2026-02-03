@@ -8,6 +8,7 @@ from src.routes.news_routes import news_bp
 from src.routes.team_routes import teams_web_bp, teams_api_bp
 from src.routes.competition_routes import competitions_web_bp, competitions_api_bp
 from src.routes.game_routes import games_web_bp, games_api_bp
+from src.routes.stats_api_routes import stats_api_bp
 
 
 def create_app():
@@ -32,5 +33,7 @@ def create_app():
 
     app.register_blueprint(games_web_bp, url_prefix='/competitions/<competition_id>/games')
     app.register_blueprint(games_api_bp, url_prefix='/api/competitions/<competition_id>/games')
+
+    app.register_blueprint(stats_api_bp, url_prefix='/game/<game_id>')
 
     return app
