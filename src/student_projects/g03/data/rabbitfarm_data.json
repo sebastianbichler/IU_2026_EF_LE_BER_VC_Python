@@ -8,6 +8,15 @@
       "bed_id": 1,
       "shelf_life_days": 10,
       "amount": 100.0
+    },
+    {
+      "name": "Mini Gurke",
+      "sort": "Deutsch",
+      "plant_date": "2026-01-01T00:00:00",
+      "harvest_date": "2026-01-21T00:00:00",
+      "bed_id": 2,
+      "shelf_life_days": 3,
+      "amount": 200.0
     }
   ],
   "beds": [
@@ -15,6 +24,11 @@
       "id": 1,
       "name": "Gurke",
       "size_m2": 100.0
+    },
+    {
+      "id": 2,
+      "name": "Mini Gurke",
+      "size_m2": 150.0
     }
   ],
   "customers": [
@@ -29,10 +43,37 @@
       "name": "Gurke",
       "sort": "Deutsch",
       "plant_date": "2025-01-26T00:00:00",
-      "harvest_date": "2025-01-26T00:00:00",
+      "harvest_date": "2026-01-27T00:00:00",
       "bed_id": 1,
       "shelf_life_days": 10,
       "amount": 50.0
+    },
+    {
+      "name": "Gurke",
+      "sort": "Deutsch",
+      "plant_date": "2025-01-26T00:00:00",
+      "harvest_date": "2026-01-27T10:14:38.204560",
+      "bed_id": 1,
+      "shelf_life_days": 10,
+      "amount": 100.0
+    },
+    {
+      "name": "Mini Gurke",
+      "sort": "Deutsch",
+      "plant_date": "2026-01-01T00:00:00",
+      "harvest_date": "2026-01-27T10:18:05.328580",
+      "bed_id": 2,
+      "shelf_life_days": 3,
+      "amount": 200.0
+    },
+    {
+      "name": "Mini Gurke",
+      "sort": "Deutsch",
+      "plant_date": "2026-01-01T00:00:00",
+      "harvest_date": "2026-01-27T10:20:59.467221",
+      "bed_id": 2,
+      "shelf_life_days": 3,
+      "amount": 300.0
     }
   ],
   "orders": [

@@ -72,13 +72,16 @@ class Order:
 @dataclass
 class Inventory:
     items: List[Vegetable] = field(default_factory=list)
-
-    def add_harvest(self, vegetable: Vegetable, amount: float) -> None:
+    
+    def add_harvest(self, vegetable: Vegetable, amount: float, harvest_date: Optional[datetime] = None) -> None:
+        if harvest_date is None:
+            harvest_date = datetime.now()
+        
         veg = Vegetable(
             name=vegetable.name,
             sort=vegetable.sort,
             plant_date=vegetable.plant_date,
-            harvest_date=vegetable.harvest_date,
+            harvest_date=harvest_date,
             bed_id=vegetable.bed_id,
             shelf_life_days=vegetable.shelf_life_days,
             amount=amount,
