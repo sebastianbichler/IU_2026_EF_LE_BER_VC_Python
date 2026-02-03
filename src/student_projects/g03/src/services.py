@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
-from typing import List, Generator, Dict
-from itertools import islice, cycle
+from itertools import cycle, islice
+from typing import Dict, Generator, List
 
-from models import Vegetable, Customer, SubscriptionBox, Order, Inventory
+from models import Customer, Inventory, Order, SubscriptionBox, Vegetable
 
 
 def generate_subscription_boxes(

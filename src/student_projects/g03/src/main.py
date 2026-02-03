@@ -1,23 +1,23 @@
-import sys
-import os
 import json
+import os
+import sys
 import time
 import tracemalloc
 from datetime import datetime, timedelta
-from itertools import islice
 from functools import reduce
+from itertools import islice
 
 if __name__ == "__main__":
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from .models import Vegetable, Bed, Customer, Inventory, Order
+    from .models import Bed, Customer, Inventory, Order, Vegetable
     from .sensors import stream_soil_moisture
-    from .services import generate_subscription_boxes, calculate_profit
+    from .services import calculate_profit, generate_subscription_boxes
 except ImportError:
-    from models import Vegetable, Bed, Customer, Inventory, Order
+    from models import Bed, Customer, Inventory, Order, Vegetable
     from sensors import stream_soil_moisture
-    from services import generate_subscription_boxes, calculate_profit
+    from services import calculate_profit, generate_subscription_boxes
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 os.makedirs(DATA_DIR, exist_ok=True)
