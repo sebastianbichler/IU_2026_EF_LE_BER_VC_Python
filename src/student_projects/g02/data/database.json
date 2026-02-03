@@ -1,0 +1,102 @@
+[
+    {
+        "id": 1,
+        "x": 82.26313373731963,
+        "y": 21.993528094542835,
+        "nut_type": "Eichel",
+        "tree_type": "Buche",
+        "amount": 152,
+        "depth": 51.909813951122814,
+        "expiration_date": "2026-12-09"
+    },
+    {
+        "id": 2,
+        "x": 10.42264057666481,
+        "y": 6.6253150436902715,
+        "nut_type": "Eichel",
+        "tree_type": "Eiche",
+        "amount": 271,
+        "depth": 24.671087732402466,
+        "expiration_date": "2026-05-16"
+    },
+    {
+        "id": 3,
+        "x": 79.4383807935956,
+        "y": 58.50963788056879,
+        "nut_type": "Eichel",
+        "tree_type": "Trauerweide",
+        "amount": 216,
+        "depth": 28.343126842292943,
+        "expiration_date": "2026-11-07"
+    },
+    {
+        "id": 4,
+        "x": 70.43555369321149,
+        "y": 25.682750638618412,
+        "nut_type": "Haselnuss",
+        "tree_type": "Eiche",
+        "amount": 63,
+        "depth": 16.436700833151136,
+        "expiration_date": "2026-03-17"
+    },
+    {
+        "id": 5,
+        "x": 85.66407854207206,
+        "y": 51.05554186478527,
+        "nut_type": "Eichel",
+        "tree_type": "Kiefer",
+        "amount": 97,
+        "depth": 31.786808644649547,
+        "expiration_date": "2026-08-07"
+    },
+    {
+        "id": 6,
+        "x": 3.2286617635907566,
+        "y": 20.146168287712165,
+        "nut_type": "Eichel",
+        "tree_type": "Trauerweide",
+        "amount": 257,
+        "depth": 39.18950055186785,
+        "expiration_date": "2026-12-09"
+    },
+    {
+        "id": 7,
+        "x": 55.782310743124405,
+        "y": 98.78812401265475,
+        "nut_type": "Walnuss",
+        "tree_type": "Trauerweide",
+        "amount": 27,
+        "depth": 40.27966610412021,
+        "expiration_date": "2026-08-13"
+    },
+    {
+        "id": 8,
+        "x": 59.41016430596003,
+        "y": 80.58593184833215,
+        "nut_type": "Eichel",
+        "tree_type": "Trauerweide",
+        "amount": 12,
+        "depth": 26.630055029468128,
+        "expiration_date": "2026-08-02"
+    },
+    {
+        "id": 9,
+        "x": 70.42434930309463,
+        "y": 45.89340025649577,
+        "nut_type": "Erdnuss",
+        "tree_type": "Buche",
+        "amount": 274,
+        "depth": 10.558688842750641,
+        "expiration_date": "2026-08-14"
+    },
+    {
+        "id": 10,
+        "x": 19.567256586789217,
+        "y": 56.059554801118495,
+        "nut_type": "Haselnuss",
+        "tree_type": "Buche",
+        "amount": 241,
+        "depth": 45.4104670199602,
+        "expiration_date": "2026-11-27"
+    }
+]

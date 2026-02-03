@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>System-Report</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; padding: 20px; color: #343a40; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .section-card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+            margin-bottom: 30px; 
+        }
+        
+        h2 { margin-top: 0; color: #2c3e50; border-bottom: 2px solid #f1f3f5; padding-bottom: 15px; margin-bottom: 20px; font-size: 1.5em; }
+        
+        /* Grid für den oberen Teil */
+        .metrics-grid { display: flex; gap: 40px; align-items: flex-start; }
+        .metrics-text { flex: 1; font-size: 1.1em; line-height: 1.8; }
+        .metrics-chart { flex: 1; text-align: center; border-left: 1px solid #eee; padding-left: 20px; }
+        
+        .metric-row { display: flex; justify-content: space-between; border-bottom: 1px solid #f8f9fa; padding: 8px 0; }
+        .metric-label { color: #868e96; font-weight: 500; }
+        .metric-value { font-weight: bold; color: #212529; }
+        .text-danger { color: #fa5252; }
+        .text-success { color: #20c997; }
+
+        /* Performance Tabelle */
+        .perf-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .perf-table th { background: #343a40; color: white; padding: 12px; text-align: left; font-weight: normal; }
+        .perf-table td { border-bottom: 1px solid #dee2e6; padding: 12px; vertical-align: middle; }
+        .perf-table tr:last-child td { border-bottom: none; }
+        
+        .col-result { background-color: #f8f9fa; font-family: monospace; color: #495057; }
+        .col-winner { background-color: #e6fcf5; color: #0ca678; font-weight: bold; }
+
+        .btn-back { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            background: #adb5bd; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 4px; 
+            font-weight: 600;
+        }
+        .btn-back:hover { background: #868e96; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="section-card">
+        <h2>Lagerbestand & Sicherheit</h2>
+        <div class="metrics-grid">
+            
+            <div class="metrics-text">
+                <div class="metric-row">
+                    <span class="metric-label">Gesamtbestand (Brutto)</span>
+                    <span class="metric-value">{{ "%.0f"|format(total_nuts) }}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Verlust durch Diebstahl</span>
+                    <span class="metric-value text-danger">- {{ "%.0f"|format(loss) }}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Verfügbarer Bestand (Netto)</span>
+                    <span class="metric-value" style="font-size: 1.2em;">{{ "%.0f"|format(real_stock) }}</span>
+                </div>
+                <div class="metric-row" style="margin-top: 15px;">
+                     <span class="metric-label">Sicherheits-Status</span>
+                     {% if loss > 0 %}
+                        <span class="text-danger">Diebstahl erkannt</span>
+                     {% else %}
+                        <span class="text-success">Lager sicher</span>
+                     {% endif %}
+                </div>
+            </div>
+
+            <div class="metrics-chart">
+                <img src="{{ theft_chart }}" alt="Soll vs Ist Diagramm" style="max-height: 225px; width: auto;">
+            </div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h2>Echtzeit-Performance & Berechnungsergebnisse</h2>
+        <p style="color: #868e96; font-size: 0.9em; margin-bottom: 20px;">
+            Vergleich der Berechnungsmethoden basierend auf <strong>{{ stats.n }} aktuellen Datensätzen</strong>.
+        </p>
+
+        <table class="perf-table">
+            <thead>
+                <tr>
+                    <th style="width: 30%;">Berechnungsart</th>
+                    <th style="width: 30%;">Ergebnis der Berechnung</th>
+                    <th>Dauer Python (Loop)</th>
+                    <th>Dauer NumPy (Vektor)</th>
+                    <th>Speedup</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <strong>Überlebens-Simulation</strong><br>
+                        <span style="font-size:0.85em; color:#868e96;">Kalkulation von Bedarf vs. Kälte & Isolation</span>
+                    </td>
+                    <td class="col-result">
+                        Bedarf: {{ "%.0f"|format(needed) }} Nüsse<br>
+                        Status: 
+                        {% if is_enough %}
+                            <span class="text-success">Ausreichend</span>
+                        {% else %}
+                            <span class="text-danger">Kritisch</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ "%.5f"|format(stats.surv_py) }} s</td>
+                    <td class="col-winner">{{ "%.5f"|format(stats.surv_np) }} s</td>
+                    <td>
+                        {% if stats.surv_np > 0 and stats.surv_py > 0 %}
+                            <strong>{{ "%.1f"|format(stats.surv_py / stats.surv_np) }}x</strong>
+                        {% else %} - {% endif %}
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <strong>Zinseszins-Projektion</strong><br>
+                        <span style="font-size:0.85em; color:#868e96;">Berechnung des Vermögenszuwachses (5 Jahre)</span>
+                    </td>
+                    <td class="col-result">
+                        Wert: {{ "%.2f"|format(future_val) }}<br>
+                        Gewinn: +{{ "%.2f"|format(profit) }}
+                    </td>
+                    <td>{{ "%.5f"|format(stats.int_py) }} s</td>
+                    <td class="col-winner">{{ "%.5f"|format(stats.int_np) }} s</td>
+                    <td>
+                        {% if stats.int_np > 0 and stats.int_py > 0 %}
+                            <strong>{{ "%.1f"|format(stats.int_py / stats.int_np) }}x</strong>
+                        {% else %} - {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/" class="btn-back">Zurück zum Dashboard</a>
+</div>
+
+</body>
+</html>
