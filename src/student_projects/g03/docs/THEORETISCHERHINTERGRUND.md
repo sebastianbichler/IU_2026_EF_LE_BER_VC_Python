@@ -1,0 +1,11 @@
+# Mertz
+
+David Mertz beschreibt in Functional Programming in Python den Evaluationszeitpunkt von Ausdrücken als einen zentralen Unterschied zwischen imperativen und funktionalen Programmierstilen. Dabei unterscheidet er zwischen Eager (strikter) und Lazy (nicht-strikter) Evaluation.
+
+Python verwendet standardmäßig Eager Evaluation. Das bedeutet, dass Ausdrücke und Funktionsargumente unmittelbar ausgewertet werden, bevor sie weiterverarbeitet werden. Datenstrukturen wie Listen werden vollständig erzeugt, auch wenn später nur ein Teil der Elemente benötigt wird. Dieser Ansatz ist einfach zu verstehen, gut debuggbar und entspricht dem imperativen Programmiermodell, führt jedoch bei großen Datenmengen zu erhöhtem Speicherverbrauch und verhindert die Arbeit mit potenziell unendlichen Datenstrukturen.
+
+In der funktionalen Programmierung wird häufig Rekursion anstelle von Iteration eingesetzt. Mertz weist jedoch darauf hin, dass Python aufgrund fehlender Tail-Call-Optimierung rekursive Lösungen ineffizient machen kann. In Verbindung mit Eager Evaluation entstehen dadurch praktische Grenzen hinsichtlich Speicherverbrauch und Rekursionstiefe.
+
+Lazy Evaluation verfolgt einen anderen Ansatz: Ausdrücke werden erst dann ausgewertet, wenn ihr Wert tatsächlich benötigt wird. Obwohl Python keine vollständige Lazy Evaluation auf Sprachebene unterstützt, stellt es mit Generatoren, Iteratoren und Generator Expressions Mechanismen bereit, die ein lazy Verhalten ermöglichen. Dadurch können große oder sogar unendliche Datenströme effizient verarbeitet werden, da jeweils nur das aktuell benötigte Element berechnet wird.
+
+Mertz zeigt, dass Lazy Evaluation besonders gut mit funktionalen Konzepten harmoniert, da sie die Transformation von Daten in klaren Verarbeitungspipelines erlaubt und gleichzeitig Speicher- und Laufzeitkosten reduziert. Der wesentliche Unterschied zwischen Eager und Lazy Evaluation liegt somit im Zeitpunkt der Auswertung, wobei Python einen grundsätzlich eager Ansatz verfolgt, diesen jedoch gezielt durch lazy Konstrukte ergänzt.
