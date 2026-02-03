@@ -51,6 +51,51 @@ Wir priorisieren die Anforderungen nach MoSCoW
 Das System folgt einer modularen Architektur mit einer strikten Trennung zwischen Datenerzeugung, Datenhaltung und den Rechenkernen, um einen Vergleich zu gewährleisten.
 
 ```mermaid
+graph LR
+    %% Actors
+    subgraph Akteure
+        S((Sammy Admin))
+        T[System-Timer]
+        N((Nachbar))
+    end
+
+    %% System Boundary
+    subgraph "Squirrel Secret Stash System"
+        UC1(Verstecke digitalisieren)
+        UC2(Dummy-Daten generieren)
+        UC3(Diebstahl-Check durchführen)
+        UC4(Zinseszins berechnen)
+        UC5(Winterprognose erstellen)
+        UC6(Performance-Benchmark starten)
+        UC7(Statistiken visualisieren)
+    end
+
+    %% Relations Sammy
+    S --- UC1
+    S --- UC2
+    S --- UC6
+    S --- UC7
+
+    %% Relations Timer/System
+    T --- UC3
+    T --- UC5
+
+    %% Relations Neighbor
+    N --- UC4
+
+    %% Dependencies
+    UC6 -.->|include| UC4
+    UC6 -.->|include| UC3
+    UC7 -.->|extend| UC6
+
+    %% Styling
+    style S fill:#f9f,stroke:#333,stroke-width:2px
+    style N fill:#f9f,stroke:#333,stroke-width:2px
+    style T fill:#fff,stroke:#333,stroke-dasharray: 5 5
+```
+
+
+```mermaid
 classDiagram
     %% Hauptsteuerung der Anwendung
     class SquirrelApp {
@@ -146,21 +191,6 @@ Diese Pakete müssen in der Python-Umgebung installiert werden.
 
 * **IDE:** VS Code
 * **Version Control:** Git & GitHub
-
----
-
-## 5. Use Case Diagramm
-Das Use Case Diagramm zeigt die funktionalen Anforderungen aus Sicht des Hauptakteurs Sammy Squirrel
-usecaseDiagram
-    actor "Sammy Squirrel" as User
-    actor "System" as System
-
-    User --> (Verstecke verwalten)
-    User --> (Dummy-Daten generieren)
-    User --> (Diebstahl erkennen)
-    User --> (Performance-Benchmark ausführen)
-    User --> (Zinseszins berechnen)
-    User --> (Winterüberleben prognostizieren)
     User --> (Ergebnisse visualisieren)
 
     (Performance-Benchmark ausführen) --> (Native Python Berechnung)

@@ -12,7 +12,7 @@ Dieses Dokument beschreibt die konzeptionelle Planung des Projekts *Elephant Mem
 
 ---
 
-## 2. Projektidee & Zielsetzung
+## 2. Projekt & Zielsetzung
 
 Die *Elephant Memory Cloud* ist ein Python‑Prototyp eines digitalen Gedächtnisses für „Ella Elefant“.
 Ziel ist **nicht** die Entwicklung eines produktionsreifen Systems, sondern:
@@ -33,6 +33,7 @@ Die thematische Einbettung (Savanne, Elefanten, Wasserstellen) dient ausschließ
 * Reproduzierbare GC‑Experimente
 * Messung und Dokumentation von Speicherverhalten
 * Funktionsfähige, einfache Visualisierung
+* siehe `./MVP.md`
 
 ### Erweiterungen (optional)
 
@@ -52,69 +53,69 @@ Das System muss Ereignisse mit folgenden Attributen speichern können:
 * Ort (Wasserstelle)
 * Beteiligte Elefanten / Herden
 
-### F02 – Ereignisse indexieren
+### F02 – Ereignisse indexieren [m]
 
-Das System muss Ereignisse effizient nach Jahr und Ort durchsuchen können.
+* Das System muss Ereignisse effizient nach Jahr und Ort durchsuchen können.
 
-### F03 – Elefanten modellieren
+### F03 – Elefanten modellieren [m]
 
-Das System muss einzelne Elefanten als Objekte abbilden können.
+* Das System muss einzelne Elefanten als Objekte abbilden können.
 
-### F04 – Verwandtschaftsbeziehungen abbilden
+### F04 – Verwandtschaftsbeziehungen abbilden [m]
 
-Das System muss Eltern‑, Kind‑ und Herdenbeziehungen zwischen Elefanten modellieren.
+* Das System muss Eltern‑, Kind‑ und Herdenbeziehungen zwischen Elefanten modellieren.
 
-### F05 – Zirkuläre Referenzen erzeugen
+### F05 – Zirkuläre Referenzen erzeugen [m]
 
-Das System muss absichtlich zirkuläre Referenzen zwischen Objekten erzeugen (z. B. Eltern ↔ Kinder).
+* Das System muss absichtlich zirkuläre Referenzen zwischen Objekten erzeugen (z. B. Eltern ↔ Kinder).
 
-### F06 – Stammbäume visualisieren
+### F06 – Stammbäume visualisieren [s]
 
-Das System muss Verwandtschaftsgraphen visuell darstellen können.
+* Das System muss Verwandtschaftsgraphen visuell darstellen können.
 
-### F07 – Wasserstellen‑Suche
+### F07 – Wasserstellen‑Suche [s]
 
-Das System muss auf Basis historischer Ereignisdaten eine einfache Suche nach Wasserstellen ermöglichen.
+* Das System muss auf Basis historischer Ereignisdaten eine einfache Suche nach Wasserstellen ermöglichen.
 
-### F08 – Erinnerungs‑Bot
+### F08 – Erinnerungs‑Bot [c]
 
-Das System muss zeitbasierte Erinnerungen (Jahrestage, Migrationen) ausgeben können.
+* Das System muss zeitbasierte Erinnerungen (Jahrestage, Migrationen) ausgeben können.
 
-### F09 – Speicherverhalten messen
+### F09 – Speicherverhalten messen [m]
 
-Das System muss Speicherverbrauch und Objektanzahl während der Laufzeit erfassen.
+* Das System muss Speicherverbrauch und Objektanzahl während der Laufzeit erfassen.
 
-### F10 – GC‑Vergleich ermöglichen
+### F10 – GC‑Vergleich ermöglichen [m]
 
-Das System muss identische Szenarien mit aktivierter und deaktivierter Garbage Collection ausführen können.
+* Das System muss identische Szenarien mit aktivierter und deaktivierter Garbage Collection ausführen können.
 
 ---
 
 ## 5. Nicht‑funktionale Anforderungen
 
-### NF01 – Nachvollziehbarkeit
+### NF01 – Nachvollziehbarkeit [s]
 
-Der Code muss didaktisch nachvollziehbar und kommentiert sein.
+* Der Code muss didaktisch nachvollziehbar und kommentiert sein.
 
-### NF02 – Reproduzierbarkeit
+### NF02 – Reproduzierbarkeit [m]
 
-Alle Experimente müssen reproduzierbar dokumentiert sein.
+* Alle Experimente müssen reproduzierbar dokumentiert sein.
 
-### NF03 – Messbarkeit
+### NF03 – Messbarkeit [m]
 
-Speicherverhalten muss quantitativ erfasst werden.
+* Speicherverhalten muss quantitativ erfasst werden.
 
-### NF04 – Begrenzter Scope
+### NF04 – Begrenzter Scope [s]
 
-Keine Cloud‑Architektur, keine Persistenzdatenbanken, keine KI/ML‑Verfahren.
+* Keine Cloud‑Architektur, keine Persistenzdatenbanken, keine KI/ML‑Verfahren.
 
-### NF05 – Performance‑Abgrenzung
+### NF05 – Performance‑Abgrenzung [m]
 
-Ab einer großen Anzahl von Knoten kann die Visualisierung primär durch Browser‑Rendering limitiert sein. Dies stellt **kein** Memory‑Problem der Python‑Applikation dar und wird explizit dokumentiert.
+* Ab einer großen Anzahl von Knoten kann die Visualisierung primär durch Browser‑Rendering limitiert sein. Dies stellt **kein** Memory‑Problem der Python‑Applikation dar und wird explizit dokumentiert.
 
-### NF06 – Plattformunabhängigkeit
+### NF06 – Plattformunabhängigkeit [m]
 
-Das System muss lokal auf Standard‑Entwicklungsrechnern lauffähig sein.
+* Das System muss lokal auf Standard‑Entwicklungsrechnern lauffähig sein.
 
 ---
 
@@ -218,13 +219,8 @@ README.md
 
 ## 11. Verlinkung externer Dokumente
 
-* UML‑Diagramme: `docs/uml/`
+* UML‑Diagramme: `docs/{phase}/diagrams`
 * GC‑Messprotokolle: `docs/experiments/`
-* Feature‑Planung: `docs/features.md`
-* Epics & User Stories: `docs/epics_stories.md`
-* Wissenschaftliche Quellen: `docs/references.md`
+* Quellen: `docs/references.md`
 
 ---
-
-
-Eine vollständige Literaturliste wird separat gepflegt.

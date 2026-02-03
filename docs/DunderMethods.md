@@ -121,7 +121,7 @@ with TrackerStream("GPS_001") as stream:
 * **`__str__` vs `__repr__`**: `str` ist für Enduser (schön), `repr` ist für Entwickler (eindeutig, oft wie der
   Erzeugungscode).
 
-> **Merksatz für Studierende:** "Dunder-Methoden sind die Schnittstellen von Python zum Interpreter. Wenn man weiß,
+> **Merksatz:** "Dunder-Methoden sind die Schnittstellen von Python zum Interpreter. Wenn man weiß,
 > welche Dunder-Methode man überschreiben muss, kann man die gesamte Sprache an seine eigenen Bedürfnisse anpassen."
 
 ---

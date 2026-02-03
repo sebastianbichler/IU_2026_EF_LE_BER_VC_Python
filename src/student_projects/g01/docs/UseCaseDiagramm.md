@@ -1,6 +1,6 @@
 ```mermaid
 flowchart LR
-    User["👤 Benutzer"]
+    User["👤 Fiona Fuchs(Dispatcher)"]
 
     subgraph GUI["FoxExpress (Streamlit GUI)"]
         UC1(["Lieferungen verwalten"])

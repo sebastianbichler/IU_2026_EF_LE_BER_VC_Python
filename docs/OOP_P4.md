@@ -119,5 +119,3 @@ Wenn Studierende fragen: "Was ist der echte Konstruktor?", ist die Antwort techn
 `Elephant.from_csv(...)` statt nur `new Elephant(...)`)."
 
 ---
-
-**Soll ich dieses Konzept der Factory-Methoden noch weiter vertiefen oder mit dem nächsten Thema fortfahren?**
