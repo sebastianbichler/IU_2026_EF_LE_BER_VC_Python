@@ -1,6 +1,6 @@
 # Quellen
 
-- Functional Programming in Python  
+- Functional Programming in Python
     - Link: https://archive.org/details/functional-programming-python/page/n33/mode/2up
 
 - Erklärung des Prinzips, Vor- & Nachteile, Einsatzgebiete

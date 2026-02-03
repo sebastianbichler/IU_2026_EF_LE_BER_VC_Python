@@ -78,7 +78,7 @@ class Inventory:
             name=vegetable.name,
             sort=vegetable.sort,
             plant_date=vegetable.plant_date,
-            harvest_date=vegetable.harvest_date,
+            harvest_date=harvest_date,
             bed_id=vegetable.bed_id,
             shelf_life_days=vegetable.shelf_life_days,
             amount=amount,
