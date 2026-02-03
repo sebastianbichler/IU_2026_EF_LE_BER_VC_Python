@@ -7,10 +7,10 @@ flowchart LR
 
     %% --- Knoten (Nodes) ---
     User("👤 Fiona Fuchs<br>(Dispatcher)"):::actor
-    
+
     %% Das Hauptsystem beinhaltet CPython und Numba
     System("🦊 FoxExpress<br>(Streamlit auf CPython + Numba)"):::system
-    
+
     %% Externe Systeme
     PyPyEnv("⚙️ PyPy Umgebung<br>(Externer Prozess)"):::external
     FileSystem("📂 Dateisystem<br>(CSV-Export / Logs)"):::external
