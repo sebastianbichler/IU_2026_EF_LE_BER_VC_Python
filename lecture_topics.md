@@ -8,6 +8,12 @@ Die folgenden Schwerpunkte sind speziell auf Python zugeschnitten und bieten die
 fortgeschrittene Konzepte einzutauchen, die über die Grundlagen hinausgehen. Jeder Schwerpunkt ist mit einer
 wissenschaftlichen Fragestellung, relevanten Publikationen und einer praktischen Anwendung im Projektkontext verknüpft.
 
+Zuvor, der
+Artikel [Performante Python_Algorithmen](https://www.heise.de/hintergrund/Programmiersprache-Python-Performante-Algorithmen-entwickeln-und-optimieren-11141627.html)
+von Heise Developer bietet eine hervorragende Übersicht, wie eine Performance-Optimierung in Python erreicht werden
+kann. Dabei werden auch Grundlagen aus der Welt der Algorithmen und Datenstrukturen behandelt, die für die folgenden
+Schwerpunkte relevant sind.
+
 ### 1. Memory Management: Reference Counting vs. Cyclic Garbage Collection
 
 Python nutzt primär Reference Counting, ergänzt durch einen zyklischen GC. Dies ist ein direkter Kontrast zum
@@ -161,5 +167,5 @@ Um den methodischen Anspruch zu sichern, sollten die Gruppen folgende Schritte d
 
 2. **Profiling:** Nutzung von Tools wie `cProfile` oder `memory_profiler`, um Engpässe wissenschaftlich nachzuweisen.
 
-3. **Dokumentation:** Ein kurzes Paper (4-6 Seiten), das die gewählte Forschungsfrage mit den Ergebnissen des Projekts
-   beantwortet.
+3. **Dokumentation:** Ein kurzes Paper (4-6 Seiten), das die gewählte Forschungsfrage darstellt und die Ergebnissen des
+   Projekts (erklärend) beantwortet.
