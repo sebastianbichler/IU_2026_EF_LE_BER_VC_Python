@@ -3,5 +3,43 @@
 {% block title %}Teams{% endblock %}
 
 {% block content %}
-    <h1>Team {{ team.name }}</h1>
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-2 text-center mb-3 mb-md-0">
+                <img src="{{ team.logo_url }}" alt="Logo" class="img-fluid rounded shadow-sm"
+                    style="max-height: 120px;">
+            </div>
+            <div class="col-md-10">
+                <h1 class="display-6 fw-bold mb-1">{{ team.name }}</h1>
+                <p>{{ team.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-header bg-white py-3">
+        <h3 class="card-title h5 mb-0 font-weight-bold">Players</h3>
+
+    </div>
+    <div class="card-body p-0">
+        <div class="list-group rounded-0 rounded-bottom border-0">
+            {% for player in players %}
+            <a href="/teams/{{ team.id }}/players/{{ player.id }}" class="list-group-item list-group-item-action py-4 border-0">
+                <div class="row align-items-center text-center">
+                    <div class="col-2 d-flex justify-content-end">
+                        <img src="{{ player.picture_url }}" alt="Player Picture" class="rounded-circle border"
+                            width="50" height="50">
+                    </div>
+                    <div class="col-10 text-start">
+                        <h5 class="mb-1">{{ player.first_name }} {{ player.last_name }}</h5>
+                        <p class="mb-0 text-muted">{{ player.position }} | Shirt Number: {{ player.shirt_number }}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}

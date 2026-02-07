@@ -18,16 +18,32 @@ def get_game_stats(game_id):
     return GameStats(game_id=game_id, cards=cards, goals=goals)
 
 
-def get_player_stats(player_id, competition_id):
-    cards_cursor = db.cards.find({"player_id": player_id})
-    goals_cursor = db.goals.find({"player_id": player_id})
+def get_player_stats_by_competition(player_id, competition_id):
+    cards_cursor = db.cards.find({"player_id": ObjectId(player_id), "competition_id": ObjectId(competition_id)})
+    goals_cursor = db.goals.find({"player_id": ObjectId(player_id), "competition_id": ObjectId(competition_id)})
 
     cards = [CardRecord.from_dict(c) for c in cards_cursor]
     goals = [GoalRecord.from_dict(g) for g in goals_cursor]
 
     return PlayerStats(
         player_id=player_id,
+        game_id=None,
         competition_id=competition_id,
+        cards=cards,
+        goals=goals
+    )
+
+def get_player_stats(player_id):
+    cards_cursor = db.cards.find({"player_id": ObjectId(player_id)})
+    goals_cursor = db.goals.find({"player_id": ObjectId(player_id)})
+
+    cards = [CardRecord.from_dict(c) for c in cards_cursor]
+    goals = [GoalRecord.from_dict(g) for g in goals_cursor]
+
+    return PlayerStats(
+        player_id=player_id,
+        game_id=None,
+        competition_id=None,
         cards=cards,
         goals=goals
     )

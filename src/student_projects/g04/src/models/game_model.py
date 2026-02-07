@@ -48,12 +48,9 @@ class Game(Entity):
         }
 
         if for_db:
-            if self.team_1_id:
-                data['team_1_id'] = ObjectId(self.team_1_id)
-            if self.team_2_id:
-                data['team_2_id'] = ObjectId(self.team_2_id)
-            if self.competition_id:
-                data['competition_id'] = ObjectId(self.competition_id)
+            data['team_1_id'] = ObjectId(self.team_1_id) if self.team_1_id else None
+            data['team_2_id'] = ObjectId(self.team_2_id) if self.team_2_id else None
+            data['competition_id'] = ObjectId(self.competition_id) if self.competition_id else None
         else:
             data['team_1_id'] = self.team_1_id if self.team_1_id else None
             data['team_2_id'] = self.team_2_id if self.team_2_id else None

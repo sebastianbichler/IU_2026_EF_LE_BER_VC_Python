@@ -21,7 +21,7 @@ def details_action(competition_id):
     if not competition:
         return render_template('not-found.html'), 404
 
-    games = game_service.get_games(competition_id)
+    games = game_service.get_games_by_competition_id(competition_id)
     games = [game.to_dict() for game in games]
 
     scoreboard = competition_service.get_scoreboard(competition_id)

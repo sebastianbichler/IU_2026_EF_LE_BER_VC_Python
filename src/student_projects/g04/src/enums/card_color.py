@@ -1,5 +1,5 @@
 from enum import Enum
 
 class CardColor(Enum):
-    YELLOW = "yellow",
-    RED = "red",
+    YELLOW = "yellow"
+    RED = "red"

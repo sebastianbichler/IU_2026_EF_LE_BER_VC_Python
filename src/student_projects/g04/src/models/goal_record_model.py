@@ -1,4 +1,6 @@
 from datetime import datetime
+from bson import ObjectId
+
 from .entity_model import Entity
 
 class GoalRecord(Entity):
@@ -24,11 +26,20 @@ class GoalRecord(Entity):
             updated_at=data.get("updated_at")
         )
 
-    def to_dict(self):
-        return {
-            "game_id": self.game_id,
-            "player_id": self.player_id,
-            "team_id": self.team_id,
+    def to_dict(self, for_db=False):
+        data = {
             "time": self.time.isoformat() if self.time else None,
             "id": self.id
         }
+
+        if for_db:
+            data["game_id"] = ObjectId(self.game_id) if self.game_id else None
+            data["player_id"] = ObjectId(self.player_id) if self.player_id else None
+            data["team_id"] = ObjectId(self.team_id) if self.team_id else None
+        else:
+            data["game_id"] = self.game_id if self.game_id else None
+            data["player_id"] = self.player_id if self.player_id else None
+            data["team_id"] = self.team_id if self.team_id else None
+
+        data.update(super().to_dict(for_db=for_db))
+        return data

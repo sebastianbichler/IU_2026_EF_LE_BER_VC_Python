@@ -17,6 +17,12 @@ window.onload = function () {
             options.month = 'long';
         } else if (format === 'short') {
             options.month = 'short';
+        } else if(format === 'date-only') {
+            options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            };
         } else {
             options.month = '2-digit';
         }

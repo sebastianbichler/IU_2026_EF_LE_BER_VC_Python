@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block title %}Player Details{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body border-bottom">
+        <div class="row align-items-center">
+            <div class="col-md-2 text-center mb-3 mb-md-0">
+                <img src="{{ player.picture_url }}" alt="Player Picture" class="img-fluid rounded shadow-sm"
+                    style="max-height: 120px;">
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-6 fw-bold mb-1">{{ player.first_name }} {{ player.last_name }}</h1>
+                <p class="mb-1 text-muted">
+                    <img src="{{ player.team_logo_url }}" alt="Team Logo" style="width: 24px; height: 24px;" class="me-1">
+                    {{ player.team_name }} | #{{ player.shirt_number }}
+                </p>
+                <span class="badge bg-primary text-uppercase">{{ player.position }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-header bg-light py-3 border-bottom-0">
+        <h3 class="card-title h5 mb-0 fw-bold">Statistics</h3>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-bordered align-top mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 30%;" class="text-center">Game</th>
+                    <th style="width: 35%;" class="text-center">Goals</th>
+                    <th style="width: 35%;" class="text-center">Cards</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for game in player.games %}
+                <tr>
+                    <td class="align-top">
+                        <div class="d-flex justify-content-center align-items-center mb-2">
+                            <div class="d-flex flex-row justify-content-end">
+                                <span class="fw-bold lh-lg">{{ player.team_name }}</span>
+                                <img src="{{ player.team_logo_url }}" title="{{ player.team_name }}" style="width: 30px;" class="ms-2">
+                            </div>
+                            <div class="mx-2 d-flex flex-column justify-content-center mt-4">
+                                <span class="small text-muted text-center">VS</span>
+                                <span class="text-uppercase fw-bold">{{ game.status }}</span>
+                            </div>
+                            <div class="d-flex flex-row justify-content-start">
+                                <img src="{{ game.team_against_logo_url }}" title="{{ game.team_against_name }}" style="width: 30px;" class="me-2">
+                                <div class="fw-bold lh-lg">{{ game.team_against_name }}</div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="text-center">
+                        {% if game.goals %}
+                            <table class="table table-sm table-borderless mb-0">
+                                {% for goal in game.goals %}
+                                <tr>
+                                    <td class="fw-bold text-center">{{ goal.in_game_time }}'</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        {% else %}
+                            <span class="text-muted small">No goals</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if game.cards %}
+                            <table class="table table-sm table-borderless mb-0">
+                                {% for card in game.cards %}
+                                <tr>
+                                    <td class="fw-bold">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <div class="rounded-1 {% if card.color == 'yellow' %}border-warning bg-warning{% else %}border-danger bg-danger{% endif %}" 
+                                                    style="width: 14px; height: 20px; border: 1px solid rgba(0,0,0,0.2);">
+                                                </div>
+                                            </div>
+                                            <span>{{ card.in_game_time }}'</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        {% else %}
+                            <span class="text-muted small ps-2">No cards</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,4 +1,6 @@
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for
+
+from ..services import player_service
 from ..services import team_service
 
 # Web routes
@@ -18,8 +20,11 @@ def team_details(team_id):
     team = team_service.get_team(team_id)
     if not team:
         return render_template('not-found.html'), 404
+    
+    players = player_service.get_players(team_id)
+    players = [player.to_dict() for player in players]
 
-    return render_template('team/details.html', team=team)
+    return render_template('team/details.html', team=team, players=players)
 
 
 # API endpoints

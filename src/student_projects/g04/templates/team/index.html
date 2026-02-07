@@ -3,11 +3,21 @@
 {% block title %}Teams{% endblock %}
 
 {% block content %}
-    <h1>Team List</h1>
 
-    <ul>
-        {% for team in teams %}
-            <li><strong>{{ team.name }}</strong> (ID: {{ team.id }}) <img src="{{ team.logo_url }}" alt="{{ team.name }} Logo" width="50"></li>
-        {% endfor %}
-    </ul>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 my-3">
+    {% for team in teams %}
+    <a href="/teams/{{ team.id }}" class="text-decoration-none text-dark">
+        <div class="col">
+            <div class="card">
+                <img src="{{ team.logo_url }}" class="card-img-top" alt="{{ team.name }} Logo">
+                <div class="card-body">
+                    <h5 class="card-title">{{ team.name }}</h5>
+                    <p class="card-text">{{ team.description }}</p>
+                </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
 {% endblock %}

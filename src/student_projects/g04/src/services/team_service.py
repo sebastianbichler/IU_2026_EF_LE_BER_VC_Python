@@ -9,6 +9,12 @@ def get_teams():
 
     return [Team.from_dict(team) for team in raw_teams]
 
+def get_teams_by_ids(team_ids):
+    object_ids = [ObjectId(team_id) for team_id in team_ids]
+    raw_teams = db.teams.find({'_id': {'$in': object_ids}})
+
+    return [Team.from_dict(team) for team in raw_teams]
+
 
 def get_team(team_id):
     raw_team = db.teams.find_one({'_id': ObjectId(team_id)})

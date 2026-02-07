@@ -45,8 +45,7 @@ def add_action(competition_id):
     end_date = data.get('end_date')
 
     status = data.get('status')
-    game_status = GameStatus(
-        status) if status in GameStatus._value2member_map_ else GameStatus.SCHEDULED
+    game_status = GameStatus(status) if status in GameStatus._value2member_map_ else GameStatus.SCHEDULED
 
     competition = competition_service.get_competition(competition_id)
     if not competition:

@@ -32,3 +32,9 @@ def get_all_games():
         g["id"] = str(g["_id"])
 
     return games
+
+def get_games_by_ids(game_ids):
+    object_ids = [ObjectId(game_id) for game_id in game_ids]
+    raw_games = db.games.find({'_id': {'$in': object_ids}})
+
+    return [Game.from_dict(game) for game in raw_games]

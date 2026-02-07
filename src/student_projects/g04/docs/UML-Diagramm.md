@@ -73,6 +73,7 @@ classDiagram
 
     class PlayerStats {
         +player_id: string
+        +game_id: string
         +competition_id: string
         +cards: list~CardRecord~
         +goals: list~GoalRecord~
