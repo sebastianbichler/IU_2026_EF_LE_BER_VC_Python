@@ -4,6 +4,7 @@ from bson import ObjectId
 from .entity_model import Entity
 from src.enums import CardColor
 
+
 class CardRecord(Entity):
     def __init__(
         self,
@@ -49,4 +50,3 @@ class CardRecord(Entity):
 
         data.update(super().to_dict(for_db=for_db))
         return data
-
