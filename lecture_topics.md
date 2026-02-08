@@ -2,6 +2,24 @@
 
 ---
 
+## Schwerpunkte nach FS-Skript
+
+1. Einführung (Basics)
+2. Variablen, Datentypen, Operatoren
+3. Anweisungen, Kontrollstrukturen (if, for, while)
+4. Funktionen
+5. Fehler und Ausnahmen
+6. Module und Pakete
+
+## Weitere Schwerpunkte für die Projektarbeit
+7. Objektorientierte Programmierung (OOP) von Dirk Simon anpassen
+8. Design Patterns in Python (Diverse Quellen, z.B. https://refactoring.guru/design-patterns/python, eigene Idee: Liste GUI/Console-Design-Patterns)
+9. Testing, Logging, Debugging
+10. Best Practices (Anke L. fragen)
+11. GUI-Programming (tkinter, etc.) aus Schrödinger programmiert Python
+
+---
+
 ## Wissenschaftliche Schwerpunkte in Python (TOPICS)
 
 Die folgenden Schwerpunkte sind speziell auf Python zugeschnitten und bieten die Möglichkeit, tief in
