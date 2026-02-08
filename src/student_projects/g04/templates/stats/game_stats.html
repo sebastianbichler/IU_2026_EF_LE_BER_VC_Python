@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block title %}Game Statistics{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Game Statistics</h1>
+
+<!-- SCORE -->
+<div class="card mb-4">
+    <div class="card-body text-center">
+        <h3>
+            {{ stats.game_title }}
+        </h3>
+        <p class="text-muted mb-0">Match ID</p>
+    </div>
+</div>
+
+<!-- GOALS -->
+<div class="card mb-4">
+    <div class="card-header">
+        <strong>Goals</strong>
+    </div>
+    <div class="card-body">
+        {% if stats.goals %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Team</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for goal in stats.goals %}
+                        <tr>
+                            <td>{{ goal.player_name }}</td>
+                            <td>{{ goal.team_name }}</td>
+                            <td>
+                                {{ goal.time.strftime('%H:%M') if goal.time else '-' }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted mb-0">No goals in this match.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- CARDS -->
+<div class="card mb-4">
+    <div class="card-header">
+        <strong>Cards</strong>
+    </div>
+    <div class="card-body">
+        {% if stats.cards %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Color</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for card in stats.cards %}
+                        <tr class="{% if card.color.value == 'yellow' %}table-warning{% elif card.color.value == 'red' %}table-danger{% endif %}">
+                            <td>{{ card.player_name }}</td>
+                            <td>{{ card.color.value|capitalize }}</td>
+                            <td>
+                                {{ card.time.strftime('%H:%M') if card.time else '-' }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted mb-0">No cards in this match.</p>
+        {% endif %}
+    </div>
+</div>
+
+<a href="/games" class="btn btn-secondary">← Back to games</a>
+
+{% endblock %}

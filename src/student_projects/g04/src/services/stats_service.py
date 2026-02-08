@@ -6,6 +6,8 @@ from ..stats.player_stats import PlayerStats
 from ..stats.team_stats import TeamStats
 from bson import ObjectId
 
+
+
 def get_game_stats(game_id):
     game_oid = ObjectId(game_id)
 
@@ -15,12 +17,46 @@ def get_game_stats(game_id):
     cards = [CardRecord.from_dict(c) for c in cards_cursor]
     goals = [GoalRecord.from_dict(g) for g in goals_cursor]
 
-    return GameStats(game_id=game_id, cards=cards, goals=goals)
+    player_ids = set()
+    team_ids = set()
+
+    for goal in goals:
+        player_ids.add(ObjectId(goal.player_id))
+        team_ids.add(ObjectId(goal.team_id))
+
+    for card in cards:
+        player_ids.add(ObjectId(card.player_id))
+
+    players = {
+        str(p["_id"]): p
+        for p in db.players.find({"_id": {"$in": list(player_ids)}})
+    }
+
+    teams = {
+        str(t["_id"]): t
+        for t in db.teams.find({"_id": {"$in": list(team_ids)}})
+    }
+
+    for goal in goals:
+        goal.player_name = players.get(goal.player_id, {}).get("name", "Unknown")
+        goal.team_name = teams.get(goal.team_id, {}).get("name", "Unknown")
+
+    for card in cards:
+        card.player_name = players.get(card.player_id, {}).get("name", "Unknown")
+
+    return GameStats(
+        game_id=game_id,
+        cards=cards,
+        goals=goals
+    )
 
 
-def get_player_stats(player_id, competition_id):
-    cards_cursor = db.cards.find({"player_id": player_id})
-    goals_cursor = db.goals.find({"player_id": player_id})
+
+def get_player_stats(player_id, competition_id=None):
+    player_oid = ObjectId(player_id)
+
+    cards_cursor = db.cards.find({"player_id": player_oid})
+    goals_cursor = db.goals.find({"player_id": player_oid})
 
     cards = [CardRecord.from_dict(c) for c in cards_cursor]
     goals = [GoalRecord.from_dict(g) for g in goals_cursor]
@@ -31,6 +67,7 @@ def get_player_stats(player_id, competition_id):
         cards=cards,
         goals=goals
     )
+
 
 
 def get_team_stats(team_id, competition_id):

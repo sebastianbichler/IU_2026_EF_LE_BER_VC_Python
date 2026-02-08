@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Players{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Players</h1>
+
+<div class="row">
+    {% for player in players %}
+    <div class="col-md-3 mb-3">
+        <div class="card h-100 shadow-sm">
+            {% if player.picture_url %}
+            <img src="{{ player.picture_url }}" class="card-img-top" alt="{{ player.first_name }} {{ player.last_name }}">
+            {% endif %}
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ player.first_name }} {{ player.last_name }}</h5>
+
+                <p class="card-text text-muted">
+                    {{ player.position }}{% if player.shirt_number %}, #{{ player.shirt_number }}{% endif %}
+                </p>
+
+                {% if player.team_name %}
+                <p class="card-text text-secondary">{{ player.team_name }}</p>
+                {% endif %}
+
+                <a href="/players/{{ player._id }}/competition/{{ player.competition_id }}/stats"
+                   class="btn btn-primary btn-sm mt-2">View Stats</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

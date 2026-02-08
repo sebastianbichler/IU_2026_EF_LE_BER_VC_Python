@@ -1,44 +1,59 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Player stats</title>
-</head>
-<body>
+{% extends "layout.html" %}
 
-<h1>Player statistics</h1>
+{% block title %}Player Statistics{% endblock %}
 
-<div id="content">Loading...</div>
+{% block content %}
+<h1 class="mb-4 text-center">Player Statistics</h1>
 
-<script>
-const playerId = "{{ player_id }}";
-const competitionId = "{{ competition_id }}";
+<div class="row">
+    <!-- GOALS -->
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-success text-white"><strong>Goals</strong></div>
+            <div class="card-body">
+                {% if stats.goals %}
+                    {% for goal in stats.goals %}
+                        <div class="card mb-2">
+                            <div class="card-body p-2 d-flex justify-content-between align-items-center">
+                                <span>Game: {{ goal.game_id }}</span>
+                                <span>Time: {{ goal.time.strftime('%H:%M') if goal.time else '-' }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted mb-0">No goals for this player.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
-fetch(`/api/stats/player/${playerId}/competition/${competitionId}`)
-    .then(res => res.json())
-    .then(data => {
-        let html = `<h2>Goals (${data.goals.length})</h2><ul>`;
-        data.goals.forEach(g => {
-            html += `<li>
-                Game: ${g.game_id},
-                Time: ${g.time}
-            </li>`;
-        });
-        html += `</ul>`;
+    <!-- CARDS -->
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-warning text-dark"><strong>Cards</strong></div>
+            <div class="card-body">
+                {% if stats.cards %}
+                    {% for card in stats.cards %}
+                        <div class="card mb-2 {% if card.color.value == 'yellow' %}border-warning{% elif card.color.value == 'red' %}border-danger{% endif %}">
+                            <div class="card-body p-2 d-flex justify-content-between align-items-center">
+                                <span>Game: {{ card.game_id }}</span>
+                                <span class="{% if card.color.value == 'yellow' %}text-warning{% elif card.color.value == 'red' %}text-danger{% endif %}">
+                                    {{ card.color.value|capitalize }}
+                                </span>
+                                <span>Time: {{ card.time.strftime('%H:%M') if card.time else '-' }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted mb-0">No cards for this player.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 
-        html += `<h2>Cards (${data.cards.length})</h2><ul>`;
-        data.cards.forEach(c => {
-            html += `<li>
-                Game: ${c.game_id},
-                Color: ${c.color},
-                Time: ${c.time}
-            </li>`;
-        });
-        html += `</ul>`;
+<div class="text-center">
+    <a href="/players" class="btn btn-secondary mt-2">← Back to players</a>
+</div>
 
-        document.getElementById("content").innerHTML = html;
-    });
-</script>
-
-</body>
-</html>
+{% endblock %}
