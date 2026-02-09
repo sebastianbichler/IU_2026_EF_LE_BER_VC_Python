@@ -32,6 +32,30 @@ streamlit run app.py
 
 Optionale Analyse- und Visualisierungstools sind/ werden in der weiteren Dokumentation aufgeführt.
 
+## 1.3 Struktur
+
+```
+g07/
+├── app.py
+├── requirements.txt
+├── data/
+│   └── generator.py
+├── memory/
+│   ├── monitor.py
+│   └── store.py
+├── models/
+│   ├── elephant.py
+│   ├── herd.py
+│   ├── event.py
+│   └── water_source.py
+├── search/
+│   └── engine.py
+├── docs/
+│   ├── concept_phase/ (Concept.md)
+│   └── dev_phase/ (Dev.md, diagrams/)
+└── tests/
+```
+
 ---
 
 # 2 Projektphasen – Übersicht
