@@ -5,13 +5,145 @@
 - HPC steht für high-performance computing
 - Der Autor spricht explizit über Kokkos als beispielhaftes Framework, welches durch verschiedene API-Anbindungen hardware-übergreifend funktioniert (AMD und NVIDIA GPUs, sowie Intel und AMD CPUs werden als Beispiel genannt)
 - Kokkos ist überwiegend in C++ implementiert, durch die Zunahme der interpretierten Sprachen ist PyKokkos für die Implementierung von Python entstanden
-- Nachteil: Programmierer müssen Teile des Codes ausgliedern und statisch implementieren. Dadurch werden verschiedene Kerne aktiv und es entstehen teils redundante Vorgänge, die den Arbeitsspeicher unnötig belegen --> Die Lösung ist `Kernal Fusion`. Prozesse sollen mit möglichst wenig aktiven Kernen laufen
+- Nachteil: Programmierer müssen Teile des Codes ausgliedern und statisch implementieren. Dadurch werden verschiedene Kernels aktiv und es entstehen teils redundante Vorgänge, die den Arbeitsspeicher unnötig belegen --> Die Lösung ist `Kernal Fusion`. Prozesse sollen mit möglichst wenig aktiven Kernels laufen
 - Hier stellt der Autor `PyFuser` vor. 
 - PyFuser zeichnet Kernel Prozesse auf und kombiniert sie in einem einzelnen optimierten Kernel
 - Dadurch läuft das Programm performanter und es führt zu einem verringerten Start-Overhead (Bei vielen kleinen Kernels summieren sich die Verwaltungsprozesse auf.)
 ## **2: Ansel et al. - 2024 - PyTorch 2 Faster Machine Learning Through Dynamic Python Bytecode Transformation and Graph Compilation**
+- Zunächst nennt der Autor verschiedene Eager und Graph Frameworks (`PyTorch`, `Jax` und `Caffe`, `Tensorflow`, `Theano` und `CNTK`)
+- Eager Frameworks laufen auf dem Konzept der imperativen *define-by-run* Annäherung, wo das Kompilieren jedes Mal ausgeführt wird, wenn ein KI-Algorithmus ausgeführt wird
+- Graph Frameworks laufen auf dem Konzept deklarativen *define-and-run* wo der Code vorerst grafisch abgebildet wird, bevor er ausgeführt wird
+- in der Programmierung von Machine-Learning Algorithmen greifen die Programmierer eher auf Eager Modelle zurück (einfachere Verständlichkeit und leichteres Debuggen). **Problem:** Grafische Algorithmen sind performanter
+- PyTorch ist ein Framework für maschinelles Lernen und läuft in der Python Umgebung. Bei Eager Operationen werden jedoch Start-Overhead Prozesse über viele Kernels verteilt ausgeführt. Durch den im Paper beschriebenen Python-JIT-Compiler PyDynamo, werden die Operationen zunächst aufgezeichnet und als Graph dargestellt. Dieser Graph kann dann über einen einzelnen Kernel ausgeführt werden --> Speicheroptimierung
+- **Lazy Tensors:** Der Lazy Ansatz wird implementiert, indem die Operationen zunächst gesammelt werden und anschließend in einem Graphen aufgebaut werden. Durch die "Zusatzarbeit" sind die Overhead-Prozesse zunächst etwas aktiver. Der Graph wird dann als Ganzes kompiliert (z.B. durch `XLA`) und anschließend ausgeführt. Im Eager Mode wird der erste GPU-Kernel sofort gestartet, während Python weiterläuft — CPU und GPU arbeiten parallel. Bei Lazy wird zuerst der gesamte Graph gesammelt. Erst danach wird der erste Kernel gestartet. Dadurch entstehen Startverzögerungen und manchmal schlechtere CPU/GPU-Überlappung. Bei neuen Graph-Hashes ist erneutes Kompilieren erforderlich.
+- PyTorch/XLA kombiniert Lazy Tensors mit TorchDynamo, wodurch die Overheads der Lazy Tensors versteckt werden, indem die Kompilierung nur einmal ausgeführt wird.
 ## **3: Associate Professor, Mehr Chand Mahajan DAV College for Women, Chandigarh, India und Arora - 2024 - Improving Performance of Data Science Applications in Python** 
+- Die Autorin stellt speicheroptimierende Methoden dar, welche sich bereits in der Python Library befinden
+- Sie geht dabei insbesondere auf `Generatoren`, `Vektorisierung`, `Parallelismus`, `Caching` und `I/O-Handling` ein
+- Durch das Yielding mithilfe von *Generatoren* lässt sich Arbeitsspeicher sparen, indem über theoretisch unbegrenzte Datenmengen iteriert werden können ohne Arbeitsspeicher zu belegen -->Lazy
+- Durch die *NumPy* Library lassen sich Python-Lists in C++ Arrays abbilden. Hierdurch können Operationen am gesamten Array durchgeführt werden ohne durch die komplette Liste durch-zu-iterieren. Im Paper nimmt die Autorin die Vektormultiplikation als Beispiel: 
+```python
+outer_product=np.outer(vektor1,vektor2) #numpy-Methode outer wird genutzt um vektor 1 mit vektor 2 zu multiplizieren
+```
+- Nebenbei erwähnt sie die *Profiling* Tools, durch die Rückschlüsse auf Memory, Laufzeiten und Arbeitsspeicher während Prozessausführungen gezogen werden können
+<table>
+	<thead>
+		<tr>
+			<th>Konzept</th>
+			<th>Grundidee</th>
+			<th>Parallelitätstyp</th>
+			<th>Typische Nutzung</th>
+			<th>Vorteile</th>
+			<th>Nachteile</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><strong>Threading</strong></td>
+			<td>Mehrere Threads innerhalb eines Prozesses</td>
+			<td>Nebenläufigkeit<br/>(in Python oft keine echte CPU-Parallelität wegen GIL)</td>
+			<td>I/O-bound Tasks<br/>(Netzwerk, Dateien)</td>
+			<td>Geringer Overhead,<br/>gemeinsamer Speicher</td>
+			<td>Kein echter CPU-Speedup<br/>bei CPU-bound Tasks</td>
+		</tr>
+		<tr>
+			<td><strong>Multiprocessing</strong></td>
+			<td>Mehrere Prozesse statt Threads</td>
+			<td>Echte Parallelität<br/>(mehrere CPU-Kerne)</td>
+			<td>CPU-bound Berechnungen</td>
+			<td>Umgeht GIL,<br/>echte Parallelverarbeitung</td>
+			<td>Höherer Speicherbedarf,<br/>Prozessstart teurer</td>
+		</tr>
+		<tr>
+			<td><strong>concurrent.features</strong></td>
+			<td>High-Level API über Threading und Multiprocessing</td>
+			<td>Abhängig vom Executor<br/>(Thread oder Process)</td>
+			<td>Einfache parallele Task-Ausführung</td>
+			<td>Sehr einfache Nutzung<br/>(ThreadPoolExecutor, ProcessPoolExecutor)</td>
+			<td>Weniger Kontrolle über<br/>Low-Level-Details</td>
+		</tr>
+		<tr>
+			<td><strong>asyncio</strong></td>
+			<td>Asynchrones Event-Loop-Modell<br/>(cooperative multitasking)</td>
+			<td>Nebenläufigkeit ohne Threads</td>
+			<td>Sehr viele I/O-Operationen<br/>(Webserver, APIs)</td>
+			<td>Sehr effizient für viele<br/>gleichzeitige I/O-Tasks</td>
+			<td>Kein Vorteil für CPU-bound Tasks,<br/>anderes Programmiermodell (async/await)</td>
+		</tr>
+	</tbody>
+</table>
+
+- Bei *I/O-Operationen* wird mit folgenden Methoden gearbeitet, um die Leistung zu optimieren: 
+- -Buffering: Daten werden gesammelt statt byteweise gelesen
+- -Batching: große Datenblöcke statt viele kleine Zugriffe
+- -Memory Mapping: Datei direkt wie Speicher behandeln --> schneller Zugriff
+- -Context Manager: verhindert offene Dateien und Ressourcenlecks
+- *Caching* wird genutzt, damit nicht erneut gelesen/geschrieben und berechnet werden muss. Über die Memorization werden Funktionsresultate gespeichert. Datenbankabfragen werden zwischengespeichert und Trainingsdaten werden im RAM gehalten. Drei Clearingmethoden kommen hier häufig zum Einsatz: 
+- -FIFO: älteste Daten zuerst entfernen
+- -LIFO: zuletzt gespeicherte zuerst entfernen
+- -LRU: am längsten nicht genutzte Daten entfernen
 ## **4: Yang et al. - 2022 - Complex Python features in the wild**
+- Yang et al. analysierte über 3 Millionen Dateien in Github, um zu überprüfen, welche komplexen Features "in the wild", also von freien Programmierern verwendet werden. Untersucht wurden dabei:
+- dynamische Features (z. B. eval, Reflection)
+- Decorators
+- Context Manager (with)
+- Generators
+- dynamische Attributzugriffe (getattr, setattr)
+- Der Grund dafür ist, dass `statische Analyse-tools`in Python nicht so stark vertreten ist wie in anderen Sprachen
+
+<table>
+	<thead>
+		<tr>
+			<th>Feature</th>
+			<th>Frequency(files)/Nutzungshäufigkeit</th>
+			<th>%</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><strong>FNL (functional)</strong></td>
+			<td>817.345</td>
+			<td>26,415%</td>
+		</tr>
+		<tr>
+			<td><strong>DYN (dynamic)</strong></td>
+			<td>401.395</td>
+			<td>12,973%</td>
+		</tr>
+		<tr>
+			<td><strong>DEC (decorators)</strong></td>
+			<td>386.134</td>
+			<td>12,479%</td>
+		</tr>
+		<tr>
+			<td><strong>WTH (with)</strong></td>
+			<td>385.613</td>
+			<td>12,463%</td>
+		</tr>
+        		<tr>
+			<td><strong>ASC (async)</strong></td>
+			<td>1.831</td>
+			<td>0,059%</td>
+		</tr>
+	</tbody>
+</table>
+
+#### Die Autoren stellen beantworten eine der Kernfragen (RQ2) In What Ways Do Developers Use Complex Methods folgendermaßen:
+#### **Decorators:**
+- Meist für typische Aufgaben wie Logging, Caching, Testing oder Framework-Annotationen
+- Selten stark verschachtelt oder dynamisch generiert.
+
+#### **Context Manager (with)**
+- Vor allem für Ressourcenmanagement (Dateien, Locks, Netzwerkverbindungen).
+- Meist einfache Standardverwendung, nicht komplex verschachtelte Konstruktionen.
+
+#### **Reflection / dynamische Attributzugriffe**
+- Wird häufig in Framework- oder Bibliothekscode verwendet (z. B. ORMs, Serialisierung),
+- aber in Anwendungslogik eher begrenzt und strukturiert.
+
+#### **Dynamische Codeausführung (eval, exec)**
+- Sehr selten und meist in klar abgegrenzten Spezialfällen.
+
 ## **5: Mertz - 2015 - Functional Programming in Python**
 - David Mertz beschreibt in Functional Programming in Python den Evaluationszeitpunkt von Ausdrücken als einen zentralen Unterschied zwischen imperativen und funktionalen Programmierstilen. Dabei unterscheidet er zwischen Eager (strikter) und Lazy (nicht-strikter) Evaluation.
 - Python verwendet standardmäßig Eager Evaluation. Das bedeutet, dass Ausdrücke und Funktionsargumente unmittelbar ausgewertet werden, bevor sie weiterverarbeitet werden. Datenstrukturen wie Listen werden vollständig erzeugt, auch wenn später nur ein Teil der Elemente benötigt wird. Dieser Ansatz ist einfach zu verstehen, gut debuggbar und entspricht dem imperativen Programmiermodell, führt jedoch bei großen Datenmengen zu erhöhtem Speicherverbrauch und verhindert die Arbeit mit potenziell unendlichen Datenstrukturen.
@@ -44,9 +176,9 @@
 
 - **5 — Wie funktionieren die `itertools`?:** `itertools` stellt speichereffiziente, auf Iterators basierende Bausteine (z. B. `islice`, `chain`, `imap`/`starmap`, `tee`) bereit, die lazy kombiniert werden können, um komplexe Stream-Transformationen ohne vollständige Materialisierung durchzuführen. Die Kombination solcher Bausteine erzeugt klare, performante Pipelines [8][9].
 
-- **6 - Was ist der Unterschied zwischen imperativem Programmieren und funktionalem Programmieren?:**
+- **6 - Was ist der Unterschied zwischen imperativem Programmieren und funktionalem Programmieren?:** Imperatives Programmieren beschreibt *wie* etwas zu tun ist — durch explizite Befehle, Zustandsänderungen und Kontrollfluss (Schleifen, Verzweigungen). Funktionales Programmieren beschreibt *was* berechnet werden soll — durch Funktionen als Bürger erster Klasse, Immutability und Vermeidung von Seiteneffekten. Imperativ ist prozedural ("tue Schritt 1, dann Schritt 2"), funktional ist deklarativ ("beschreibe das Ergebnis"). Funktionale Programme sind oft leichter zu testen, parallel auszuführen und zu verstehen, da sie weniger versteckte Abhängigkeiten durch Zustandsänderungen haben. Python unterstützt beide Paradigmen und ermöglicht funktionale Patterns durch Funktionen höherer Ordnung, Lambdas und Generatoren [3][7].
 
-- **7 - NumPy Arrays**
+- **7 - NumPy Arrays:** NumPy Arrays sind speichereffiziente, typisierte Containerstrukturen, die in C implementiert sind und eine Vektorisierung von Operationen ermöglichen. Im Gegensatz zu Python Lists (heterogene, dynamische Größe, höherer Speicher-Overhead) speichern NumPy Arrays homogene Daten in einem zusammenhängenden Speicherblock. Dies ermöglicht es, dass Operationen auf dem gesamten Array auf C-Ebene ausgeführt werden, ohne dass Python durch jeden einzelnen Loop-Durchsatz gehen muss — das ist Broadcasting. Beispiel: `np.array([1, 2, 3]) * 2` führt die Multiplikation in C aus, während `[1, 2, 3] * 2` in Python Verkettung durchführt. Dadurch sind NumPy-Operationen oft 10–100× schneller für numerische Berechnungen. Zusätzlich unterstützen NumPy Arrays Multi-Dimensionalität und sind die Grundlage für wissenschaftliches Rechnen in Python (SciPy, Pandas, scikit-learn) [6][10].
 
 
 #### Literatur
