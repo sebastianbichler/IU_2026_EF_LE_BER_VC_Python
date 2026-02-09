@@ -26,11 +26,35 @@ streamlit run app.py
 - datetime
 
 ### 1.2.2 Externe Bibliotheken
-- streamlit – Webbasierte Visualisierung
-- networkx – Modellierung von Graphen und Stammbäumen
-- matplotlib – Diagramme und Auswertungen
+- streamlit – Webbasierte Visualisierung und Dashboard
+- plotly – Interaktive Diagramme und Auswertungen
+- psutil – Systemressourcen und Speicher-Monitoring
 
 Optionale Analyse- und Visualisierungstools sind/ werden in der weiteren Dokumentation aufgeführt.
+
+## 1.3 Struktur
+
+```
+g07/
+├── app.py
+├── requirements.txt
+├── data/
+│   └── generator.py
+├── memory/
+│   ├── monitor.py
+│   └── store.py
+├── models/
+│   ├── elephant.py
+│   ├── herd.py
+│   ├── event.py
+│   └── water_source.py
+├── search/
+│   └── engine.py
+├── docs/
+│   ├── concept_phase/ (Concept.md)
+│   └── dev_phase/ (Dev.md, diagrams/)
+└── tests/
+```
 
 ---
 
@@ -68,9 +92,24 @@ Das Verzeichnis `docs/` bündelt **alle konzeptionellen und planerischen Dokumen
 
 **Dokumente:**
 
-* `docs/concept/Conzept.md` – Gesamtkonzept & Anforderungen
+* `docs/concept_phase/` – Gesamtkonzept & Anforderungen
 
-### 2.2.2 t.b.d
-### 2.2.3 t.b.d.
+### 2.2.2 Erarbeitungsphase
+
+**Zeitraum:** 26.01.2026 – 09.02.2026
+
+**Ziel:**
+
+* Erstellung eines lauffähigen Projekts
+* Umsetzung 1-2 der erarbeiteten Requirements aus der Konzeptionsphase
+* Dokumentation; READMEs, UML-Diagramme, etc.
+
+**Dokumente:**
+* `docs/dev_phase`
+
+
+### 2.2.3 Finalisierungsphase
+
+* t.b.d
 
 ---

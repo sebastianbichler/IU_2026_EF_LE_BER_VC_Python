@@ -220,7 +220,6 @@ README.md
 ## 11. Verlinkung externer Dokumente
 
 * UML‑Diagramme: `docs/{phase}/diagrams`
-* GC‑Messprotokolle: `docs/experiments/`
 * Quellen: `docs/references.md`
 
 ---
