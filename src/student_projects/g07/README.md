@@ -72,6 +72,8 @@ Das Verzeichnis `docs/` bündelt **alle konzeptionellen und planerischen Dokumen
 
 ### 2.2.2 Erarbeitungsphase
 
+**Zeitraum:** 26.01.2026 – 09.02.2026
+
 **Ziel:**
 
 * Erstellung eines lauffähigen Projekts
@@ -83,5 +85,7 @@ Das Verzeichnis `docs/` bündelt **alle konzeptionellen und planerischen Dokumen
 
 
 ### 2.2.3 Finalisierungsphase
+
+* t.b.d
 
 ---
