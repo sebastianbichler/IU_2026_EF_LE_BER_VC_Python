@@ -26,9 +26,9 @@ streamlit run app.py
 - datetime
 
 ### 1.2.2 Externe Bibliotheken
-- streamlit – Webbasierte Visualisierung
-- networkx – Modellierung von Graphen und Stammbäumen
-- matplotlib – Diagramme und Auswertungen
+- streamlit – Webbasierte Visualisierung und Dashboard
+- plotly – Interaktive Diagramme und Auswertungen
+- psutil – Systemressourcen und Speicher-Monitoring
 
 Optionale Analyse- und Visualisierungstools sind/ werden in der weiteren Dokumentation aufgeführt.
 
@@ -68,9 +68,20 @@ Das Verzeichnis `docs/` bündelt **alle konzeptionellen und planerischen Dokumen
 
 **Dokumente:**
 
-* `docs/concept/Conzept.md` – Gesamtkonzept & Anforderungen
+* `docs/concept_phase/` – Gesamtkonzept & Anforderungen
 
-### 2.2.2 t.b.d
-### 2.2.3 t.b.d.
+### 2.2.2 Erarbeitungsphase
+
+**Ziel:**
+
+* Erstellung eines lauffähigen Projekts
+* Umsetzung 1-2 der erarbeiteten Requirements aus der Konzeptionsphase
+* Dokumentation; READMEs, UML-Diagramme, etc.
+
+**Dokumente:**
+* `docs/dev_phase`
+
+
+### 2.2.3 Finalisierungsphase
 
 ---
