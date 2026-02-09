@@ -1,0 +1,28 @@
+﻿# -------------------------
+# Core Data Engineering
+# -------------------------
+dask[dataframe,distributed]>=2023.10
+pandas>=2.0
+pyarrow>=14.0
+fastparquet>=2023.8
+
+
+# -------------------------
+# Numerik & Utilities
+# -------------------------
+numpy>=1.24
+python-dateutil>=2.8
+pytz>=2023.3
+
+
+# -------------------------
+# Monitoring & Logging
+# -------------------------
+rich>=13.6
+loguru>=0.7
+
+
+# -------------------------
+# Optional Analytics (später nutzbar)
+# -------------------------
+scikit-learn>=1.3
