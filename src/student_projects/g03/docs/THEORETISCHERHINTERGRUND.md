@@ -78,7 +78,7 @@ outer_product=np.outer(vektor1,vektor2) #numpy-Methode outer wird genutzt um vek
 - -Batching: große Datenblöcke statt viele kleine Zugriffe
 - -Memory Mapping: Datei direkt wie Speicher behandeln --> schneller Zugriff
 - -Context Manager: verhindert offene Dateien und Ressourcenlecks
-- *Caching* wird genutzt, damit nicht erneut gelesen/geschrieben und berechnet werden muss. Über die Memorization werden Funktionsresultate gespeichert. Datenbankabfragen werden zwischengespeichert und Trainingsdaten werden im RAM gehalten. Drei Clearingmethoden kommen hier häufig zum Einsatz: 
+- *Caching* wird genutzt, damit nicht erneut gelesen/geschrieben und berechnet werden muss. Über `memoize` werden Funktionsresultate gespeichert. Datenbankabfragen werden zwischengespeichert und Trainingsdaten werden im RAM gehalten. Drei Clearingmethoden kommen hier häufig zum Einsatz: 
 - -FIFO: älteste Daten zuerst entfernen
 - -LIFO: zuletzt gespeicherte zuerst entfernen
 - -LRU: am längsten nicht genutzte Daten entfernen
@@ -181,15 +181,32 @@ outer_product=np.outer(vektor1,vektor2) #numpy-Methode outer wird genutzt um vek
 - **7 - NumPy Arrays:** NumPy Arrays sind speichereffiziente, typisierte Containerstrukturen, die in C implementiert sind und eine Vektorisierung von Operationen ermöglichen. Im Gegensatz zu Python Lists (heterogene, dynamische Größe, höherer Speicher-Overhead) speichern NumPy Arrays homogene Daten in einem zusammenhängenden Speicherblock. Dies ermöglicht es, dass Operationen auf dem gesamten Array auf C-Ebene ausgeführt werden, ohne dass Python durch jeden einzelnen Loop-Durchsatz gehen muss — das ist Broadcasting. Beispiel: `np.array([1, 2, 3]) * 2` führt die Multiplikation in C aus, während `[1, 2, 3] * 2` in Python Verkettung durchführt. Dadurch sind NumPy-Operationen oft 10–100× schneller für numerische Berechnungen. Zusätzlich unterstützen NumPy Arrays Multi-Dimensionalität und sind die Grundlage für wissenschaftliches Rechnen in Python (SciPy, Pandas, scikit-learn) [6][10].
 
 
-#### Literatur
+## Was wir aus der Theorie auf unser Projekt übertragen können:
+- **Kernel-Optimierung / JIT-Ansatz:** Konzepte wie Kernel-Fusion zeigen, dass das Zusammenfassen vieler kleiner Rechenoperationen in größere, optimierte Einheiten Start-Overhead reduziert. Für unser Projekt bedeutet das: rechenkritische Abschnitte sollten auf Bibliotheken/Compiler-Ebene (z. B. NumPy, Numba) zusammengefasst werden, statt viele kleine Python-Loops zu starten — dadurch sinkt der Python-Overhead und die Ausführung läuft schneller.
+- **NumPy & Vektorisierung:** NumPy-Arrays erlauben homogene Daten im zusammenhängenden Speicher und Vektorisierung (Broadcasting). In `RabbitFarm` nutzen wir NumPy, um z. B. Analyse- und OLAP-artige Berechnungen (Ertragsaggregation, Bewässerungsbedarf) in C-optimierten Operationen auszuführen. Das reduziert CPU-Zeit und RAM-Overhead im Vergleich zu reinen Python-Lists.
+- **Lazy Evaluation (Generatoren & `itertools`):** Die Theorie zu Lazy Execution übertragen wir direkt: Sensordaten werden als Stream/Gernerator modelliert, Transformationen mit `filter`, `map`, `islice` und `itertools` bleiben lazy, bis eine Materialisierung nötig ist. Das reduziert Peak-Memory und skaliert besser für Millionen von Messwerten.
+- **Decorators:** sind Higher-Order-Functions und eignen sich als leichtgewichtige, wiederverwendbare Mechanismen, um Verhalten einzukapseln ohne Kerndefinitionen zu ändern. Für `RabbitFarm` schlagen wir folgende, pragmatische Decorator-Bausteine vor, die sich direkt in `sensors.py`, `services.py` und `models.py` einsetzen lassen:
+    - **`@memoize` (Caching):** Für Funktionsaufrufe mit wiederkehrenden Eingaben (z. B. `Vegetable.is_fresh()`) reduziert Caching wiederholte Berechnungen.
+    - **`@numba.njit` (JIT):** Kennzeichne rechenintensive Funktionen, die auf NumPy-Arrays arbeiten (z. B. Batch-Aggregationen), um native Geschwindigkeit zu erreichen.
+    - **`@batch_items` (Batching-Decorator):** Wandelt Generator-Elemente in Batches um, damit Vektorisierung mit NumPy möglich wird. Ein Batch-Decorator erlaubt einfache Umstellung von Item- zu Batch-Verarbeitung ohne Pipeline-Änderungen.
+    - **`@prefetch(n)` (Prefetch/Concurrency):** Puffert Generatoren in einem Hintergrundthread/Queue, um IO-Latenzen zu überbrücken und bessere CPU/GPU-Overlap zu erzielen (nützlich bei sensordaten mit IO- oder Netzwerkbindung).
+    - **`@timeit` / `@profile` (Benchmarking):** Leichtgewichtige Timing-Wrapper für `benchmark_eager` / `benchmark_lazy` zur kontinuierlichen Überwachung von Performance-Regressions.
+- **Konkrete Maßnahmen im Projekt:**
+	- Sensor-Streams als Generatoren realisieren (`sensors.py`) und Pipelines mit `itertools` bauen.
+	- Rechenintensive Aggregationen mit NumPy vektorisieren oder optional mit Numba JIT-kompilieren.
+	- Benchmarks und Memory-Profiling (z. B. `tracemalloc`) in unserem Notebook dokumentieren, siehe [src/student_projects/g03/static/notebooks/layz_vs_eager.ipynb](src/student_projects/g03/static/notebooks/layz_vs_eager.ipynb).
+	- Design- und Umsetzungsentscheidungen sind im Konzeptionsplan beschrieben: [src/student_projects/g03/docs/konzeptionsplan.md](src/student_projects/g03/docs/konzeptionsplan.md).
+
+Diese Übertragungen sind bereits in Teilen implementiert (Generator-basierte Sensordaten, Lazy-/Eager-Benchmarks im Notebook sowie Hinweise auf den Einsatz von NumPy/Numba). Weitere Optimierungen können durch gezielte Profilerläufe und schrittweises Vektorisieren/Refactoring erfolgen.
+
+#### Zusätzliche Literatur
 
 1. T. Akidau et al., "The Dataflow Model", Google Research / O'Reilly (Streaming Systems), 2015. https://research.google/pubs/pub38137/
 2. Dean, J. & Ghemawat, S., "MapReduce: Simplified Data Processing on Large Clusters", OSDI 2004. https://research.google/pubs/pub62/
-3. J. Hughes, "Why Functional Programming Matters", 1984. https://www.cs.kent.ac.uk/people/staff/dat/marc/FP/hughes.pdf
+3. J. Hughes, "Why Functional Programming Matters", 1984. [https://www.cs.kent.ac.uk/people/staff/dat/marc/FP/hughes.pdf]
 4. S. Peyton Jones, "The Implementation of Functional Programming Languages", 1992.
 5. S. K. Lam, A. Pitrou, & S. Seibert, "Numba: A LLVM-based Python JIT compiler", 2015. https://arxiv.org/abs/1506.01356
 6. NumPy documentation — Vectorized operations and broadcasting. https://numpy.org/doc/
 7. PEP 318 — Decorators for Functions and Methods. https://peps.python.org/pep-0318/
 8. Python `itertools` documentation. https://docs.python.org/3/library/itertools.html
 9. PEP 255 / PEP 342 — Generators and coroutines. https://peps.python.org/
-
