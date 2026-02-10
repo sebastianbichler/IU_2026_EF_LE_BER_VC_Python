@@ -75,6 +75,7 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 | Web (Klein)    | Flask                   | Web-Apps (leicht)         | Minimalistisch und flexibel.         |
 | Web (Groß)     | Django                  | Web-Apps (komplett)       | Alles inklusive (Login, Admin etc.). |
 | Statistik      | Statsmodels             | Statistische Modelle      | Regressionen, Zeitreihenanalyse.     |
+| GUI            | tkinter                 |                           |                                      |
 | GUI            | IPyWidgets              | UI-Controls in Noteboooks | Verzicht auf Desktop- oder Web-UI    |
 
 ---

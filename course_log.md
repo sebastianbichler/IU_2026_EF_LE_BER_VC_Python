@@ -9,6 +9,7 @@
 
 ## #12 2026-02-24, Tuesday (3 UE)
 
+- room: Einstein
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion6.pdf (in Teams-Group)
     - Best Practices
 - group project work time (break out sessions)
@@ -18,6 +19,7 @@
 
 ## #11 2026-02-23, Monday (3 UE)
 
+- room: Turing
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf
     - OOP
 - GUI (tkinter, etc.)
@@ -43,7 +45,7 @@
   Console, etc.)
 - 3-5 papers for concepts and finale report (see it like a paper)
 - group project work time (break out sessions)
-    - Goal: get a first working prototype of the project idea
+    - Goal: get a first specification/design for the prototype of the project idea
 
 ## #8 2026-02-03, Tuesday (3 UE)
 
