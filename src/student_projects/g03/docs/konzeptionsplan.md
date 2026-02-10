@@ -274,9 +274,9 @@ graph LR
     UC7 -.->|include| UC6
 
     %% Styling
-    style R fill:#90EE90,stroke:#333,stroke-width:2px
-    style K fill:#FFB6C1,stroke:#333,stroke-width:2px
-    style S fill:#87CEEB,stroke:#333,stroke-dasharray: 5 5
+    style R fill:#90EE90,stroke:#333,stroke-width:2px,color:#000
+    style K fill:#FFB6C1,stroke:#333,stroke-width:2px,color:#000
+    style S fill:#87CEEB,stroke:#333,stroke-dasharray: 5 5,color:#000
 ```
 
 ### 3.3 Klassen-Diagramm (UML)
