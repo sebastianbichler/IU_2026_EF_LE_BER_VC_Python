@@ -1,6 +1,6 @@
 import os
 from werkzeug.utils import secure_filename
-from ..db import db
+from ..db.db import db
 from ..models.news_model import News
 from bson import ObjectId
 from flask import current_app

@@ -1,4 +1,4 @@
-from ..db import db
+from ..db.db import db
 from ..models.team_model import Team
 
 from bson import ObjectId

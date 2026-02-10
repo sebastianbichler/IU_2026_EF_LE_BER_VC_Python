@@ -1,4 +1,4 @@
-from ..db import db
+from ..db.db import db
 from ..models.game_model import Game, GameStatus
 
 from bson.objectid import ObjectId

@@ -12,3 +12,8 @@ pip freeze > requirements.txt
 ```bash
 flask run --debug
 ```
+
+### Check types
+```bash
+mypy .
+```

@@ -1,4 +1,4 @@
-from ..db import db
+from ..db.db import db
 from ..models.competition_model import Competition
 
 from bson.objectid import ObjectId

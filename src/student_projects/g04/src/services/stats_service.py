@@ -1,4 +1,4 @@
-from ..db import db
+from ..db.db import db
 from ..models.card_record_model import CardRecord
 from ..models.goal_record_model import GoalRecord
 from ..stats.game_stats import GameStats
