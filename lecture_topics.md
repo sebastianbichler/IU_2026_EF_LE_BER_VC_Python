@@ -32,6 +32,18 @@ von Heise Developer bietet eine hervorragende Übersicht, wie eine Performance-O
 kann. Dabei werden auch Grundlagen aus der Welt der Algorithmen und Datenstrukturen behandelt, die für die folgenden
 Schwerpunkte relevant sind.
 
+## Requirements- und Software Engineering-Schwerpunkte
+
+- Requirements definieren
+- Design-Prinzipien beachten (OOP, SOLID, DRY, KISS, MVC, ...)
+- Design- Pattern und Re-Refactoring, Test-Driven Development (TDD)
+- CI/CD (Continuous Integration / Continuous Deployment)
+- Dokumentation (Docstrings, Readme, ...)
+- Versionskontrolle (Git, GitHub, Branching-Strategien)
+- Code-Qualität (Linter, Formatter, Code-Reviews)
+- Testing (Unit-Tests, Integrationstests, Mocking)
+- Debugging (PDB, Logging, Profiling)
+
 ### 1. Memory Management: Reference Counting vs. Cyclic Garbage Collection
 
 Python nutzt primär Reference Counting, ergänzt durch einen zyklischen GC. Dies ist ein direkter Kontrast zum

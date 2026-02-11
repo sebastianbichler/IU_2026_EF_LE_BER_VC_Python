@@ -58,17 +58,16 @@
 - CI/CD Umsetzung (requirments.txt, Unittests, Integrationtests)
 - Abgabe: 10.02.2026 (KW 7) über PebblePad
 
-Konzeptionsdokument: Ziele, wiss. Problem, Anforderungen App & wiss. Problem, Modellierung (Use-Case, UML)
-
-Design: UML-Diagrammen: Class-Diagram, State-Diagram, Activity-Diagram, Sequence-Diagram, ...
-
-Ziel: modularen (strukturierter) Code, Re-Refactoring -> Design: Einsatz von Design Patterns
-
-Daten - View - Control
-
-(Tests)
-
-Abgabedokument: Einleitung (Visionen, Ziele App, wissenschaftlichen Problem), Methodik (REQ, Models), Ergebnissen (z.B. Performance, Wartbarkeit, ...) und Ausblick
+### Abgaben
+- Konzeptionsdokument: Ziele, wiss. Problem, Anforderungen App & wiss. Problem, Modellierung (Use-Case, UML)
+- Einarbeitung:
+  - Design: UML-Diagrammen: Class-Diagram, State-Diagram, Activity-Diagram, Sequence-Diagram, ...
+  - Prototyp: erste lauffähige Version
+  - Abgabedokument:
+    - Einleitung (Visionen, Ziele App, wissenschaftlichen Problem)
+    - Methodik (REQ, Models)
+    - Ergebnissen (z.B. Performance, Wartbarkeit, ...)
+    - Ausblick
 
 diagram.net -> mermaid export to markdown
 ---
