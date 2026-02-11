@@ -3,24 +3,29 @@
 ---
 
 ## Allgemeines
-- Das Modul wird als Projekt durchgeführt: [MyCampus_Lehrformat Projekt](https://mycampus-classic.iu.org/course/view.php?id=7293)
-- Die Prüfungsform nennt sich "Portfolio": [Prüfungsleitfaden_Portfolio](https://mycampus-classic.iu.org/mod/resource/view.php?id=373242)
+
+- Das Modul wird als Projekt
+  durchgeführt: [MyCampus_Lehrformat Projekt](https://mycampus-classic.iu.org/course/view.php?id=7293)
+- Die Prüfungsform nennt sich "
+  Portfolio": [Prüfungsleitfaden_Portfolio](https://mycampus-classic.iu.org/mod/resource/view.php?id=373242)
 - Abgaben erfolgen über Pepple:
-  - [MyCampus_Pepple](https://mycampus.iubh.de/course/view.php?id=5966&_gl=1*gbk8b3*_gcl_au*MTEwNjExMjg4OS4xNzYwMjc4ODQ1)
-  - https://v3.pebblepad.co.uk/spa/#/home?type=start
+    - [MyCampus_Pepple](https://mycampus.iubh.de/course/view.php?id=5966&_gl=1*gbk8b3*_gcl_au*MTEwNjExMjg4OS4xNzYwMjc4ODQ1)
+    - https://v3.pebblepad.co.uk/spa/#/home?type=start
 - Wir arbeiten über die Teams-Gruppe: DLBDSIPWP01 - Python (Link)
-  - Materialien wie Skripte befinden sich dort.
-  - Bitte den Gruppenchat für die Kommunikation verwenden.
+    - Materialien wie Skripte befinden sich dort.
+    - Bitte den Gruppenchat für die Kommunikation verwenden.
 - Das bzw. die Projekte haben 3 Phasen (Auszug aus dem Prüfungsleitfaden):
-  1. Konzeptionsphase
-  2. Einarbeitungsphase
-  3. Finalisierungsphase
+    1. Konzeptionsphase
+    2. Einarbeitungsphase
+    3. Finalisierungsphase
 
 ---
 
 ## Anforderungen an das Projekt
+
 - Requirements definieren
-- Definiertes Setup in der Readme Datei beschrieben (Python Umgebung, welche Pakete benötigt werden, App starten, welche Features implementiert etc.)
+- Definiertes Setup in der Readme Datei beschrieben (Python Umgebung, welche Pakete benötigt werden, App starten, welche
+  Features implementiert etc.)
 - lesbarer, strukturierter und dokumentierter Code (Programmiert wird in Englisch!)
 - (Beispielhaft) Unit-Tests implementiert
 - (Beispielhaft) 3 Integration-Tests implementiert und dem Software Requirement zugeordnet
@@ -30,6 +35,7 @@
 ---
 
 ## Projekt – Konzeptionsphase
+
 - Sich mit der Aufgabenstellung auseinandersetzen – Was soll die Anwendung können? Was ist der Zweck der Anwendung?
 - Requirements definieren und priorisieren
 - Software Design: Kontext-Diagramme, Use-Case-Diagram, ...
@@ -42,15 +48,18 @@
 ---
 
 ## Projekt – Einarbeitungsphase
+
 - Python Projekt erstellen (Setup, Readme)
 - erste minimalistische lauffähige Python App
 - möglichst 2 Requirements implementiert
 - Initiale Dokumentation im Python Projekt integriert (z.B. Konzeption als Markdown Datei)
 - Präsentation am 26.01.2026 (KW 5)
 -
+
 ---
 
 ## Projekt – Finalisierungsphase
+
 - Umsetzung der Aufgabenstellung als Python-Projekt
 - Source Code
 - Dokumentation (innerhalb des Projektes) inkl. Requirements, Software Design
@@ -59,17 +68,22 @@
 - Abgabe: 10.02.2026 (KW 7) über PebblePad
 
 ### Abgaben
+
 - Konzeptionsdokument: Ziele, wiss. Problem, Anforderungen App & wiss. Problem, Modellierung (Use-Case, UML)
 - Einarbeitung:
-  - Design: UML-Diagrammen: Class-Diagram, State-Diagram, Activity-Diagram, Sequence-Diagram, ...
-  - Prototyp: erste lauffähige Version
-  - Abgabedokument:
+    - Design: UML-Diagrammen: Class-Diagram, State-Diagram, Activity-Diagram, Sequence-Diagram, ...
+    - Prototyp: erste lauffähige Version
+- Verwendet für das Abgabedokument das [Template](FinalReport_template.md):
     - Einleitung (Visionen, Ziele App, wissenschaftlichen Problem)
     - Methodik (REQ, Models)
     - Ergebnissen (z.B. Performance, Wartbarkeit, ...)
     - Ausblick
 
-diagram.net -> mermaid export to markdown
+Erstellt die Dokumente als Markdown-Dateien und verwendet möglichst das mermaid-Plugin zur Darstellung der
+UML-Diagramme.
+Ebenso möglichst es bspw. graphiz, PlantUML oder bspw. draw.io für die Erstellung der Diagramme zu verwenden. Legt
+in dem Fall aber die Roh-Dateien mit ab, damit die Diagramme ggf. angepasst werden können.
+
 ---
 
 ## Übungen
@@ -100,7 +114,7 @@ https://github.com/iubh/DLBDSIPWP01_D
 - Versionskontrolle mit Git & GitHub
 - Requirements Management: requirements.txt, Pipfile, poetry.toml
 - Code Visualisierung: UML-Diagramme, Use Case Diagramme, Activity Diagramme
-  - z.B. mit graphviz (https://pypi.org/project/graphviz/), VCS Plugins, UML Tools
+    - z.B. mit graphviz (https://pypi.org/project/graphviz/), VCS Plugins, UML Tools
 - Arbeiten mit Datenbanken: SQLite, SQLAlchemy, ORM
 - Einführung in Data Engineering mit Python: ETL-Prozesse, Airflow, Prefect
 - Software Design Patterns in Python: Singleton, Factory, Observer, Decorator, Strategy, ...
