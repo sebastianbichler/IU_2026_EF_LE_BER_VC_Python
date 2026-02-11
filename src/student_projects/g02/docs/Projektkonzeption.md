@@ -4,6 +4,7 @@
 
 1. [Projektübersicht & Zielsetzung](#1-projektübersicht--zielsetzung)
     * [1.1 Wissenschaftlicher Hintergrund](#11-wissenschaftlicher-hintergrund-warum-numpy)
+    * [1.2 Forschungshypothesen](#12-forschungshypothesen)
 2. [Requirements (Anforderungen)](#2-requirements-anforderungen)
 3. [Software Design & Architektur](#3-software-design--architektur)
     * [3.1 Anwendungsfälle (Use Cases)](#31-anwendungsfälle--akteure-use-case-diagram)
