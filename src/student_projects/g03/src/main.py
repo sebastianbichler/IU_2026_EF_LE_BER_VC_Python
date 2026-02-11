@@ -1,23 +1,23 @@
-import json
-import os
 import sys
+import os
+import json
 import time
 import tracemalloc
 from datetime import datetime, timedelta
-from functools import reduce
 from itertools import islice
+from functools import reduce
 
 if __name__ == "__main__":
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from .models import Bed, Customer, Inventory, Order, Vegetable
+    from .models import Vegetable, Bed, Customer, Inventory, Order
     from .sensors import stream_soil_moisture
-    from .services import calculate_profit, generate_subscription_boxes
+    from .services import generate_subscription_boxes, calculate_profit
 except ImportError:
-    from models import Bed, Customer, Inventory, Order, Vegetable
+    from models import Vegetable, Bed, Customer, Inventory, Order
     from sensors import stream_soil_moisture
-    from services import calculate_profit, generate_subscription_boxes
+    from services import generate_subscription_boxes, calculate_profit
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 os.makedirs(DATA_DIR, exist_ok=True)
@@ -212,11 +212,11 @@ def format_vegetable(veg, idx):
         + str(veg.amount)
         + " kg\n"
         + "   Pflanzung: "
-        + veg.plant_date.strftime("%Y-%m-%d")
-        + "\n"
+        + veg.plant_date.strftime("%d.%m.%Y")
+        + "\n"  # Auch hier angepasst
         + "   Ernte: "
-        + veg.harvest_date.strftime("%Y-%m-%d")
-    )
+        + veg.harvest_date.strftime("%d.%m.%Y")
+    )  # auch hier angepasst Datumsformat
 
 
 def list_vegetables():
@@ -248,10 +248,10 @@ def add_vegetable():
             print("Ungueltige Auswahl")
             return
         bed_id = beds[bed_idx].id
-        print("Pflanzdatum (YYYY-MM-DD):")
-        plant_date = datetime.strptime(input(), "%Y-%m-%d")
-        print("Erntedatum (YYYY-MM-DD):")
-        harvest_date = datetime.strptime(input(), "%Y-%m-%d")
+        print("Pflanzdatum (DD.MM.YYYY):")  # Auch hier angepasst
+        plant_date = datetime.strptime(input(), "%d.%m.%Y")
+        print("Erntedatum (DD.MM.YYYY):")
+        harvest_date = datetime.strptime(input(), "%d.%m.%Y")
         shelf_life = int(input("Haltbarkeit Tage: "))
         amount = float(input("Menge kg: "))
 
@@ -452,8 +452,8 @@ def format_subscription_box(box, week_num):
         "Woche "
         + str(week_num)
         + " ("
-        + box.delivery_date.strftime("%Y-%m-%d")
-        + "):\n"
+        + box.delivery_date.strftime("%d.%m.%Y")
+        + "):\n"  # Anpassung Datum von Y-m-d auf d.m.Y
         + "  Gemuese: "
         + veg_names
         + "\n"
@@ -470,7 +470,7 @@ def create_subscription_box():
         print("Keine Kunden")
         return
     if not vegetables:
-        print("Keine Gemuese")
+        print("Kein Gemuese")
         return
     print("Kunden:")
     formatted_customers = map(

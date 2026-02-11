@@ -21,7 +21,7 @@ Das Ziel ist die Entwicklung einer **Python-basierten Farmverwaltungsanwendung**
 
 ### 2.1 Funktionale Anforderungen
 
-#### **Priorität 1: Must Have** ✅ *Bereits implementiert*
+#### **Priorität 1: Must Have**
 
 **Anbauflächen-Management:**
 * **F01 – Beet-Verwaltung:** (Klasse `Bed` in `models.py`)
@@ -103,13 +103,13 @@ Das Ziel ist die Entwicklung einer **Python-basierten Farmverwaltungsanwendung**
 * **F20 – Web-Dashboard:**
     * Interaktive Benutzeroberfläche (Flask/Streamlit)
     * Visualisierung aller Daten
-    
+
 * **F21 – Wetterintegration:**
     * Einbindung echter Wetter-APIs für präzisere Anbauplanung
-    
+
 * **F22 – Lieferrouten-Optimierung:**
     * Algorithmus zur effizienten Auslieferung der Abo-Kisten
-    
+
 * **F23 – Export-Funktionen:**
     * CSV/PDF-Berichte für Buchhaltung und Saisonanalysen
 
@@ -149,7 +149,7 @@ Das Ziel ist die Entwicklung einer **Python-basierten Farmverwaltungsanwendung**
     * Dynamische Rabatt-Aktionen für überschüssiges Gemüse
     * Anbindung an `get_expired_items()` Generator
 
-#### **Priorität 3: Could Have** 💡 *Nice-to-Have*
+#### **Priorität 3: Could Have**
 
 * **F19 – Rezeptvorschläge:**
     * Kreative Rezeptideen basierend auf verfügbarem Gemüse
@@ -158,13 +158,13 @@ Das Ziel ist die Entwicklung einer **Python-basierten Farmverwaltungsanwendung**
 * **F20 – Web-Dashboard:**
     * Interaktive Benutzeroberfläche (Flask/Streamlit)
     * Visualisierung aller Daten
-    
+
 * **F21 – Wetterintegration:**
     * Einbindung echter Wetter-APIs für präzisere Anbauplanung
-    
+
 * **F22 – Lieferrouten-Optimierung:**
     * Algorithmus zur effizienten Auslieferung der Abo-Kisten
-    
+
 * **F23 – Export-Funktionen:**
     * CSV/PDF-Berichte für Buchhaltung und Saisonanalysen
 
@@ -173,19 +173,19 @@ Das Ziel ist die Entwicklung einer **Python-basierten Farmverwaltungsanwendung**
 * **NF01 – Speichereffizienz:**
     * Die Lazy-Evaluation-Implementierung wird mit `tracemalloc` gemessen
     * Ziel: 70%+ RAM-Einsparung bei 10.000+ Sensordatenpunkten
-    
+
 * **NF02 – Datenintegrität:**
     * Alle persistenten Daten in JSON (`rabbitfarm_data.json`)
     * `save_data()` und `load_data()` Funktionen
-    
+
 * **NF03 – Erweiterbarkeit:**
     * Modulares Design mit `dataclasses`
     * Klare Trennung: `models.py`, `services.py`, `sensors.py`
-    
+
 * **NF04 – Reproduzierbarkeit:**
     * Benchmark-Funktionen liefern konsistente Ergebnisse
     * Feste Seed-Werte möglich für deterministische Tests
-    
+
 * **NF05 – Benutzerfreundlichkeit:**
     * CLI-Interface mit klarem Menü in `main.py`
     * `menu_map` Dictionary für saubere Navigation
@@ -274,9 +274,9 @@ graph LR
     UC7 -.->|include| UC6
 
     %% Styling
-    style R fill:#90EE90,stroke:#333,stroke-width:2px
-    style K fill:#FFB6C1,stroke:#333,stroke-width:2px
-    style S fill:#87CEEB,stroke:#333,stroke-dasharray: 5 5
+    style R fill:#90EE90,stroke:#333,stroke-width:2px,color:#000
+    style K fill:#FFB6C1,stroke:#333,stroke-width:2px,color:#000
+    style S fill:#87CEEB,stroke:#333,stroke-dasharray: 5 5,color:#000
 ```
 
 ### 3.3 Klassen-Diagramm (UML)
@@ -457,15 +457,15 @@ def process_lazy(moisture_stream, max_items=None):
 def benchmark_eager(bed_id, num_readings, base_moisture=50.0):
     tracemalloc.start()
     start_time = time.perf_counter()
-    
+
     moisture_stream = stream_soil_moisture(bed_id=bed_id, base_moisture=base_moisture)
     data_list = list(islice(moisture_stream, num_readings))  # ← EAGER: Alle Daten in Liste!
     result = process_eager(data_list)
-    
+
     elapsed_time = time.perf_counter() - start_time
     _, peak = tracemalloc.get_traced_memory()
     tracemalloc.stop()
-    
+
     return {
         "time": elapsed_time,
         "peak_memory_mb": peak / 1024 / 1024,
@@ -476,15 +476,15 @@ def benchmark_eager(bed_id, num_readings, base_moisture=50.0):
 def benchmark_lazy(bed_id, num_readings, base_moisture=50.0):
     tracemalloc.start()
     start_time = time.perf_counter()
-    
+
     moisture_stream = stream_soil_moisture(bed_id=bed_id, base_moisture=base_moisture)
     limited_stream = islice(moisture_stream, num_readings)  # ← LAZY: Nur Iterator!
     result = process_lazy(limited_stream)
-    
+
     elapsed_time = time.perf_counter() - start_time
     _, peak = tracemalloc.get_traced_memory()
     tracemalloc.stop()
-    
+
     return {
         "time": elapsed_time,
         "peak_memory_mb": peak / 1024 / 1024,
@@ -495,10 +495,10 @@ def benchmark_lazy(bed_id, num_readings, base_moisture=50.0):
 
 ### 5.4 Literatur
 
-* **[1]** 
-    * 
+* **[1]**
+    *
 * **[2]**
-    * 
+    *
 
 ### 6.1 Projektphasen
 
@@ -589,5 +589,3 @@ def benchmark_lazy(bed_id, num_readings, base_moisture=50.0):
 * Python `itertools` Dokumentation: https://docs.python.org/3/library/itertools.html
 * Memory Profiler: https://pypi.org/project/memory-profiler/
 * Functional Programming HOWTO: https://docs.python.org/3/howto/functional.html
-
-

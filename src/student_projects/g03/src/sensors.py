@@ -1,6 +1,6 @@
 import random
 from datetime import datetime
-from typing import Dict, Generator
+from typing import Generator, Dict
 
 
 def stream_soil_moisture(

@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
-from itertools import cycle, islice
-from typing import Dict, Generator, List
+from typing import List, Generator, Dict
+from itertools import islice, cycle
 
-from models import Customer, Inventory, Order, SubscriptionBox, Vegetable
+# model Inventory was unused, so I removed it to avoid confusion. If you need it later, you can always add it back.
+from models import Vegetable, Customer, SubscriptionBox, Order
 
 
 def generate_subscription_boxes(
