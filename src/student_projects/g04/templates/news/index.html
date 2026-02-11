@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center mb-4">
+    <h1 class="fw-bold">⚽ Football News</h1>
+    <p class="text-muted">Latest updates from the football world</p>
+
+    <a href="/news/add" class="btn btn-success btn-lg mt-2">
+        ➕ Add News
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    {% if news %}
+        {% for item in news %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card news-card h-100 shadow">
+
+                    {% if item.image %}
+                        <img src="{{ item.image }}" class="card-img-top news-image">
+                    {% endif %}
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">
+                            {{ item.title }}
+                        </h5>
+
+                        <p class="card-text text-muted flex-grow-1">
+                            {{ item.content }}
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <form method="POST" action="{{ url_for('news.delete_news_route', news_id=item.id) }}">
+                                <button class="btn btn-outline-danger btn-sm">
+                                    🗑 Delete
+                                </button>
+                            </form>
+
+                            <span class="badge bg-dark">
+                                NEWS
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="text-center">
+            <p class="text-muted fs-4">No news yet 👀</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -12,13 +12,13 @@ class Vegetable:
     bed_id: int
     shelf_life_days: int
     amount: float = 1.0
-    
+
     def is_fresh(self, current_date: Optional[datetime] = None) -> bool:
         if current_date is None:
             current_date = datetime.now()
         days_since_harvest = (current_date - self.harvest_date).days
         return days_since_harvest < self.shelf_life_days
-    
+
     def freshness_ratio(self, current_date: Optional[datetime] = None) -> float:
         if current_date is None:
             current_date = datetime.now()
@@ -40,7 +40,7 @@ class Customer:
     name: str
     species: str
     subscription_type: str
-    
+
     def __str__(self) -> str:
         return f"{self.name} ({self.species})"
 
@@ -51,7 +51,7 @@ class SubscriptionBox:
     vegetables: List[Vegetable]
     delivery_date: datetime
     price: float
-    
+
     def __str__(self) -> str:
         veg_names = ", ".join([v.name for v in self.vegetables])
         return f"Box für {self.customer.name} am {self.delivery_date.strftime('%d.%m.%Y')}: {veg_names} ({self.price:.2f}€)"
@@ -63,7 +63,7 @@ class Order:
     vegetables: List[Vegetable]
     delivery_date: datetime
     price: float
-    
+
     def __str__(self) -> str:
         veg_names = ", ".join([v.name for v in self.vegetables])
         return f"Bestellung von {self.customer.name}: {veg_names} ({self.price:.2f}€)"
@@ -72,7 +72,7 @@ class Order:
 @dataclass
 class Inventory:
     items: List[Vegetable] = field(default_factory=list)
-    
+
     def add_harvest(self, vegetable: Vegetable, amount: float) -> None:
         veg = Vegetable(
             name=vegetable.name,
@@ -81,23 +81,27 @@ class Inventory:
             harvest_date=vegetable.harvest_date,
             bed_id=vegetable.bed_id,
             shelf_life_days=vegetable.shelf_life_days,
-            amount=amount
+            amount=amount,
         )
         self.items.append(veg)
-    
-    def get_fresh_items(self, current_date: Optional[datetime] = None) -> Generator[Vegetable, None, None]:
+
+    def get_fresh_items(
+        self, current_date: Optional[datetime] = None
+    ) -> Generator[Vegetable, None, None]:
         if current_date is None:
             current_date = datetime.now()
         for item in self.items:
             if item.is_fresh(current_date):
                 yield item
-    
-    def get_expired_items(self, current_date: Optional[datetime] = None) -> Generator[Vegetable, None, None]:
+
+    def get_expired_items(
+        self, current_date: Optional[datetime] = None
+    ) -> Generator[Vegetable, None, None]:
         if current_date is None:
             current_date = datetime.now()
         for item in self.items:
             if not item.is_fresh(current_date):
                 yield item
-    
+
     def get_total_amount(self) -> float:
         return sum(item.amount for item in self.items)

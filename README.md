@@ -75,6 +75,7 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 | Web (Klein)    | Flask                   | Web-Apps (leicht)         | Minimalistisch und flexibel.         |
 | Web (Groß)     | Django                  | Web-Apps (komplett)       | Alles inklusive (Login, Admin etc.). |
 | Statistik      | Statsmodels             | Statistische Modelle      | Regressionen, Zeitreihenanalyse.     |
+| GUI            | tkinter                 |                           |                                      |
 | GUI            | IPyWidgets              | UI-Controls in Noteboooks | Verzicht auf Desktop- oder Web-UI    |
 
 ---
@@ -163,41 +164,55 @@ Verwende die folgende Datei `requirements.txt`, um alle Abhängigkeiten auf einm
 
 ---
 
-## Code snippets
+## PIP commands cheat sheet
 
+- **Pip aktualisieren**: `python -m pip install --upgrade pip`
+- **Pakete listen**: `pip list`
 - **Pakete installieren**: `pip install package_name`
 - **Abhängigkeiten speichern**:
   - `pip freeze > requirements.txt`
   - `python -m pip freeze | Set-Content -Path requirements.txt -Encoding utf8NoBOM`
   - after freeze, edit: pywinpty==3.0.2; platform_system == "Windows"
 - **Abhängigkeiten installieren**: `pip install -r requirements.txt`
+
+## Virtual Environment commands cheat sheet
 - **Virtuelle Umgebung erstellen**: `python -m venv env_name`
 - **Virtuelle Umgebung aktivieren**: `source env_name/bin/activate (Linux/Mac)` oder
   `env_name\Scripts\activate (Windows)`
 - **Aktuelle virtuelle Umgebung anzeigen:** `which python (Linux/Mac)` oder `where python (Windows)`
+
+## Ruff, Pre-Commit cheat sheet
 - **Formatierung standardisieren**: `ruff format`
 - **Code-Qualität prüfen**: `ruff check .`
 - **Check line endings:** `git ls-files --eol`
 - **Pre-Commit-Checks:** `pre-commit run --all-files`
+
+## Python, Jupyter, Unittest, Git commands cheat sheet
 - **Interaktive Python-Shell starten:** `python -m IPython`
 - **Jupyter Notebook starten**: `jupyter notebook`
 - **JupyterLab starten**: `jupyter lab`
 - **Unit-Tests ausführen**: `python -m unittest discover tests`
-- **Code mit Type Hints versehen**:
+- Pytest (optional): `pytest tests`
+
+## Git commands cheat sheet
 - **Git-Origin/Remote-Repository**:`git remote -v`
-- **Default-Branch:** `git remote show origin`
+- **Show Default-Branches:** `git remote show origin`
 - **Lokaler aktueller Branch:** `git branch --show-current`
-- **Git-Branch erstellen**: `git checkout -b branch_name`
+- **Git-Branch erstellen/wechseln**: `git switch branch_name`
+- **Git-Status anzeigen**: `git status`
+- **Datei zu Git hinzufügen**: `git add SOURCE`
+- **Alle geänderten Dateien hinzufügen und comitten**:`git commit -a`
 - **Änderungen committen**: `git commit -m "Commit message"`
 - **Code pushen**: `git push origin branch_name`
 - **Code fetch**: `git fetch origin branch_name`
-- **Code pull**: `git pull origin branch_name`
-- **Ziel-Branch wählen**: `git checkout main`
+- **Code pull (fetch + merge)**: `git pull origin branch_name`
 - **Code mergen**: `git merge branch_name`
 - **Merge abbrechen (bei Fehlern)**: `git merge --abort`
-- **Datei zu Git hinzufügen**: `git add file_name`
-- **Alle Änderungen zu Git hinzufügen**: `git add .`
+- **Änderungen zurücksetzen**: `git restore SOURCE`
+- **Änderungen zwischenspeichern**: `git stash`
+- **Zwischengespeicherte Änderungen anwenden**: `git stash apply`
+- **Zwischengespeicherte Änderungen löschen**: `git stash drop`
 - **Pull-Request abrufen**: `git fetch origin pull/ID/head:lokaler-branch-name`
-- **Git-Status anzeigen**: `git status`
 - **Git-Log anzeigen**: `git log`
 - **Einen Commit zurücksetzen**: `git reset --hard commit_hash`
+- **History graphisch anzeigen**: `gitk`

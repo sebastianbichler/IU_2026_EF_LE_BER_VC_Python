@@ -32,9 +32,12 @@
 ## Projekt – Konzeptionsphase
 - Sich mit der Aufgabenstellung auseinandersetzen – Was soll die Anwendung können? Was ist der Zweck der Anwendung?
 - Requirements definieren und priorisieren
-- Software Design: Use-Case-Diagram
+- Software Design: Kontext-Diagramme, Use-Case-Diagram, ...
 - Was brauche ich für die Umsetzung? (z.B. Datensätze, Bibliotheken)
-- Präsentation der eignen Konzeption (Handout in PeddlePad hochladen ?)
+- Beleuchtung des wissenschaftlichen Hintergrund (Auswahl mindestens eines Artikels)
+- Erste Ideen zum TechStack
+- Ablage hier im GitHub Repository
+- Push: offiziel am 19.01.2026 (KW 4), verlängert bis 02.02.2026
 
 ---
 
@@ -55,6 +58,19 @@
 - CI/CD Umsetzung (requirments.txt, Unittests, Integrationtests)
 - Abgabe: 10.02.2026 (KW 7) über PebblePad
 
+Konzeptionsdokument: Ziele, wiss. Problem, Anforderungen App & wiss. Problem, Modellierung (Use-Case, UML)
+
+Design: UML-Diagrammen: Class-Diagram, State-Diagram, Activity-Diagram, Sequence-Diagram, ...
+
+Ziel: modularen (strukturierter) Code, Re-Refactoring -> Design: Einsatz von Design Patterns
+
+Daten - View - Control
+
+(Tests)
+
+Abgabedokument: Einleitung (Visionen, Ziele App, wissenschaftlichen Problem), Methodik (REQ, Models), Ergebnissen (z.B. Performance, Wartbarkeit, ...) und Ausblick
+
+diagram.net -> mermaid export to markdown
 ---
 
 ## Übungen

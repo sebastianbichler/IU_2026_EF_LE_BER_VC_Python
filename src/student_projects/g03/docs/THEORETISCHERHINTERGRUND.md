@@ -6,7 +6,7 @@
 - Der Autor spricht explizit über Kokkos als beispielhaftes Framework, welches durch verschiedene API-Anbindungen hardware-übergreifend funktioniert (AMD und NVIDIA GPUs, sowie Intel und AMD CPUs werden als Beispiel genannt)
 - Kokkos ist überwiegend in C++ implementiert, durch die Zunahme der interpretierten Sprachen ist PyKokkos für die Implementierung von Python entstanden
 - Nachteil: Programmierer müssen Teile des Codes ausgliedern und statisch implementieren. Dadurch werden verschiedene Kernels aktiv und es entstehen teils redundante Vorgänge, die den Arbeitsspeicher unnötig belegen --> Die Lösung ist `Kernal Fusion`. Prozesse sollen mit möglichst wenig aktiven Kernels laufen
-- Hier stellt der Autor `PyFuser` vor. 
+- Hier stellt der Autor `PyFuser` vor.
 - PyFuser zeichnet Kernel Prozesse auf und kombiniert sie in einem einzelnen optimierten Kernel
 - Dadurch läuft das Programm performanter und es führt zu einem verringerten Start-Overhead (Bei vielen kleinen Kernels summieren sich die Verwaltungsprozesse auf.)
 ## **2: Ansel et al. - 2024 - PyTorch 2 Faster Machine Learning Through Dynamic Python Bytecode Transformation and Graph Compilation**
@@ -17,11 +17,11 @@
 - PyTorch ist ein Framework für maschinelles Lernen und läuft in der Python Umgebung. Bei Eager Operationen werden jedoch Start-Overhead Prozesse über viele Kernels verteilt ausgeführt. Durch den im Paper beschriebenen Python-JIT-Compiler PyDynamo, werden die Operationen zunächst aufgezeichnet und als Graph dargestellt. Dieser Graph kann dann über einen einzelnen Kernel ausgeführt werden --> Speicheroptimierung
 - **Lazy Tensors:** Der Lazy Ansatz wird implementiert, indem die Operationen zunächst gesammelt werden und anschließend in einem Graphen aufgebaut werden. Durch die "Zusatzarbeit" sind die Overhead-Prozesse zunächst etwas aktiver. Der Graph wird dann als Ganzes kompiliert (z.B. durch `XLA`) und anschließend ausgeführt. Im Eager Mode wird der erste GPU-Kernel sofort gestartet, während Python weiterläuft — CPU und GPU arbeiten parallel. Bei Lazy wird zuerst der gesamte Graph gesammelt. Erst danach wird der erste Kernel gestartet. Dadurch entstehen Startverzögerungen und manchmal schlechtere CPU/GPU-Überlappung. Bei neuen Graph-Hashes ist erneutes Kompilieren erforderlich.
 - PyTorch/XLA kombiniert Lazy Tensors mit TorchDynamo, wodurch die Overheads der Lazy Tensors versteckt werden, indem die Kompilierung nur einmal ausgeführt wird.
-## **3: Associate Professor, Mehr Chand Mahajan DAV College for Women, Chandigarh, India und Arora - 2024 - Improving Performance of Data Science Applications in Python** 
+## **3: Associate Professor, Mehr Chand Mahajan DAV College for Women, Chandigarh, India und Arora - 2024 - Improving Performance of Data Science Applications in Python**
 - Die Autorin stellt speicheroptimierende Methoden dar, welche sich bereits in der Python Library befinden
 - Sie geht dabei insbesondere auf `Generatoren`, `Vektorisierung`, `Parallelismus`, `Caching` und `I/O-Handling` ein
 - Durch das Yielding mithilfe von *Generatoren* lässt sich Arbeitsspeicher sparen, indem über theoretisch unbegrenzte Datenmengen iteriert werden können ohne Arbeitsspeicher zu belegen -->Lazy
-- Durch die *NumPy* Library lassen sich Python-Lists in C++ Arrays abbilden. Hierdurch können Operationen am gesamten Array durchgeführt werden ohne durch die komplette Liste durch-zu-iterieren. Im Paper nimmt die Autorin die Vektormultiplikation als Beispiel: 
+- Durch die *NumPy* Library lassen sich Python-Lists in C++ Arrays abbilden. Hierdurch können Operationen am gesamten Array durchgeführt werden ohne durch die komplette Liste durch-zu-iterieren. Im Paper nimmt die Autorin die Vektormultiplikation als Beispiel:
 ```python
 outer_product=np.outer(vektor1,vektor2) #numpy-Methode outer wird genutzt um vektor 1 mit vektor 2 zu multiplizieren
 ```
@@ -73,12 +73,12 @@ outer_product=np.outer(vektor1,vektor2) #numpy-Methode outer wird genutzt um vek
 	</tbody>
 </table>
 
-- Bei *I/O-Operationen* wird mit folgenden Methoden gearbeitet, um die Leistung zu optimieren: 
+- Bei *I/O-Operationen* wird mit folgenden Methoden gearbeitet, um die Leistung zu optimieren:
 - -Buffering: Daten werden gesammelt statt byteweise gelesen
 - -Batching: große Datenblöcke statt viele kleine Zugriffe
 - -Memory Mapping: Datei direkt wie Speicher behandeln --> schneller Zugriff
 - -Context Manager: verhindert offene Dateien und Ressourcenlecks
-- *Caching* wird genutzt, damit nicht erneut gelesen/geschrieben und berechnet werden muss. Über `memoize` werden Funktionsresultate gespeichert. Datenbankabfragen werden zwischengespeichert und Trainingsdaten werden im RAM gehalten. Drei Clearingmethoden kommen hier häufig zum Einsatz: 
+- *Caching* wird genutzt, damit nicht erneut gelesen/geschrieben und berechnet werden muss. Über `memoize` werden Funktionsresultate gespeichert. Datenbankabfragen werden zwischengespeichert und Trainingsdaten werden im RAM gehalten. Drei Clearingmethoden kommen hier häufig zum Einsatz:
 - -FIFO: älteste Daten zuerst entfernen
 - -LIFO: zuletzt gespeicherte zuerst entfernen
 - -LRU: am längsten nicht genutzte Daten entfernen

@@ -2,11 +2,35 @@
 
 ---
 
+## Schwerpunkte nach FS-Skript
+
+1. Einführung (Basics)
+2. Variablen, Datentypen, Operatoren
+3. Anweisungen, Kontrollstrukturen (if, for, while)
+4. Funktionen
+5. Fehler und Ausnahmen
+6. Module und Pakete
+
+## Weitere Schwerpunkte für die Projektarbeit
+7. Objektorientierte Programmierung (OOP) von Dirk Simon anpassen
+8. Design Patterns in Python (Diverse Quellen, z.B. https://refactoring.guru/design-patterns/python, eigene Idee: Liste GUI/Console-Design-Patterns)
+9. Testing, Logging, Debugging
+10. Best Practices (Anke L. fragen)
+11. GUI-Programming (tkinter, etc.) aus Schrödinger programmiert Python
+
+---
+
 ## Wissenschaftliche Schwerpunkte in Python (TOPICS)
 
 Die folgenden Schwerpunkte sind speziell auf Python zugeschnitten und bieten die Möglichkeit, tief in
 fortgeschrittene Konzepte einzutauchen, die über die Grundlagen hinausgehen. Jeder Schwerpunkt ist mit einer
 wissenschaftlichen Fragestellung, relevanten Publikationen und einer praktischen Anwendung im Projektkontext verknüpft.
+
+Zuvor, der
+Artikel [Performante Python_Algorithmen](https://www.heise.de/hintergrund/Programmiersprache-Python-Performante-Algorithmen-entwickeln-und-optimieren-11141627.html)
+von Heise Developer bietet eine hervorragende Übersicht, wie eine Performance-Optimierung in Python erreicht werden
+kann. Dabei werden auch Grundlagen aus der Welt der Algorithmen und Datenstrukturen behandelt, die für die folgenden
+Schwerpunkte relevant sind.
 
 ### 1. Memory Management: Reference Counting vs. Cyclic Garbage Collection
 
@@ -161,5 +185,5 @@ Um den methodischen Anspruch zu sichern, sollten die Gruppen folgende Schritte d
 
 2. **Profiling:** Nutzung von Tools wie `cProfile` oder `memory_profiler`, um Engpässe wissenschaftlich nachzuweisen.
 
-3. **Dokumentation:** Ein kurzes Paper (4-6 Seiten), das die gewählte Forschungsfrage mit den Ergebnissen des Projekts
-   beantwortet.
+3. **Dokumentation:** Ein kurzes Paper (4-6 Seiten), das die gewählte Forschungsfrage darstellt und die Ergebnissen des
+   Projekts (erklärend) beantwortet.
