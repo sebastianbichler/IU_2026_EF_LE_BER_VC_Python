@@ -1,6 +1,6 @@
-from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Generator, List, Optional
+from typing import List, Optional, Generator
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -54,7 +54,7 @@ class SubscriptionBox:
 
     def __str__(self) -> str:
         veg_names = ", ".join([v.name for v in self.vegetables])
-        return f"Box für {self.customer.name} am {self.delivery_date.strftime('%Y-%m-%d')}: {veg_names} ({self.price:.2f}€)"
+        return f"Box für {self.customer.name} am {self.delivery_date.strftime('%d.%m.%Y')}: {veg_names} ({self.price:.2f}€)"
 
 
 @dataclass
@@ -78,7 +78,7 @@ class Inventory:
             name=vegetable.name,
             sort=vegetable.sort,
             plant_date=vegetable.plant_date,
-            harvest_date=harvest_date,
+            harvest_date=vegetable.harvest_date,
             bed_id=vegetable.bed_id,
             shelf_life_days=vegetable.shelf_life_days,
             amount=amount,
