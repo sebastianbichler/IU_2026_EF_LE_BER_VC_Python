@@ -90,17 +90,36 @@ Das Projekt folgt strikt dem **MVC-Pattern (Model-View-Controller)**, um eine sa
 1.  **Repository klonen / entpacken:**
     Wechseln Sie in das Projektverzeichnis `g02`.
 
-2.  **Abhängigkeiten installieren:**
+2.  **Virtuelle Umgebung erstellen (Empfohlen):**
+    Es wird empfohlen, eine isolierte Umgebung zu nutzen, um Konflikte zu vermeiden.
+    
+    *Erstellen:*
+    ```bash
+    python -m venv venv
+    ```
+    
+    *Aktivieren:*
+    * **Windows:**
+        ```bash
+        venv\Scripts\activate
+        ```
+    * **Mac / Linux:**
+        ```bash
+        source venv/bin/activate
+        ```
+    *(Man erkennt die aktive Umgebung am `(venv)` vor der Befehlszeile.)*
+
+3.  **Abhängigkeiten installieren:**
     ```bash
     pip install -r requirements.txt
     ```
 
-3.  **Anwendung starten:**
+4.  **Anwendung starten:**
     ```bash
     python -m src.app
     ```
 
-4.  **Im Browser öffnen:**
+5.  **Im Browser öffnen:**
     Navigieren Sie zu [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 ---
