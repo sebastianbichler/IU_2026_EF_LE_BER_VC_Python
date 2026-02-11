@@ -20,9 +20,10 @@
 ## #11 2026-02-23, Monday (3 UE)
 
 - room: Turing
+- TODO Define document structure for final report (pdf)
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf
-    - OOP
-- GUI (tkinter, etc.)
+    - OOP (TOD merge scripts of Anke, Dirk and my OOP.md into one document)
+- GUI (tkinter, etc. use Anke's script and extend it)
 - Design Patten in Python
 - group project work time (break out sessions)
 - code review session
