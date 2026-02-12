@@ -92,7 +92,7 @@ KISS, ... Verwenden Sie UML-Diagramme, um die Umsetzung zu verdeutlichen.
 
 ### 5.1 Methodik der Untersuchung
 
-Beschreiben Sie den Aufbau Ihres Versuchs im Notebook.
+Beschreiben Sie den Aufbau Ihres Versuchs im Notebook.(Forschungsfrage beantworten, Datenmodell)
 
 ### 5.2 Analyse und Demonstration
 
@@ -117,7 +117,7 @@ Dokumentieren Sie mindestens 3 Integration-Tests. Ordnen Sie diese explizit den 
 
 ### 6.4 CI-Pipeline
 
-Beschreiben Sie die Automatisierung (GitHub Actions, Befehlsreihenfolge, Prüfung der `requirements.txt`).
+Beschreiben Sie die Automatisierung (GitHub Actions, Befehlsreihenfolge, Prüfung der `requirements.txt`, project.toml).
 
 ---
 
@@ -137,8 +137,16 @@ Wie sind Sie vorgegangen? Welche Anpassungen mussten während der Entwicklung vo
 
 ### 8.2 Selbstreflexion
 
+#### Arbeitsprozess
+
 Analysieren Sie den Arbeitsprozess. Wo hat das Requirements Engineering geholfen, wo gab es bspw. durch "
 Drauflos-Programmieren" Probleme?
+
+#### Einsatz von KI
+
+Bitte denkt daran, dass ihr eine schriftliche Reflektion zu eurer KI-Nutzung im Projekt mit abgeben müsst. Da alle
+höchstwahrscheinlich KI-Tools verwenden werden, ist die Dokumentation des Lernfortschritts erforderlich (siehe IU
+Richtlinie zur Nutzung von KI im Studium (S. 13) https://mycampus-classic.iu.org/mod/resource/view.php?id=357067)
 
 ### 8.3 Nutzungsanweisung (How-to-use)
 
