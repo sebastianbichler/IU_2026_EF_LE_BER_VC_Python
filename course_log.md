@@ -4,59 +4,77 @@
 
 ## End of March 2026
 
+- TODO 'work space' in PebblePad needs to be created
 - turn in all project parts into PeddlePad
 
 ## #12 2026-02-24, Tuesday (3 UE)
 
-- group project work time (breakt out sessions)
+- room: Einstein
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion6.pdf (in Teams-Group)
+    - Best Practices
+- group project work time (break out sessions)
 - consulting for student projects
 - code review session
+- TODO example of a final report (pdf)
 
 ## #11 2026-02-23, Monday (3 UE)
 
-- group project work time (breakt out sessions)
+- room: Turing
+- TODO Define document structure for final report (pdf)
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf
+    - OOP (TOD merge scripts of Anke, Dirk and my OOP.md into one document)
+- GUI (tkinter, etc. use Anke's script and extend it)
+- Design Patten in Python
+- group project work time (break out sessions)
 - code review session
 
 ## #10 2026-02-10, Tuesday (3 UE)
 
-- group project work time (breakt out sessions)
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (see Teams-Group)
+    - Moduls and packages
+    - Dörn: Appendix A: Important modules with its description
+- group project work time (break out sessions)
 
-## #9 2026-02-09, Monday (3 UE)
+## #9 2026-02-09, Monday (3 UE) (CURRENT LECTURE)
 
-- group project work time (breakt out sessions)
+- Do not use anaconda for c++ extensions, use venv and pip instead
+- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (see Teams-Group)
+    - Funktionen
+    - Fehler und Ausnahmen
+- HINT: Use most important design principle as capsuling in order to use variant implementations of the same
+  functionality (e.g. different algorithms for the same task) and to be able to easily switch between them (GUI,
+  Console, etc.)
+- 3-5 papers for concepts and finale report (see it like a paper)
+- group project work time (break out sessions)
+    - Goal: get a first specification/design for the prototype of the project idea
 
 ## #8 2026-02-03, Tuesday (3 UE)
-- GUI (tkinter, etc.)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion6.pdf (in Teams-Group)
-  - Best Practices
+
+- group project work time
+- concept review and feedback
+    - G07: use tabs instead of spaces for indentation in order to avoid formatting issues
+
 ## #7 2026-02-02, Monday (3 UE)
 
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf (in Teams-Group)
-  - OOP
+- Leonie Kinsky, Oliver Mayer placed in group 10
+- each group/each reads a scientifc paper and summarizes it and reflects how this can be used for the tas
+    - name the paper
 - group project work time
--
+- How to turn-in instructions via PebblePad (pdf)
+    - only final report is required to be turned in
+    - however, test it today
+
 ## #6 2026-01-27, Tuesday (3 UE)
 
 - Presentation (P2) of project concepts by student groups (if there is time) or work in breakout-rooms
-- Presentation of project designs by student groups (first implementation phase)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion4.pdf (see Teams-Group)
-  - Moduls and packages
-  - Dörn: Appendix A: Important modules with its description
+    - G3, G4, G5, G6, G7, G8, G9
 
 ## #5 2026-01-26, Monday (3 UE)
 
 - Check local linter and formatter setup
-  - use ruff for both linting and formatting
-  - delete black if installed in order to avoid conflicts
-- How to turn-in instructions via PebblePad (pdf)
-  - only final report is required to be turned in
-  - however, test it today
-- Group 7 visualization (which diagram) ???
-- Presentation (Part1) of project concepts by student groups (if there is time) or work in breakout-rooms
-- Check on voluntary homework (FS), show new basic examples
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion3.pdf (see Teams-Group)
-  - Functions
-  - Exceptions and error handling
+    - use ruff for both linting and formatting
+    - delete black if installed in order to avoid conflicts
+- Group presentations: 1, 2
 
 ## #4 2026-01-26, Tuesday (3 UE)
 
@@ -65,7 +83,7 @@
 - Time for group project work
 - DSBINFOPEPP01_WiSe25-26_Python_Lektion2.pdf (from slide 23, in Teams-Group)
 - Presentation of project concepts by student groups (if there is time)
-  - G09: streamlit
+    - G09 work preview with streamlit
 
 ## #3 2026-01-19, Monday (3 UE)
 

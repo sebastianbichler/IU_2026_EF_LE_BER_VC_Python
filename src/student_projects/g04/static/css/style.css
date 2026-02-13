@@ -1,0 +1,30 @@
+body {
+    background: #f4f6f9;
+}
+
+.news-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+}
+
+.news-image {
+    height: 220px;
+    object-fit: cover;
+}
+
+.navbar {
+    border-bottom: 3px solid #198754;
+}
+
+.news-card .card-body {
+    padding: 1.3rem;
+}
+
+.news-card:not(:has(img)) .card-body {
+    padding-top: 2rem;
+}
