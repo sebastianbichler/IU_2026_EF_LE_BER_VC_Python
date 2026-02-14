@@ -86,8 +86,10 @@ foxpost/
 * data/  
   * raw/  
   * processed/  
-  * analytics/  
-* foxpost/  
+  * analytics/
+* docs/
+  * Projektkonzeption.md  
+* static/  
   * **init**.py  
   * config.py  
   * ingestion/  
