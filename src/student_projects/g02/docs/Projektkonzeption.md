@@ -4,6 +4,7 @@
 
 1. [Projektübersicht & Zielsetzung](#1-projektübersicht--zielsetzung)
     * [1.1 Wissenschaftlicher Hintergrund](#11-wissenschaftlicher-hintergrund-warum-numpy)
+    * [1.2 Forschungshypothesen](#12-forschungshypothesen)
 2. [Requirements (Anforderungen)](#2-requirements-anforderungen)
 3. [Software Design & Architektur](#3-software-design--architektur)
     * [3.1 Anwendungsfälle (Use Cases)](#31-anwendungsfälle--akteure-use-case-diagram)
@@ -49,6 +50,27 @@ Python-Listen sind Arrays von Zeigern auf Objekte, die verstreut im Speicher lie
 Für die Simulation der Zinsen und Wintervorräte nutzen wir Broadcasting. Dies ist der Mechanismus, mit dem NumPy arithmetische Operationen auf Arrays unterschiedlicher Form anwendet (z.B. Skalar auf Matrix).
 * Dies geschieht virtuell, ohne die Daten im Speicher zu duplizieren.
 * Shah et al. heben hervor, dass Broadcasting essenziell ist, um Schleifen in C-Geschwindigkeit auszuführen, statt langsame Python-Loops zu nutzen.
+
+---
+
+## 1.2 Forschungshypothesen
+
+Basierend auf der theoretischen Überlegenheit von SIMD-Operationen (*Single Instruction, Multiple Data*) stellen wir folgende Hypothesen für das Experiment auf:
+
+### Hypothese 1: Der Skalierungseffekt (Big Data)
+> **H1:** *Mit steigender Anzahl der Datensätze ($n$) wächst die Performance-Differenz zwischen der NumPy-Implementierung und der nativen Python-Lösung überproportional zugunsten von NumPy.*
+
+* **Begründung:** Während Python für jedes Element im Loop den Overhead der Typ-Prüfung und Interpretation hat (SISD), nutzt NumPy optimierte C-Schleifen. Wir erwarten bei $n > 100.000$ einen Speedup-Faktor von mindestens **50x**.
+
+### Hypothese 2: Der Overhead-Nachteil (Small Data)
+> **H2:** *Bei sehr kleinen Datensätzen ($n < 100$) ist die native Python-Lösung gleich schnell oder sogar schneller als NumPy.*
+
+* **Begründung:** Das Initialisieren von NumPy-Arrays und das Laden der C-Bibliotheken erzeugt einen fixen Zeit-Overhead (Latenz). Bei wenigen Daten fällt dieser stärker ins Gewicht als der eigentliche Rechenvorteil der Vektorisierung.
+
+### Hypothese 3: Effizienz von Maskierung bei bedingter Logik
+> **H3:** *Die Vektorisierung von bedingter Logik (z.B. Diebstahl-Check: `if depth < 10`) mittels Maskierung (`np.where`) ist effizienter als CPU-Branch-Prediction in Python-Schleifen.*
+
+* **Begründung:** Moderne CPUs können Berechnungen schlecht vorhersagen, wenn viele zufällige `if/else`-Sprünge (*Branches*) vorkommen. NumPy vermeidet Sprünge komplett, indem es beide Ergebnisse berechnet und mittels einer binären Maske das richtige Ergebnis wählt (*Branchless Programming*).
 
 ---
 
