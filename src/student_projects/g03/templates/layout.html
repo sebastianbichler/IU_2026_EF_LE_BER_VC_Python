@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RabbitFarm Web UI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>RabbitFarm Management</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('vegetables') }}">Gemuese</a>
+        <a href="{{ url_for('beds') }}">Beete</a>
+        <a href="{{ url_for('inventory') }}">Lager</a>
+        <a href="{{ url_for('customers') }}">Kunden</a>
+        <a href="{{ url_for('orders') }}">Bestellungen</a>
+        <a href="{{ url_for('finances') }}">Finanzen</a>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

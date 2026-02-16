@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Willkommen auf der RabbitFarm!</h2>
+<p>Verwenden Sie das Menue, um Ihre Farm zu verwalten.</p>
+
+<div class="dashboard">
+    <h3>Schnellzugriff</h3>
+    <ul>
+        <li><a href="{{ url_for('vegetables') }}">Gemuese verwalten</a></li>
+        <li><a href="{{ url_for('beds') }}">Beete verwalten</a></li>
+        <li><a href="{{ url_for('inventory') }}">Lagerbestand pruefen</a></li>
+        <li><a href="{{ url_for('orders') }}">Neue Bestellung anlegen</a></li>
+    </ul>
+</div>
+{% endblock %}

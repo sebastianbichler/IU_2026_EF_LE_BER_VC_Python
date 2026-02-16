@@ -6,3 +6,4 @@ jupyter>=1.0.0
 ipykernel>=6.0.0
 ipywidgets>=7.6.0
 memory_profiler>=0.61.0
+flask>=2.0.0

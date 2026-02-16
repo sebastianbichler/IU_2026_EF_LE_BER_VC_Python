@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Gemuese Verwaltung</h2>
+
+<h3>Neues Gemuese anpflanzen</h3>
+<form method="POST">
+    <label>Name: <input type="text" name="name" required></label>
+    <label>Sorte: <input type="text" name="sort" required></label>
+    <label>Beet:
+        <select name="bed_id">
+            {% for bed in beds %}
+            <option value="{{ bed.id }}">{{ bed.name }} (ID: {{ bed.id }})</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Pflanzdatum: <input type="date" name="plant_date" required></label>
+    <label>Erntedatum: <input type="date" name="harvest_date" required></label>
+    <label>Haltbarkeit (Tage): <input type="number" name="shelf_life" required></label>
+    <label>Menge (kg): <input type="number" step="0.1" name="amount" required></label>
+    <button type="submit">Hinzufuegen</button>
+</form>
+
+<h3>Aktuelle Gemuese auf den Beeten</h3>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Sorte</th>
+        <th>Beet ID</th>
+        <th>Pflanzdatum</th>
+        <th>Erntedatum</th>
+        <th>Menge</th>
+    </tr>
+    {% for veg in vegetables %}
+    <tr>
+        <td>{{ veg.name }}</td>
+        <td>{{ veg.sort }}</td>
+        <td>{{ veg.bed_id }}</td>
+        <td>{{ veg.plant_date.strftime('%d.%m.%Y') }}</td>
+        <td>{{ veg.harvest_date.strftime('%d.%m.%Y') }}</td>
+        <td>{{ veg.amount }} kg</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="6">Keine Gemuese vorhanden.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

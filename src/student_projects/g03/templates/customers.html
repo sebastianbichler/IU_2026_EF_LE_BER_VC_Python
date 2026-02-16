@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Kunden verwaltung</h2>
+
+<h3>Neuen Kunden anlegen</h3>
+<form method="POST">
+    <label>Name: <input type="text" name="name" required></label>
+    <label>Tierart: <input type="text" name="species" required></label>
+    <label>Abo-Typ: <input type="text" name="subscription_type" required></label>
+    <button type="submit">Hinzufuegen</button>
+</form>
+
+<h3>Kundenliste</h3>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Tierart</th>
+        <th>Abo-Typ</th>
+    </tr>
+    {% for customer in customers %}
+    <tr>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.species }}</td>
+        <td>{{ customer.subscription_type }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3">Keine Kunden vorhanden.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

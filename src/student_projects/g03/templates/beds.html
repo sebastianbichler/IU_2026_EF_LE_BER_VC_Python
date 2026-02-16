@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Beete Verwaltung</h2>
+
+<h3>Neues Beet anlegen</h3>
+<form method="POST">
+    <label>Name: <input type="text" name="name" required></label>
+    <label>Groesse (m2): <input type="number" step="0.1" name="size" required></label>
+    <button type="submit">Hinzufuegen</button>
+</form>
+
+<h3>Vorhandene Beete</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Groesse (m2)</th>
+    </tr>
+    {% for bed in beds %}
+    <tr>
+        <td>{{ bed.id }}</td>
+        <td>{{ bed.name }}</td>
+        <td>{{ bed.size_m2 }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3">Keine Beete vorhanden.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

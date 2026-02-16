@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Finanzen</h2>
+
+<div class="stats">
+    <h3>Uebersicht</h3>
+    <p><strong>Gesamteinnahmen:</strong> {{ revenue }} Euro</p>
+</div>
+
+<h3>Alle Einnahmen (Bestellungen)</h3>
+<table>
+    <tr>
+        <th>Kunde</th>
+        <th>Betrag</th>
+        <th>Datum</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.customer.name }}</td>
+        <td>{{ order.price }} Euro</td>
+        <td>{{ order.delivery_date.strftime('%d.%m.%Y') }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3">Keine Transaktionen.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

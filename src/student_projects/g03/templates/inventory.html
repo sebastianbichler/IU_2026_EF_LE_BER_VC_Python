@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Lagerbestand</h2>
+
+<div class="stats">
+    <p><strong>Gesamtmenge im Lager:</strong> {{ total_amount }} kg</p>
+</div>
+
+<h3>Ernte ins Lager bringen</h3>
+<form method="POST">
+    <label>Gemuese auswaehlen:
+        <select name="veg_idx">
+            {% for idx, veg in enumerate(vegetables) %}
+            <option value="{{ idx }}">{{ veg.name }} ({{ veg.sort }}) - Beet {{ veg.bed_id }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Menge (kg): <input type="number" step="0.1" name="amount" required></label>
+    <button type="submit">Einlagern</button>
+</form>
+
+<h3>Frische Ware</h3>
+<ul>
+    {% for item in fresh_items %}
+    <li>{{ item.name }} ({{ item.sort }}): {{ item.amount }} kg - Frische: {{ (item.freshness_ratio() * 100)|round(1)
+        }}%</li>
+    {% else %}
+    <li>Keine frischen Waren.</li>
+    {% endfor %}
+</ul>
+
+<h3>Abgelaufene Ware</h3>
+<ul>
+    {% for item in expired_items %}
+    <li>{{ item.name }} ({{ item.sort }}): {{ item.amount }} kg</li>
+    {% else %}
+    <li>Keine abgelaufenen Waren.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -374,10 +374,6 @@ classDiagram
 ```
 
 
-**Vorteile:** Einfach, menschenlesbar, für Prototyp ausreichend
-
-**Mögliche Erweiterung:** SQLite für bessere Skalierung
-
 ## 5. Wissenschaftlicher Hintergrund: Lazy Evaluation
 
 ### 5.1 Theoretische Grundlagen
