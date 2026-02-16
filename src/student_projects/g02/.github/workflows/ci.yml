@@ -1,0 +1,36 @@
+name: CI Pipeline
+
+# Wann soll die Pipeline laufen?
+# Bei jedem Push auf den Branch 'main' oder 'g02'
+on:
+  push:
+    branches: [ "main", "g02" ]
+  pull_request:
+    branches: [ "main", "g02" ]
+
+jobs:
+  build-and-test:
+    # Auf welchem Betriebssystem soll getestet werden?
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Code aus dem Repository herunterladen
+    - uses: actions/checkout@v3
+
+    # 2. Python Umgebung einrichten
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    # 3. Abhängigkeiten installieren
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    # 4. Tests ausführen
+    # Der Befehl sucht automatisch alle Dateien, die mit "test_" beginnen
+    - name: Run Unit & Integration Tests
+      run: |
+        python -m unittest discover tests
