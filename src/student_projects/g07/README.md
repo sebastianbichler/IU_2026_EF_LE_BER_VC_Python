@@ -110,6 +110,17 @@ Das Verzeichnis `docs/` bündelt **alle konzeptionellen und planerischen Dokumen
 
 ### 2.2.3 Finalisierungsphase
 
-* t.b.d
+**Zeitraum:** 09.02.2026 – 22.02.2026
+
+**Ziel:**
+
+* Abschlussdokumentation & Nachvollziehbarkeit herstellen
+* Architekturentscheidungen begründen (Code-Struktur, Module, Verantwortlichkeiten)
+* Hypothesen H1/H2 aus der Konzeptionsphase beantworten
+* 1–2 Unit-Tests ergänzen
+
+**Dokument:**
+
+* `docs/finalization_phase/Finalization.md`
 
 ---
