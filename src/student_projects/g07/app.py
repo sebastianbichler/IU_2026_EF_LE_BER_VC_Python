@@ -32,6 +32,19 @@ if 'monitor' not in st.session_state:
     st.session_state.search_engine = ElephantSearchEngine()
     st.session_state.large_dataset_generated = False
     st.session_state.references_broken = False  # Track if we've broken references
+    st.session_state._pending_break_references = False
+
+# Apply pending demo actions early in the run.
+# Streamlit reruns the script on interaction; performing the orphaning at the
+# very beginning avoids the objects becoming unreachable *between* runs and
+# being collected before we can display the orphaned state.
+if st.session_state.get("_pending_break_references"):
+    st.session_state.store.clear()
+    st.session_state.search_engine.index_all([], [], [])  # Remove external refs held by indexes
+    gc.disable()
+    st.session_state.large_dataset_generated = False
+    st.session_state.references_broken = True
+    st.session_state._pending_break_references = False
 
 # Header
 st.title("🐘 Elephant Memory Cloud")
@@ -128,13 +141,8 @@ with tab1:
                      disabled=not st.session_state.large_dataset_generated or st.session_state.references_broken,
                      use_container_width=True,
                      type="secondary"):
-            # Clear store and any other strong references so that only circular
-            # references remain. Then disable cyclic GC so the effect is stable.
-            st.session_state.store.clear()
-            st.session_state.search_engine.index_all([], [], [])  # Clear search indexes (remove external refs)
-            gc.disable()
-            st.session_state.large_dataset_generated = False
-            st.session_state.references_broken = True
+            # Defer the actual orphaning to the next run (see pending handler above)
+            st.session_state._pending_break_references = True
             st.rerun()
     
     with col_btn2:
