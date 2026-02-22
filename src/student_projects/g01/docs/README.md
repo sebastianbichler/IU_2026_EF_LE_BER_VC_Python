@@ -8,7 +8,8 @@ Die narrative Einbettung dient der anschaulichen Domänenmodellierung, während 
 
 --- 
 
-## 👤 Gruppenmitglieder Luise Oelsner, Marcus Rödiger, Maurice Beier
+## 👤 Gruppenmitglieder 
+Luise Oelsner, Marcus Rödiger, Maurice Beier
 
 --- 
 
