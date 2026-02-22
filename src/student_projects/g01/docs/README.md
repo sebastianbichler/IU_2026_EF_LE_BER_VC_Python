@@ -1,58 +1,27 @@
-# 🦊 FoxExpress
+# 🦊 FoxExpress 
 
-## 📌 Projektübersicht
+## 📌 Projektübersicht 
 
-Ziel des Projekts **„FoxExpress“** ist die Entwicklung einer vereinfachten Logistik-Software, mit der:
+FoxExpress ist eine vereinfachte Logistik-Software, die für die fiktive Auftraggeberin „Fiona Fuchs“ entwickelt wird.<br> Als Dispatcherin eines Wald-Kurierdienstes plant sie Lieferungen zwischen den Bauen der Waldtiere und ist auf effiziente Routenoptimierung angewiesen. <br> 
+Das Wegenetz des Waldes wird dabei als Graph abstrahiert, in dem unterschiedliche Weglängen und Gefahrenzonen (z. B. Wolfsgebiet-Passagen) berücksichtigt werden können. <br> 
+Die narrative Einbettung dient der anschaulichen Domänenmodellierung, während der Schwerpunkt des Projekts auf der algorithmischen Routenberechnung sowie der Laufzeitanalyse verschiedener Python-Ausführungsumgebungen liegt.<br> 
 
-- Lieferungen erstellt und verwaltet werden können
-- kürzeste Lieferwege berechnet werden können
+--- 
 
-Auf dieser Grundlage soll die Laufzeit identischer Algorithmen unter verschiedenen Python-Ausführungsumgebungen verglichen werden:
+## 👤 Gruppenmitglieder Luise Oelsner, Marcus Rödiger, Maurice Beier
 
-- **CPython**
-- **PyPy**
-- **Numba**
+--- 
 
-Damit sollen Unterschiede zwischen:
+## 💡 Konzept 
+[Konzept.md](Konzept.md) 
 
-- tracingbasierter JIT-Kompilierung (**PyPy**)
-- methodenbasierter JIT-Kompilierung (**Numba**)
+--- 
 
-analyisert werden.
+## 📝 Anforderungen 
+[Anfoderungen.md](Anforderungen.md) 
 
+--- 
 
----
-
-## 🛠️ Technologien
-
-| Bereich             | Technologie                   |
-|---------------------|-------------------------------|
-| Frontend            | Streamlit                     |
-| Backend             | Python (CPyhton, PyPy, Numba) |
-| Versionskontrolle   | GitHub                        |
-| Projektmanagement   | GitHub                        |
-
----
-
-## 👤 Gruppenmitglieder
-
-Luise Oelsner, Marcus Rödiger, Maurice Beier
-
----
-
-## 💡 Konzept
-
-[Konzept](Konzept.md)
-
----
-
-## 📝 Anforderungen
-
-[Anforderungen](Anforderungen.md)
-
----
-
-## 📊 Diagramme
-
-[UseCaseDiagramm](UseCaseDiagramm.md)<br>
-[Kontextdiagramm](Kontextdiagramm.md)
+## 📊 Diagramme 
+[UseCaseDiagramm.md](UseCaseDiagramm.md)<br> 
+[Kontextdiagramm.md](Kontextdiagramm.md)
