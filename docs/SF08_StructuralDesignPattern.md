@@ -156,4 +156,10 @@ Wenn wir verschiedene Cloud-Provider (AWS, Azure, Lokal) anbinden:
 > muss, sondern eine natürliche Art, die dynamischen Features der Sprache zu nutzen. Weniger Code bedeutet oft weniger
 > Bugs."
 
+**References**:
+
+- https://www.geeksforgeeks.org/python/python-design-patterns/
+- https://www.toptal.com/developers/python/python-design-patterns
+- https://refactoring.guru/de/design-patterns/python
+- https://python-patterns.guide/
 ---

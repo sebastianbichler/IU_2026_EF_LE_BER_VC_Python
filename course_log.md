@@ -16,6 +16,8 @@
         - use of core functionality in different views (GUI, Notebooks, etc., test cases)
     - draft of implementation
     - test cases (methods to evaluate the implementation)
+    - documentation within code should be in English
+    - clean your code according to the PEP8 style guide (use ruff for linting and formatting)
 - group project work time (break out sessions)
 - consulting for student projects
 
@@ -28,7 +30,7 @@
     - Schrödinger programmiert Python
     - docs/OOP_P1.md...OOP_P4.md
 - GUI (tkinter from Schrödinger programmiert Python)
-- Design Patten in Python
+- Design Patten in Python (https://www.geeksforgeeks.org/python/python-design-patterns/)
 - group project work time (break out sessions)
 - code review session
 
