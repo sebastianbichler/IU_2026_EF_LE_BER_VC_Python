@@ -4,8 +4,9 @@ import sys
 from pathlib import Path
 
 
-# Ensure g07 modules can be imported when running pytest from repo root.
-G07_ROOT = Path(__file__).resolve().parents[2] / "src" / "student_projects" / "g07"
+# Allow running pytest from either the g07 folder or the repo root.
+# We add the g07 project root (parent of this tests folder) to sys.path.
+G07_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(G07_ROOT))
 
 
