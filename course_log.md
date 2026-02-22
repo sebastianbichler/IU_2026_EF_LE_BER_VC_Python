@@ -4,26 +4,30 @@
 
 ## End of March 2026
 
-- TODO 'work space' in PebblePad needs to be created
-- turn in all project parts into PeddlePad
+- turn in all project parts into PeddlePad (possible from beginning of March, but deadline is end of March)
 
 ## #12 2026-02-24, Tuesday (3 UE)
 
 - room: Einstein
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion6.pdf (in Teams-Group)
-    - Best Practices
+- students present their current work with focus on
+    - on scientific aspect
+    - modeling and capsuling of the problem
+        - use of OOP, design patterns, etc.
+        - use of core functionality in different views (GUI, Notebooks, etc., test cases)
+    - draft of implementation
+    - test cases (methods to evaluate the implementation)
 - group project work time (break out sessions)
 - consulting for student projects
-- code review session
-- TODO example of a final report (pdf)
 
 ## #11 2026-02-23, Monday (3 UE)
 
 - room: Turing
-- TODO Define document structure for final report (pdf)
-- DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf
-    - OOP (TOD merge scripts of Anke, Dirk and my OOP.md into one document)
-- GUI (tkinter, etc. use Anke's script and extend it)
+- present document structure for final report (pdf)
+- OOP
+    - DSBINFOPEPP01_WiSe25-26_Python_Lektion5.pdf
+    - Schrödinger programmiert Python
+    - docs/OOP_P1.md...OOP_P4.md
+- GUI (tkinter from Schrödinger programmiert Python)
 - Design Patten in Python
 - group project work time (break out sessions)
 - code review session

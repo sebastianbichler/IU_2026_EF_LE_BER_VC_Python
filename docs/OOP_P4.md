@@ -113,7 +113,7 @@ Wenn Studierende fragen: "Was ist der echte Konstruktor?", ist die Antwort techn
 | **Named Constructors** | Nicht nativ (Factory nötig) | **Ja** (via `@classmethod`)       |
 | **Erzeugung**          | `new Class()`               | `__new__` (intern) + `__init__`   |
 
-**Merksatz für Studierende:**
+**Merksatz:**
 > "In Python gibt es keine überladenen Konstruktoren. Wir nutzen stattdessen **sprechende Namen** über `@classmethod`.
 > Das macht den Code oft sogar lesbarer als in Java, da man sofort sieht, *wie* das Objekt erzeugt wird (z.B.
 `Elephant.from_csv(...)` statt nur `new Elephant(...)`)."

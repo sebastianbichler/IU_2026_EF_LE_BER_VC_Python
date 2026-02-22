@@ -151,7 +151,7 @@ von einer `Movable`-Basisklasse (für GPS) und einer `Biological`-Basisklasse (f
 *Klassen-Attribute**, um globale Zustände wie die gesamte Datenrate aller Sensoren in Echtzeit zu aggregieren, ohne eine
 externe Datenbank-Instanz für diesen Zähler bemühen zu müssen.
 
-> **Merksatz für Studierende:** "In C# ist eine Klasse ein Tresor – sicher, aber starr. In Python ist eine Klasse ein
+> **Merksatz:** "In C# ist eine Klasse ein Tresor – sicher, aber starr. In Python ist eine Klasse ein
 > lebender Organismus – extrem flexibel, erfordert aber mehr Disziplin vom Entwickler (Konvention vor Restriktion)."
 
 ---

@@ -193,7 +193,7 @@ print(e.weight_kg)  # Nutzt den Getter
 | **Properties**        | Get/Set Methoden                  | `@property` Decorator                          |
 | **Self-Referenz**     | `this`                            | `self` (muss explizit als 1. Parameter stehen) |
 
-> **Wichtiger Hinweis für Studierende:** "In Python ist `self` kein magisches Wort wie `this` in C#. Es ist einfach der
-> Name des ersten Parameters jeder Instanzmethode. Man könnte es theoretisch `hugo` nennen, aber tun Sie das bitte nie!"
+> **Wichtiger Hinweis:** "In Python ist `self` kein magisches Wort wie `this` in C#. Es ist einfach der
+> Name des ersten Parameters jeder Instanzmethode."
 
 ---

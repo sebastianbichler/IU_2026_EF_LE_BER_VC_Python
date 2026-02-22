@@ -117,15 +117,21 @@ Dokumentieren Sie mindestens 3 Integration-Tests. Ordnen Sie diese explizit den 
 
 ### 6.4 CI-Pipeline
 
-Beschreiben Sie die Automatisierung (GitHub Actions, Befehlsreihenfolge, Prüfung der `requirements.txt`, project.toml).
+Beschreiben Sie die (mögliche) Automatisierung (GitHub Actions, Befehlsreihenfolge, Prüfung der `requirements.txt`,
+project.toml).
 
 ---
 
-## 7. Software-Qualität nach ISO 25010
+## 7. Software-Qualität nach [ISO 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso-25010)
 
-### 7.1 Beurteilung der Produktqualität
+Beurteilung der Produktqualität: Skalieren und bewerten Sie Ihre Software in Kategorien wie Wartbarkeit, Zuverlässigkeit
+und Benutzbarkeit.
+Wählen Sie 3-5 Kategorien aus und begründen Sie die Bewertung. Welche Maßnahmen wurden ergriffen, um die Qualität zu
+verbessern?
 
-Skalieren und bewerten Sie Ihre Software in Kategorien wie Wartbarkeit, Zuverlässigkeit und Benutzbarkeit.
+Examples:
+- https://dl.acm.org/doi/10.1145/3411764.3445651
+- https://dl.acm.org/doi/10.1145/2992154.2992174
 
 ---
 
@@ -151,6 +157,14 @@ Richtlinie zur Nutzung von KI im Studium (S. 13) https://mycampus-classic.iu.org
 ### 8.3 Nutzungsanweisung (How-to-use)
 
 Kurze Anleitung für den Nutzer oder den Korrektor: Wie wird die App gestartet und welche Features sind wie zu nutzen?
+
+### 8.4 Pitch-Video
+
+Erstellen Sie ein kurzes Video (max. 3-5 Minuten), in dem Sie die App vorstellen, die wichtigsten Funktionen
+demonstrieren
+und die wissenschaftliche Fragestellung sowie die Ergebnisse präsentieren.
+
+Erstellt dazu bspw. einen Screencast mit einem Tool wie OBS Studio, Camtasia oder der System-eigenen Bildschirmaufnahme.
 
 ---
 

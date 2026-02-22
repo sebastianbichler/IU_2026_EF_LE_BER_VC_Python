@@ -152,7 +152,7 @@ Wenn wir verschiedene Cloud-Provider (AWS, Azure, Lokal) anbinden:
 * Wir bauen kleine **Adapter**, die die API-Calls der Provider auf unsere interne Methode `upload_to_cloud()` mappen.
 * Das System bleibt erweiterbar, ohne dass wir bestehenden Code ändern müssen (Open-Closed Principle).
 
-> **Merksatz für Studierende:** "In Python ist ein Entwurfsmuster oft kein komplizierter Plan, den man mühsam bauen
+> **Merksatz:** "In Python ist ein Entwurfsmuster oft kein komplizierter Plan, den man mühsam bauen
 > muss, sondern eine natürliche Art, die dynamischen Features der Sprache zu nutzen. Weniger Code bedeutet oft weniger
 > Bugs."
 
