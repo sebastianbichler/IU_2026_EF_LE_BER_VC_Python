@@ -57,7 +57,11 @@ with tab1:
     col1, col2, col3, col4 = st.columns(4)
 
     # Get current stats
-    gc.collect()
+    # NOTE: During the "Break References" demo we intentionally avoid triggering
+    # a collection cycle, otherwise the orphaned circular references may be
+    # collected before we can observe the effect.
+    if not st.session_state.references_broken:
+        gc.collect()
     gc_count = gc.get_count()
     gc_objects = len(gc.get_objects())  # Capture once for consistent reporting
     memory_mb = st.session_state.monitor.get_process_memory_mb()
@@ -124,8 +128,11 @@ with tab1:
                      disabled=not st.session_state.large_dataset_generated or st.session_state.references_broken,
                      use_container_width=True,
                      type="secondary"):
-            # Clear store - makes elephants unreachable but doesn't collect them yet
+            # Clear store and any other strong references so that only circular
+            # references remain. Then disable cyclic GC so the effect is stable.
             st.session_state.store.clear()
+            st.session_state.search_engine.index_all([], [], [])  # Clear search indexes (remove external refs)
+            gc.disable()
             st.session_state.large_dataset_generated = False
             st.session_state.references_broken = True
             st.rerun()
@@ -139,7 +146,8 @@ with tab1:
             count_before = Elephant.get_instance_count()
             memory_before = st.session_state.monitor.get_process_memory_mb()
             
-            # Force GC - now it can collect the orphaned cycles
+            # Re-enable cyclic GC and force a collection to clean orphaned cycles
+            gc.enable()
             collected = gc.collect()
             
             # Take snapshot after GC
@@ -387,6 +395,8 @@ with tab2:
         st.info(f"📊 **Estimated Dataset**: ~{estimated_elephants:,} elephants (range: {range_low:,}-{range_high:,}), {num_events:,} events, {num_herds} herds")
         
         if st.button("🚀 Generate Large Dataset", type="primary", use_container_width=True):
+            # Ensure GC is enabled (the demo may have disabled it)
+            gc.enable()
             # Clear existing data and run GC to free old elephants
             st.session_state.store.clear_and_cleanup()  # Use cleanup version to break circular refs
             st.session_state.search_engine.index_all([], [], [])  # Clear search indexes
