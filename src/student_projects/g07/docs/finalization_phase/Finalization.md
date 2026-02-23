@@ -26,7 +26,7 @@ Im Rahmen der Finalisierungsphase wurde die bestehende Implementierung inhaltlic
 
 ### 2.1 Schichten / Verantwortlichkeiten (Lightweight Layering)
 
-Die Anwendung folgt einer pragmatischen Schichtung (ohne Framework-Overkill):
+Die Anwendung baut auf nachfolgender Schichtung auf.
 
 1) **Presentation / UI**
 	- `app.py`: Streamlit-Dashboard als View + Orchestrierung
