@@ -45,13 +45,13 @@ Die Anwendung baut auf nachfolgender Schichtung auf.
 	- `search/engine.py` (`ElephantSearchEngine`): In-Memory Indexing (Dictionary-basierte Indizes) für schnelle Abfragen
 	- `memory/monitor.py` (`MemoryMonitor`): Messung RSS (psutil) als Metrik
 
-4) **In-Memory Storage (Repository-ähnlich)**
+4) **In-Memory Storage**
 	- `memory/store.py` (`MemoryStore`): zentraler Datencontainer für die aktuell „live“ gehaltenen Objekte
 	- wird als **Singleton** über `get_store()` bereitgestellt (bewusst: ein globaler Objektgraph im RAM)
 
-Diese Aufteilung ist didaktisch passend: Domain-Objekte bleiben unabhängig von Streamlit, während Services/UI sie orchestrieren.
+Domain-Objekte bleiben unabhängig von Streamlit, während Services/UI sie orchestrieren.
 
-### 2.2 Design-Patterns / Paradigmen (bewusst minimal)
+### 2.2 Design-Patterns / Paradigmen
 
 Die Codebasis nutzt einige „klassische“ Muster, ohne eine formale Enterprise-Architektur einzuführen:
 
@@ -61,10 +61,10 @@ Die Codebasis nutzt einige „klassische“ Muster, ohne eine formale Enterprise
 - **Service Layer:** `DataGenerator`, `ElephantSearchEngine`, `MemoryMonitor` als Services mit klarer Verantwortung.
 - **Indexing als Performance-Technik:** `ElephantSearchEngine.index_all()` erstellt Indizes → O(1)-Lookups (z. B. Jahr/Elefant/EventType).
 
-### 2.3 Bewertung der Code-Struktur (Stärken / Risiken)
+### 2.3 Bewertung der Code-Struktur
 
 **Stärken**
-- Gute fachliche Kohäsion: Modelle liegen in `models/`, Services in eigenen Modulen.
+- Modelle liegen in `models/`, Services in eigenen Modulen.
 - Search-Engine ist testbar (UI-unabhängig) und kapselt Indexing.
 - Memory-Thema wird konsequent durch bewusst zyklische Beziehungen unterstützt.
 
@@ -73,7 +73,7 @@ Die Codebasis nutzt einige „klassische“ Muster, ohne eine formale Enterprise
 - Globales State-Handling (Streamlit `session_state` + Singleton Store) ist gut für Demo, aber weniger „clean“ für echte Applikationen.
 - Einige Klassen nutzen Klassen-Listen als Registry (`Event._all_events`, `WaterSource._all_sources`) – praktisch, aber erhöht versteckte Kopplung.
 
-### 2.4 Empfohlene Optimierungen (ohne Overkill)
+### 2.4 Empfohlene Optimierungen
 
 Diese Optimierungen wären der nächste sinnvolle Schritt, wurden aber bewusst nicht vollständig refaktoriert (Scope/Abgabe):
 
