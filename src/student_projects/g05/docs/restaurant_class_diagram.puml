@@ -1,0 +1,138 @@
+@startuml
+' ======================
+' DOMAIN LAYER
+' ======================
+
+package "Domain Layer" {
+
+class Fish {
+  - name : str
+  - base_cost_per_kg : float
+  - supplier_price_variance : float
+}
+
+class Supplier {
+  - name : str
+  - fish_price_list : Dict<String, float>
+  - price_volatility : float
+  - reliability : float
+  - average_delay_days : float
+  - quality_factor : float
+  + get_price(fish: Fish) : float
+  + delivery_successful() : bool
+  + delivery_delay() : int
+}
+
+class InventoryItem {
+  - fish : Fish
+  - amount_kg : float
+  - expiration_date : date
+  + is_expired(current_date: date) : bool
+  + reduce_stock(amount: float) : void
+}
+
+class Delivery {
+  - supplier : Supplier
+  - delivery_date : date
+  - items : List<InventoryItem>
+  + execute_delivery() : void
+  + add_item(item: InventoryItem) : void
+}
+
+class MenuItem {
+  - name : str
+  - fish : Fish
+  - price : float
+  - fish_required_kg : float
+}
+
+class OrderItem {
+  - menu_item : MenuItem
+  - quantity : int
+  + total_price() : float
+  + required_fish_kg() : float
+}
+
+class Order {
+  - order_id : int
+  - items : List<OrderItem>
+  + add_item(item: OrderItem) : void
+  + total_amount() : float
+}
+
+class Bill {
+  - order : Order
+  - tax_rate : float
+  + total_with_tax() : float
+}
+
+class Restaurant {
+  - name : str
+  - inventory : List<InventoryItem>
+  - orders : List<Order>
+  - suppliers : List<Supplier>
+  - deliveries : List<Delivery>
+  + add_inventory(item: InventoryItem) : void
+  + place_order(order: Order) : void
+  + add_supplier(supplier: Supplier) : void
+  + register_delivery(delivery: Delivery) : void
+}
+
+}
+
+' ======================
+' ANALYTICS LAYER
+' ======================
+
+package "Analytics Layer" {
+
+class DemandModel {
+  - historical_demand : ndarray
+  - model : pm.Model
+  - trace : InferenceData
+  + build_model() : void
+  + run_mcmc(draws: int, tune: int) : void
+  + predict_next_day() : int
+}
+
+class SupplierReliabilityModel {
+  - delivery_results : ndarray
+  - model : pm.Model
+  - trace : InferenceData
+  + build_model() : void
+  + run_mcmc() : void
+  + posterior_mean() : float
+}
+
+class RestaurantAnalytics {
+  - restaurant : Restaurant
+  - demand_model : DemandModel
+  - supplier_model : SupplierReliabilityModel
+  + forecast_demand() : dict
+  + evaluate_supplier_risk() : dict
+  + compute_stockout_probability() : float
+}
+
+}
+
+' ======================
+' RELATIONSHIPS
+' ======================
+
+Supplier "1" -- "0..*" Delivery
+Delivery "1" *-- "1..*" InventoryItem
+InventoryItem "1" -- "1" Fish
+MenuItem "1" -- "1" Fish
+Order "1" *-- "1..*" OrderItem
+OrderItem "1" -- "1" MenuItem
+Bill "1" -- "1" Order
+
+Restaurant "1" -- "0..*" InventoryItem
+Restaurant "1" -- "0..*" Order
+Restaurant "1" -- "0..*" Supplier
+Restaurant "1" -- "0..*" Delivery
+
+RestaurantAnalytics "1" -- "1" Restaurant
+RestaurantAnalytics "1" *-- "1" DemandModel
+RestaurantAnalytics "1" *-- "1" SupplierReliabilityModel
+@enduml
