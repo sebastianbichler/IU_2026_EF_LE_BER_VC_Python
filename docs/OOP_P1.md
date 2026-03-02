@@ -3,8 +3,8 @@
 ---
 
 Die Objektorientierung (OOP) in Python unterscheidet sich philosophisch stark von Java oder C#, obwohl sie oberflächlich
-ähnlich aussieht. Während C# und Java **"starr"** sind (die Klasse ist ein unveränderlicher Bauplan), ist in Python *
-*alles ein Objekt** – auch die Klasse selbst.
+ähnlich aussieht. Während C# und Java **"starr"** sind (die Klasse ist ein unveränderlicher Bauplan), ist in Python
+**alles ein Objekt** – auch die Klasse selbst.
 
 
 ---

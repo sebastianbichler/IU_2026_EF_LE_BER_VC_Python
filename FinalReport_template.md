@@ -33,10 +33,18 @@ für die Datenentities die Domain eurer Aufgabe.
 Stellen Sie das System in seiner Umgebung dar. Welche externen Akteure (Nutzer, APIs, Datenbanken) interagieren mit der
 App?
 
-### 2.2 Funktionale Anforderungen
+### 2.2 Funktionale Anforderungen als Katalog
 
 Listen Sie die Features auf, die das System erfüllen muss. Vergeben Sie IDs (z. B. REQ-01), um später Tests darauf
 beziehen zu können.
+
+[x] Checkboxen können hier verwendet werden, um den Status der Anforderung zu dokumentieren (z. B. [x] für erfüllt, [ ]
+für offen) oder per Tabelle mit einem genauen Status (z. B. 80 % erfüllt, 20 % offen) und Notizen.
+
+| ID | Anforderung | Status | Notizen                                |
+|----|-------------|--------|----------------------------------------|
+| 01 | AF1         | 80 %   | test_AF1 schlägt bei Bedingung Z fehlt |
+|    |             |        |                                        |
 
 ### 2.3 Nicht-funktionale Anforderungen (Qualitätsanforderungen)
 
@@ -63,6 +71,17 @@ Frontend) bleibt.
 ### 3.3 Technologie-Stack
 
 Listen Sie alle verwendeten Pakete und Tools auf (z. B. PyMC, PyTensor, Pandas) und erläutern Sie deren Rolle.
+
+### 3.4 Logging und Fehlerbehandlung
+
+Demonstieren Sie, wie wichtige Aspekte wie Logging, Fehlerbehandlung, Performance-Optimierung und Debugging-Strategien in
+der App umgesetzt wurden.
+
+- Logging
+- Fehlerbehandlung
+- (Performance-Optimierung)
+- (Debugging-Strategien)
+
 
 ---
 
@@ -129,10 +148,6 @@ und Benutzbarkeit.
 Wählen Sie 3-5 Kategorien aus und begründen Sie die Bewertung. Welche Maßnahmen wurden ergriffen, um die Qualität zu
 verbessern?
 
-Examples:
-- https://dl.acm.org/doi/10.1145/3411764.3445651
-- https://dl.acm.org/doi/10.1145/2992154.2992174
-
 ---
 
 ## 8. Projektabschluss und Reflexion
@@ -165,6 +180,12 @@ demonstrieren
 und die wissenschaftliche Fragestellung sowie die Ergebnisse präsentieren.
 
 Erstellt dazu bspw. einen Screencast mit einem Tool wie OBS Studio, Camtasia oder der System-eigenen Bildschirmaufnahme.
+
+Examples:
+
+- https://dl.acm.org/doi/10.1145/3411764.3445651
+- https://dl.acm.org/doi/10.1145/2992154.2992174
+- https://dl.acm.org/conference/chi
 
 ---
 
