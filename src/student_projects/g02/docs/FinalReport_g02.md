@@ -433,18 +433,19 @@ Der Versuchsaufbau im Notebook ist darauf ausgelegt, die Ausführungsgeschwindig
 Die Ausführung des Codes im Notebook liefert den quantitativen Beweis für die theoretischen Annahmen aus Kapitel 1. Die Ergebnisse wurden über die Bibliothek `matplotlib` direkt visualisiert.
 
 ![Performance Benchmark: Native Python vs NumPy](benchmark_plot.png)
-*(Abbildung 3: Logarithmische Darstellung der Benchmark-Zeiten in Abhängigkeit von der Datenmenge $n$.)*
+
+*(Abbildung 3: Logarithmische Darstellung der Benchmark-Zeiten in Abhängigkeit von der Datenmenge n.)*
 
 **Auswertung der Ergebnisse und Prüfung der Hypothesen:**
 
 1. **Bestätigung von H1 (Skalierungseffekt / Big Data):**
-   Das generierte Liniendiagramm (mit beidseitig logarithmischen Achsen) zeigt deutlich, dass die Laufzeit der nativen Python-Schleife ab ca. $n = 1.000$ linear und steil ansteigt. Die NumPy-Ausführung skaliert durch die effiziente Cache-Nutzung (Contiguous Memory) und SIMD-Instruktionen signifikant besser. Bei $n = 1.000.000$ ist die Diskrepanz maximal, was zu einem enormen Speedup-Faktor führt. H1 ist somit **vollständig bestätigt**.
+   Das generierte Liniendiagramm mit beidseitig logarithmischen Achsen zeigt deutlich, dass die Laufzeit der nativen Python-Schleife ab ca. $n = 1.000$ linear und steil ansteigt. Die NumPy-Ausführung skaliert durch die effiziente Cache-Nutzung und SIMD-Instruktionen signifikant besser. Bei $n = 1.000.000$ ist die Diskrepanz maximal, was zu einem enormen Speedup-Faktor führt. H1 ist somit bestätigt.
 
 2. **Bestätigung von H2 (Overhead / Small Data):**
-   Ein genauerer Blick auf die Messpunkte ganz links im Diagramm ($n = 10$ und $n = 100$) zeigt, dass die rote Linie (native Python-Schleife) hier noch *unterhalb* der blauen NumPy-Linie verläuft. Der Zeitaufwand, um die NumPy-C-Bibliotheken aufzurufen und Arrays im Speicher zu allozieren, übersteigt bei diesen winzigen Datenmengen den Rechengewinn der Vektorisierung. Erst ab ca. $n = 300$ kreuzen sich die Linien zugunsten von NumPy. H2 ist somit **eindeutig bewiesen**.
+   Ein genauerer Blick auf die Messpunkte ganz links im Diagramm ($n = 10$ und $n = 100$) zeigt, dass die rote Linie, also native Python-Schleife, hier noch unterhalb der blauen NumPy-Linie verläuft. Der Zeitaufwand, um die NumPy-C-Bibliotheken aufzurufen und Arrays im Speicher zu allozieren, übersteigt bei diesen winzigen Datenmengen den Rechengewinn der Vektorisierung. Erst ab ca. $n = 300$ kreuzen sich die Linien zugunsten von NumPy. H2 ist somit bewiesen.
 
 3. **Bestätigung von H3 (Bedingte Logik / Branch Prediction):**
-   Trotz der Tatsache, dass NumPy bei `np.where` temporäre Arrays im Speicher anlegen muss und keine bedingten Sprünge (`if/else`) auf Maschinenebene ausführt (Branchless Programming), dominiert dieser Ansatz bei großen Datenmengen ($n > 1.000$) massiv. Der Wegfall des Python-Interpreter-Overheads wiegt den Speicher-Overhead der Maskierungs-Arrays bei Weitem auf. H3 ist somit **bestätigt**.
+   Trotz der Tatsache, dass NumPy bei `np.where` temporäre Arrays im Speicher anlegen muss und keine bedingten Sprünge (`if/else`) auf Maschinenebene ausführt, dominiert dieser Ansatz bei großen Datenmengen ($n > 1.000$) massiv. Der Wegfall des Python-Interpreter-Overheads wiegt den Speicher-Overhead der Maskierungs-Arrays bei Weitem auf. H3 ist somit bestätigt.
 
 ---
 
@@ -452,29 +453,76 @@ Die Ausführung des Codes im Notebook liefert den quantitativen Beweis für die 
 
 ### 6.1 Code-Struktur und Dokumentation
 
-Hinweise zur englischsprachigen Programmierung, Docstrings und der modularen Aufteilung.
+Um eine hohe Wartbarkeit (Maintainability) und Erweiterbarkeit der "Squirrel Secret Stash"-Anwendung zu gewährleisten, wurde sich strikt an etablierte Industriestandards gehalten:
+
+* **Englischsprachige Programmierung:** Der gesamte Quellcode, inklusive aller Variablen (z. B. `NutStash`, `depth_cm`, `amount`) und Methoden (`calculate_risk()`), wurde konsequent in englischer Sprache verfasst. Dies beugt Encoding-Problemen vor und erleichtert die Arbeit in internationalen Teams.
+* **Docstrings und Kommentare:** Während der Code englisch ist, wurden die erklärenden Inline-Kommentare und standardisierten Python-Docstrings bewusst auf Deutsch verfasst. Diese Entscheidung dient der nahtlosen Anbindung an diesen deutschsprachigen Projektbericht. Es erleichtert dem Leser die inhaltliche Prüfung der mathematischen Funktionsweise der komplexen Array-Operationen, da der Kontext direkt in der Bewertungssprache erhalten bleibt.
+* **Modulare Aufteilung:** Der Code folgt dem Separation of Concerns-Prinzip. Die Applikation ist in logische Module unterteilt: 
+  * `app.py` (Flask-Webserver und Routing)
+  * `analytics.py` (Die wissenschaftliche Rechen-Engine und Benchmark-Logik)
+  * `generator.py` (Erstellung der Dummy-Daten)
+  * `models.py` (Definition der Datenstrukturen via Dataclasses)
 
 ### 6.2 Test-Konzept: Unit-Tests
 
-Listen Sie beispielhafte Unit-Tests auf, die die Kernfunktionalität absichern.
+Um die Richtigkeit der wissenschaftlichen Berechnungen und der Business-Logik zweifelsfrei zu belegen, wurden die Kernfunktionen der Anwendung mittels Unit-Tests abgesichert. Hierbei kommt das in Python integrierte `unittest`-Framework in Kombination mit `numpy.testing` zum Einsatz.
+
+Die folgenden implementierten Unit-Tests der Klasse `TestAnalyzer` sichern die Kernfunktionalität ab:
+
+1. **`test_compare_numpy_and_python()`**: Dieser wissenschaftliche Test ist das wichtigste Qualitätstor der Arbeit. Er übergibt identische Testdaten (Tiefen, Mengen, Temperaturen) an den iterativen Python-Code (`_survival_python`) und die vektorisierte NumPy-Logik (`_survival_numpy_calc`). Mittels der Spezialfunktion `np.testing.assert_array_equal` wird bewiesen, dass die SIMD-Optimierung das exakt gleiche mathematische Ergebnis liefert wie die SISD-Schleife.
+2. **`test_logic_theft_risk()`**: Ein reiner Business-Logic-Test, der verifiziert, dass die Diebstahl-Risiko-Regel korrekt greift. Er prüft anhand von simulierten Array-Werten, ob ein Versteck unter 10 cm Tiefe korrekt mit 30 % Verlust berechnet wird, während tiefere Verstecke (z. B. 15 cm) einen Verlust von 0 % aufweisen.
 
 ### 6.3 Integration-Tests und Traceability
 
-Dokumentieren Sie mindestens 3 Integration-Tests. Ordnen Sie diese explizit den Software-Requirements (aus Kap. 2.2) zu.
+Während Unit-Tests einzelne Methoden in Isolation prüfen, verifizieren Integration-Tests das reibungslose Zusammenspiel mehrerer Komponenten (z. B. HTTP-Routing $\rightarrow$ Controller $\rightarrow$ HTML-Rendering). Dies wurde mithilfe des Flask `test_client()` in der Klasse `TestWebRoutes` realisiert. 
+
+Zur Sicherstellung der Nachvollziehbarkeit (*Traceability*) sind die Tests den Software-Requirements (F01 - F07) aus Kapitel 2.2 zugeordnet.
+
+| Test-ID | Beschreibung des Integration-Tests | Traceability (Requirement) |
+| :--- | :--- | :--- |
+| **INT-01** | **Routen-Erreichbarkeit (Dashboard):** Simuliert einen HTTP-GET-Request auf die Hauptroute `/`. Die Assertion prüft, ob der Webserver mit dem HTTP-Statuscode `200` (OK) antwortet, was die erfolgreiche Initialisierung der Flask-App belegt. | Deckt ab: **F07** (GUI & Karte) |
+| **INT-02** | **Content-Rendering (Template-Integration):** Prüft, ob bei einem Aufruf der Hauptroute nicht nur der Statuscode stimmt, sondern auch die Integration der Jinja2-Templates funktioniert. Mittels `self.assertIn` wird verifiziert, dass der korrekte String ("Sammys Secret Stash") im gerenderten HTML-Body ausgeliefert wird. | Deckt ab: **F07** (GUI & Karte) |
+| **INT-03** | **End-to-End Analyse-Pipeline:** Sendet einen simulierten GET-Request an die `/analyze`-Route. Dieser Integrationstest ist komplex, da der Aufruf dieser Route im Backend die gesamte Verarbeitungskette (Daten laden $\rightarrow$ Native Python Engine starten $\rightarrow$ NumPy SIMD Engine starten $\rightarrow$ Rendern) auslöst. Ein Statuscode `200` beweist, dass die gesamte Pipeline absturzfrei durchlaufen wurde. | Deckt ab: **F03** (Diebstahl-Erkennung), **F04** (Performance-Benchmark) |
 
 ### 6.4 CI-Pipeline
 
-Beschreiben Sie die (mögliche) Automatisierung (GitHub Actions, Befehlsreihenfolge, Prüfung der `requirements.txt`,
-project.toml).
+Zur Automatisierung der Qualitätssicherung wurde eine *Continuous Integration* (CI) Pipeline via **GitHub Actions** implementiert. Diese Pipeline verhindert, dass fehlerhafter Code in produktive Branches gelangt.
+
+Die Workflow-Datei (`.github/workflows/ci.yml`) definiert folgende Automatisierungsschritte:
+1. **Trigger:** Die Pipeline wird bei jedem Push oder Pull-Request auf den Branches `main` und `g02` vollautomatisch ausgelöst.
+2. **Umgebung:** Als Ausführungsumgebung wird ein virtueller Linux-Runner mit einer definierten Python-Version hochgefahren. Dies garantiert, dass Tests nicht nur lokal auf dem Rechner des Entwicklers, sondern in einer sauberen, standardisierten Umgebung funktionieren, damit ist das "It works on my machine"-Problem gelöst.
+3. **Abhängigkeiten:** Das System führt zunächst ein Update des Paketmanagers `pip` durch und installiert danach automatisiert alle in der `requirements.txt` spezifizierten Bibliotheken.
+4. **Testausführung:** Als finaler Schritt führt der Runner den Befehl `python -m unittest discover tests` aus. Dieses Kommando durchsucht das Projekt automatisch nach allen Dateien, die mit `test_` beginnen, und führt die darin enthaltenen Unit- und Integration-Tests aus. Schlägt ein Test fehl, wird der gesamte Pipeline-Lauf als Failed markiert.
 
 ---
 
 ## 7. Software-Qualität nach [ISO 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso-25010)
 
-Beurteilung der Produktqualität: Skalieren und bewerten Sie Ihre Software in Kategorien wie Wartbarkeit, Zuverlässigkeit
-und Benutzbarkeit.
-Wählen Sie 3-5 Kategorien aus und begründen Sie die Bewertung. Welche Maßnahmen wurden ergriffen, um die Qualität zu
-verbessern?
+Die Beurteilung der Produktqualität der "Squirrel Secret Stash"-Anwendung erfolgt anhand der standardisierten Qualitätsmerkmale der ISO/IEC 25010. Für dieses akademische Projekt wurden vier zentrale Kategorien ausgewählt und auf einer Skala von 1 (sehr schlecht) bis 10 (exzellent) bewertet.
+
+### 7.1 Performance-Effizienz
+**Bewertung: 9 / 10 (Exzellent)**
+
+Da der Kern der wissenschaftlichen Fragestellung im Performance-Vergleich liegt, ist dieses Merkmal das wichtigste des gesamten Systems. Die Anwendung verarbeitet selbst Millionen von Datensätzen (Big Data) in Bruchteilen einer Sekunde.
+* **Ergriffene Maßnahmen:** Die signifikanteste Maßnahme war der Paradigmenwechsel von iterativen Python-Schleifen (SISD) zur Array-Programmierung mit NumPy (SIMD). Durch das Contiguous Memory Layout von NumPy werden Cache-Misses der CPU verhindert. Zudem wurde beim Einlesen der lokalen JSON-Datenbank darauf geachtet, tiefe Kopien zu vermeiden und die Rohdaten direkt in Vektoren zu überführen.
+
+### 7.2 Wartbarkeit
+**Bewertung: 8 / 10 (Sehr Hoch)**
+
+Das System ist so konzipiert, dass es von anderen Entwicklern schnell verstanden und um neue Analyse-Metriken erweitert werden kann, ohne dass der bestehende Codebais zerbricht.
+* **Ergriffene Maßnahmen:** Die strikte Einhaltung des MVC-Patterns garantiert die Trennung von GUI (`app.py`) und Logik (`analytics.py`). Der Code folgt dem Open-Closed Principle. Die Lesbarkeit wurde durch englischsprachige Syntax, Type-Hints und ausführliche, deutschsprachige Python-Docstrings massiv erhöht. Ein Linting-Prozess via CI-Pipeline sichert perspektivisch die Einhaltung der PEP-8 Richtlinien.
+
+### 7.3 Zuverlässigkeit 
+**Bewertung: 8 / 10 (Sehr Hoch)**
+
+Die Zuverlässigkeit beschreibt, wie stabil das System unter Fehlerbedingungen läuft und wie korrekt die mathematischen Auswertungen sind. Da "Sammy" sein Überleben im Winter auf diese Daten stützt, ist Fehlerfreiheit essenziell.
+* **Ergriffene Maßnahmen:** Die mathematische Korrektheit der vektorisierten Routinen wird durch gezielte Unit-Tests (z. B. `test_compare_numpy_and_python` mittels `np.testing.assert_array_equal`) garantiert. Um die Systemstabilität zu gewährleisten, wurden kritische Pfade wie Datei-I/O-Operationen (`data.json`) mit `try/except`-Blöcken abgesichert, sodass eine fehlende Datenbank nicht zu einem Serverabsturz, sondern zu einem sauberen Fallback führt. Die GitHub Actions CI-Pipeline blockiert fehlerhafte Code-Änderungen vollautomatisch.
+
+### 7.4 Benutzbarkeit 
+**Bewertung: 7 / 10 (Gut)**
+
+Obwohl das System technisch hochkomplex ist, muss es für den Endanwender Sammy intuitiv bedienbar bleiben. Als Prototyp erfüllt es seinen Zweck, auch wenn UX-Details wie Ladebalken für extrem große Datensätze noch ausbaufähig sind.
+* **Ergriffene Maßnahmen:** Die Entscheidung gegen ein reines Kommandozeilen-Tool und für eine Web-Applikation war der wichtigste Schritt zur Erhöhung der Usability. Komplexe Benchmark-Zeiten und Speedup-Faktoren werden dem Nutzer nicht als nackte Zahlen, sondern durch visuell ansprechende Chart.js-Diagramme im Dashboard übersetzt. Die Usability wurde durch die Bereitstellung des interaktiven Jupyter Notebooks (`experiment.ipynb`) maximiert.
 
 ---
 
@@ -482,24 +530,40 @@ verbessern?
 
 ### 8.1 Methodik und Anpassungen
 
-Wie sind Sie vorgegangen? Welche Anpassungen mussten während der Entwicklung vorgenommen werden und warum?
+Die Entwicklung der Anwendung erfolgte nach einem iterativen Ansatz. Zu Beginn lag der Fokus rein auf der Kernlogik (dem mathematischen Beweis) in einer isolierten Umgebung, bevor die Hülle (das Flask-Frontend) darum gebaut wurde. 
+
+Während des Entwicklungsprozesses mussten zwei wesentliche Anpassungen vorgenommen werden:
+1. **Auslagerung in das Jupyter Notebook:** Gemäß den formalen Projektanforderungen wurde das System bewusst zweigleisig aufgebaut. Während die Flask-Applikation die praktischen Use-Cases und die Usability (Dashboard, Visualisierung) abdeckt, wurde pflichtgemäß das interaktive `experiment.ipynb` implementiert. Diese Trennung stellt sicher, dass die Hypothesen (H1-H3) und die reinen CPU-Messzeiten direkt im Code und ganz ohne den Overhead eines Webservers reproduzierbar zu testen.
+2. **Refactoring der Datenhaltung:** Zu Beginn wurden die Nussverstecke bei jedem Testlauf neu im Arbeitsspeicher generiert. Um jedoch das Prinzip *DRY* und wissenschaftliche Vergleichbarkeit zu garantieren, wurde ein `StorageManager` eingeführt, der die generierten Daten einmalig als `.json` auf der Festplatte persistiert, sodass beide Algorithmen exakt denselben Datensatz analysieren.
 
 ### 8.2 Selbstreflexion
 
-#### Arbeitsprozess
+**Arbeitsprozess:**
 
-Analysieren Sie den Arbeitsprozess. Wo hat das Requirements Engineering geholfen, wo gab es bspw. durch "
-Drauflos-Programmieren" Probleme?
+Wenn wir auf unseren Arbeitsprozess zurückblicken, war der Kontrast zwischen anfänglichem "Drauflos-Programmieren" und strukturiertem Requirements Engineering wohl unsere steilste Lernkurve. Gerade in der frühen Projektphase war im Team die Versuchung groß, möglichst schnell sichtbare Ergebnisse zu produzieren. Die Quittung kam prompt: Wir haben uns schnell im eigenen Code verheddert, die Übersicht ging verloren.
+Der echte Wendepunkt für uns kam erst, als wir einen Schritt zurückgetreten sind. Wir haben die Anforderungen (siehe Kapitel 2.2) gemeinsam sauber ausdefiniert und das System anhand von Use-Cases modelliert. Dieser Prozess hat uns fast schon natürlich zur Entscheidung für eine saubere MVC-Architektur geführt. Das Requirements Engineering hat uns im Prinzip dazu "gezwungen", im Vorfeld klare Schnittstellen abzusprechen. Ab diesem Punkt lief die gemeinsame Entwicklung nicht nur wesentlich stressfreier und effizienter, sondern auch das Schreiben der Unit-Tests ging uns plötzlich viel leichter von der Hand.
 
-#### Einsatz von KI
+**Einsatz von KI (gemäß IU-Richtlinie):**
 
-Bitte denkt daran, dass ihr eine schriftliche Reflektion zu eurer KI-Nutzung im Projekt mit abgeben müsst. Da alle
-höchstwahrscheinlich KI-Tools verwenden werden, ist die Dokumentation des Lernfortschritts erforderlich (siehe IU
-Richtlinie zur Nutzung von KI im Studium (S. 13) https://mycampus-classic.iu.org/mod/resource/view.php?id=357067)
+Künstliche Intelligenz  wurde in diesem Projekt aktiv als "Pair-Programming-Partner" und Tutor eingesetzt. 
+* **Nutzungsszenarien:** KI half primär bei der Erstellung von Boilerplate-Code, z. B. der Grundstruktur der Flask-Routen, beim Schreiben der automatisierten CI-Pipeline sowie bei der Übersetzung komplexer Systemarchitekturen in Mermaid-UML-Diagramme. 
+* **Lernfortschritt und kritische Reflexion:** Durch gezieltes Prompting haben wir gelernt, technische Konzepte präziser zu formulieren. Ein großer Lerneffekt bestand darin, KI-Antworten kritisch zu hinterfragen: So schlug die KI anfangs komplexe Pandas-DataFrames für den Benchmark vor. Durch eigene Recherche (und die theoretische Fundierung) wurde jedoch klar, dass reine NumPy-Arrays mit Contiguous Memory für den isolierten SIMD-Beweis performanter und besser geeignet sind. Die KI wurde somit nicht als unfehlbarer "Code-Generator", sondern als interaktives Nachschlagewerk und architektonischer Ratgeber genutzt.
 
 ### 8.3 Nutzungsanweisung (How-to-use)
 
-Kurze Anleitung für den Nutzer oder den Korrektor: Wie wird die App gestartet und welche Features sind wie zu nutzen?
+*Hinweis: Eine detaillierte Schritt-für-Schritt-Anleitung zur Installation, zur Konfiguration der virtuellen Python-Umgebung sowie die vollständige Paketliste befinden sich in der beiliegenden `README.md` im Hauptverzeichnis.*
+
+Das Projekt kann nach der initialen Einrichtung auf zwei Wegen evaluiert werden: über die grafische Web-Applikation oder das rein wissenschaftliche Jupyter Notebook.
+
+**Variante A: Die Web-App (Dashboard & Interaktion)**
+1. **Start:** Führen Sie nach der Installation der Abhängigkeiten gemäß `README.md` den Befehl `python app.py` im Terminal des Projektordners aus.
+2. **Aufruf:** Öffnen Sie Ihren Webbrowser und navigieren Sie zur lokalen Adresse `http://127.0.0.1:5000`.
+3. **Nutzung:** Klicken Sie auf dem Dashboard zunächst auf den Button zur Generierung von Dummy-Daten, um die lokale JSON-Datenbank mit simulierten Nussverstecken zu füllen. Starten Sie im Anschluss den Menüpunkt "Analyse & Benchmark". Die Berechnungen werden im Hintergrund ausgeführt und die Ergebnisse visuell in Diagrammen aufbereitet.
+
+**Variante B: Jupyter Notebook (Wissenschaftlicher Beweis)**
+1. Öffnen Sie die Datei `experiment.ipynb` in einer kompatiblen IDE z. B. VS Code mit installierter Jupyter-Erweiterung.
+2. Wählen Sie Ihre konfigurierte Python-Umgebung als Kernel aus und klicken Sie auf "Run All".
+3. Das Notebook führt die Benchmarks interaktiv aus und generiert am Ende der Datei die Liniendiagramme, welche den detaillierten mathematischen Beweis für die Hypothesen liefern.
 
 ### 8.4 Pitch-Video
 
@@ -515,12 +579,6 @@ Examples:
 - https://dl.acm.org/doi/10.1145/2992154.2992174
 - https://dl.acm.org/conference/chi
 
----
 
-## Anhang
-
-- **README.md (Inhalt):** Setup-Anleitung, Python-Umgebung, Paketliste.
-
-- **Glossar:** Definition der fachlichen Begriffe der "Story".
 
 ---
