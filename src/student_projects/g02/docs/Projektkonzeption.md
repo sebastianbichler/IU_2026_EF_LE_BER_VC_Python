@@ -24,8 +24,7 @@ Das Ziel ist die Entwicklung einer **hochperformanten Python-Anwendung**, die al
 ### Was soll die Anwendung können?
 1.  **Verwaltung:** Digitalisierung des Vorratsnetzwerks
 2.  **Analyse:** Berechnung komplexer Szenarien (Zinseszins, Winterprognosen) für Tausende von Datensätzen gleichzeitig
-3.  **Wissenschaftlicher Beweis:** Implementierung eines Benchmarks, der die Rechenzeit von nativem Python (`for`-loops) gegen NumPy (SIMD/Vectorization) vergleicht
-
+3.  **Wissenschaftlicher Beweis:** Implementierung eines Benchmarks, der beweist, dass moderne Array-Programmierung herkömmlichen Schleifen bei großen Datenmengen überlegen ist
 ---
 
 ## 1.1 Wissenschaftlicher Hintergrund: Warum NumPy?
