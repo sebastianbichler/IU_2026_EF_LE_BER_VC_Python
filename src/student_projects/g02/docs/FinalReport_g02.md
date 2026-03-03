@@ -6,18 +6,18 @@
 
 "Sammy Squirrel" steht vor einer logistischen Herausforderung: Die Verwaltung von tausenden Nussverstecken, Kreditvergaben an Nachbarn und die Überlebensplanung für den Winter übersteigen die Kapazität eines normalen Eichhörnchenhirns. 
 Das Ziel des Projekts ist die Entwicklung einer hochperformanten Python-Anwendung, die als "Nuss-Zentralbank" fungiert und dieses Problem löst. Die App soll folgende Kernfunktionen bieten:
-* **Verwaltung:** Digitalisierung des Vorratsnetzwerks.
-* **Analyse:** Berechnung komplexer Szenarien (Zinseszins, Winterprognosen) für Tausende von Datensätzen gleichzeitig.
-* **Wissenschaftlicher Beweis:** Implementierung eines Benchmarks, der beweist, dass moderne Array-Programmierung herkömmlichen Schleifen bei großen Datenmengen überlegen ist.
+* **Verwaltung:** Digitalisierung des Vorratsnetzwerks
+* **Analyse:** Berechnung komplexer Szenarien (Zinseszins, Winterprognosen) für Tausende von Datensätzen gleichzeitig
+* **Wissenschaftlicher Beweis:** Implementierung eines Benchmarks, der beweist, dass moderne Array-Programmierung herkömmlichen Schleifen bei großen Datenmengen überlegen ist
 
 ### 1.2 Wissenschaftliche Herausforderung / Python-Spezifischer Aspekt
 
-Der technische Fokus dieses Projekts liegt auf der **Speichereffizienz und Vektorisierung** in Python. Das zentrale Experiment ist der Vergleich von skalarer Verarbeitung (Standard Python-Listen) gegenüber vektorisierter Verarbeitung (NumPy-Arrays).
+Der technische Fokus dieses Projekts liegt auf der Speichereffizienz und Vektorisierung in Python. Das zentrale Experiment ist der Vergleich von skalarer Verarbeitung, also Standard Python-Listen, gegenüber vektorisierter Verarbeitung, hier NumPy-Arrays.
 Laut *Harris et al. (2020)* bildet NumPy das Fundament des wissenschaftlichen Python-Ökosystems. Neuere Untersuchungen von *Shah et al. (2025)* bestätigen, dass NumPy als robuster Baseline-Benchmark dient.
 
 **Die Analogie zur Story:**
-Während eine klassische `for`-Schleife in Python jeden Wert einzeln verarbeitet (SISD), *was bedeutet, Sammy rennt mühsam zu jedem einzelnen Nussversteck, um es zu prüfen*, ermöglicht NumPy die Vektorisierung. Sammy delegiert die Aufgabe quasi an ein effizientes "Prozessor-Netzwerk", das durch SIMD (Single Instruction, Multiple Data) tausende Verstecke gleichzeitig auswertet. 
-Der Performance-Vorteil basiert auf Cache Locality (Nussdaten liegen als zusammenhängende Block-Informationen im Speicher) und Broadcasting, was den Python-Interpreter-Overhead eliminiert.
+Während eine klassische `for`-Schleife in Python jeden Wert einzeln verarbeitet (Single Instruction, Single Data), *was bedeutet, Sammy rennt mühsam zu jedem einzelnen Nussversteck, um es zu prüfen*, ermöglicht NumPy die Vektorisierung. Sammy delegiert die Aufgabe quasi an ein effizientes "Prozessor-Netzwerk", das durch SIMD (Single Instruction, Multiple Data) tausende Verstecke gleichzeitig auswertet. 
+Der Performance-Vorteil basiert auf Cache Locality, die Nussdaten liegen hier als zusammenhängende Block-Informationen im Speicher und  auf Broadcasting, was den Python-Interpreter-Overhead eliminiert.
 
 ### 1.3 Arbeitshypothese
 
@@ -33,7 +33,7 @@ Basierend auf der theoretischen Überlegenheit von SIMD-Operationen stellen wir 
 
 * **Hypothese 3: Effizienz bei bedingter Logik**
   * **H3:** Die Vektorisierung von bedingter Logik (z. B. Risiko-Check: `if depth < 10 cm`) mittels Maskierung (`np.where`) ist effizienter als die CPU-Branch-Prediction in klassischen Python-Schleifen.
-  * *Begründung:* Moderne CPUs können Berechnungen schlecht vorhersagen, wenn viele zufällige `if/else`-Sprünge (Branches) vorkommen. NumPy vermeidet Sprünge komplett, indem es beide Ergebnisse berechnet und mittels einer binären Maske das richtige Ergebnis wählt
+  * *Begründung:* Moderne CPUs können Berechnungen schlecht vorhersagen, wenn viele zufällige `if/else`-Sprünge vorkommen. NumPy vermeidet Sprünge komplett, indem es beide Ergebnisse berechnet und mittels einer binären Maske das richtige Ergebnis wählt
 
 ---
 
@@ -59,23 +59,23 @@ flowchart TD
 
 Die funktionalen Anforderungen wurden im Vorfeld nach dem MoSCoW-Prinzip priorisiert. Um die Nachverfolgbarkeit für Tests sicherzustellen, sind die Requirements mit eindeutigen IDs (F01 - F07) versehen.
 
-| ID | Priorität | Anforderung (Feature) | Status | Notizen |
+| ID | Priorität | Anforderung | Status | Notizen |
 | :--- | :--- | :--- | :--- | :--- |
-| **F01** | Must Have | **Versteck-Verwaltung:** Das System muss Datensätze für Verstecke speichern können (Attribute: ID, Koordinaten, Erdtiefe, Nussart, Menge, Haltbarkeitsdatum). | [x] 100 % | Implementiert via Dataclasses/JSON |
-| **F02** | Must Have | **Datengenerierung:** Ein Modul zur Erzeugung von Dummy-Daten, um die Performance-Tests überhaupt sinnvoll zu machen. | [x] 100 % | `generator.py` generiert Massendaten |
-| **F03** | Must Have | **Diebstahl-Erkennung:** Logik zum Vergleich von Soll-Bestand vs. Ist-Bestand. Wenn Ist < Soll (Risiko Tiefe < 10cm), Warnung ausgeben. | [x] 100 % | Umgesetzt in Nativ-Python & NumPy |
-| **F04** | Must Have | **Performance-Benchmark:** Vergleich von iterativem (for-Schleifen) und vektorisiertem (SIMD) Ansatz inkl. Ausgabe der Zeitdifferenz. | [x] 100 % | Messung via `time.perf_counter` |
-| **F05** | Should Have | **Zinseszins-Rechner:** Effiziente, vektorisierte Ermittlung der Gesamtschuld, die Nachbarn nach $n$ Jahren begleichen müssen. | [x] 100 % | Reine Floating-Point Array-Operation |
-| **F06** | Should Have | **Winterprognose:** Ermittlung, ob der Vorrat ausreicht, um den simulierten Gesamtverbrauch der Winterperiode zu decken. | [x] 100 % | Integriert in Dashboard-Statistik |
-| **F07** | Could Have | **GUI & Karte:** Eine einfache Oberfläche, um Daten einzugeben, Ergebnisse grafisch anzuzeigen und Verstecke auf einer Karte zu visualisieren. | [x] 100 % | Realisiert mit Flask, Chart.js & Leaflet |
+| **F01** | Must Have | **Versteck-Verwaltung:** Das System muss Datensätze für Verstecke speichern können (Attribute: ID, Koordinaten, Erdtiefe, Nussart, Menge, Haltbarkeitsdatum). | [x] 100% | Implementiert via Dataclasses/JSON |
+| **F02** | Must Have | **Datengenerierung:** Ein Modul zur Erzeugung von Dummy-Daten, um die Performance-Tests sinnvoll zu machen. | [x] 100% | `generator.py` generiert Massendaten |
+| **F03** | Must Have | **Diebstahl-Erkennung:** Logik zum Vergleich von Soll-Bestand vs. Ist-Bestand. Wenn Ist < Soll (Risiko Tiefe < 10cm), Warnung ausgeben. | [x] 100% | Umgesetzt in Nativ-Python & NumPy |
+| **F04** | Must Have | **Performance-Benchmark:** Vergleich von iterativem und vektorisiertem Ansatz inkl. Ausgabe der Zeitdifferenz. | [x] 100% | Messung via `time.perf_counter` |
+| **F05** | Should Have | **Zinseszins-Rechner:** Effiziente, vektorisierte Ermittlung der Gesamtschuld, die Nachbarn nach $n$ Jahren begleichen müssen. | [x] 100% | Reine Floating-Point Array-Operation |
+| **F06** | Should Have | **Winterprognose:** Ermittlung, ob der Vorrat ausreicht, um den simulierten Gesamtverbrauch der Winterperiode zu decken. | [x] 100% | Integriert in Dashboard-Statistik |
+| **F07** | Could Have | **GUI & Karte:** Eine einfache Oberfläche, um Daten einzugeben, Ergebnisse grafisch anzuzeigen und Verstecke auf einer Karte zu visualisieren. | [x] 100% | Realisiert mit Flask, Chart.js & Leaflet |
 
 ### 2.3 Nicht-funktionale Anforderungen (Qualitätsanforderungen nach ISO 25010)
 Unsere initial definierten nicht-funktionalen Anforderungen (NF01, NF02) lassen sich direkt in die Qualitätskriterien der ISO/IEC 25010 Norm übersetzen:
 
 * **Performance-Effizienz (Basis für NF01 - Performance):** Das System ist primär auf Effizienz ausgelegt. Die NumPy-Implementierung (SIMD) muss bei großen Datensätzen ($n > 100.000$) signifikant schneller und speichereffizienter arbeiten als die native Python-Lösung.
 * **Zuverlässigkeit (Basis für NF02 - Reproduzierbarkeit):** Die Benchmark-Ergebnisse müssen bei jedem Durchlauf konsistent und reproduzierbar messbar sein. Die Testdaten-Generierung sowie die Ausführung der Timer-Funktionen dürfen keine extremen Jitter-Ausreißer aufweisen.
-* **Benutzbarkeit (Usability):** Zur Unterstützung von Requirement F07 (GUI) muss die Applikation intuitiv im Browser bedienbar sein. Komplexe Array-Auswertungen werden dem Nutzer visuell (als Balkendiagramme) übersetzt.
-* **Wartbarkeit (Maintainability):** Der Code ist modular strukturiert (Trennung von `analytics.py`, `app.py` und Frontend). Alle Variablen sind englischsprachig, zudem kommen Docstrings zum Einsatz, um die Nachvollziehbarkeit des wissenschaftlichen Codes zu gewährleisten.
+* **Benutzbarkeit:** Zur Unterstützung von Requirement F07 (GUI) muss die Applikation intuitiv im Browser bedienbar sein. Komplexe Array-Auswertungen werden dem Nutzer visuell, bspw. als Balkendiagramme übersetzt.
+* **Wartbarkeit:** Der Code ist modular strukturiert (Trennung von `analytics.py`, `app.py` und Frontend). Alle Variablen sind englischsprachig, zudem kommen Docstrings zum Einsatz, um die Nachvollziehbarkeit des wissenschaftlichen Codes zu gewährleisten.
 
 ### 2.4 Use-Case Modellierung
 
@@ -91,11 +91,11 @@ Die Use-Case Modellierung veranschaulicht die Kernfunktionen des "Squirrel Secre
 
 | Farbe | Ebene / Bereich | Beschreibung |
 | :--- | :--- | :--- |
-| 🟠 **Orange** | **Akteure** | Interagierende Benutzer (Sammy) und externe Parteien (Nachbarn). |
-| 🟢 **Grün** | **Daten-Management** | Alle Prozesse rund um die Erzeugung und Speicherung der Rohdaten (CRUD, Dummy-Daten). |
-| 🔵 **Blau** | **Science & Logic** | Das wissenschaftliche Herzstück: Komplexe Berechnungen, Simulationen und Benchmarks (NumPy vs. Python). |
-| 🟣 **Lila** | **Visualisierung** | Aufbereitung der Ergebnisse und Statistiken für das Frontend. |
-| ⚪ **Grau** | **System** | Automatisierte Hintergrundprozesse (z.B. Timer) und Systemgrenzen. |
+| 🟠 **Orange** | **Akteure** | Interagierende Benutzer und externe Parteien |
+| 🟢 **Grün** | **Daten-Management** | Alle Prozesse rund um die Erzeugung und Speicherung der Rohdaten |
+| 🔵 **Blau** | **Science & Logic** | Das wissenschaftliche Herzstück: Komplexe Berechnungen, Simulationen und Benchmarks |
+| 🟣 **Lila** | **Visualisierung** | Aufbereitung der Ergebnisse und Statistiken für das Frontend |
+| ⚪ **Grau** | **System** | Automatisierte Hintergrundprozesse und Systemgrenzen |
 
 ```mermaid
 graph LR
@@ -161,30 +161,28 @@ graph LR
 ## 3. Architektur und Tech-Stack
 
 ### 3.1 Auswahl der Plattform
-Für das Projekt wurde ein hybrider Ansatz gewählt: Die Hauptanwendung ist als **Web-Applikation (Flask)** realisiert, ergänzt durch ein **Jupyter Notebook** für die rein wissenschaftliche Evaluierung.
+Für das Projekt wurde ein hybrider Ansatz gewählt: Die Hauptanwendung ist als Web-Applikation realisiert, ergänzt durch ein Jupyter Notebook für die rein wissenschaftliche Evaluierung.
 
-* **Begründung gegen Streamlit/Klassische GUI:** Eine klassische Desktop-GUI (wie Tkinter oder PyQt) ist betriebssystemabhängig und schwer zu verteilen. Streamlit bietet zwar schnelle Ergebnisse für Data-Science-Projekte, schränkt aber die Flexibilität im Frontend-Design (z.B. individuelle interaktive Karten oder spezifische Dashboard-Layouts) stark ein.
-* **Vorteil der Web-App:** Flask bietet ein leichtgewichtiges Backend, das über HTTP mit einem HTML/JS-Frontend kommuniziert. Dies garantiert maximale Flexibilität und eine exzellente *Usability* für den Endnutzer (Sammy).
-* **Rolle des Jupyter Notebooks:** Um den wissenschaftlichen Beweis (NumPy vs. Native Python) isoliert und interaktiv für Korrektoren nachvollziehbar zu machen, wird die Kernlogik zusätzlich in einem `.ipynb`-Dokument bereitgestellt.
+* **Begründung gegen Streamlit/Klassische GUI:** Eine klassische Desktop-GUI, wie Tkinter oder PyQt ist betriebssystemabhängig und schwer zu verteilen. Streamlit bietet zwar schnelle Ergebnisse für Data-Science-Projekte, schränkt aber die Flexibilität im Frontend-Design, z.B. individuelle interaktive Karten oder spezifische Dashboard-Layouts, stark ein.
+* **Vorteil der Web-App:** Flask bietet ein leichtgewichtiges Backend, das über HTTP mit einem HTML/JS-Frontend kommuniziert. Dies garantiert maximale Flexibilität und eine exzellente Usability für den Endnutzer.
+* **Rolle des Jupyter Notebooks:** Um den wissenschaftlichen Beweis isoliert und interaktiv für Korrektoren nachvollziehbar zu machen, wird die Kernlogik zusätzlich in einem `.ipynb`-Dokument bereitgestellt.
 
 ### 3.2 Modularer Kern und Open-Closed Principle
-Die Architektur der Anwendung folgt streng dem Prinzip der *Separation of Concerns* (Trennung von Zuständigkeiten), angelehnt an das MVC-Pattern (Model-View-Controller). 
+Die Architektur der Anwendung folgt streng dem Prinzip der Trennung von Zuständigkeiten, angelehnt an das MVC-Pattern (Model-View-Controller). 
 
+Der "Core", also die Geschäfts- und Rechenlogik in `analytics.py`, ist vollständig von der Web-Oberfläche, hier `app.py` / HTML, entkoppelt. Das System kommuniziert ausschließlich über definierte Schnittstellen, bspw. die Rückgabe von Dictionaries oder JSON. 
+Dies erfüllt das **Open-Closed Principle**: Die Rechenkerne können um neue Algorithmen erweitert werden, ohne dass der bestehende Code des Frontends oder des Data Layers modifiziert werden muss.
 
-
-Der "Core" (die Geschäfts- und Rechenlogik in `analytics.py`) ist vollständig von der Web-Oberfläche (`app.py` / HTML) entkoppelt. Das System kommuniziert ausschließlich über definierte Schnittstellen (Rückgabe von Dictionaries/JSON). 
-Dies erfüllt das **Open-Closed Principle**: Die Rechenkerne (Compute Kernels) können um neue Algorithmen (z.B. Multiprocessing) erweitert werden, ohne dass der bestehende Code des Frontends oder des Data Layers modifiziert werden muss.
-
-Das folgende Diagramm visualisiert diesen modularen Datenfluss – von der Generierung über die Speicherung bis hin zur Berechnung in den konkurrierenden Rechenkernen:
+Das folgende Diagramm visualisiert diesen modularen Datenfluss von der Generierung über die Speicherung bis hin zur Berechnung in den konkurrierenden Rechenkernen:
 
 #### Farblegende: Architektur 
 
 | Farbe | Komponente | Beschreibung |
 | :--- | :--- | :--- |
-| 🟣 **Purple** | **Frontend / UI** | Die Benutzeroberfläche für Sammy. Hier werden Benchmarks gestartet und Ergebnisse visualisiert. |
-| ⚫ **Anthrazit** | **Logic & Control** | Die Steuerungslogik. Der `Benchmark Manager` koordiniert die Prozesse und überwacht die Zeitmessung (`Timer`). |
-| 🟢 **Green** | **Data Layer** | Zuständig für "Big Data". Hier werden die synthetischen Daten erzeugt (`Generator`) und effizient im Speicher gehalten (`Store`). |
-| 🔵 **Blue** | **Compute Kernels** | Das wissenschaftliche Herzstück. Hier finden die Berechnungen statt – getrennt in `Native Python` (Schleifen) und `NumPy` (SIMD). |
+| 🟣 **Purple** | **Frontend / UI** | Die Benutzeroberfläche für Sammy. Hier werden Benchmarks gestartet und Ergebnisse visualisiert |
+| ⚫ **Anthrazit** | **Logic & Control** | Die Steuerungslogik. Der `Benchmark Manager` koordiniert die Prozesse und überwacht die Zeitmessung |
+| 🟢 **Green** | **Data Layer** | Zuständig für "Big Data". Hier werden die synthetischen Daten erzeugt und effizient im Speicher gehalten |
+| 🔵 **Blue** | **Compute Kernels** | Das wissenschaftliche Herzstück. Hier finden die Berechnungen statt, getrennt in `Native Python` und `NumPy` |
 
 ```mermaid
 graph TD
@@ -267,26 +265,25 @@ Für die Umsetzung der Anwendung und die Validierung der Hypothesen wurden folge
 
 | Bibliothek / Tool | Kategorie | Verwendungszweck |
 | :--- | :--- | :--- |
-| **`numpy`** | Core Scientific | **Essenziell.** Zuständig für Arrays, Maskierung (Branchless Programming) und SIMD-Operationen. |
-| **`flask`** | Web Framework | Leichtgewichtiges WSGI-Framework für das Routing und die Bereitstellung der grafischen Benutzeroberfläche (HTML/CSS/JS). |
-| **`matplotlib`** / **Chart.js** | Visualization | Darstellung der Benchmark-Ergebnisse (Speedup-Faktoren). Matplotlib im Jupyter Notebook, Chart.js im Web-Frontend. |
+| **`numpy`** | Core Scientific | **Essenziell.** Zuständig für Arrays, Maskierung und SIMD-Operationen |
+| **`flask`** | Web Framework | WSGI-Framework für das Routing und die Bereitstellung der grafischen Benutzeroberfläche |
+| **`matplotlib`** / **Chart.js** | Visualization | Darstellung der Benchmark-Ergebnisse. Matplotlib im Jupyter Notebook, Chart.js im Web-Frontend. |
 | **`time`** (`perf_counter`) | Testing | Teil der Python Standard Library. Unverzichtbar für präzises Micro-Benchmarking zur Beweisführung. |
-| **VS Code & Git** | Development | Integrierte Entwicklungsumgebung und Versionskontrolle (GitHub) zur strukturierten Projektarbeit. |
+| **VS Code & Git** | Development | Integrierte Entwicklungsumgebung und Versionskontrolle zur strukturierten Projektarbeit. |
 
-**Datenstruktur-Schema (Domain Entity):**
-Das generierte Datenmodell der Verstecke orientiert sich an folgendem Schema (umgesetzt als Python-Dictionary/JSON):
-* `id` (Integer), `coords_x`/`y` (Float), `nut_type` (String), `depth_cm` (Float), `amount` (Integer), `date_buried` (String/ISO).
+**Datenstruktur-Schema:**
+Das generierte Datenmodell der Verstecke orientiert sich an folgendem Schema, umgesetzt als Python-Dictionary/JSON:
+* `id` (Integer), `coords_x`/`y` (Float), `nut_type` (String), `depth_cm` (Float), `amount` (Integer), `date_buried` (String/ISO)
 
 ### 3.4 Logging und Fehlerbehandlung
 
 Um die Software-Qualität nach industriellen Standards sicherzustellen, wurden folgende Konzepte in der Applikation umgesetzt:
 
-* **Logging:** Im aktuellen Prototyp-Stadium wurde bewusst auf die Implementierung eines komplexen Logging-Frameworks (wie das Python `logging`-Modul) verzichtet. Da der Fokus strikt auf dem Micro-Benchmarking der Rechenkerne lag, waren Standard-Konsolenausgaben (`print`) für die Ausgabe der gemessenen Zeiten und den Debugging-Prozess ausreichend. 
-  * *Konzept für den produktiven Einsatz:* Für eine spätere Skalierung des Systems müsste das `logging`-Modul integriert werden. Dies würde es ermöglichen, Ausgaben in verschiedene Schweregrade (z. B. `INFO` für erfolgreich generierte Datensätze, `ERROR` für Systemfehler) zu unterteilen und Logs persistent in eine externe Datei (statt nur in die flüchtige Konsole) zu schreiben.
-* **Fehlerbehandlung (Error Handling):** Der Zugriff auf die Datenbank (die lokale JSON-Datei) ist mit `try/except`-Blöcken abgesichert. Sollte die Datei `data.json` fehlen oder korrupt sein (z.B. durch manuelles Löschen), fängt das System den `FileNotFoundError` bzw. `JSONDecodeError` ab. Statt eines Systemabsturzes (HTTP 500) wird ein leeres Datenset `[]` zurückgegeben und eine Warnung geloggt.
-* **Performance-Optimierung:** Die Architektur vermeidet tiefe Objekt-Kopien (Deep Copies). Die generierten JSON-Daten werden direkt in Arrays transformiert. Die Haupt-Optimierung liegt in der Nutzung des *Contiguous Memory Layouts* von NumPy, wodurch Cache-Misses der CPU während der iterativen Analyse verhindert werden.
+* **Logging:** Im aktuellen Prototyp-Stadium wurde bewusst auf die Implementierung eines komplexen Logging-Frameworks, wie das Python `logging`-Modul verzichtet. Da der Fokus strikt auf dem Micro-Benchmarking der Rechenkerne lag.
+  * *Konzept für den produktiven Einsatz:* Für eine spätere Skalierung des Systems müsste das `logging`-Modul integriert werden. Dies würde es ermöglichen, Ausgaben in verschiedene Schweregrade (z. B. `INFO` für erfolgreich generierte Datensätze, `ERROR` für Systemfehler) zu unterteilen und Logs persistent in eine externe Datei zu schreiben.
+* **Fehlerbehandlung:** Der Zugriff auf die Datenbank, die lokale JSON-Datei, ist mit `try/except`-Blöcken abgesichert. Sollte die Datei `data.json` fehlen oder korrupt sein, z.B. durch manuelles Löschen, fängt das System den `FileNotFoundError` bzw. `JSONDecodeError` ab. Statt eines Systemabsturzes (HTTP 500) wird ein leeres Datenset `[]` zurückgegeben und eine Warnung geloggt.
+* **Performance-Optimierung:** Die Architektur vermeidet tiefe Objekt-Kopien. Die generierten JSON-Daten werden direkt in Arrays transformiert. Die Haupt-Optimierung liegt in der Nutzung des *Contiguous Memory Layouts* von NumPy, wodurch Cache-Misses der CPU während der iterativen Analyse verhindert werden.
 * **Debugging-Strategien:** Durch die strenge Kapselung der Rechenlogik (`analytics.py`) vom Server (`app.py`) konnte ein isoliertes Debugging durchgeführt werden. Logische Fehler im Zins-Algorithmus ließen sich durch Unit-Tests separat prüfen, während Performance-Flaschenhälse durch den gezielten Einsatz des hochauflösenden `time.perf_counter()` identifiziert wurden.
-
 
 ---
 
@@ -294,7 +291,7 @@ Um die Software-Qualität nach industriellen Standards sicherzustellen, wurden f
 
 ### 4.1 Domänenmodell und UML-Klassendiagramm
 
-Das Domänenmodell spiegelt die Kernobjekte der "Squirrel Secret Stash" Story wider. Im Zentrum steht das Objekt `NutStash` (das Nussversteck). Sammy (`SquirrelAdmin`) greift über einen `StorageManager` auf diese Verstecke zu, um sie an die Analyse-Engine (`BenchmarkEngine`) zu übergeben.
+Das Domänenmodell spiegelt die Kernobjekte der "Squirrel Secret Stash" Story wider. Im Zentrum steht das Objekt `NutStash`. Sammy greift über einen `StorageManager` auf diese Verstecke zu, um sie an die Analyse-Engine zu übergeben.
 
 ```mermaid
 classDiagram
@@ -337,7 +334,7 @@ classDiagram
 ### 4.2 Verhaltensdiagramme: Activity- & State-Diagram
 
 **Aktivitätsdiagramm: Der Benchmark-Ablauf**
-Dieses Diagramm zeigt den komplexen Ablauf der Vergleichsrechnung. Es verdeutlicht, wie dieselben Daten auf zwei völlig unterschiedlichen Wegen (iterativ vs. vektorisiert) verarbeitet werden.
+Dieses Diagramm zeigt den komplexen Ablauf der Vergleichsrechnung. Es verdeutlicht, wie dieselben Daten auf zwei völlig unterschiedlichen Wegen, in unserem Fall iterativ und  vektorisiert, verarbeitet werden.
 
 ```mermaid
 flowchart TD
@@ -359,7 +356,7 @@ flowchart TD
 ```
 
 **Zustandsdiagramm (State Diagram): Lebenszyklus eines Nussverstecks**
-Ein `NutStash` durchläuft im System verschiedene Zustände – vom Vergraben bis zur Auswertung im Winter.
+Ein `NutStash` durchläuft im System verschiedene Zustände vom Vergraben bis zur Auswertung im Winter.
 
 ```mermaid
 stateDiagram-v2
@@ -411,10 +408,10 @@ sequenceDiagram
 
 In der Architektur wurden bewusst etablierte Entwurfsmuster und Softwareprinzipien angewendet, um den Code robust und testbar zu halten.
 
-* **Strategy Pattern:** Dieses Muster ist das Herzstück unserer wissenschaftlichen Untersuchung. Das System muss das gleiche Problem (Winter-Risikoanalyse) lösen, nutzt dafür aber zwei austauschbare Algorithmen (Strategien): `run_python_logic()` und `run_numpy_logic()`. Der Aufrufer (`app.py`) übergibt lediglich die Daten, während die Engine die Ausführung an die jeweilige "Strategie" delegiert. 
-* **MVC (Model-View-Controller):** Die strikte Trennung von Benutzeroberfläche (View: HTML/Jinja2), Routing/Steuerung (Controller: Flask `app.py`) und Geschäftslogik/Daten (Model: `analytics.py` und JSON). Dies garantiert das **Open-Closed Principle**, da die Rechenlogik um neue Benchmarks erweitert werden kann, ohne das Frontend anzufassen.
+* **Strategy Pattern:** Dieses Muster ist das Herzstück unserer wissenschaftlichen Untersuchung. Das System muss das gleiche Problem, bspw. Winter-Risikoanalyse lösen, nutzt dafür aber zwei austauschbare Algorithmen: `run_python_logic()` und `run_numpy_logic()`. Der Aufrufer `app.py` übergibt lediglich die Daten, während die Engine die Ausführung an die jeweilige "Strategie" delegiert. 
+* **MVC (Model-View-Controller):** Die strikte Trennung von Benutzeroberfläche, Routing/Steuerung und Geschäftslogik/Daten. Dies garantiert das Open-Closed Principle, da die Rechenlogik um neue Benchmarks erweitert werden kann, ohne das Frontend anzufassen.
 * **DRY (Don't Repeat Yourself):** Anstatt für beide Benchmarks separate Datensätze zu laden, wird der Datensatz exakt einmal aus der Datenbank geladen und als identische Kopie an beide Strategien übergeben. Dies stellt nicht nur sauberen Code sicher, sondern ist auch wissenschaftlich zwingend notwendig für einen fairen Leistungsvergleich.
-* **KISS (Keep It Simple (and) Stupid):** Für das Datenmanagement wurde bewusst auf eine komplexe SQL-Datenbank (wie PostgreSQL) verzichtet. Da das Ziel das schnelle *In-Memory-Benchmarking* von Arrays ist, genügt eine flache JSON-Datei als Persistenzschicht, die beim Start vollständig in den Arbeitsspeicher (RAM) geladen wird.
+* **KISS (Keep It Simple (and) Stupid):** Für das Datenmanagement wurde bewusst auf eine komplexe SQL-Datenbank verzichtet. Da das Ziel das schnelle In-Memory-Benchmarking von Arrays ist, genügt eine flache JSON-Datei als Persistenzschicht, die beim Start vollständig in den Arbeitsspeicher geladen wird.
 
 ---
 
