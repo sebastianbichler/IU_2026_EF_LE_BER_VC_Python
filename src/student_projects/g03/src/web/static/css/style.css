@@ -79,7 +79,6 @@ h3 {
 /* Forms */
 form {
     background: #fdfdfd;
-    /* Very subtle grey */
     padding: 2rem;
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -103,7 +102,6 @@ select {
     border-radius: 4px;
     font-size: 1rem;
     box-sizing: border-box;
-    /* Fix width issues */
     transition: border-color 0.3s;
 }
 
@@ -215,7 +213,6 @@ li:last-child {
 /* Stats */
 .stats {
     background-color: #e8f8f5;
-    /* Light green tint */
     border: 1px solid #d1f2eb;
     color: #0e6655;
     padding: 1.5rem;

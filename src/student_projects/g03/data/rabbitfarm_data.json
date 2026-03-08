@@ -8,6 +8,24 @@
       "bed_id": 1,
       "shelf_life_days": 10,
       "amount": 100.0
+    },
+    {
+      "name": "Cherry",
+      "sort": "Tomate",
+      "plant_date": "2026-02-23T00:00:00",
+      "harvest_date": "2026-02-23T00:00:00",
+      "bed_id": 2,
+      "shelf_life_days": 10,
+      "amount": 300.0
+    },
+    {
+      "name": "Avocado",
+      "sort": "Hass",
+      "plant_date": "2026-03-06T00:00:00",
+      "harvest_date": "2027-03-12T00:00:00",
+      "bed_id": 3,
+      "shelf_life_days": 30,
+      "amount": 200.0
     }
   ],
   "beds": [
@@ -15,6 +33,16 @@
       "id": 1,
       "name": "Gurke",
       "size_m2": 100.0
+    },
+    {
+      "id": 2,
+      "name": "Tomate",
+      "size_m2": 200.0
+    },
+    {
+      "id": 3,
+      "name": "Avocado",
+      "size_m2": 200.0
     }
   ],
   "customers": [
@@ -33,6 +61,15 @@
       "bed_id": 1,
       "shelf_life_days": 10,
       "amount": 50.0
+    },
+    {
+      "name": "Cherry",
+      "sort": "Tomate",
+      "plant_date": "2026-02-23T00:00:00",
+      "harvest_date": "2026-02-23T00:00:00",
+      "bed_id": 2,
+      "shelf_life_days": 10,
+      "amount": 100.0
     }
   ],
   "orders": [
