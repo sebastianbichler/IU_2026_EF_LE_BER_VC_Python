@@ -2,7 +2,7 @@
 
 ---
 
-# Project Abschlussbericht: [Name der App / Projektname]
+# Project Abschlussbericht: [PenguEats]
 
 ## 1. Einleitung und Vision
 
