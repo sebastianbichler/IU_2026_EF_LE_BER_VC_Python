@@ -39,9 +39,9 @@ Diese Analogie ermöglicht es, komplexe statistische Modelle anschaulich darzust
 ### 1.3 Arbeitshypothese
 
 Die zentrale Hypothese des wissenschaftlichen Teils lautet:
-„Durch den Einsatz eines bayesianischen Modells zur Analyse historischer Lieferdaten kann die Wahrscheinlichkeit zukünftiger Fischlieferungen realistisch prognostiziert werden und damit bessere Einkaufsentscheidungen im Restaurantbetrieb ermöglichen.“
+„Durch den Einsatz eines bayesianischen Modells zur Analyse historischer Lieferdaten kann die Wahrscheinlichkeit zukünftiger Fischlieferungen realistisch prognostiziert werden und daraus resultierend die Verkaufspreise für das Fischrestaurant angepasst werden.
 
-Im Jupyter Notebook wird untersucht:
+In den Berechnungen/Analysen wird untersucht:
 - wie historische Lieferdaten
 - Ausfallquoten von Lieferanten
 - saisonale Schwankungen
@@ -65,13 +65,12 @@ für offen) oder per Tabelle mit einem genauen Status (z. B. 80 % erfüllt, 20 %
 | ID | Anforderung                  | Status  | Notizen                                         |
 |----|------------------------------|---------|-------------------------------------------------|
 | REQ-01 | Verwalten des Fischinventars | erfüllt | Speicherung von Fischart, Menge und Haltbarkeit |
-| REQ-02 | Reduktion des Bestands bei Bestellung         | erfüllt | automatische Aktualisierung |
+| REQ-02 | Reduktion des Bestands bei Bestellung         |  | automatische Aktualisierung |
 | REQ-03 | Erstellung und Verwaltung von Bestellungen         | erfüllt | Bestellung enthält Gericht und Menge |
-| REQ-04 | Prüfung der Lagerverfügbarkeit vor Bestellung         | erfüllt | verhindert negative Bestände |
+| REQ-04 | Prüfung der Lagerverfügbarkeit vor Bestellung         |  | verhindert negative Bestände |
 | REQ-05 | Verwaltung von Einnahmen und Ausgaben         | erfüllt | Verkäufe und Betriebskosten |
 | REQ-06 | Berechnung der Lieferwahrscheinlichkeit von Fischarten         |  | probabilistisches Modell |
 | REQ-07 | Warnung bei niedrigem Bestand         |  | Inventarüberwachung |
-| REQ-08 | Visualisierung der Prognoseergebnisse        |  | optional über Plots | 
 
 
 ### 2.3 Nicht-funktionale Anforderungen (Qualitätsanforderungen)
@@ -115,14 +114,14 @@ Das System informiert den Betreiber, wenn eine Fischart knapp wird.
 
 ### 3.1 Auswahl der Plattform (Begründung)
 
-Die Anwendung wurde als Python-basierte Anwendung mit Konsoleninterface und Jupyter Notebook entwickelt.
+Die Anwendung wurde als Python-basierte Anwendung mit Konsoleninterface entwickelt. 
 
 Der Grund für diese Entscheidung ist:
 - einfache Integration wissenschaftlicher Modelle
 - gute Unterstützung für Datenanalyse
 - einfache Demonstration der probabilistischen Modelle
 
-Alternativen wie Webframeworks oder GUI-Bibliotheken wurden bewusst nicht gewählt, da der Fokus des Projekts auf der wissenschaftlichen Modellierung liegt.
+Es wurde die flask library verwendet.
 
 ### 3.2 Modularer Kern und Open-Closed Principle
 
@@ -144,9 +143,9 @@ Listen Sie alle verwendeten Pakete und Tools auf (z. B. PyMC, PyTensor, Pandas) 
 - Python:  	        Hauptprogrammiersprache
 - PyMC3:            probabilistische Modellierung
 - NumPy:   	        numerische Berechnungen
-- Pandas:	          Datenanalyse
-- Matplotlib:	      Visualisierung der Ergebnisse
-- Jupyter Notebook:	wissenschaftliche Analyse
+- arviZ:	          Datenanalyse
+- flask:	          Visualisierung der Ergebnisse
+
 
 ### 3.4 Logging und Fehlerbehandlung
 
@@ -169,7 +168,7 @@ Fehler werden mit Exception Handling abgefangen, z. B.:
 
 #### Debugging
 
-Zur Analyse von Problemen werden Logs sowie Jupyter Notebook Experimente verwendet.
+Zur Analyse von Problemen werden Logs verwendet.
 
 
 ---
@@ -180,12 +179,15 @@ Zur Analyse von Problemen werden Logs sowie Jupyter Notebook Experimente verwend
 
 Wichtige Klassen der Anwendung sind:
 
-- PenguinRestaurant
-- Fish
-- Inventory
-- Order
+- Restaurant
+- Bill
 - Supplier
-- DeliveryPredictionModel
+- Order
+- Delivery
+- OrderItem
+- MenuItem
+- InventoryItem
+- Fish
 
 Beziehungen:
 
@@ -221,13 +223,13 @@ KISS, ... Verwenden Sie UML-Diagramme, um die Umsetzung zu verdeutlichen.
 
 ---
 
-## 5. Wissenschaftliche Problemstellung (Jupyter Notebook)
+## 5. Wissenschaftliche Problemstellung
 
 ### 5.1 Methodik der Untersuchung
 
 Beschreiben Sie den Aufbau Ihres Versuchs im Notebook.(Forschungsfrage beantworten, Datenmodell)
 
-Im Jupyter Notebook wird ein bayesianisches Modell entwickelt, das die Lieferwahrscheinlichkeit von Fischarten prognostiziert.
+In PyCharm wird ein bayesianisches Modell entwickelt, das die Lieferwahrscheinlichkeit von Fischarten prognostiziert.
 
 Dazu werden folgende Daten verwendet:
 - historische Lieferungen
