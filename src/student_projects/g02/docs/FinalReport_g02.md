@@ -543,42 +543,35 @@ Während des Entwicklungsprozesses mussten zwei wesentliche Anpassungen vorgenom
 Wenn wir auf unseren Arbeitsprozess zurückblicken, war der Kontrast zwischen anfänglichem "Drauflos-Programmieren" und strukturiertem Requirements Engineering wohl unsere steilste Lernkurve. Gerade in der frühen Projektphase war im Team die Versuchung groß, möglichst schnell sichtbare Ergebnisse zu produzieren. Die Quittung kam prompt: Wir haben uns schnell im eigenen Code verheddert, die Übersicht ging verloren.
 Der echte Wendepunkt für uns kam erst, als wir einen Schritt zurückgetreten sind. Wir haben die Anforderungen (siehe Kapitel 2.2) gemeinsam sauber ausdefiniert und das System anhand von Use-Cases modelliert. Dieser Prozess hat uns fast schon natürlich zur Entscheidung für eine saubere MVC-Architektur geführt. Das Requirements Engineering hat uns im Prinzip dazu "gezwungen", im Vorfeld klare Schnittstellen abzusprechen. Ab diesem Punkt lief die gemeinsame Entwicklung nicht nur wesentlich stressfreier und effizienter, sondern auch das Schreiben der Unit-Tests ging uns plötzlich viel leichter von der Hand.
 
-**Einsatz von KI (gemäß IU-Richtlinie):**
+**Einsatz von KI gemäß IU-Richtlinie:**
 
-Künstliche Intelligenz  wurde in diesem Projekt aktiv als "Pair-Programming-Partner" und Tutor eingesetzt. 
-* **Nutzungsszenarien:** KI half primär bei der Erstellung von Boilerplate-Code, z. B. der Grundstruktur der Flask-Routen, beim Schreiben der automatisierten CI-Pipeline sowie bei der Übersetzung komplexer Systemarchitekturen in Mermaid-UML-Diagramme. 
-* **Lernfortschritt und kritische Reflexion:** Durch gezieltes Prompting haben wir gelernt, technische Konzepte präziser zu formulieren. Ein großer Lerneffekt bestand darin, KI-Antworten kritisch zu hinterfragen: So schlug die KI anfangs komplexe Pandas-DataFrames für den Benchmark vor. Durch eigene Recherche (und die theoretische Fundierung) wurde jedoch klar, dass reine NumPy-Arrays mit Contiguous Memory für den isolierten SIMD-Beweis performanter und besser geeignet sind. Die KI wurde somit nicht als unfehlbarer "Code-Generator", sondern als interaktives Nachschlagewerk und architektonischer Ratgeber genutzt.
+Gemäß den hochschulinternen Vorgaben haben wir Künstliche Intelligenz in unserem Projekt ausdrücklich als unterstützendes Werkzeug und interaktiven Begleiter eingesetzt. Dabei war uns im Team durchgehend bewusst, dass die KI nicht die eigentliche akademische Arbeit ersetzt und wir die volle Eigenverantwortung für die Richtigkeit und Qualität der finalen Ergebnisse tragen.
 
-### 8.3 Nutzungsanweisung (How-to-use)
+Unser Lernfortschritt und die konkrete Nutzung lassen sich in folgenden Punkten dokumentieren:
+* **Nutzungsszenarien:** Wir haben uns bewusst dagegen entschieden, die KI als simplen "Code-Generator"  zu nutzen. Stattdessen haben wir die Softwarearchitektur und die Kernlogik eigenständig entwickelt und die KI primär als interaktiven "Code-Reviewer" zur Validierung eingesetzt. Wir haben unseren selbst geschriebenen Code von der KI analysieren lassen, um potenzielle Randfälle aufzudecken, uns Feedback zur Einhaltung der Clean-Code-Prinzipien zu holen oder komplexe Fehlermeldungen schneller zu verstehen. 
+* **Kritische Reflexion und Überprüfung:** Ein zentraler Moment für uns war die Erkenntnis, dass wir auch validierendem KI-Feedback nicht blind vertrauen dürfen. Da KI-Systeme sogenannte "Halluzinationen" produzieren können , haben wir alle technischen Ratschläge kritisch auf Plausibilität hinterfragt. Als die KI bei einem Code-Review beispielsweise vorschlug, unsere Daten für den Performance-Benchmark in komplexe Pandas-DataFrames umzuwandeln, ergab unsere eigene Recherche und Überprüfung, dass unsere manuell entwickelte Lösung mit reinen NumPy-Arrays, aufgrund des Contiguous Memory Layouts, für unseren spezifischen SIMD-Beweis wesentlich performanter und zielführender war.
+* **Fazit zum Lernfortschritt:** Die KI diente uns hervorragend als interaktiver Partner , um unseren eigenen Code zu validieren und methodische Ansätze zu diskutieren. Da wir den Code selbst geschrieben und die KI primär zur Qualitätssicherung genutzt haben, konnten wir sicherstellen, dass die finale Arbeit zu 100 % unsere eigene intellektuelle Leistung widerspiegelt und wir jede Codezeile jederzeit eigenständig erklären und verteidigen können.
+
+### 8.3 Nutzungsanweisung 
 
 *Hinweis: Eine detaillierte Schritt-für-Schritt-Anleitung zur Installation, zur Konfiguration der virtuellen Python-Umgebung sowie die vollständige Paketliste befinden sich in der beiliegenden `README.md` im Hauptverzeichnis.*
 
 Das Projekt kann nach der initialen Einrichtung auf zwei Wegen evaluiert werden: über die grafische Web-Applikation oder das rein wissenschaftliche Jupyter Notebook.
 
-**Variante A: Die Web-App (Dashboard & Interaktion)**
+**Variante A: Die Web-App**
 1. **Start:** Führen Sie nach der Installation der Abhängigkeiten gemäß `README.md` den Befehl `python app.py` im Terminal des Projektordners aus.
 2. **Aufruf:** Öffnen Sie Ihren Webbrowser und navigieren Sie zur lokalen Adresse `http://127.0.0.1:5000`.
 3. **Nutzung:** Klicken Sie auf dem Dashboard zunächst auf den Button zur Generierung von Dummy-Daten, um die lokale JSON-Datenbank mit simulierten Nussverstecken zu füllen. Starten Sie im Anschluss den Menüpunkt "Analyse & Benchmark". Die Berechnungen werden im Hintergrund ausgeführt und die Ergebnisse visuell in Diagrammen aufbereitet.
 
-**Variante B: Jupyter Notebook (Wissenschaftlicher Beweis)**
+**Variante B: Jupyter Notebook**
 1. Öffnen Sie die Datei `experiment.ipynb` in einer kompatiblen IDE z. B. VS Code mit installierter Jupyter-Erweiterung.
 2. Wählen Sie Ihre konfigurierte Python-Umgebung als Kernel aus und klicken Sie auf "Run All".
 3. Das Notebook führt die Benchmarks interaktiv aus und generiert am Ende der Datei die Liniendiagramme, welche den detaillierten mathematischen Beweis für die Hypothesen liefern.
 
 ### 8.4 Pitch-Video
 
-Erstellen Sie ein kurzes Video (max. 3-5 Minuten), in dem Sie die App vorstellen, die wichtigsten Funktionen
-demonstrieren
-und die wissenschaftliche Fragestellung sowie die Ergebnisse präsentieren.
+Zur anschaulichen Präsentation unseres Projekts und der finalen Ergebnisse wurde ein Pitch-Video erstellt. In diesem Video stellen wir die "Squirrel Secret Stash"-Applikation live vor, demonstrieren die wichtigsten Funktionen, wie die Datengenerierung und den Benchmark-Start über das Dashboard und fassen unsere wissenschaftliche Fragestellung sowie die erzielten Performance-Ergebnisse prägnant zusammen.
 
-Erstellt dazu bspw. einen Screencast mit einem Tool wie OBS Studio, Camtasia oder der System-eigenen Bildschirmaufnahme.
-
-Examples:
-
-- https://dl.acm.org/doi/10.1145/3411764.3445651
-- https://dl.acm.org/doi/10.1145/2992154.2992174
-- https://dl.acm.org/conference/chi
-
-
+Das fertige Pitch-Video wurde ordnungsgemäß auf der hochschulinternen E-Portfolio-Plattform **Atlas / PebblePad** hochgeladen und steht dort als Bestandteil der Prüfungsleistung zur Begutachtung zur Verfügung.
 
 ---
