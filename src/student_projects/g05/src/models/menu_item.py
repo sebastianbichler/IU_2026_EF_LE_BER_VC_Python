@@ -1,10 +1,9 @@
 from dataclasses import dataclass
-from src.student_projects.g05.src.models.fish import Fish
+from src.student_projects.g05.src.models.recipe import Recipe
 
 
 @dataclass
 class MenuItem:
     name: str
-    fish: Fish
+    recipe: Recipe
     price: float
-    fish_required_kg: float

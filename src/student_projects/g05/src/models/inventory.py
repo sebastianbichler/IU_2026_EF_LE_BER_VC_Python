@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import date
+
 from src.student_projects.g05.src.models.fish import Fish
 
 
@@ -7,12 +8,23 @@ from src.student_projects.g05.src.models.fish import Fish
 class InventoryItem:
     fish: Fish
     amount_kg: float
-    expiration_date: date
+    expiry_date: date
 
-    def is_expired(self, current_date: date) -> bool:
-        return current_date > self.expiration_date
+    def reduce_stock(self, amount: float):
+        """
+        Reduces inventory by a given amount.
+        """
 
-    def reduce_stock(self, amount: float) -> None:
         if amount > self.amount_kg:
-            raise ValueError("Not enough stock available")
+            raise ValueError(
+                f"Not enough {self.fish.name} in inventory"
+            )
+
         self.amount_kg -= amount
+
+    def is_expired(self, today: date) -> bool:
+        """
+        Returns True if the item is expired.
+        """
+
+        return today > self.expiry_date

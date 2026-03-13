@@ -1,11 +1,12 @@
+# bill.py
 from dataclasses import dataclass
-from src.student_projects.g05.src.models.order import Order
+from typing import List
 
-
+# Don't import Order directly
 @dataclass
 class Bill:
-    order: Order
-    tax_rate: float = 0.19
+    order_items: "List['OrderItem']"  # string type hint avoids circular import
+    tax_rate: float = 0.07
 
     def total_with_tax(self) -> float:
-        return self.order.total_amount() * (1 + self.tax_rate)
+        return sum(item.total_price() for item in self.order_items) * (1 + self.tax_rate)

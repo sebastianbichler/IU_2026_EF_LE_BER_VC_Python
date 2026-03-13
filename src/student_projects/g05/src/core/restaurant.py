@@ -1,102 +1,141 @@
+from datetime import date
+
+from src.student_projects.g05.src.models.order_item import OrderItem
+from src.student_projects.g05.src.models.bill import Bill
+
+
 class PenguEats:
+
     def __init__(self):
-        # Warenbestand mit Kategorisierung und Qualitätsmerkmalen (KI generierte Daten)
-        self.inventory = {
-            "Hering": {"quantity": 20, "freshness": 9, "category": "Kaltwasserfisch"},
-            "Makrele": {"quantity": 10, "freshness": 8, "category": "Kaltwasserfisch"},
-            "Krill": {"quantity": 50, "freshness": 10, "category": "Krustentiere"},
-            "Lachs": {"quantity": 5, "freshness": 10, "category": "Premium-Segment"},
-            "Tintenfisch": {"quantity": 8, "freshness": 7, "category": "Kopffüßer"},
-        }
 
-        # Rezeptur-Datenbank (KI generierte Daten)
-        self.cookbook = {
-            "Premium-Segment": {
-                9: "Carpaccio vom Atlantik-Lachs mit Zitronen-Vinaigrette",
-                7: "Lachsfilet in Blätterteigkruste",
-                0: "Ragout von Edelfischen"
-            },
-            "Kaltwasserfisch": {
-                9: "Sashimi-Variation mit frischem Ingwer",
-                7: "In Meersalz gereifte Makrele vom Grill",
-                5: "Traditioneller Fischeintopf nach nordischer Art",
-                0: "Bouillabaisse von regionalen Fischsorten"
-            },
-            "Krustentiere": {
-                9: "Krill-Cocktail an Plankton-Dressing",
-                5: "Gebratene Krill-Puffer",
-                0: "Krill-Essenz"
-            },
-            "Kopffüßer": {
-                8: "Calamari im Tempura-Teigmantel",
-                0: "Marinierter Tintenfisch auf mediterrane Art"
-            },
-            "Beilage": {
-                9: "Frischer Algensalat mit geröstetem Sesam",
-                0: "Getrocknete Algen-Variationen"
-            }
-        }
+        self.inventory = []        # list[InventoryItem]
+        self.menu = []             # list[MenuItem]
+        self.orders = []           # list[Order]
 
-        self.balance = 100.0
+        self.balance = 0.0
         self.rent = 15.0
-        self.species_consumption_stats = {}
+
+    # --------------------------------------------------
+    # Scientific pricing model
+    # --------------------------------------------------
 
     def apply_scientific_forecast(self, mean_supply, supply_risk):
-        print(f"\n--- Strategische Analyse der Lieferkette (Supply Chain) ---")
-        print(f"Erwarteter Lieferumfang: {mean_supply:.2f} Einheiten | Risiko-Level: {supply_risk:.2f}%")
+
+        print("\n--- Strategische Analyse der Lieferkette ---")
+        print(f"Erwarteter Lieferumfang: {mean_supply:.2f} | Risiko-Level: {supply_risk:.2f}%")
 
         if supply_risk > 30:
-            print(f"Status: Kritisches Lieferrisiko. Preisanpassung zur Nachfragesteuerung aktiv.")
+            print("Status: Kritisches Lieferrisiko – Preise werden erhöht.")
             return 1.2
         else:
-            print(f"Status: Lieferkette stabil. Standard-Preisliste aktiv.")
+            print("Status: Lieferkette stabil – Standardpreise.")
             return 1.0
 
-    def process_order(self, species, fish_type, price_factor=1.0):
-        print(f"\n[Auftrag] Anforderung durch Spezies '{species}': {fish_type}")
+    # --------------------------------------------------
+    # Menu management
+    # --------------------------------------------------
 
-        if self._is_available(fish_type):
-            self.inventory[fish_type]["quantity"] -= 1
+    def add_menu_item(self, menu_item):
+        self.menu.append(menu_item)
 
-            base_price = 25.0 if self.inventory[fish_type]["category"] == "Premium-Segment" else 15.0
-            final_price = base_price * price_factor
-            self.balance += final_price
+    # --------------------------------------------------
+    # Inventory management
+    # --------------------------------------------------
 
-            dish = self._create_gourmet_dish(fish_type)
-            self._update_species_consumption(species, fish_type)
+    def remove_expired_inventory(self):
 
-            print(f"Status: Bereitstellung von '{dish}' abgeschlossen.")
-            print(f"Transaktion: {final_price:.2f} Einheiten verbucht. Saldo: {self.balance:.2f}")
-        else:
-            alternative = self._get_recommendation(fish_type)
-            print(f"Status: {fish_type} nicht lieferbar. Alternative für {species}: {alternative}")
+        today = date.today()
 
-    def _update_species_consumption(self, species, fish_type):
-        if species not in self.species_consumption_stats:
-            self.species_consumption_stats[species] = []
-        self.species_consumption_stats[species].append(fish_type)
+        valid_batches = []
 
-    def _create_gourmet_dish(self, fish_type):
-        item = self.inventory[fish_type]
-        category = item["category"]
-        freshness = item["freshness"]
-        recipes = self.cookbook.get(category, self.cookbook["Kaltwasserfisch"])
-        thresholds = sorted(recipes.keys(), reverse=True)
-        for threshold in thresholds:
-            if freshness >= threshold:
-                return recipes[threshold]
-        return "Fischgericht nach Tagesangebot"
+        for batch in self.inventory:
 
-    def _get_recommendation(self, out_of_stock_fish):
-        category = self.inventory[out_of_stock_fish]["category"]
-        for fish, data in self.inventory.items():
-            if data["category"] == category and data["quantity"] > 0:
-                return fish
-        return max(self.inventory, key=lambda x: self.inventory[x]["quantity"])
+            if batch.expiry_date < today:
+                print(f"⚠ WARNUNG: {batch.fish.name} Charge abgelaufen und entfernt.")
+            else:
+                valid_batches.append(batch)
 
-    def _is_available(self, fish_type):
-        return fish_type in self.inventory and self.inventory[fish_type]["quantity"] > 0
+        self.inventory = valid_batches
 
-    def pay_bills(self):
-        self.balance -= self.rent
-        print(f"\n[Finanzen] Mietaufwand beglichen. Aktueller Saldo: {self.balance:.2f}")
+    # --------------------------------------------------
+    # Inventory consumption
+    # --------------------------------------------------
+
+    def _consume_inventory(self, fish, required_kg):
+
+        remaining = required_kg
+
+        for batch in self.inventory:
+
+            if batch.fish.name != fish.name:
+                continue
+
+            if batch.amount_kg <= 0:
+                continue
+
+            usable = min(batch.amount_kg, remaining)
+
+            batch.amount_kg -= usable
+            remaining -= usable
+
+            if remaining <= 0:
+                return True
+
+        return False
+
+    # --------------------------------------------------
+    # Order processing
+    # --------------------------------------------------
+
+    def place_order(self, order):
+
+        self.remove_expired_inventory()
+
+        for order_item in order.items:
+
+            recipe = order_item.menu_item.recipe
+
+            fish = recipe.fish
+            required_kg = recipe.fish_required_kg * order_item.quantity
+
+            success = self._consume_inventory(fish, required_kg)
+
+            if not success:
+                raise Exception(f"Nicht genug {fish.name} im Inventar")
+
+        self.orders.append(order)
+
+        revenue = order.bill.total_with_tax()
+        self.balance += revenue
+
+    # --------------------------------------------------
+    # Financial statistics
+    # --------------------------------------------------
+
+    def get_total_revenue(self):
+
+        total = 0.0
+
+        for order in self.orders:
+            total += order.bill.total_with_tax()
+
+        return total
+
+    # --------------------------------------------------
+    # Inventory overview
+    # --------------------------------------------------
+
+    def get_inventory_status(self):
+
+        status = {}
+
+        for batch in self.inventory:
+
+            fish_name = batch.fish.name
+
+            if fish_name not in status:
+                status[fish_name] = 0
+
+            status[fish_name] += batch.amount_kg
+
+        return status
