@@ -84,7 +84,7 @@ Das System interagiert mit verschiedenen Akteuren und externen Systemkomponenten
 
 Die wichtigsten Akteure sind:
 
-Restaurantbetreiber
+Restaurantbetreiber (Pingu)
 → verwaltet Inventar, Lieferungen und Preise
 
 Kunde
@@ -277,7 +277,6 @@ Bestellprozess:
 ### 4.3 Interaktionsdiagramm: Sequence-Diagram
 
 Wer ruft welche Methode bei wem auf? Dokumentieren Sie hier die Kommunikation zwischen den Objekten.
-
 
 Kunde → Restaurant → Order → Inventory → Bill
 
