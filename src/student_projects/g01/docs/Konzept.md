@@ -115,7 +115,7 @@ Die Prozessisolierung stellt sicher, dass jede Laufzeitumgebung unabhängig init
 Zur Visualisierung der Benchmark-Ergebnisse werden integrierte Diagrammwerkzeuge verwendet.
 
 **Begründung:**  
-Die gewählten Werkzeuge ermöglichen eine hinreichend präzise Darstellung der Messergebnisse bei gleichzeitig reduzierter technischer Komplexität.
+Pandas ermöglicht eine hinreichend präzise Darstellung der Messergebnisse bei gleichzeitig reduzierter technischer Komplexität.
 
 ---
 
