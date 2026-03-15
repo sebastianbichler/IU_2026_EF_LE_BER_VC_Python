@@ -9,45 +9,68 @@
 ### 1.1 Projektvision und Ziele
 
 PenguEats ist eine Python-basierte Anwendung zur Unterstützung des Betriebs eines Fischrestaurants, das von Pinguinen betrieben wird und sich auf Fischgerichte spezialisiert hat.
-Das zentrale Problem, das die Anwendung adressiert, ist die Unsicherheit in der Fischlieferkette. In der realen Welt können Lieferungen aufgrund von Wetterbedingungen, Fangquoten oder Transportproblemen ausfallen oder verspätet eintreffen. Diese Unsicherheiten erschweren eine zuverlässige Planung von Lagerbestand und Speisekarte.
+Das zentrale Problem, das die Anwendung adressiert, ist die Unsicherheit in der Fischlieferkette. In realen Lieferketten können Lieferungen aufgrund verschiedener Faktoren ausfallen oder verspätet eintreffen. Dazu zählen beispielsweise:
+- Wetterbedingungen
+- schwankende Fangquoten
+- Transportprobleme
+- unzuverlässige Lieferanten
 
-PenguEats unterstützt den Restaurantbetreiber dabei, den Überblick über:
-- Fischbestände
+Diese Unsicherheiten erschweren eine zuverlässige Planung von Lagerbeständen, Preisen und Speisekarte.
+
+PenguEats unterstützt den Restaurantbetreiber dabei, einen Überblick über folgende Aspekte zu behalten:
+- Fischinventar
 - Kundenbestellungen
-- Einnahmen und Ausgaben
-- zukünftige Fischlieferungen
-zu behalten.
+- Einnahmen und Umsätze
+- zukünftige Lieferwahrscheinlichkeiten
 
-Das langfristige Ziel der Anwendung ist es, mithilfe datenbasierter Prognosen bessere Entscheidungen im Einkauf und der Lagerhaltung zu ermöglichen und dadurch Lieferengpässe sowie Lebensmittelverschwendung zu reduzieren.
+Die Anwendung simuliert den operativen Betrieb eines Restaurants und kombiniert diesen mit statistischer Analyse, um datenbasierte Entscheidungen zu ermöglichen.
+Ein langfristiges Ziel der Anwendung besteht darin, mithilfe probabilistischer Modelle Prognosen über zukünftige Lieferungen zu erstellen und daraus strategische Entscheidungen abzuleiten. Dazu gehören beispielsweise:
+- dynamische Preisgestaltung
+- Anpassung der Speisekarte
+- Risikobewertung der Lieferkette
+
+Dadurch sollen sowohl Lieferengpässe als auch wirtschaftliche Risiken reduziert werden.
 
 ### 1.2 Wissenschaftliche Herausforderung / Python-Spezifischer Aspekt
 
-Der wissenschaftliche Schwerpunkt des Projekts liegt auf der probabilistischen Programmierung in Python.
-Viele reale Prozesse sind nicht deterministisch, sondern unterliegen Unsicherheiten. Besonders in Lieferketten kann nicht exakt vorhergesagt werden, wann bestimmte Waren verfügbar sein werden. Daher werden diese Prozesse mit Wahrscheinlichkeitsmodellen beschrieben.
+Viele reale Systeme sind nicht vollständig deterministisch. Besonders in Lieferketten treten Unsicherheiten auf, die nicht exakt vorhergesagt werden können.
+Traditionelle Softwaremodelle arbeiten häufig mit festen Werten und deterministischen Regeln. In der Realität sind jedoch viele Prozesse stochastisch. Um diese Unsicherheit mathematisch zu modellieren, werden probabilistische Modelle verwendet.
+Im Rahmen dieses Projekts wird ein Ansatz der probabilistischen Programmierung genutzt.
+Dabei werden statistische Modelle direkt im Code formuliert und mithilfe von Sampling-Verfahren geschätzt.
 
-Die Anwendung nutzt hierfür bayesianische Modellierung, die es erlaubt:
-- Unsicherheiten explizit zu modellieren
-- Wahrscheinlichkeiten für zukünftige Ereignisse zu berechnen
-- Vorhersagen mit Vertrauensintervallen zu treffen
+Für die Umsetzung wird die Python-Bibliothek PyMC verwendet. PyMC ermöglicht die Formulierung komplexer probabilistischer Modelle und deren Auswertung mithilfe von Markov-Chain-Monte-Carlo-Verfahren (MCMC).
+Im Projekt werden zwei zentrale probabilistische Modelle verwendet:
+#### 1. Demand Modell (Poisson-Gamma Modell)
+Prognose der erwarteten Liefermenge einer Fischart.
 
-Als Grundlage dient der wissenschaftliche Artikel "Probabilistic programming in Python using PyMC3" von Salvatier et al. (2016).
+#### 2. Supplier Reliability Modell (Beta-Binomial Modell)
+Schätzung der Zuverlässigkeit eines Lieferanten.
 
-Innerhalb der Anwendung wird diese theoretische Grundlage in einer spielerischen Story-Domain umgesetzt:
-In der Welt von PenguEats betreiben Pinguine ein Fischrestaurant. Die Pinguine sind auf Fischlieferanten angewiesen, die jedoch nicht immer zuverlässig liefern. Das System modelliert diese Unsicherheit und berechnet die Wahrscheinlichkeit, dass bestimmte Fischarten zu einem zukünftigen Zeitpunkt verfügbar sind.
-Diese Analogie ermöglicht es, komplexe statistische Modelle anschaulich darzustellen.
+Die Unsicherheiten werden dabei explizit modelliert und in Form von Wahrscheinlichkeitsverteilungen dargestellt.
+Das Projekt basiert konzeptionell insbesondere auf dem wissenschaftlichen Artikel zur probabilistischen Programmierung "Probabilistic programming in Python using PyMC3" von Salvatier et al. (2016).
+
+Die theoretischen Konzepte werden in einer spielerischen Domäne umgesetzt: Ein von Pinguinen betriebenes Fischrestaurant.
+Diese Story-Domain ermöglicht eine anschauliche Darstellung komplexer statistischer Konzepte.
 
 ### 1.3 Arbeitshypothese
 
 Die zentrale Hypothese des wissenschaftlichen Teils lautet:
-„Durch den Einsatz eines bayesianischen Modells zur Analyse historischer Lieferdaten kann die Wahrscheinlichkeit zukünftiger Fischlieferungen realistisch prognostiziert werden und daraus resultierend die Verkaufspreise für das Fischrestaurant angepasst werden.
+Durch die Analyse historischer Lieferdaten mithilfe eines bayesianischen Modells kann die zukünftige Verfügbarkeit von Fischarten realistisch prognostiziert werden.
 
-In den Berechnungen/Analysen wird untersucht:
-- wie historische Lieferdaten
-- Ausfallquoten von Lieferanten
-- saisonale Schwankungen
-die Prognose der Fischverfügbarkeit beeinflussen.
+Diese Prognose ermöglicht eine datenbasierte Anpassung der Verkaufspreise.
 
-Das Modell berechnet für jede Fischart eine Wahrscheinlichkeitsverteilung der Lieferbarkeit zu einem zukünftigen Zeitpunkt.
+Konkret wird untersucht, wie folgende Faktoren die Prognose beeinflussen:
+- historische Liefermengen
+- Unsicherheit in der Lieferkette
+- statistische Schwankungen
+
+Das Modell berechnet für jede Fischart eine Wahrscheinlichkeitsverteilung der erwarteten Liefermenge.
+Aus dieser Verteilung werden folgende Kennzahlen abgeleitet:
+- erwartete Liefermenge
+- Konfidenzintervall (HDI)
+- Risiko einer Knappheit
+
+Auf Basis dieses Risikos wird ein Preisfaktor berechnet, der zur dynamischen Anpassung der Menüpreise verwendet wird.
 
 ---
 
@@ -57,20 +80,37 @@ Das Modell berechnet für jede Fischart eine Wahrscheinlichkeitsverteilung der L
 
 <img width="691" height="421" alt="Use-Case-Diagramm2 drawio" src="https://github.com/user-attachments/assets/4f83ebf9-a972-4713-893c-effbfe25c4d9" />
 
-### 2.2 Funktionale Anforderungen als Katalog
+Das System interagiert mit verschiedenen Akteuren und externen Systemkomponenten.
 
-[x] Checkboxen können hier verwendet werden, um den Status der Anforderung zu dokumentieren (z. B. [x] für erfüllt, [ ]
-für offen) oder per Tabelle mit einem genauen Status (z. B. 80 % erfüllt, 20 % offen) und Notizen.
+Die wichtigsten Akteure sind:
+
+Restaurantbetreiber
+→ verwaltet Inventar, Lieferungen und Preise
+
+Kunde
+→ bestellt Gerichte aus dem Menü
+
+Lieferant
+→ liefert Fisch an das Restaurant
+
+Analysemodul
+→ berechnet statistische Prognosen für Liefermengen
+
+Das System fungiert als zentrale Verwaltungs- und Analyseplattform.
+
+### 2.2 Funktionale Anforderungen als Katalog
 
 | ID | Anforderung                  | Status  | Notizen                                         |
 |----|------------------------------|---------|-------------------------------------------------|
-| REQ-01 | Verwalten des Fischinventars | erfüllt | Speicherung von Fischart, Menge und Haltbarkeit |
-| REQ-02 | Reduktion des Bestands bei Bestellung         |  | automatische Aktualisierung |
-| REQ-03 | Erstellung und Verwaltung von Bestellungen         | erfüllt | Bestellung enthält Gericht und Menge |
-| REQ-04 | Prüfung der Lagerverfügbarkeit vor Bestellung         |  | verhindert negative Bestände |
-| REQ-05 | Verwaltung von Einnahmen und Ausgaben         | erfüllt | Verkäufe und Betriebskosten |
-| REQ-06 | Berechnung der Lieferwahrscheinlichkeit von Fischarten         |  | probabilistisches Modell |
-| REQ-07 | Warnung bei niedrigem Bestand         |  | Inventarüberwachung |
+| REQ-01 | Verwalten des Fischinventars | erfüllt | Implementiert über InventoryItem |
+| REQ-02 | Reduktion des Bestands bei Bestellung         | erfüllt | _consume_inventory() |
+| REQ-03 | Erstellung und Verwaltung von Bestellungen         | erfüllt | Order und OrderItem Klassen |
+| REQ-04 | Prüfung der Lagerverfügbarkeit vor Bestellung         | erfüllt | Fehler bei unzureichendem Inventar |
+| REQ-05 | Verwaltung von Einnahmen und Ausgaben         | erfüllt | Bill und Restaurant Balance |
+| REQ-06 | Berechnung der Lieferwahrscheinlichkeit      | erfüllt | Bayesianisches Modell mit PyMC |
+| REQ-07 | Warnung bei niedrigem Bestand         | teilweise | indirekt über Inventarprüfung |
+| REQ-08 | Simulation von Bestellungen        | erfüllt | simulate_order() in main |
+| REQ-09 | Preisstrategie basierend auf Risiko        | erfüllt | dynamischer Preisfaktor |
 
 
 ### 2.3 Nicht-funktionale Anforderungen (Qualitätsanforderungen)
@@ -78,73 +118,91 @@ für offen) oder per Tabelle mit einem genauen Status (z. B. 80 % erfüllt, 20 %
 Basierend auf der ISO 25010 werden folgende Qualitätsanforderungen definiert:
 
 #### Performance
-Die Berechnung von Prognosen soll innerhalb weniger Sekunden erfolgen, damit Entscheidungen schnell getroffen werden können.
+Die Berechnung der statistischen Modelle erfolgt über MCMC-Sampling. Durch die Verwendung des NUTS-Samplers mit der numpyro-Implementierung wird eine effiziente Berechnung erreicht.
 
 #### Usability
-Die Anwendung soll über eine einfache Benutzeroberfläche (z. B. Konsoleninterface) bedienbar sein.
+Die Anwendung verwendet eine einfache Konsolenoberfläche. Dadurch ist die Bedienung leicht verständlich und benötigt keine zusätzliche Software.
 
 #### Wartbarkeit
-Der Code soll modular aufgebaut sein, sodass einzelne Komponenten wie das Prognosemodell leicht erweitert werden können.
+Der Code ist modular strukturiert:
+- core
+- models
+- utils
+
+Diese Struktur ermöglicht eine klare Trennung der Verantwortlichkeiten.
 
 #### Zuverlässigkeit
-Das System soll sicherstellen, dass Bestellungen nur möglich sind, wenn ausreichend Inventar vorhanden ist.
+Fehlerhafte Zustände werden durch Exception Handling verhindert.
+
+Beispiele:
+- Bestellung ohne ausreichenden Bestand
+- ungültige Eingabewerte
 
 ### 2.4 Use-Case Modellierung
 
 Wichtige Use-Cases des Systems sind:
 
-#### UC-01 Fischinventar verwalten
-Der Restaurantbetreiber kann Fischarten hinzufügen, aktualisieren oder entfernen.
+#### UC-01 Inventar verwalten
+Der Betreiber kann neue Fischlieferungen registrieren und den Lagerbestand verwalten.
 
 #### UC-02 Bestellung aufnehmen
-Ein Kunde bestellt ein Fischgericht. Das System prüft den Bestand und bestätigt die Bestellung.
+Ein Kunde bestellt ein Gericht aus der Speisekarte.
+
+Der Ablauf:
+1. Kunde wählt Menüpunkt
+2. System prüft Inventar
+3. Bestand wird reduziert
+4.Bestellung wird gespeichert
 
 #### UC-03 Finanzdaten verwalten
-Das System erfasst Einnahmen aus Verkäufen sowie Ausgaben für Lieferungen und Betriebskosten.
+Das System berechnet den Umsatz anhand der erstellten Rechnungen.
 
 #### UC-04 Lieferwahrscheinlichkeit berechnen
-Das System analysiert historische Lieferdaten und berechnet Wahrscheinlichkeiten zukünftiger Lieferungen.
+Historische Lieferdaten werden analysiert und statistisch ausgewertet.
 
-#### UC-05 Warnung bei niedrigem Bestand
-Das System informiert den Betreiber, wenn eine Fischart knapp wird.
+#### UC-05 Preisstrategie berechnen
+Auf Basis der Risikoanalyse wird ein Preisfaktor bestimmt.
 
 ---
 
 ## 3. Architektur und Tech-Stack
 
-### 3.1 Auswahl der Plattform (Begründung)
+### 3.1 Auswahl der Plattform
 
-Die Anwendung wurde als Python-basierte Anwendung mit Konsoleninterface entwickelt. 
-
-Der Grund für diese Entscheidung ist:
-- einfache Integration wissenschaftlicher Modelle
-- gute Unterstützung für Datenanalyse
-- einfache Demonstration der probabilistischen Modelle
-
-Es wurde die flask library verwendet.
+Python wurde als Programmiersprache für dieses Projekt vorgegeben. Sie bietet eine ausgezeichnete Unterstützung für Datenanalyse und statistische Modellierung.
+Zudem existieren leistungsfähige Bibliotheken für probabilistische Programmierung.
 
 ### 3.2 Modularer Kern und Open-Closed Principle
 
-Die Architektur der Anwendung ist modular aufgebaut.
-Der Kern der Anwendung besteht aus der Geschäftslogik, die unabhängig von der Benutzeroberfläche funktioniert.
+Die Anwendung ist in mehrere Module aufgeteilt.
 
-Beispiele für Module:
-- Inventory Management
-- Order Management
-- Financial Tracking
-- Prediction Model
+#### core
+Beinhaltet die zentrale Geschäftslogik des Restaurants.
 
-Durch diese Struktur kann die Benutzeroberfläche später leicht ausgetauscht werden, ohne den Kern der Anwendung zu verändern.
+#### models
+Definiert die Domänenobjekte.
+Beispiele:
+- Fish
+- Order
+- Recipe
+- Supplier
+
+#### utils
+Beinhaltet analytische und statistische Funktionen.
+Beispiele:
+- Bayesian Modelle
+- statistische Auswertungen
+
+Diese Struktur folgt dem Single Responsibility Principle.
 
 ### 3.3 Technologie-Stack
-
-Listen Sie alle verwendeten Pakete und Tools auf (z. B. PyMC, PyTensor, Pandas) und erläutern Sie deren Rolle.
 
 - Python:  	        Hauptprogrammiersprache
 - PyMC3:            probabilistische Modellierung
 - NumPy:   	        numerische Berechnungen
-- arviZ:	          Datenanalyse
-- flask:	          Visualisierung der Ergebnisse
+- ArviZ:	          Analyse von MCMC-Ergebnissen
+- Flask:	          mögliche Visualisierung
+- dataclasses:      strukturierte Datenmodelle
 
 
 ### 3.4 Logging und Fehlerbehandlung
@@ -154,22 +212,27 @@ der App umgesetzt wurden.
 
 #### Logging
 
-Das System protokolliert wichtige Ereignisse wie:
-- neue Bestellungen
-- Inventaränderungen
-- Prognoseberechnungen
+Wichtige Ereignisse werden ausgegeben:
+- Bestellungen
+- Preisberechnungen
+- Analyseergebnisse
 
 #### Fehlerbehandlung
 
-Fehler werden mit Exception Handling abgefangen, z. B.:
-- Bestellung mit unzureichendem Bestand
-- ungültige Eingaben
-- fehlende Daten
+Fehler werden mit Exception Handling abgefangen.
+Beispiele:
+InventoryItem:
+
+if amount > self.amount_kg:
+    raise ValueError
+
+Restaurant:
+
+raise Exception("Nicht genug Fisch im Inventar")
 
 #### Debugging
 
 Zur Analyse von Problemen werden Logs verwendet.
-
 
 ---
 
@@ -177,49 +240,78 @@ Zur Analyse von Problemen werden Logs verwendet.
 
 ### 4.1 Domänenmodell und UML-Klassendiagramm
 
-Wichtige Klassen der Anwendung sind:
-
-- Restaurant
-- Bill
-- Supplier
-- Order
-- Delivery
-- OrderItem
+Zentrale Klassen:
+- Fish
+- Recipe
 - MenuItem
 - InventoryItem
-- Fish
+- Order
+- OrderItem
+- Bill
+- Supplier
+- Delivery
+- Restaurant
 
 Beziehungen:
 
-- Ein Restaurant besitzt ein Inventar
-- Das Inventar enthält mehrere Fischarten
-- Kundenbestellungen reduzieren den Bestand
-- Lieferanten liefern Fisch
-- Das Prognosemodell berechnet die Wahrscheinlichkeit zukünftiger Lieferungen
+- Fish → Bestandteil eines Rezepts
+- Recipe → Bestandteil eines Menüpunktes
+- MenuItem → Bestandteil einer Bestellung
+- Order → enthält OrderItems
+- Bill → berechnet Rechnungsbetrag
 
 ![UML-Diagramm](https://github.com/user-attachments/assets/fe9e9be8-6372-4898-a184-e4667c8a5b3f)
 
 ### 4.2 Verhaltensdiagramme: Activity- & State-Diagram
 
-Zeigen Sie komplexe Abläufe (Aktivität) und die Lebenszyklen wichtiger Objekte (Zustand).
+Bestellprozess:
 
-Typischer Ablauf einer Bestellung:
-
-1. Kunde bestellt Fischgericht
+1. Kunde bestellt Gericht
 2. System prüft Inventar
-3. Bestellung wird bestätigt oder abgelehnt
-4. Bestand wird reduziert
-5. Einnahmen werden aktualisiert
+3. Bestand wird reduziert
+4. Bestellung wird gespeichert
+5. Rechnung wird erstellt
+6. Umsatz wird aktualisiert
 
 
 ### 4.3 Interaktionsdiagramm: Sequence-Diagram
 
 Wer ruft welche Methode bei wem auf? Dokumentieren Sie hier die Kommunikation zwischen den Objekten.
 
+
+Kunde → Restaurant → Order → Inventory → Bill
+
+Ablauf:
+
+1. Bestellung wird erstellt
+2. Inventar wird geprüft
+3. Bestand wird reduziert
+4. Rechnung wird berechnet
+
 ### 4.4 Design Patterns und Prinzipien
 
 Welche Muster (z. B. Factory, Strategy, MVC) wurden implementiert? Begründen Sie den Einsatz von SOLID, DRY und
 KISS, ... Verwenden Sie UML-Diagramme, um die Umsetzung zu verdeutlichen.
+
+#### Domain Model
+
+Die Anwendung basiert auf einem Domain Model mit klaren Entitäten.
+
+#### Separation of Concerns
+
+- Domänenmodelle
+- Geschäftslogik
+- Analyse
+
+werden getrennt implementiert.
+
+#### SOLID Prinzipien
+
+Single Responsibility
+→ jede Klasse erfüllt eine spezifische Aufgabe.
+
+Open Closed Principle
+→ neue Modelle können hinzugefügt werden ohne bestehenden Code zu verändern.
 
 ---
 
@@ -227,21 +319,33 @@ KISS, ... Verwenden Sie UML-Diagramme, um die Umsetzung zu verdeutlichen.
 
 ### 5.1 Methodik der Untersuchung
 
-Beschreiben Sie den Aufbau Ihres Versuchs im Notebook.(Forschungsfrage beantworten, Datenmodell)
+Historische Lieferdaten werden analysiert.
+Die Liefermengen werden als Poisson-verteilte Ereignisse modelliert.
 
-In PyCharm wird ein bayesianisches Modell entwickelt, das die Lieferwahrscheinlichkeit von Fischarten prognostiziert.
+Prior:
+Gamma Verteilung
 
-Dazu werden folgende Daten verwendet:
-- historische Lieferungen
-- Lieferausfälle
-- saisonale Effekte
+Likelihood:
+Poisson Verteilung
 
-Das Modell verwendet Markov-Chain-Monte-Carlo-Verfahren zur Schätzung der Wahrscheinlichkeitsverteilungen.
+Die Parameter werden über MCMC Sampling geschätzt.
 
 ### 5.2 Analyse und Demonstration
 
 Dokumentieren Sie die Ausführung des Codes und die Visualisierung der Ergebnisse zur Bestätigung/Widerlegung der
 Hypothese. Hinterlegen Sie im Notebook aussagekräftige Plots.
+
+Aus der Posteriorverteilung werden folgende Kennzahlen berechnet:
+- erwartete Liefermenge
+- 95 % HDI
+- Risiko einer Knappheit
+
+Beispiel:
+- mean_rate
+- risk_percent
+- hdi
+
+Diese Werte werden zur Preisstrategie verwendet.
 
 ---
 
@@ -249,20 +353,65 @@ Hypothese. Hinterlegen Sie im Notebook aussagekräftige Plots.
 
 ### 6.1 Code-Struktur und Dokumentation
 
-Hinweise zur englischsprachigen Programmierung, Docstrings und der modularen Aufteilung.
+Der Code ist modular aufgebaut:
+
+core → Geschäftslogik
+models → Datenmodelle
+utils → Analysemodelle
+
+Docstrings und Typannotationen verbessern die Lesbarkeit.
 
 ### 6.2 Test-Konzept: Unit-Tests
 
-Listen Sie beispielhafte Unit-Tests auf, die die Kernfunktionalität absichern.
+noch Beispielhafte Daten:
+#### Test 1
+
+Inventory Reduction
+
+Testet, ob der Bestand korrekt reduziert wird.
+
+#### Test 2
+
+Bill Calculation
+
+Testet, ob der Rechnungsbetrag korrekt berechnet wird.
+
+#### Test 3
+
+Fish Validation
+
+Testet, ob ungültige Fischpreise abgefangen werden.
 
 ### 6.3 Integration-Tests und Traceability
 
 Dokumentieren Sie mindestens 3 Integration-Tests. Ordnen Sie diese explizit den Software-Requirements (aus Kap. 2.2) zu.
+auch noch Beispieldaten:
+
+Test 1
+REQ-02
+Bestellung reduziert Inventar
+
+Test 2
+REQ-04
+Bestellung schlägt fehl bei fehlendem Bestand
+
+Test 3
+REQ-05
+Umsatz wird korrekt berechnet
 
 ### 6.4 CI-Pipeline
 
 Beschreiben Sie die (mögliche) Automatisierung (GitHub Actions, Befehlsreihenfolge, Prüfung der `requirements.txt`,
 project.toml).
+
+Eine mögliche CI Pipeline besteht aus:
+1. Installation der Abhängigkeiten
+2. Ausführen der Unit Tests
+3. Linting
+4. Build
+
+Tools:
+GitHub Actions
 
 ---
 
@@ -277,19 +426,19 @@ Bewertete Kategorien:
 
 #### Wartbarkeit
 
-Der modulare Aufbau ermöglicht eine einfache Erweiterung der Software.
+Die modulare Architektur erleichtert Erweiterungen.
 
 #### Zuverlässigkeit
 
-Durch Prüfungen des Inventars werden ungültige Bestellungen verhindert.
+Fehler werden abgefangen und verhindern inkonsistente Zustände.
 
 #### Benutzbarkeit
 
-Die Anwendung bietet eine einfache Interaktion über die Konsole.
+Die Konsolenoberfläche ist leicht verständlich.
 
 #### Performance
 
-Die Berechnungen erfolgen effizient mit Hilfe von NumPy und PyMC.
+MCMC Sampling wird mit numpyro beschleunigt.
 
 ---
 
@@ -299,12 +448,18 @@ Die Berechnungen erfolgen effizient mit Hilfe von NumPy und PyMC.
 
 Wie sind Sie vorgegangen? Welche Anpassungen mussten während der Entwicklung vorgenommen werden und warum?
 
+Die Entwicklung erfolgte iterativ. Zunächst wurden Domänenmodelle entwickelt. Danach wurden die Analysemodelle integriert.
+
 ### 8.2 Selbstreflexion
 
 #### Arbeitsprozess
 
 Analysieren Sie den Arbeitsprozess. Wo hat das Requirements Engineering geholfen, wo gab es bspw. durch "
 Drauflos-Programmieren" Probleme?
+
+Requirements Engineering half dabei, die Struktur des Systems zu definieren.
+
+Einige Änderungen waren während der Implementierung notwendig, beispielsweise bei der Modellierung der Lieferkettenanalyse.
 
 #### Einsatz von KI
 
@@ -315,6 +470,18 @@ Richtlinie zur Nutzung von KI im Studium (S. 13) https://mycampus-classic.iu.org
 ### 8.3 Nutzungsanweisung (How-to-use)
 
 Kurze Anleitung für den Nutzer oder den Korrektor: Wie wird die App gestartet und welche Features sind wie zu nutzen?
+
+1. Python Umgebung erstellen
+2. Abhängigkeiten installieren
+
+pip install pymc numpy arviz
+
+3. Programm starten
+
+python main.py
+
+Das Programm führt anschließend eine Simulation des Restaurantbetriebs durch.
+
 
 ### 8.4 Pitch-Video
 
