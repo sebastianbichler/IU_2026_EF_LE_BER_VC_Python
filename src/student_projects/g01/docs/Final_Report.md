@@ -390,12 +390,16 @@ Das Projekt implementiert das MVC-Pattern mit einer klaren Trennung zwischen Mod
 
 ### 5.1 Methodik der Untersuchung
 
-Beschreiben Sie den Aufbau Ihres Versuchs im Notebook.(Forschungsfrage beantworten, Datenmodell)
+Der zu testende Algorithmus ist der Dijkstra-Algorithmus in seiner klassischen O(n²)-Implementierung ohne Priority Queue, der auf einem zufällig generierten Graphen ausgeführt wird. Die Graph-Generierung erfolgt deterministisch über einen Seed, sodass alle Runtimes mit exakt denselben Eingabedaten arbeiten. Die Parameter umfassen die Knotenanzahl, die Dichte des Graphen und den Start- sowie Zielknoten.  
+Die erste Runtime ist CPython, die Standard-Python-Implementierung ohne Optimierungen. Die zweite Runtime ist Numba mit JIT-Kompilierung, die den Algorithmus in nativen Maschinencode übersetzt. Die dritte Runtime ist PyPy, eine alternative Python-Implementierung mit eigenem JIT-Compiler.  
+Der Benchmark misst für jede Runtime die durchschnittliche Ausführungszeit über mehrere Durchläufe sowie die Standardabweichung. Zusätzlich wird verifiziert, dass alle drei Implementierungen exakt denselben Pfad und dieselben Kosten berechnen, um die Korrektheit zu gewährleisten.  
+Die Ergebnisse werden über eine Streamlit-Weboberfläche visualisiert, die einen direkten Vergleich der Laufzeiten in Form von Tabellen und Balkendiagrammen ermöglicht.
 
 ### 5.2 Analyse und Demonstration
 
-Dokumentieren Sie die Ausführung des Codes und die Visualisierung der Ergebnisse zur Bestätigung/Widerlegung der
-Hypothese. Hinterlegen Sie im Notebook aussagekräftige Plots.
+siehe Screenshot [Benchmark Ergebnisse](BenchmarkErgebnisseFoxExpress.png)
+
+Wie man dem Screenshot entnehmen kann, ist die Hypothese, welche zu beginn aufgestellt wurde deutich bestätigt, da Numba und PyPy bei der Berechnung des küzesten Pfades deutlich schneller sind als der Standard CPython Interpreter.
 
 ---
 
@@ -403,32 +407,32 @@ Hypothese. Hinterlegen Sie im Notebook aussagekräftige Plots.
 
 ### 6.1 Code-Struktur und Dokumentation
 
-foxexpress_project/
-├── app.py                          # Streamlit Einstiegspunkt
-├── pypy_benchmark.py              # Externes PyPy-Benchmark-Skript
-├── pyproject.toml                  # Projekt-Konfiguration
-├── requirements.txt                # Abhängigkeiten
-├── README.md                       # Dokumentation
-│
-├── src/foxexpress/
-│   ├── __init__.py
-│   │
-│   ├── models/                    # Geschäftslogik (MVC: Model)
-│   │   ├── data_types.py          # RouteResult, BenchmarkResult
-│   │   ├── dijkstra.py            # Algorithmen (CPython, Numba)
-│   │   ├── graph.py                # Graph-Generierung
-│   │   └── benchmark.py           # Benchmarking-Logik
-│   │
-│   ├── controllers/               # Orchestrierung (MVC: Controller)
-│   │   └── route_controller.py    # Route & Benchmark Controller
-│   │
-│   └── views/                     # Präsentation (MVC: View)
-│       └── benchmark_view.py       # Streamlit UI
-│
-└── tests/
-    ├── conftest.py                # Pytest Fixtures
-    └── test_routing.py            # Unit Tests
-
+foxexpress_project/  
+├── app.py                          # Streamlit Einstiegspunkt  
+├── pypy_benchmark.py              # Externes PyPy-Benchmark-Skript  
+├── pyproject.toml                  # Projekt-Konfiguration  
+├── requirements.txt                # Abhängigkeiten  
+├── README.md                       # Dokumentation  
+│  
+├── src/foxexpress/  
+│   ├── __init__.py  
+│   │  
+│   ├── models/                    # Geschäftslogik (MVC: Model)  
+│   │   ├── data_types.py          # RouteResult, BenchmarkResult  
+│   │   ├── dijkstra.py            # Algorithmen (CPython, Numba)  
+│   │   ├── graph.py                # Graph-Generierung  
+│   │   └── benchmark.py           # Benchmarking-Logik  
+│   │  
+│   ├── controllers/               # Orchestrierung (MVC: Controller)  
+│   │   └── route_controller.py    # Route & Benchmark Controller  
+│   │  
+│   └── views/                     # Präsentation (MVC: View)  
+│       └── benchmark_view.py       # Streamlit UI  
+│  
+└── tests/  
+    ├── conftest.py                # Pytest Fixtures  
+    └── test_routing.py            # Unit Tests  
+    
 Begründung: siehe 3.2
 
 ### 6.2 Test-Konzept: Unit-Tests
@@ -451,10 +455,17 @@ Für dieses Projekt bietet sich eine CI/CD-Automatisierung über GitHub Actions 
 
 ## 7. Software-Qualität nach [ISO 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso-25010)
 
-Beurteilung der Produktqualität: Skalieren und bewerten Sie Ihre Software in Kategorien wie Wartbarkeit, Zuverlässigkeit
-und Benutzbarkeit.
-Wählen Sie 3-5 Kategorien aus und begründen Sie die Bewertung. Welche Maßnahmen wurden ergriffen, um die Qualität zu
-verbessern?
+Zuverlässigkeit: 9/10  
+Das Error Handling ist an drei zentralen Stellen implementiert und nutzt domänenspezifische Ausnahmen wie RouteNotFoundError und GraphGenerationError. Die Unit Tests in test_routing.py decken kritische Pfade ab, darunter Fehlerfälle und Konsistenzprüfungen zwischen CPython und Numba. Die Validierung der Benchmark-Ergebnisse stellt sicher, dass alle drei Runtimes konsistente Ergebnisse liefern.
+
+Wartbarkeit: 7/10  
+Die klare MVC-Trennung mit dedizierten Verzeichnissen für Models, Controllers und Views gewährleistet eine gute Wartbarkeit. Die Geschäftslogik ist von der UI entkoppelt, und der Code ist gut lesbar mit aussagekräftigen Namen. Ein Punktabzug erfolgt, da die Modelle als reine Funktionen ohne Kapselung in Klassen strukturiert sind.
+
+Erweiterbarkeit: 6/10  
+Die fehlende Abstraktion durch Interfaces erschwert das Hinzufügen neuer Algorithmen oder Runtimes. Um eine weitere Implementierung hinzuzufügen, müssen mehrere Stellen im Code angepasst werden. Das Open/Closed Principle ist nur teilweise erfüllt.
+
+Maßnahmen zur Qualitätsverbesserung:  
+Kurzfristig sollten Integrationstests für Controller ergänzt sowie eine CI/CD-Pipeline mit GitHub Actions eingerichtet werden. Mittelfristig wäre die Einführung des Strategy Patterns sinnvoll, um die Erweiterbarkeit zu verbessern.
 
 ---
 
