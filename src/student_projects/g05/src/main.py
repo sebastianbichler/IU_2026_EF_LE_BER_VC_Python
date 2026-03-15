@@ -2,12 +2,12 @@ import os
 import logging
 from datetime import datetime, timedelta
 
-from core.restaurant import PenguEats
+from core.pengueats import PenguEats
 
 from models.fish import Fish
 from models.recipe import Recipe
 from models.menu_item import MenuItem
-from models.inventory import InventoryItem
+from models.inventory_item import InventoryItem
 from models.order_item import OrderItem
 from models.order import Order
 from models.bill import Bill

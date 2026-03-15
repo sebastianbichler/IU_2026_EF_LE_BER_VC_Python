@@ -2,7 +2,6 @@
 from dataclasses import dataclass
 from typing import List
 
-# Don't import Order directly
 @dataclass
 class Bill:
     order_items: "List['OrderItem']"  # string type hint avoids circular import

@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import date
 from typing import List
-from src.student_projects.g05.src.models.inventory import InventoryItem
+from src.student_projects.g05.src.models.inventory_item import InventoryItem
 from src.student_projects.g05.src.models.supplier import Supplier
 
 

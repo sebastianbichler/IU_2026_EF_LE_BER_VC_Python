@@ -43,3 +43,4 @@ class RestaurantAnalytics:
                 stats[name] += item.quantity
 
         return stats
+    
