@@ -110,16 +110,7 @@ Die Prozessisolierung stellt sicher, dass jede Laufzeitumgebung unabhängig init
 
 ---
 
-### NetworkX
-
-NetworkX wird zur logischen Modellierung und Generierung der Graphen verwendet.
-
-**Begründung:**  
-Die Bibliothek ermöglicht eine strukturierte Erstellung komplexer Testnetzwerke, bevor diese für die eigentliche Berechnung in eine Numba-kompatible Datenstruktur überführt werden.
-
----
-
-### Matplotlib / Streamlit Native Charts
+### Pandas
 
 Zur Visualisierung der Benchmark-Ergebnisse werden integrierte Diagrammwerkzeuge verwendet.
 
