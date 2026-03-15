@@ -78,7 +78,7 @@ Auf Basis dieses Risikos wird ein Preisfaktor berechnet, der zur dynamischen Anp
 
 ### 2.1 Kontextdiagramm
 
-<img width="691" height="421" alt="Use-Case-Diagramm2 drawio" src="https://github.com/user-attachments/assets/4f83ebf9-a972-4713-893c-effbfe25c4d9" />
+![use_case_diagram.jpg](use_case_diagram.jpg)
 
 Das System interagiert mit verschiedenen Akteuren und externen Systemkomponenten.
 
@@ -210,6 +210,15 @@ Diese Struktur folgt dem Single Responsibility Principle.
 Demonstieren Sie, wie wichtige Aspekte wie Logging, Fehlerbehandlung, Performance-Optimierung und Debugging-Strategien in
 der App umgesetzt wurden.
 
+```
+[Phase 3] Operatives Tagesgeschäft und Auftragsabwicklung:
+
+[Kritischer Fehler] Systemabbruch während der Verarbeitung: Order.__init__() takes from 2 to 3 positional arguments but 4 were given
+```
+
+```
+[Kritischer Fehler] Systemabbruch während der Verarbeitung: Nicht genug Lachs im Inventar
+```
 #### Logging
 
 Wichtige Ereignisse werden ausgegeben:
@@ -286,6 +295,8 @@ Ablauf:
 2. Inventar wird geprüft
 3. Bestand wird reduziert
 4. Rechnung wird berechnet
+
+![sequence_diagram.jpg](sequence_diagram.jpg)
 
 ### 4.4 Design Patterns und Prinzipien
 
