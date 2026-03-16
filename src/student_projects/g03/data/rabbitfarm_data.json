@@ -19,13 +19,13 @@
       "amount": 300.0
     },
     {
-      "name": "Avocado",
-      "sort": "Hass",
-      "plant_date": "2026-03-06T00:00:00",
-      "harvest_date": "2027-03-12T00:00:00",
-      "bed_id": 3,
-      "shelf_life_days": 30,
-      "amount": 200.0
+      "name": "Gurke-test1",
+      "sort": "gurke",
+      "plant_date": "2026-02-16T00:00:00",
+      "harvest_date": "2026-02-17T00:00:00",
+      "bed_id": 1,
+      "shelf_life_days": 1,
+      "amount": 20.0
     }
   ],
   "beds": [
@@ -37,11 +37,6 @@
     {
       "id": 2,
       "name": "Tomate",
-      "size_m2": 200.0
-    },
-    {
-      "id": 3,
-      "name": "Avocado",
       "size_m2": 200.0
     }
   ],
@@ -70,6 +65,15 @@
       "bed_id": 2,
       "shelf_life_days": 10,
       "amount": 100.0
+    },
+    {
+      "name": "Gurke-test1",
+      "sort": "gurke",
+      "plant_date": "2026-02-16T00:00:00",
+      "harvest_date": "2026-02-17T00:00:00",
+      "bed_id": 1,
+      "shelf_life_days": 1,
+      "amount": 10.0
     }
   ],
   "orders": [
@@ -108,6 +112,42 @@
       ],
       "delivery_date": "2026-01-30T09:10:16.103315",
       "price": 12.0
+    },
+    {
+      "customer_name": "Max",
+      "customer_species": "Hase",
+      "customer_subscription_type": "wöchentlich",
+      "vegetables": [
+        {
+          "name": "Gurke",
+          "sort": "Deutsch",
+          "plant_date": "2025-01-26T00:00:00",
+          "harvest_date": "2025-01-26T00:00:00",
+          "bed_id": 1,
+          "shelf_life_days": 10,
+          "amount": 100.0
+        },
+        {
+          "name": "Cherry",
+          "sort": "Tomate",
+          "plant_date": "2026-02-23T00:00:00",
+          "harvest_date": "2026-02-23T00:00:00",
+          "bed_id": 2,
+          "shelf_life_days": 10,
+          "amount": 300.0
+        },
+        {
+          "name": "Gurke-test1",
+          "sort": "gurke",
+          "plant_date": "2026-02-16T00:00:00",
+          "harvest_date": "2026-02-17T00:00:00",
+          "bed_id": 1,
+          "shelf_life_days": 1,
+          "amount": 20.0
+        }
+      ],
+      "delivery_date": "2026-03-05T13:02:45.486215",
+      "price": 100.0
     }
   ]
 }

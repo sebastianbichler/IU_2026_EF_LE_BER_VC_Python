@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Einstiegspunkt für die RabbitFarm-Webapp.
-Starten von Projektroot (g03):  python -m src.web.main
+Einstieg der Web-Anwendung.
+Startet den Server aus dem Projektverzeichnis.
 """
 import os
 import sys
@@ -14,6 +14,7 @@ from src.web.app import app
 
 
 def main():
+    """Startet den Server."""
     app.run(debug=True, port=8081)
 
 

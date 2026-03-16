@@ -1,4 +1,4 @@
-"""Web-Routen für RabbitFarm: Views und Formular-Handler."""
+"""Routen für die Web-App: Views und Formulare."""
 from datetime import datetime, timedelta
 from flask import Blueprint, render_template, request, redirect, url_for
 
@@ -10,11 +10,13 @@ bp = Blueprint("main", __name__)
 
 @bp.route("/")
 def index():
+    """Zeigt die Startseite an."""
     return render_template("index.html")
 
 
 @bp.route("/vegetables", methods=["GET", "POST"])
 def vegetables():
+    """Verarbeitet die Eingabe und Anzeige von Gemüse."""
     if request.method == "POST":
         try:
             name = request.form["name"]
@@ -49,6 +51,7 @@ def vegetables():
 
 @bp.route("/beds", methods=["GET", "POST"])
 def beds():
+    """Verwaltet das Anlegen und Auslesen der Beete."""
     if request.method == "POST":
         try:
             if not data_manager.beds:
@@ -71,6 +74,7 @@ def beds():
 
 @bp.route("/inventory", methods=["GET", "POST"])
 def inventory():
+    """Steuert die Einlagerung und Bestandsprüfung."""
     if request.method == "POST":
         try:
             veg_idx = int(request.form["veg_idx"])
@@ -99,6 +103,7 @@ def inventory():
 
 @bp.route("/customers", methods=["GET", "POST"])
 def customers():
+    """Nimmt neue Kunden auf und listet Bestandskunden."""
     if request.method == "POST":
         name = request.form["name"]
         species = request.form["species"]
@@ -114,6 +119,7 @@ def customers():
 
 @bp.route("/orders", methods=["GET", "POST"])
 def orders():
+    """Erstellt Bestellungen und berechnet Lieferdaten."""
     if request.method == "POST":
         try:
             cust_idx = int(request.form["customer_idx"])
@@ -152,6 +158,7 @@ def orders():
 
 @bp.route("/finances")
 def finances():
+    """Kalkuliert den Umsatz aus den Bestellungen."""
     revenue = sum(o.price for o in data_manager.orders)
     return render_template(
         "finance.html",
@@ -162,7 +169,7 @@ def finances():
 
 @bp.route("/sensors", methods=["GET", "POST"])
 def sensors():
-    """Sensordaten: Lazy vs. Eager Benchmark."""
+    """Führt den Leistungsvergleich der Sensordaten aus."""
     result_eager = None
     result_lazy = None
     error = None

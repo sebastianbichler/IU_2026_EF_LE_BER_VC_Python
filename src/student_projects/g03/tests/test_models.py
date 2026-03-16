@@ -1,45 +1,217 @@
-import os
-import sys
-import pytest
+"""Unit-Tests für models.py – Vegetable, Bed, Customer, Inventory."""
+
 from datetime import datetime, timedelta
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+from models import Vegetable, Bed, Customer, Inventory, Order, SubscriptionBox
 
-from src.models import Vegetable, Bed, Customer, SubscriptionBox, Order, Inventory
 
-def test_01_models_vegetable_freshness_calculation():
-    """Prüft die korrekte Berechnung der Frische (is_fresh) und des Frische-Verhältnisses (freshness_ratio) eines Gemüses."""
-    now = datetime.now()
-    # Frisch: Vor 2 Tagen geerntet, 5 Tage haltbar
-    fresh_veg = Vegetable(
-        name="Karotte", sort="Süß", plant_date=now - timedelta(days=60),
-        harvest_date=now - timedelta(days=2), bed_id=1, shelf_life_days=5
-    )
-    assert fresh_veg.is_fresh(now) is True
-    assert fresh_veg.freshness_ratio(now) == 0.6  # (1 - 2/5) = 0.6
+class TestVegetable:
+    """Tests für die Vegetable-Klasse."""
 
-    # Abgelaufen: Vor 6 Tagen geerntet, 5 Tage haltbar
-    old_veg = Vegetable(
-        name="Lauch", sort="Grün", plant_date=now - timedelta(days=60),
-        harvest_date=now - timedelta(days=6), bed_id=1, shelf_life_days=5
-    )
-    assert old_veg.is_fresh(now) is False
-    assert old_veg.freshness_ratio(now) == 0.0
+    def _make_vegetable(self, harvest_days_ago=5, shelf_life_days=10):
+        """Hilfsfunktion: Erstellt ein Gemüse, das vor N Tagen geerntet wurde."""
+        now = datetime.now()
+        return Vegetable(
+            name="Karotte",
+            sort="Nantaise",
+            plant_date=now - timedelta(days=60),
+            harvest_date=now - timedelta(days=harvest_days_ago),
+            bed_id=1,
+            shelf_life_days=shelf_life_days,
+            amount=10.0,
+        )
 
-def test_02_models_inventory_management_and_filtering():
-    """Prüft das Hinzufügen von Ernten zum Inventar sowie das Filtern nach frischen und abgelaufenen Beständen."""
-    inventory = Inventory()
-    now = datetime.now()
-    
-    veg1 = Vegetable("Salat", "Eisberg", now, now, 1, 3, 10.0)
-    inventory.add_harvest(veg1, 10.0)
-    
-    assert len(inventory.items) == 1
-    assert inventory.get_total_amount() == 10.0
-    
-    fresh_items = list(inventory.get_fresh_items(now))
-    assert len(fresh_items) == 1
-    
-    expired_items = list(inventory.get_expired_items(now + timedelta(days=5)))
-    assert len(expired_items) == 1
+    def test_is_fresh_true(self):
+        """Frisch geerntetes Gemüse ist frisch."""
+        veg = self._make_vegetable(harvest_days_ago=2, shelf_life_days=10)
+        assert veg.is_fresh() is True
+
+    def test_is_fresh_false(self):
+        """Gemüse nach Ablauf der Haltbarkeit ist nicht frisch."""
+        veg = self._make_vegetable(harvest_days_ago=15, shelf_life_days=10)
+        assert veg.is_fresh() is False
+
+    def test_is_fresh_boundary(self):
+        """Gemüse genau an der Haltbarkeitsgrenze ist nicht frisch."""
+        veg = self._make_vegetable(harvest_days_ago=10, shelf_life_days=10)
+        assert veg.is_fresh() is False
+
+    def test_freshness_ratio_fresh(self):
+        """Frisches Gemüse hat ein Frischeverhältnis > 0."""
+        veg = self._make_vegetable(harvest_days_ago=2, shelf_life_days=10)
+        ratio = veg.freshness_ratio()
+        assert 0.0 < ratio <= 1.0
+
+    def test_freshness_ratio_expired(self):
+        """Abgelaufenes Gemüse hat ein Frischeverhältnis von 0,0."""
+        veg = self._make_vegetable(harvest_days_ago=20, shelf_life_days=10)
+        assert veg.freshness_ratio() == 0.0
+
+    def test_freshness_ratio_half(self):
+        """Gemüse bei halber Haltbarkeit hat ein Frischeverhältnis von ~0,5."""
+        veg = self._make_vegetable(harvest_days_ago=5, shelf_life_days=10)
+        ratio = veg.freshness_ratio()
+        assert 0.4 <= ratio <= 0.6
+
+    def test_freshness_ratio_before_harvest(self):
+        """Gemüse mit zukünftigem Erntedatum hat ein Frischeverhältnis von 1,0."""
+        now = datetime.now()
+        veg = Vegetable(
+            name="Tomate",
+            sort="Cherry",
+            plant_date=now - timedelta(days=30),
+            harvest_date=now + timedelta(days=5),
+            bed_id=1,
+            shelf_life_days=10,
+            amount=5.0,
+        )
+        assert veg.freshness_ratio() == 1.0
+
+
+class TestBed:
+    """Tests für die Bed-Dataclass."""
+
+    def test_bed_creation(self):
+        bed = Bed(id=1, name="Karottenbeet", size_m2=12.5)
+        assert bed.id == 1
+        assert bed.name == "Karottenbeet"
+        assert bed.size_m2 == 12.5
+
+
+class TestCustomer:
+    """Tests für die Customer-Dataclass."""
+
+    def test_customer_str(self):
+        customer = Customer(name="Max", species="Hase", subscription_type="weekly")
+        assert "Max" in str(customer)
+        assert "Hase" in str(customer)
+
+
+class TestInventory:
+    """Tests für die Inventory-Dataclass."""
+
+    def _make_fresh_vegetable(self):
+        now = datetime.now()
+        return Vegetable(
+            name="Gurke",
+            sort="Schlangengurke",
+            plant_date=now - timedelta(days=30),
+            harvest_date=now - timedelta(days=1),
+            bed_id=1,
+            shelf_life_days=14,
+            amount=5.0,
+        )
+
+    def _make_expired_vegetable(self):
+        now = datetime.now()
+        return Vegetable(
+            name="Salat",
+            sort="Kopfsalat",
+            plant_date=now - timedelta(days=60),
+            harvest_date=now - timedelta(days=30),
+            bed_id=2,
+            shelf_life_days=7,
+            amount=3.0,
+        )
+
+    def test_add_harvest(self):
+        """Fügt eine Kopie des Gemüses zum Bestand hinzu."""
+        inv = Inventory()
+        veg = self._make_fresh_vegetable()
+        inv.add_harvest(veg, 10.0)
+        assert len(inv.items) == 1
+        assert inv.items[0].amount == 10.0
+        assert inv.items[0].name == veg.name
+
+    def test_get_fresh_items_returns_generator(self):
+        """Liefert einen Generator für frisches Gemüse zurück."""
+        inv = Inventory()
+        result = inv.get_fresh_items()
+        import types
+
+        assert isinstance(result, types.GeneratorType)
+
+    def test_get_fresh_items(self):
+        """Gibt ausschließlich frisches Gemüse zurück."""
+        inv = Inventory()
+        fresh = self._make_fresh_vegetable()
+        expired = self._make_expired_vegetable()
+        inv.items.extend([fresh, expired])
+
+        fresh_list = list(inv.get_fresh_items())
+        assert len(fresh_list) == 1
+        assert fresh_list[0].name == "Gurke"
+
+    def test_get_expired_items(self):
+        """Gibt ausschließlich abgelaufenes Gemüse zurück."""
+        inv = Inventory()
+        fresh = self._make_fresh_vegetable()
+        expired = self._make_expired_vegetable()
+        inv.items.extend([fresh, expired])
+
+        expired_list = list(inv.get_expired_items())
+        assert len(expired_list) == 1
+        assert expired_list[0].name == "Salat"
+
+    def test_get_total_amount(self):
+        """Summiert die Mengen aller Bestandselemente."""
+        inv = Inventory()
+        veg1 = self._make_fresh_vegetable()
+        veg2 = self._make_expired_vegetable()
+        inv.items.extend([veg1, veg2])
+
+        total = inv.get_total_amount()
+        assert total == veg1.amount + veg2.amount
+
+    def test_get_total_amount_empty(self):
+        """Ein leerer Bestand hat eine Gesamtmenge von 0,0."""
+        inv = Inventory()
+        assert inv.get_total_amount() == 0.0
+
+
+class TestOrderStr:
+    """Tests für die String-Repräsentation von Order und SubscriptionBox."""
+
+    def test_order_str(self):
+        now = datetime.now()
+        customer = Customer(name="Felix", species="Fuchs", subscription_type="monthly")
+        veg = Vegetable(
+            name="Tomate",
+            sort="Cherry",
+            plant_date=now,
+            harvest_date=now,
+            bed_id=1,
+            shelf_life_days=7,
+            amount=2.0,
+        )
+        order = Order(
+            customer=customer,
+            vegetables=[veg],
+            delivery_date=now,
+            price=9.99,
+        )
+        text = str(order)
+        assert "Felix" in text
+        assert "Tomate" in text
+
+    def test_subscription_box_str(self):
+        now = datetime.now()
+        customer = Customer(name="Lina", species="Eule", subscription_type="weekly")
+        veg = Vegetable(
+            name="Paprika",
+            sort="Rot",
+            plant_date=now,
+            harvest_date=now,
+            bed_id=1,
+            shelf_life_days=10,
+            amount=3.0,
+        )
+        box = SubscriptionBox(
+            customer=customer,
+            vegetables=[veg],
+            delivery_date=now,
+            price=15.0,
+        )
+        text = str(box)
+        assert "Lina" in text
+        assert "Paprika" in text

@@ -10,53 +10,48 @@
 
 ### 1.1 Projektvision und Ziele
 
-Die RabbitFarm ist eine Farmverwaltungsanwendung, welches Python-basiert ist. Sie ist dafür da einen fiktiven Gemüsehof des Haden Rudi. Rudi versorgt die gesamten Waldtiere mit frischem Gemüse. Er plant das anbauen, verwaltet die Ernte und liefert das Gemüse den Kunden mit einem Abo-Kisten (Abo-Plan) aus.
+Die RabbitFarm ist eine Python-basierte Farmverwaltungsanwendung für den fiktiven Gemüsehof des Hasen Rudi. Rudi versorgt die Waldtiere mit frischem Gemüse – er plant den Anbau, verwaltet die Ernte und liefert über Abo-Kisten an seine Kunden aus.
 
-Kernidee:
-- Die App soll die Arbeit für Rudi erleichtern.
-- Beete und Gemüsesorten werden digital und zentral gespeichert, sodass Rudi jeder Zeit drauf zugreifen kann.
-- Durch die Echtzeitüberwachung, kann Rudi jederzeit sein Bestand sehen, welche Ware noch frisch ist, welche Abgelaufen und wie lange die noch Haltbar sind.
-- Rudi hat jederzeit zugriff auf Kundendaten und bestellungen. Er kann den Kunden (Waldtiere) eine Abo-Kiste anlegen, sodass er nicht vergisst, welcher Kunde konstant Ware kaufen möchte (Das sind Rudis lieblings Kunden).
-- Rudi ist kein freund von der Buchhaltung, aus diesem Grund tut das die App automatisch. Sobald eine Bestellung bearbeitet wurde wird es automatsich im Programm berechnet. 
-- Die Anwendung wiederspiegelt und misst, dass Lazy Evaluation und Eager Evaluation. Dabei soll anhand der Sensoredaten gemessen werde, welche Evaluation am effektivsten ist.
+**Kernidee:**
 
-Ziele:
+- Die App erleichtert Rudi die tägliche Arbeit auf dem Hof.
+- Beete und Gemüsesorten werden zentral digital erfasst, sodass Rudi jederzeit darauf zugreifen kann.
+- Durch eine Bestandsüberwachung sieht Rudi in Echtzeit, welche Ware frisch, welche abgelaufen und wie lange sie noch haltbar ist.
+- Rudi hat jederzeit Zugriff auf Kundendaten und Bestellungen. Er kann Waldtier-Kunden eine Abo-Kiste zuweisen, um regelmäßige Lieferungen zu planen.
+- Die Finanzverwaltung läuft automatisch: Sobald eine Bestellung erfasst wird, berechnet die App die Einnahmen.
+- Die Anwendung ermöglicht einen Vergleich von Lazy Evaluation und Eager Evaluation anhand simulierter Sensordaten, um die Effizienz beider Ansätze messbar zu machen.
 
-1. RabbitFarm digital abbilden\
-2. Moderne Web-UI (SAAS)
-3. In der Domän "Sensordaten" Lazy vs. Eager vergeleichen (Benchmark mit Zeit- und Speichermessung)
+**Ziele:**
+
+1. Den Gemüsehof RabbitFarm digital abbilden
+2. Eine moderne Web-UI als Software-as-a-Service bereitstellen
+3. Im Bereich Sensordaten Lazy vs. Eager Evaluation vergleichen (Benchmark mit Zeit- und Speichermessung)
 
 ---
 
 ### 1.2 Wissenschaftliche Herausforderung / Python-spezifischer Aspekt
 
-In unserem Projekt geht es vor allem um **Lazy Evaluation** und darum, wie man mit **Datenströmen** speichersparend umgeht. Dafür haben wir uns im THEORETISCHERHINTERGRUND mit mehreren Quellen auseinandergesetzt. Zum Beispiel beschreibt Mertz (2015), dass Python standardmäßig **eager** auswertet – also alles sofort berechnet und ganze Listen im RAM aufbaut. Das ist zwar gut zum Debuggen, aber bei großen oder theoretisch unendlichen Datenmengen bläht sich der Speicherverbrauch schnell auf. Lazy Evaluation hingegen wertet erst aus, wenn der Wert wirklich gebraucht wird. Python hat das nicht so richtig eingebaut, aber mit **Generatoren** (yield) und **itertools** (islice, filter, map, cycle) kann man genau dieses Verhalten nachbauen – und genau das machen wir bei den Sensordaten und im Lager.
+Im Mittelpunkt dieses Projekts steht **Lazy Evaluation** und der speichereffiziente Umgang mit **Datenströmen**. Python wertet Ausdrücke standardmäßig **eager** aus – Ergebnisse werden sofort berechnet und vollständig im Speicher abgelegt (Mertz, 2015). Das ist beim Debuggen praktisch, führt aber bei großen oder theoretisch unendlichen Datenmengen zu hohem Speicherverbrauch. Lazy Evaluation hingegen berechnet Werte erst dann, wenn sie tatsächlich benötigt werden. Python unterstützt dieses Verhalten über **Generatoren** (`yield`) und **itertools** (`islice`, `filter`, `map`, `cycle`). Genau diese Mechanismen setzen wir bei den Sensordaten und im Lagermanagement ein.
 
-Für Python-Entwickler ist das relevant, weil man oft hört „Python ist langsam“ oder „Python frisst Speicher“. Wenn man aber funktional denkt und Lazy nutzt, kann man z.B. über theoretisch unbegrenzte Datenmengen iterieren ohne den Arbeitsspeicher vollzupumpen (siehe auch die Autorin Mahajan/Arora 2024 – Generatoren sparen RAM). Bei uns werden die Sensordaten als Stream geliefert, und wir vergleichen explizit: einmal alles in eine Liste packen (Eager) vs. alles als Pipeline durchlaufen lassen (Lazy). Die Messung machen wir mit tracemalloc und time.perf_counter(), damit man den Unterschied auch sieht. So wird die Theorie für die Lehre nachvollziehbar.
+Für Python-Entwickler ist das relevant, weil Generatoren es ermöglichen, über theoretisch unbegrenzte Datenmengen zu iterieren, ohne den gesamten Arbeitsspeicher zu beanspruchen (Mahajan & Arora, 2024). In unserem Projekt werden Sensordaten als Stream erzeugt, und wir vergleichen: Alle Daten in eine Liste packen (Eager) vs. die Daten als Pipeline durchlaufen lassen (Lazy). Die Messung erfolgt mit `tracemalloc` und `time.perf_counter()`, sodass der Unterschied nachvollziehbar wird.
 
-**Analogie / „Geschichte“ im Projekt:**
+**Analogie / „Geschichte" im Projekt:**
 
-Rudi der Hase liebte es, mit seinen Eltern zu spielen und zu kuscheln. Doch so sehr sie ihn auch liebten – sie hatten kaum Zeit. Tag für Tag arbeiteten sie auf den Feldern, um genug Karotten nach Hause zu bringen. Früh am Morgen gingen sie los, spät am Abend kamen sie müde zurück. Rudi wartete oft am Feldrand, voller Hoffnung auf ein bisschen gemeinsame Zeit. Das machte ihn traurig, denn er liebte seine Eltern von ganzem Herzen.
+Rudi der Hase liebte es, mit seinen Eltern zu spielen. Doch sie hatten kaum Zeit – Tag für Tag arbeiteten sie auf den Feldern, um genug Gemüse nach Hause zu bringen. Rudi wartete oft am Feldrand, voller Hoffnung auf gemeinsame Zeit.
 
-Eines Tages fasste er einen Entschluss: Wenn er groß ist, wird er ihnen helfen. Nicht nur ein bisschen – sondern richtig. Er wollte dafür sorgen, dass seine Eltern weniger arbeiten müssen und trotzdem genug Karotten im Bau sind.
+Eines Tages fasste er einen Entschluss: Wenn er groß ist, wird er seinen Eltern helfen. Er analysierte die Situation:
 
-Rudi setzte sich also hin und erstellte einen Business-Plan.
+- Die Eltern arbeiteten hart, aber ohne klare Planung.
+- Nur die Mutter hatte den Überblick über Ernte, Lagerbestand und Verkauf. Wenn sie nicht vor Ort war, lief alles schief.
+- Es wurde manchmal zu viel, aber oft zu wenig geerntet – Ware ging kaputt oder Verkaufschancen blieben ungenutzt.
 
-Als erstes analysiert er die Situation und die Probleme:
-- Eltern arbeiten hart, aber ungeplant -> Chaotisch
-- Nur die Mutter hatte einen Überblick über die Ernte, Lagerbestand und Verkauf, das bedeutet, wenn die Mutter von Rudi mal nicht vorort ist, lief alles schiefer als schief.
-- Es wurde manchmal zuviel aber oft zu wenig geerntet, sodass die Ware entweder Kaputt ging oder sie mehr verkaufen könnten.
+Nach zwei Monaten Mitarbeit und Dokumentation entwickelte Rudi einen Plan:
 
-Bevor Rudi anfängt eine lösung zu finden, musste er seiner Meinung nach es erstmal verstehen, wie die RabbitFarm so funktioniert. Aus diesem Grund beschloss er auch nun mit seinen Eltern zu arbeiten um die Prozesse zu verstehen. Jeden Arbeitstag dokumentiert er (was lief gut / was lief schief) und suchte lösungen. Nach 2 Monaten war er soweit... Er erstellte einen Plan, wie er seinen Eltern effizient die Arbeit erleichtern kann:
-- Bestand aufzeichnen
+- Bestand digital aufzeichnen
 - Kunden und Verkäufe dokumentieren
-- Beet automatisch analysieren, sodass die Eltern nicht jedesmal das manuell machen müssen (Sensoren)
+- Beete automatisch analysieren, damit die Eltern nicht alles manuell prüfen müssen (Sensoren)
 
-So machte Rudi sich an die Arbeit und Entwickelte das Programm mit seinem besten Freund Python die Schlange.
-
-Die Einführung des Programmes machte es den Eltern schwer, da es für sie komplett neu ist, aber nach 1 bis 2 Wochen haben sie gemerkt wie Effektiv es ist. Die Arbeit wurde somit erleichtert, alles geht schneller und effektiver, aber das schönste ist... Die Eltern mussten nicht mehr soviel Arbeiten...
-
-Als dank übergab der Vater von Rudi die RabbitFarm und alle sind glücklich.
+So entstand die RabbitFarm – entwickelt mit seinem besten Freund Python, der Schlange. Nach anfänglicher Eingewöhnung erkannten die Eltern, wie effektiv das System ist. Die Arbeit wurde erleichtert und effizienter. Aus Dankbarkeit übergab der Vater die Farm an Rudi.
 
 ---
 
@@ -64,14 +59,14 @@ Als dank übergab der Vater von Rudi die RabbitFarm und alle sind glücklich.
 
 **Formulierte Hypothese:**
 
-„Die Lazy-Evaluation mit Python-Generatoren und itertools reduziert den Speicherverbrauch im Vergleich zur Eager-Evaluation. Bei kleinen Datenmengen ist das nicht so entscheidend, aber wenn man mit 10.0000, 100.000 oder über 1.000.000 Messwerten arbeitet, wird man die Effizienz von Lazy bestimmt wahrnehmen.“
+„Lazy Evaluation mit Python-Generatoren und itertools reduziert den Speicherverbrauch im Vergleich zur Eager Evaluation. Bei kleinen Datenmengen ist der Unterschied gering, aber bei 10.000, 100.000 oder über 1.000.000 Messwerten wird die Effizienz von Lazy Evaluation deutlich sichtbar."
 
 **Messgrößen (Domänenentitäten des Projekts):**
 
-- Peak Memory Usage in MB: Gemessen wird mit tracemalloc während der Verarbeitung von N Sensordaten.
-- Processing Time in Sekunden: Gemessen wird mit time.perf_counter() für process_eager bzw. process_lazy über N Werte.
+- **Peak Memory Usage** in MB: Gemessen mit `tracemalloc` während der Verarbeitung von N Sensordaten.
+- **Processing Time** in Sekunden: Gemessen mit `time.perf_counter()` für `process_eager` bzw. `process_lazy` über N Werte.
 
-Die Überprüfung erfolgt im Jupyter-Notebook als auch in der Web-UI auf der Seite „Sensordaten“. Dadurch kann der User sehen, welche Evaluation tatsächlich effektiver ist.
+Die Überprüfung erfolgt im Jupyter-Notebook (`static/notebooks/layz_vs_eager.ipynb`) sowie in der Web-UI auf der Seite „Sensordaten". Dadurch kann der Nutzer selbst nachvollziehen, welche Evaluationsstrategie tatsächlich effizienter ist.
 
 ---
 
@@ -79,14 +74,12 @@ Die Überprüfung erfolgt im Jupyter-Notebook als auch in der Web-UI auf der Sei
 
 ### 2.1 Kontextdiagramm
 
-Die RabbitFarm steht in Wechselwirkung mit folgenden externen Akturen und Systeme:
+Die RabbitFarm steht in Wechselwirkung mit folgenden externen Akteuren und Systemen:
 
-- Rudi: Er ist der Hauptnutzer der Anwendung. Damit Verwaltet er Beet, Gemüse, Lager, Kunden, Bestellung und Finanzen und alles über die Web-UI.
-- Waldtiere: Das sind die Kunden also die fiktive Abnehmer. Sie werde in der App als Kunden hinterlegt und können Bestellungen und Abo-kisten aufgeben.
-- Sesnorsystem: Liefert konstant Sensordaten der Bodenfeuchtigkeit. Im Projekt wird es durch Generatoren stream_soil_moisture in sensors.py simuliert. 
-- Dateisystem: Gilt als kleine Datenbank für die App (JSON)
-
-
+- **Rudi:** Hauptnutzer der Anwendung. Er verwaltet Beete, Gemüse, Lager, Kunden, Bestellungen und Finanzen über die Web-UI.
+- **Waldtiere (Kunden):** Fiktive Abnehmer, die als Kunden in der App hinterlegt werden und Bestellungen bzw. Abo-Kisten aufgeben können.
+- **Sensorsystem:** Liefert kontinuierlich simulierte Sensordaten der Bodenfeuchtigkeit. Im Projekt wird dies durch den Generator `stream_soil_moisture` in `sensors.py` realisiert.
+- **Dateisystem:** Dient als Persistenzschicht (JSON-basiert).
 
 **Kontextdiagramm (textuell):**
 
@@ -98,7 +91,7 @@ Die RabbitFarm steht in Wechselwirkung mit folgenden externen Akturen und System
                              v
 +------------------+    +---------+    +------------------+
 | Sensorsystem     |--->| Rabbit  |<---| Dateisystem      |
-| (Bodenfeuchtigkeit)|   | Farm    |   | (rabbitfarm_     |
+| (Bodenfeucht.)   |    | Farm    |    | (rabbitfarm_     |
 +------------------+    | (App)   |    |  data.json)      |
                         +----+----+    +------------------+
                              ^
@@ -108,32 +101,32 @@ Die RabbitFarm steht in Wechselwirkung mit folgenden externen Akturen und System
                     | (Daten in App)  |
                     +-----------------+
 ```
-Die Web-UI ist ein bestandteil des Systems. Der Client nutzt den Browser und kommuniziert per HTTP-Anfragen an dem Server, also den Kern der App.
+
+Die Web-UI ist Bestandteil des Systems. Der Client nutzt den Browser und kommuniziert per HTTP-Anfragen mit dem Server, dem Kern der App.
 
 ---
 
 ### 2.2 Funktionale Anforderungen
 
-Die funktionalen Anforderungen werden mit IDs versehen, um Traceability zu Tests und Implementierung zu ermöglichen.
+Die funktionalen Anforderungen sind mit IDs versehen, um Traceability zu Tests und Implementierung sicherzustellen.
 
 | ID | Beschreibung | Priorität | Umsetzung (Kurz) |
 |----|--------------|-----------|-------------------|
-| REQ-01 | Beet-Verwaltung: Anlegen und Auflisten von Beeten (ID, Name, Größe m²) | Must | Bed in models.py; Web: /beds, Formular + Tabelle |
-| REQ-02 | Gemüsesorten-Katalog: Name, Sorte, Pflanz-/Erntedatum, Beet-Zuordnung, Haltbarkeit, Menge | Must | Vegetable in models.py; Web: /vegetables |
+| REQ-01 | Beet-Verwaltung: Anlegen und Auflisten von Beeten (ID, Name, Größe m²) | Must | `Bed` in `models.py`; Web: `/beds`, Formular + Tabelle |
+| REQ-02 | Gemüsesorten-Katalog: Name, Sorte, Pflanz-/Erntedatum, Beet-Zuordnung, Haltbarkeit, Menge | Must | `Vegetable` in `models.py`; Web: `/vegetables` |
 | REQ-03 | Pflanzplanung: Gemüse manuell einem Beet zuordnen | Must | Gemüse-Formular mit Beet-Dropdown |
-| REQ-04 | Bestandsüberwachung: Geerntetes Gemüse im Lager verwalten | Must | Inventory mit add_harvest(); Web: /inventory |
-| REQ-05 | Haltbarkeitslogik: Frische prüfen (is_fresh, freshness_ratio), abgelaufene Ware identifizieren | Must | Vegetable.is_fresh(), Inventory.get_expired_items() (Generator) |
-| REQ-06 | Bestandsabfrage: Echtzeit-Übersicht über Lagerbestand und Frische | Must | /inventory mit frischer/abgelaufener Ware und Gesamtmenge |
-| REQ-07 | Kunden-Datenbank: Name, Tierart, Abo-Typ | Must | Customer in models.py; Web: /customers |
-| REQ-08 | Abo-Kisten-System: generatorbasierte Box-Generierung | Must | generate_subscription_boxes() in services.py (itertools.cycle, islice) |
-| REQ-09 | Bestellabwicklung: Bestellungen mit Kunde, Gemüse, Lieferdatum, Preis | Must | Order in models.py; Web: /orders |
-| REQ-10 | Ausgaben-Tracking (optional) und Einnahmen-Berechnung | Must | calculate_profit() in services.py; Web: /finances |
+| REQ-04 | Bestandsüberwachung: Geerntetes Gemüse im Lager verwalten | Must | `Inventory` mit `add_harvest()`; Web: `/inventory` |
+| REQ-05 | Haltbarkeitslogik: Frische prüfen (`is_fresh`, `freshness_ratio`), abgelaufene Ware identifizieren | Must | `Vegetable.is_fresh()`, `Inventory.get_expired_items()` (Generator) |
+| REQ-06 | Bestandsabfrage: Echtzeit-Übersicht über Lagerbestand und Frische | Must | `/inventory` mit frischer/abgelaufener Ware und Gesamtmenge |
+| REQ-07 | Kunden-Datenbank: Name, Tierart, Abo-Typ | Must | `Customer` in `models.py`; Web: `/customers` |
+| REQ-08 | Abo-Kisten-System: Generatorbasierte Box-Generierung | Must | `generate_subscription_boxes()` in `services.py` (`itertools.cycle`, `islice`) |
+| REQ-09 | Bestellabwicklung: Bestellungen mit Kunde, Gemüse, Lieferdatum, Preis | Must | `Order` in `models.py`; Web: `/orders` |
+| REQ-10 | Ausgaben-Tracking (optional) und Einnahmen-Berechnung | Must | `calculate_profit()` in `services.py`; Web: `/finances` |
 | REQ-11 | Gewinn-/Verlustrechnung: Revenue, optional Expenses, Profit, Marge | Must | Finanzseite mit Summen und Bestellliste |
-| REQ-12 | Dashboard mit Übersicht und Schnellzugriff auf alle Bereiche | Must | / mit Kacheln zu Gemüse, Beeten, Lager, Kunden, Bestellungen, Finanzen, Sensordaten |
-| REQ-13 | Sensordaten-Stream: kontinuierliche Bodenfeuchtigkeits-Messwerte (simuliert) | Must | stream_soil_moisture() in sensors.py (Generator) |
-| REQ-14 | Generatorbasierte Verarbeitung: Filter/Map über Sensordaten ohne vollständige Materialisierung | Must | process_lazy() in sensor_benchmark.py (filter, map, islice) |
-| REQ-15 | Performance-Benchmark: Eager vs. Lazy mit Zeit- und Speichermessung | Must | benchmark_eager(), benchmark_lazy() in sensor_benchmark.py; Web: /sensors |
-
+| REQ-12 | Dashboard mit Übersicht und Schnellzugriff auf alle Bereiche | Must | `/` mit Kacheln zu Gemüse, Beeten, Lager, Kunden, Bestellungen, Finanzen, Sensordaten |
+| REQ-13 | Sensordaten-Stream: Kontinuierliche Bodenfeuchtigkeits-Messwerte (simuliert) | Must | `stream_soil_moisture()` in `sensors.py` (Generator) |
+| REQ-14 | Generatorbasierte Verarbeitung: Filter/Map über Sensordaten ohne vollständige Materialisierung | Must | `process_lazy()` in `sensor_benchmark.py` (`filter`, `map`, `islice`) |
+| REQ-15 | Performance-Benchmark: Eager vs. Lazy mit Zeit- und Speichermessung | Must | `benchmark_eager()`, `benchmark_lazy()` in `sensor_benchmark.py`; Web: `/sensors` |
 
 ---
 
@@ -141,9 +134,9 @@ Die funktionalen Anforderungen werden mit IDs versehen, um Traceability zu Tests
 
 | ID | Kategorie (ISO 25010) | Anforderung | Maßnahme |
 |----|------------------------|-------------|----------|
-| NF-01 | Performance Efficiency / Ressourcennutzung | Lazy-Evaluation soll bei 10.000+ Sensordatenpunkten messbar weniger RAM verbrauchen als Eager | Benchmark mit tracemalloc; Ziel: deutliche Reduktion des Peak-Speichers |
-| NF-02 | Funktionalität / Datenintegrität | Persistente Daten konsistent und wiederherstellbar | JSON-Persistenz in data_manager; save_data() bei Änderungen; load_data() beim Start |
-| NF-03 | Wartbarkeit / Modifizierbarkeit | Klare Trennung Kern vs. Oberfläche; Erweiterung ohne Änderung des Kerns | Modulare Struktur: models, data_manager, services, sensors, sensor_benchmark ohne Flask-Abhängigkeit |
+| NF-01 | Performance Efficiency / Ressourcennutzung | Lazy Evaluation soll bei 10.000+ Sensordatenpunkten messbar weniger RAM verbrauchen als Eager | Benchmark mit `tracemalloc`; Ziel: deutliche Reduktion des Peak-Speichers |
+| NF-02 | Funktionalität / Datenintegrität | Persistente Daten konsistent und wiederherstellbar | JSON-Persistenz in `data_manager`; `save_data()` bei Änderungen; `load_data()` beim Start |
+| NF-03 | Wartbarkeit / Modifizierbarkeit | Klare Trennung Kern vs. Oberfläche; Erweiterung ohne Änderung des Kerns | Modulare Struktur: `models`, `data_manager`, `services`, `sensors`, `sensor_benchmark` ohne Flask-Abhängigkeit |
 | NF-04 | Zuverlässigkeit / Reproduzierbarkeit | Benchmark-Ergebnisse nachvollziehbar | Feste Parameter (Beet-ID, N, Schwellwerte); optional Seed für Zufall in Sensordaten |
 | NF-05 | Benutzerfreundlichkeit (Usability) | Klare, konsistente Bedienung der Web-App | Einheitliches Layout (Sidebar), Bootstrap, deutsche Beschriftungen, Fehlermeldungen bei ungültigen Eingaben |
 
@@ -153,15 +146,15 @@ Die funktionalen Anforderungen werden mit IDs versehen, um Traceability zu Tests
 
 Typische Interaktionen der Nutzer mit dem System:
 
-1. Beete verwalten (Rudi): Beete anlegen (Name, Größe), Liste einsehen. Use Case „Beet anlegen“ / „Beetliste anzeigen“.
-2. Gemüse pflanzen (Rudi): Neues Gemüse anlegen (Name, Sorte, Beet, Pflanz-/Erntedatum, Haltbarkeit, Menge). Use Case „Gemüse anpflanzen“.
-3. Lager prüfen (Rudi): Lagerbestand einsehen; Ernte einlagern (Gemüse + Menge); frische vs. abgelaufene Ware unterscheiden. Use Case „Lagerbestand anzeigen“, „Ernte einlagern“.
-4. Kunden verwalten (Rudi): Kunden anlegen (Name, Tierart, Abo-Typ), Kundenliste anzeigen. Use Case „Kunde anlegen“.
-5. Bestellungen verwalten (Rudi): Bestellung aufgeben (Kunde, Gemüse, Lieferzeit, Preis); Bestellhistorie einsehen. Use Case „Bestellung aufgeben“, „Bestellhistorie anzeigen“.
-6. Finanzen analysieren (Rudi): Gesamteinnahmen und Liste der Bestellungen einsehen. Use Case „Finanzübersicht anzeigen“.
-7. Sensordaten verarbeiten / Benchmark (Rudi): Beet und Anzahl Messwerte wählen; Eager- und Lazy-Benchmark ausführen; Laufzeit, Speicher und Vergleich anzeigen. Use Case „Lazy vs. Eager testen“.
+1. **Beete verwalten (Rudi):** Beete anlegen (Name, Größe), Liste einsehen. Use Case „Beet anlegen" / „Beetliste anzeigen".
+2. **Gemüse pflanzen (Rudi):** Neues Gemüse anlegen (Name, Sorte, Beet, Pflanz-/Erntedatum, Haltbarkeit, Menge). Use Case „Gemüse anpflanzen".
+3. **Lager prüfen (Rudi):** Lagerbestand einsehen; Ernte einlagern (Gemüse + Menge); frische vs. abgelaufene Ware unterscheiden. Use Case „Lagerbestand anzeigen", „Ernte einlagern".
+4. **Kunden verwalten (Rudi):** Kunden anlegen (Name, Tierart, Abo-Typ), Kundenliste anzeigen. Use Case „Kunde anlegen".
+5. **Bestellungen verwalten (Rudi):** Bestellung aufgeben (Kunde, Gemüse, Lieferzeit, Preis); Bestellhistorie einsehen. Use Case „Bestellung aufgeben", „Bestellhistorie anzeigen".
+6. **Finanzen analysieren (Rudi):** Gesamteinnahmen und Bestellliste einsehen. Use Case „Finanzübersicht anzeigen".
+7. **Sensordaten verarbeiten / Benchmark (Rudi):** Beet und Anzahl Messwerte wählen; Eager- und Lazy-Benchmark ausführen; Laufzeit, Speicher und Vergleich anzeigen. Use Case „Lazy vs. Eager testen".
 
-Die Abhängigkeiten (z. B. „Bestellung aufgeben“ setzt Kunden und Gemüse voraus, „Ernte einlagern“ setzt Gemüse voraus) sind in der Web-UI durch Dropdowns und Validierung abgebildet. Ein Use-Case-Diagramm in Mermaid-Notation ist im Konzeptionsplan (Abschnitt 3.2) zu finden.
+Die Abhängigkeiten (z. B. „Bestellung aufgeben" setzt Kunden und Gemüse voraus, „Ernte einlagern" setzt Gemüse voraus) sind in der Web-UI durch Dropdowns und Validierung abgebildet. Ein Use-Case-Diagramm in Mermaid-Notation ist im Konzeptionsplan (Abschnitt 3.2) zu finden.
 
 ---
 
@@ -169,14 +162,15 @@ Die Abhängigkeiten (z. B. „Bestellung aufgeben“ setzt Kunden und Gemüse vo
 
 ### 3.1 Auswahl der Plattform (Begründung)
 
-Web-UI mit Flask:
-Für die Oberfläche wurde eine klassische Web-Anwendung mit Flask gebaut. Das Veranschaulichen der App erfolgt im Browser über eine HTML-Seite der serverseitigem Renderung (Jinja2-Templates) und einer festen Sidebar. Die Anwendung ist keine Webseite sondern eine App (SAAS) womit man kontinuirlich arbeiten kann.
+Für die Oberfläche wurde eine klassische **Web-Anwendung mit Flask** gewählt. Die Darstellung erfolgt im Browser über serverseitig gerenderte HTML-Seiten (Jinja2-Templates) mit einer festen Sidebar-Navigation. Die Anwendung fungiert als SaaS-artige App, mit der Rudi kontinuierlich arbeiten kann.
 
-Begründung gegenüber Alternativen:
+**Begründung gegenüber Alternativen:**
 
-- Desktop-GUI (tkinter, PyQt): Web-UI läuft im Browser und ist nicht Lokal an einer Python-Installation gebunden. Ist von überall aus greifbar, sei es Desktop, Tablet oder Mobil-Telefon.
+- **Desktop-GUI (tkinter, PyQt):** Eine Web-UI ist nicht an eine lokale Python-Installation gebunden und von jedem Gerät mit Browser erreichbar – ob Desktop, Tablet oder Mobiltelefon.
+- **Streamlit:** Bietet zwar schnelle Prototypen, schränkt aber die individuelle Gestaltung ein und setzt ein Streamlit-spezifisches Programmiermodell voraus.
 
-Rolle der Jupyter-Notebooks: Sind primär eine Umgebung für die Auswertung und Visualisierung der wissenschaftliche Fragestellung. Die Web-Ui tut das selber nur nutzt die UI Beets die der Benutzer angelegt hat.
+**Rolle der Jupyter-Notebooks:** Sie dienen primär der wissenschaftlichen Auswertung und Visualisierung (Lazy vs. Eager). Die Web-UI enthält eine eigene Benchmark-Seite, die dieselbe Kernlogik nutzt.
+
 ---
 
 ### 3.2 Modularer Kern und Open-Closed Principle
@@ -185,40 +179,39 @@ Rolle der Jupyter-Notebooks: Sind primär eine Umgebung für die Auswertung und 
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  Präsentation                                                     │
+│  Präsentation                                                   │
 │  • Web-UI: src/web/ (Flask, routes.py, templates/, static/)     │
-│  • Optional: Terminal-App (src/terminal-app/), Jupyter-Notebooks  │
+│  • Optional: Terminal-App (src/terminal-app/), Jupyter-Notebooks│
 └───────────────────────────────┬─────────────────────────────────┘
                                 │ importiert / nutzt
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  Kern (Domain + Application)                                     │
-│  • models.py         – Vegetable, Bed, Customer, Order, Inventory  │
-│  • data_manager.py  – load_data(), save_data(), JSON             │
-│  • services.py      – calculate_profit(), generate_subscription_  │
-│                        boxes()                                    │
-│  • sensors.py        – stream_soil_moisture()                       │
-│  • sensor_benchmark.py – process_eager, process_lazy, benchmark_* │
+│  Kern (Domain + Application)                                    │
+│  • models.py         – Vegetable, Bed, Customer, Order, …       │
+│  • data_manager.py   – load_data(), save_data(), JSON           │
+│  • services.py       – calculate_profit(), generate_sub…boxes() │
+│  • sensors.py        – stream_soil_moisture()                   │
+│  • sensor_benchmark.py – process_eager, process_lazy, benchmark │
 └───────────────────────────────┬─────────────────────────────────┘
-                                │ liest/schreibt
+                                │ liest / schreibt
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  Persistenz                                                       │
-│  • data/rabbitfarm_data.json                                     │
+│  Persistenz                                                     │
+│  • data/rabbitfarm_data.json                                    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-Abhängigkeitsrichtung: Die Web-App importiert nur aus dem Kern (data_manager, models, sensor_benchmark). Der Kern importiert weder Flask noch andere UI-Bibliotheken... er nutzt nur Standardbibliothek (datetime, json, itertools, tracemalloc, time) und die eigenen Module. Domänenlogik (Frische, Bewässerungsbedarf, Gewinnmarge) liegt zentral und wird von allen Oberflächen gemeinsam genutzt.
+**Abhängigkeitsrichtung:** Die Web-App importiert nur aus dem Kern (`data_manager`, `models`, `sensor_benchmark`). Der Kern importiert weder Flask noch andere UI-Bibliotheken – er nutzt ausschließlich die Standardbibliothek (`datetime`, `json`, `itertools`, `tracemalloc`, `time`) und die eigenen Module. Domänenlogik (Frische, Bewässerungsbedarf, Gewinnmarge) liegt zentral und wird von allen Oberflächen gemeinsam genutzt.
 
-Konkrete Zuordnung:
+**Konkrete Zuordnung:**
 
 | Komponente | Verantwortung | Abhängigkeiten |
 |------------|----------------|-----------------|
-| `models.py` | Dataclasses, `is_fresh()`, `freshness_ratio()`, `add_harvest()`, Generatoren im Inventory | stdlib (datetime, typing, dataclasses) |
-| `data_manager.py` | Laden/Speichern aller Entitäten | models, os, json |
-| `services.py` | Abo-Box-Generierung, Gewinnberechnung | models, itertools |
-| `sensors.py` | Generator Bodenfeuchtigkeit | random, datetime, typing |
-| `sensor_benchmark.py` | process_eager, process_lazy, benchmark_eager, benchmark_lazy | sensors, itertools, time, tracemalloc, sys |
+| `models.py` | Dataclasses, `is_fresh()`, `freshness_ratio()`, `add_harvest()`, Generatoren im Inventory | stdlib (`datetime`, `typing`, `dataclasses`) |
+| `data_manager.py` | Laden/Speichern aller Entitäten | `models`, `os`, `json` |
+| `services.py` | Abo-Box-Generierung, Gewinnberechnung | `models`, `itertools` |
+| `sensors.py` | Generator Bodenfeuchtigkeit | `random`, `datetime`, `typing` |
+| `sensor_benchmark.py` | `process_eager`, `process_lazy`, `benchmark_eager`, `benchmark_lazy` | `sensors`, `itertools`, `time`, `tracemalloc`, `sys` |
 | `src/web/` | Routen, Templates, Formulare | Flask, Kern-Module |
 
 ---
@@ -227,18 +220,19 @@ Konkrete Zuordnung:
 
 | Kategorie | Technologie | Version / Quelle | Rolle im Projekt |
 |-----------|-------------|------------------|-------------------|
-| **Sprache** | Python | 3.10+ empfohlen | Laufzeitumgebung |
+| **Sprache** | Python | 3.10+ | Laufzeitumgebung |
 | **Web-Framework** | Flask | ≥ 2.0 | Routing, Request/Response, WSGI-App; Blueprint für Routen |
 | **Templating** | Jinja2 | (mit Flask) | HTML-Seiten (layout, index, vegetables, beds, inventory, customers, orders, finance, sensors) |
 | **Frontend** | Bootstrap | 5.3.2 (CDN) | Layout, Grid, Formulare, Tabellen, Karten |
 | **Icons** | Bootstrap Icons | 1.11.1 (CDN) | Sidebar, Dashboard, Buttons |
 | **Persistenz** | JSON (stdlib) | – | `data/rabbitfarm_data.json`; Ein-/Ausgabe über `data_manager` |
-| **Datenverarbeitung** | pandas | ≥ 1.3 | Optional; Auswertung, Tabellen in Notebooks |
-| **Numerik** | NumPy | ≥ 1.21 | Optional; Basis für pandas und Auswertungen |
+| **Datenverarbeitung** | pandas | ≥ 1.3 | Auswertung und Tabellen in Notebooks |
+| **Numerik** | NumPy | ≥ 1.21 | Basis für pandas und numerische Auswertungen |
 | **Visualisierung** | Matplotlib | ≥ 3.5 | Plots in Jupyter-Notebooks (Lazy vs. Eager) |
-| **Notebooks** | Jupyter, ipykernel, ipywidgets | requirements.txt | Wissenschaftliche Auswertung, Demos |
-| **Speicheranalyse** | tracemalloc, memory-profiler | stdlib / ≥ 0.60 | Benchmark Speicherverbrauch; tracemalloc in `sensor_benchmark` |
-| **itertools** | stdlib | – | islice, filter, map, cycle für lazy Pipelines und Abo-Boxen |
+| **Notebooks** | Jupyter, ipykernel, ipywidgets | siehe requirements.txt | Wissenschaftliche Auswertung und Demos |
+| **Speicheranalyse** | tracemalloc, memory-profiler | stdlib / ≥ 0.60 | Benchmark Speicherverbrauch; `tracemalloc` in `sensor_benchmark` |
+| **itertools** | stdlib | – | `islice`, `filter`, `map`, `cycle` für Lazy-Pipelines und Abo-Boxen |
+| **Testing** | pytest | ≥ 7.0 | Unit- und Integrationstests |
 
 **Abhängigkeiten laut `src/requirements.txt`:**
 
@@ -250,11 +244,11 @@ memory-profiler>=0.60.0
 jupyter>=1.0.0
 ipykernel>=6.0.0
 ipywidgets>=7.6.0
-memory_profiler>=0.61.0
 flask>=2.0.0
+pytest>=7.0.0
 ```
 
-Die Web-UI benötigt davon mindestens Flask. Matplotlib, NumPy, Pandas, Jupyter und Memory-Profiler werden in den Jupyter-Notebooks genutzt... die im Web verwendete Benchmark-Logik nutzt nur die Standardbibliothek (tracemalloc, itertools) und das Modul sensors.
+Die Web-UI benötigt davon mindestens Flask. Matplotlib, NumPy, pandas, Jupyter und memory-profiler werden in den Jupyter-Notebooks genutzt. Die im Web verwendete Benchmark-Logik nutzt nur die Standardbibliothek (`tracemalloc`, `itertools`) und das Modul `sensors`.
 
 ---
 
@@ -262,7 +256,7 @@ Die Web-UI benötigt davon mindestens Flask. Matplotlib, NumPy, Pandas, Jupyter 
 
 ### 4.1 Domänenmodell und UML-Klassendiagramm
 
-**Die „Geschichte“:** Rudi bewirtschaftet Beete, pflanzt Gemüse, lagert Ernten ein, verwaltet Kunden und Bestellungen. Die Objekte der Domäne sind **Beete (Bed)**, **Gemüse (Vegetable)**, **Kunden (Customer)**, **Bestellungen (Order)**, **Abo-Kisten (SubscriptionBox)** und das **Lager (Inventory)** mit darin enthaltenem Gemüse. Sensordaten (Bodenfeuchtigkeit) werden pro Beet als Strom geliefert und für Bewässerungsempfehlungen verarbeitet.
+**Die „Geschichte":** Rudi bewirtschaftet Beete, pflanzt Gemüse, lagert Ernten ein, verwaltet Kunden und Bestellungen. Die Objekte der Domäne sind **Beete (Bed)**, **Gemüse (Vegetable)**, **Kunden (Customer)**, **Bestellungen (Order)**, **Abo-Kisten (SubscriptionBox)** und das **Lager (Inventory)** mit darin enthaltenem Gemüse. Sensordaten (Bodenfeuchtigkeit) werden pro Beet als Strom geliefert und für Bewässerungsempfehlungen verarbeitet.
 
 **Klassendiagramm (Mermaid):**
 
@@ -329,7 +323,7 @@ classDiagram
 
 ### 4.2 Verhaltensdiagramme: Activity- und State-Diagramm
 
-**Activity-Diagramm – Ablauf „Ernte einlagern und Lager anzeigen“:**
+**Activity-Diagramm – Ablauf „Ernte einlagern und Lager anzeigen":**
 
 1. Nutzer wählt auf `/inventory` ein Gemüse (aus vorhandenen Vegetables) und eine Menge.
 2. POST an `/inventory` → Route ruft `data_manager.inventory.add_harvest(veg, amount)` auf.
@@ -337,9 +331,9 @@ classDiagram
 4. Route ruft `data_manager.save_data()` auf → JSON wird geschrieben.
 5. Redirect auf `/inventory` → GET liefert Seite mit `get_fresh_items()`, `get_expired_items()`, `get_total_amount()`; Template zeigt frische/abgelaufene Ware und Gesamtmenge.
 
-**State-Diagramm – Lebenszyklus „Gemüse (Vegetable)“:**
+**State-Diagramm – Lebenszyklus „Gemüse (Vegetable)":**
 
-- **Angepflanzt:** Gemüse ist angelegt (plant_date, harvest_date, bed_id, …).
+- **Angepflanzt:** Gemüse ist angelegt (`plant_date`, `harvest_date`, `bed_id`, …).
 - **Geerntet:** Erntedatum erreicht; kann ins Lager (`add_harvest`) oder in eine Bestellung.
 - **Im Lager:** Eintrag in `inventory.items`; Zustand **frisch** (innerhalb `shelf_life_days`) oder **abgelaufen** (außerhalb), bestimmt durch `is_fresh()` / `freshness_ratio()`.
 - **Verkauft / in Bestellung:** Gemüse referenziert in einer `Order` (Kopie der Attribute in der serialisierten Bestellung).
@@ -348,9 +342,9 @@ classDiagram
 
 ### 4.3 Interaktionsdiagramm: Sequence-Diagramm
 
-**Sequenz „Sensordaten-Benchmark (Web)“:**
+**Sequenz „Sensordaten-Benchmark (Web)":**
 
-1. Nutzer öffnet `/sensors`, wählt Beet und Anzahl Messwerte, klickt „Eager & Lazy testen“.
+1. Nutzer öffnet `/sensors`, wählt Beet und Anzahl Messwerte, klickt „Eager & Lazy testen".
 2. Browser sendet POST mit `bed_id`, `num_readings`.
 3. Route `sensors()` parst Parameter, ruft `benchmark_eager(bed_id, num_readings)` auf.
 4. `benchmark_eager`: startet `tracemalloc`, holt mit `islice(stream_soil_moisture(...), num_readings)` eine Liste, ruft `process_eager(data_list)` auf, misst Zeit und Speicher, gibt Dict zurück.
@@ -358,7 +352,7 @@ classDiagram
 6. `benchmark_lazy`: startet `tracemalloc`, übergibt `islice(stream_soil_moisture(...), num_readings)` (Iterator) an `process_lazy`, misst Zeit und Speicher, gibt Dict zurück.
 7. Route rendert Template mit `result_eager` und `result_lazy`; Browser zeigt zwei Karten (Eager / Lazy) und Vergleich.
 
-**Sequenz „Bestellung aufgeben“:**
+**Sequenz „Bestellung aufgeben":**
 
 1. Nutzer auf `/orders`, wählt Kunde, Gemüse (Mehrfachauswahl), Lieferzeit, Preis → POST.
 2. Route liest Indizes, holt `Customer` und `Vegetable`-Liste aus `data_manager`, erstellt `Order`, hängt an `data_manager.orders` an, ruft `save_data()` auf, Redirect auf `/orders`.
@@ -367,14 +361,12 @@ classDiagram
 
 ### 4.4 Design Patterns und Prinzipien
 
-- **MVC-ähnliche Trennung:** Modelle (`models.py`) halten Daten und Domänenlogik; die Web-UI (View) rendert Templates; die Routen (Controller-ähnlich) vermitteln zwischen Request und Kern (keine Geschäftslogik in den Routen, nur Aufruf von data_manager, sensor_benchmark).
-- **Generator / Iterator (Lazy):** Sensordaten-Stream, Lager-Filterung und Abo-Kisten-Generierung nutzen `yield` bzw. `filter`/`map`/`islice`, um Daten erst bei Bedarf zu erzeugen oder zu filtern – Vermeidung von großen Listen im Speicher.
+- **MVC-ähnliche Trennung:** Modelle (`models.py`) halten Daten und Domänenlogik; die Web-UI (View) rendert Templates; die Routen (Controller-ähnlich) vermitteln zwischen Request und Kern. Geschäftslogik liegt nicht in den Routen, sondern wird über `data_manager`, `services` und `sensor_benchmark` aufgerufen.
+- **Generator / Iterator (Lazy):** Sensordaten-Stream, Lager-Filterung und Abo-Kisten-Generierung nutzen `yield` bzw. `filter`/`map`/`islice`, um Daten erst bei Bedarf zu erzeugen – Vermeidung großer Listen im Speicher.
 - **Single Responsibility:** Jedes Modul hat eine klar abgegrenzte Aufgabe (models: Domäne; data_manager: Persistenz; services: Abos/Finanzen; sensors: Stream; sensor_benchmark: Benchmark).
 - **DRY:** Persistenz-Logik nur in `data_manager`; Frische-Logik nur in `Vegetable`; Benchmark-Logik nur in `sensor_benchmark`.
 - **KISS:** Keine übermäßige Abstraktion; direkte Nutzung von Dataclasses, Listen und Generatoren.
-- **Open-Closed:** Kern erweiterbar durch neue Funktionen/Module, ohne bestehende Routen oder Modelle zu verändern; neue Oberflächen (z. B. API) können denselben Kern nutzen.
-
----
+- **Open-Closed:** Der Kern ist erweiterbar durch neue Funktionen/Module, ohne bestehende Routen oder Modelle zu verändern. Neue Oberflächen (z. B. REST-API) können denselben Kern nutzen.
 
 ---
 
@@ -382,25 +374,27 @@ classDiagram
 
 ### 5.1 Methodik der Untersuchung
 
-Im THEORETISCHERHINTERGRUND haben wir uns u.a. mit der Frage beschäftigt: *Wie transformieren wir Daten aus einem Stream, damit sie speichereffizient genutzt werden?* Und: *Worin besteht der Unterschied zwischen Lazy und Eager?* Genau das wollen wir im Notebook und in der App messen.
+Im theoretischen Hintergrund haben wir uns mit der Frage beschäftigt: *Wie lassen sich Daten aus einem Stream speichereffizient transformieren?* und *Worin liegt der Unterschied zwischen Lazy und Eager Evaluation in Python?*
 
-**Forschungsfrage:** Wie verändert sich das Speicher- und Laufzeitverhalten, wenn wir Sensordatenströme mit Generatoren (Lazy) verarbeiten statt alles in Listen (Eager) zu packen?
+**Forschungsfrage:** Wie verändert sich das Speicher- und Laufzeitverhalten, wenn Sensordatenströme mit Generatoren (Lazy) verarbeitet werden statt mit Listen (Eager)?
 
-**Datenmodell:** Wir simulieren Bodenfeuchtigkeits-Messwerte pro Beet. Jeder Wert ist ein Dictionary mit bed_id, moisture (0–100) und timestamp. Der Stream könnte theoretisch unendlich laufen – für den Benchmark begrenzen wir ihn mit itertools.islice auf N Werte. Das entspricht genau dem, was Mertz beschreibt: Bei Eager wird alles sofort materialisiert, bei Lazy nur das, was wir am Ende wirklich brauchen.
+**Datenmodell:** Wir simulieren Bodenfeuchtigkeits-Messwerte pro Beet. Jeder Wert ist ein Dictionary mit `bed_id`, `moisture` (0–100) und `timestamp`. Der Stream kann theoretisch unendlich laufen – für den Benchmark begrenzen wir ihn mit `itertools.islice` auf N Werte.
 
-**Eager-Ansatz:** Wir holen uns N Werte aus dem Stream und stecken sie in eine Liste. Dann filtern wir (z.B. Feuchtigkeit unter 35 oder über 80) und rechnen den Bewässerungsbedarf aus. Die ganze Liste liegt die ganze Zeit im Speicher – das ist der klassische Python-Weg.
+**Eager-Ansatz (`process_eager`):** Alle N Werte werden aus dem Stream geholt und in einer Liste materialisiert. Anschließend wird gefiltert (Feuchtigkeit unter 35 oder über 80) und der Bewässerungsbedarf berechnet. Die gesamte Liste liegt während der Verarbeitung im Speicher.
 
-**Lazy-Ansatz:** Wir lassen den Stream einen Iterator bleiben. Filter und Map legen wir als filter() und map() darüber, und erst ganz am Ende (wenn wir z.B. list(...) aufrufen) wird das Ergebnis gebaut. Dazwischen liegt nie die komplette Rohdaten-Liste im RAM. Laut Theorie (z.B. Mahajan/Arora zu Generatoren, Mertz zu Lazy) spart das erheblich Speicher.
+**Lazy-Ansatz (`process_lazy`):** Der Stream bleibt ein Iterator. `filter()` und `map()` werden als Pipeline darübergelegt, und erst am Ende wird das Ergebnis materialisiert. Dazwischen liegt nie die komplette Rohdaten-Liste im RAM.
 
-**Messgrößen:** Wir messen den Peak-Speicher in MB (tracemalloc), die Laufzeit in Sekunden (time.perf_counter()), und wie groß die Datenstruktur selbst ist (Liste vs. Iterator). Im Notebook laufen wir verschiedene N durch (z.B. 10⁵, 10⁶), tragen alles in Tabellen ein und machen Plots – Zeit und Speicher über N für Eager und Lazy. Der Aufbau steht in `static/notebooks/layz_vs_eager.ipynb`.
+**Messgrößen:** Peak-Speicher in MB (`tracemalloc`), Laufzeit in Sekunden (`time.perf_counter()`), und die Größe der Datenstruktur (`sys.getsizeof`). Im Notebook werden verschiedene N durchlaufen (z. B. 10.000, 100.000, 1.000.000), die Ergebnisse in Tabellen erfasst und als Plots dargestellt. Der Aufbau ist in `static/notebooks/layz_vs_eager.ipynb` dokumentiert.
 
 ---
 
 ### 5.2 Analyse und Demonstration
 
-Wenn wir im Notebook die Benchmarks für verschiedene N laufen lassen (z.B. 10⁵, 10⁶, 10⁷), sehen wir genau das, was die Theorie sagt: Bei Eager steigt der Peak-Speicher stark an, weil die ganze Liste allokiert werden muss. Bei Lazy bleibt der Verbrauch gering – es gibt ja nur den kleinen Iterator und die Pipeline. Die Laufzeit kann bei Lazy sogar besser sein, weil weniger Allokationen passieren und der Speicherdruck geringer ist. (Im THEORETISCHERHINTERGRUND steht dazu auch was zu Profiling-Tools – tracemalloc ist genau so ein Mittel, um Rückschlüsse auf Memory und Laufzeit zu ziehen.)
+Die Benchmarks für verschiedene N (10.000, 100.000, 1.000.000) bestätigen die Hypothese: Bei Eager steigt der Peak-Speicher proportional zur Datenmenge, weil die gesamte Liste allokiert wird. Bei Lazy bleibt der Speicherverbrauch nahezu konstant, da nur der Iterator und die Pipeline im Speicher gehalten werden. Die Laufzeit ist bei Lazy vergleichbar oder besser, weil weniger Speicherallokationen stattfinden.
 
-Die Plots im Notebook zeigen das klar: Eine Kurve für Eager-Zeit und Eager-Speicher über N, eine für Lazy. So kann man die Hypothese direkt überprüfen – und wer will, kann das gleiche in der Web-UI unter „Sensordaten“ machen, Beet und Messwerte eingeben und sofort sehen, wie viel Lazy an RAM spart und ob es schneller oder langsamer ist. Für uns hat sich bestätigt: Lazy reduziert den Speicherverbrauch deutlich, bei gleicher oder besserer Laufzeit. Die genauen Zahlen hängen von N und dem Rechner ab, aber der Trend ist eindeutig.
+Die Plots im Notebook zeigen den Verlauf von Speicherverbrauch und Laufzeit über N für beide Ansätze. Die Ergebnisse sind über die Web-UI unter „Sensordaten" reproduzierbar: Der Nutzer wählt ein Beet und die Anzahl der Messwerte und sieht die Ergebnisse beider Strategien im direkten Vergleich.
+
+Für die detaillierte Auswertung mit Tabellen und Diagrammen sei auf das Jupyter-Notebook `static/notebooks/layz_vs_eager.ipynb` verwiesen.
 
 ---
 
@@ -408,33 +402,87 @@ Die Plots im Notebook zeigen das klar: Eine Kurve für Eager-Zeit und Eager-Spei
 
 ### 6.1 Code-Struktur und Dokumentation
 
-**Projektstruktur:** Ein gemeinsamer **Kern** in `src/` (models, data_manager, services, sensors, sensor_benchmark) wird von der Web-UI (`src/web/`) genutzt. Jupyter-Notebooks in `static/notebooks/`, Daten in `data/`, Dokumentation in `docs/`, Tests in `tests/`.
+**Projektstruktur:** Ein gemeinsamer **Kern** in `src/` (`models`, `data_manager`, `services`, `sensors`, `sensor_benchmark`) wird von der Web-UI (`src/web/`) genutzt. Jupyter-Notebooks befinden sich in `static/notebooks/`, Daten in `data/`, Dokumentation in `docs/`, Tests in `tests/`.
 
-**Englischsprachige Programmierung:** Modul-, Funktions- und Variablennamen auf Englisch; nutzer sichtbare Texte in der Web-UI auf Deutsch. **Docstrings** für Module und zentrale Funktionen; README unter `src/web/` für Struktur und Start (`python -m src.web.main`).
+**Englischsprachige Programmierung:** Modul-, Funktions- und Variablennamen sind auf Englisch gehalten; nutzersichtbare Texte in der Web-UI sind auf Deutsch. **Docstrings** sind für Module und zentrale Funktionen vorhanden. Die README unter `src/web/` beschreibt Struktur und Start (`python -m src.web.main`).
 
 ---
 
 ### 6.2 Test-Konzept: Unit-Tests
 
-**Domänenmodelle:** Tests für `Vegetable.is_fresh()`, `freshness_ratio()`, `Inventory.add_harvest()`, `get_fresh_items()`, `get_total_amount()`. **Sensordaten/Lazy-Eager:** Tests für `stream_soil_moisture`, `process_eager`/`process_lazy`, `benchmark_eager`/`benchmark_lazy`. Konkrete Testdateien mit pytest möglich.
+Die Unit-Tests befinden sich in `tests/` und werden mit **pytest** ausgeführt. Sie decken folgende Kernbereiche ab:
+
+**Domänenmodelle (`test_models.py`):**
+
+- `Vegetable.is_fresh()`: Prüft, ob frisches Gemüse korrekt als frisch erkannt wird.
+- `Vegetable.freshness_ratio()`: Prüft die Frische-Ratio bei verschiedenen Zeitpunkten (frisch, halb abgelaufen, abgelaufen).
+- `Inventory.add_harvest()`: Prüft, dass eingelagerte Ware korrekt in der Items-Liste erscheint.
+- `Inventory.get_fresh_items()`: Prüft, dass der Generator nur frische Ware liefert.
+- `Inventory.get_expired_items()`: Prüft, dass der Generator nur abgelaufene Ware liefert.
+- `Inventory.get_total_amount()`: Prüft die Summenberechnung der Lagermengen.
+
+**Business-Logik (`test_services.py`):**
+
+- `generate_subscription_boxes()`: Prüft Anzahl, Preis und Gemüse-Zuordnung der generierten Abo-Kisten.
+- `calculate_profit()`: Prüft Gewinnberechnung mit und ohne Bestellungen.
+
+**Sensordaten (`test_sensors.py`):**
+
+- `stream_soil_moisture()`: Prüft, dass der Generator gültige Dicts mit `bed_id`, `moisture` und `timestamp` liefert und der Feuchtigkeitswert im Bereich 0–100 liegt.
+
+**Benchmark (`test_sensor_benchmark.py`):**
+
+- `process_eager()`: Prüft, dass nur Werte außerhalb des Normalbereichs gefiltert werden.
+- `process_lazy()`: Prüft dasselbe Verhalten für die Lazy-Pipeline.
+- `benchmark_eager()` und `benchmark_lazy()`: Prüft, dass die Benchmark-Funktionen gültige Ergebnisdicts mit `time`, `peak_memory_mb`, `data_size_mb` und `result_count` zurückgeben.
+
+**Ausführung:** `pytest tests/ -v` aus dem Verzeichnis `g03`.
 
 ---
 
 ### 6.3 Integrationstests und Traceability
 
-**INT-01:** GET / → Dashboard mit Links (REQ-12). **INT-02:** POST /beds, GET /vegetables → Beet in Dropdown (REQ-01–03). **INT-03:** POST /inventory, GET /inventory → Lager aktualisiert (REQ-04–06). **INT-04:** POST /sensors → Eager- und Lazy-Ergebnisse (REQ-13–15). **INT-05:** POST /orders, GET /finances → Bestellung und Einnahmen (REQ-07–12).
+Die Integrationstests befinden sich in `tests/test_integration.py` und prüfen das Zusammenspiel mehrerer Komponenten. Sie sind explizit den Software-Requirements zugeordnet:
+
+| Test-ID | Beschreibung | Zugeordnete REQs |
+|---------|--------------|-------------------|
+| **INT-01** | Workflow: Beet anlegen → Gemüse anlegen → Gemüse hat korrekte `bed_id` | REQ-01, REQ-02, REQ-03 |
+| **INT-02** | Workflow: Gemüse anlegen → Ernte einlagern → Frische/Abgelaufene Ware prüfen → Gesamtmenge stimmt | REQ-04, REQ-05, REQ-06 |
+| **INT-03** | Workflow: Kunde anlegen → Bestellung aufgeben → Gewinn berechnen → Einnahmen korrekt | REQ-07, REQ-09, REQ-10, REQ-11 |
+| **INT-04** | Workflow: Sensordaten streamen → Eager- und Lazy-Benchmark ausführen → Ergebnisse vergleichbar | REQ-13, REQ-14, REQ-15 |
+| **INT-05** | Workflow: Abo-Kisten generieren → Korrekte Anzahl und Kundendzuordnung | REQ-07, REQ-08 |
+
+**Ausführung:** `pytest tests/test_integration.py -v` aus dem Verzeichnis `g03`.
 
 ---
 
 ### 6.4 CI-Pipeline
 
-**Vorschlag:** Python 3.11, `pip install -r src/requirements.txt`, Lint (ruff), `pytest tests/`, Import-Check, optional `pip audit`. Beispiel-GitHub-Actions-Skizze in IMPLEMENTIERUNG_QUALITAETSSICHERUNG.md; bei pyproject.toml zentrale Konfiguration für Ruff und Pytest.
+Die CI-Pipeline ist über GitHub Actions (`.github/workflows/python-check.yml`) automatisiert und läuft bei jedem Push auf `main` sowie bei Pull Requests.
+
+**Befehlsreihenfolge:**
+
+1. `pip install -r requirements.txt` – Abhängigkeiten installieren
+2. `pip install ruff pytest` – Linting- und Test-Tools installieren
+3. `ruff format --check .` – Code-Formatierung prüfen (PEP 8 / Black-kompatibel)
+4. `ruff check .` – Linting-Regeln prüfen
+5. `pytest` – Unit- und Integrationstests ausführen
+
+**Pre-Commit-Hooks** (lokal, `.pre-commit-config.yaml`): `end-of-file-fixer`, `trailing-whitespace`, `mixed-line-ending`, `ruff`, `ruff-format`.
+
+**Konfiguration** (`pyproject.toml`): `quote-style = "double"`, `indent-style = "space"`, `line-ending = "auto"`.
 
 ---
 
 ## 7. Software-Qualität nach ISO 25010
 
-**Wartbarkeit:** Hoch – modulare Struktur, Kern/Oberfläche getrennt, Docstrings. **Funktionalität:** Hoch – REQ-01 bis REQ-15 umgesetzt, Traceability zu Tests. **Performance-Efficiency:** Mittel bis Hoch – Lazy reduziert Speicher messbar; Web-UI für Projektumfang ausreichend. **Usability:** Hoch – klares Layout, deutsche Texte, Bootstrap. **Zuverlässigkeit:** Mittel – stabil unter Normalbedingungen; Validierung und Fehlerbehandlung in Routen.
+| Kategorie | Bewertung | Begründung |
+|-----------|-----------|------------|
+| **Wartbarkeit** | Hoch | Modulare Struktur mit klarer Trennung von Kern und Oberfläche. Docstrings vorhanden. Erweiterung um neue Module möglich, ohne bestehenden Code zu verändern. |
+| **Funktionalität** | Hoch | REQ-01 bis REQ-15 vollständig umgesetzt. Traceability von Requirements zu Tests gegeben. |
+| **Performance Efficiency** | Mittel bis Hoch | Lazy Evaluation reduziert den Speicherverbrauch bei großen Datenmengen messbar. Die Web-UI ist für den Projektumfang performant. |
+| **Usability** | Hoch | Einheitliches Layout mit Sidebar, Bootstrap-basiert, deutsche Beschriftungen, konsistente Navigation. Fehlermeldungen bei ungültigen Eingaben. |
+| **Zuverlässigkeit** | Mittel | Stabil unter Normalbedingungen. Grundlegende Validierung und Fehlerbehandlung in den Routen vorhanden. Für eine Produktionsumgebung wäre eine robustere Fehlerbehandlung und Logging wünschenswert. |
 
 ---
 
@@ -442,42 +490,127 @@ Die Plots im Notebook zeigen das klar: Eine Kurve für Eager-Zeit und Eager-Spei
 
 ### 8.1 Methodik und Anpassungen
 
-Modulare Entwicklung: Domänenmodelle und Persistenz, dann Dienste und Sensoren, dann Web-UI. Lazy/Eager-Benchmark zuerst im Notebook/CLI, dann in Web-UI integriert. Anpassungen: Web-Struktur (`src/web/`, main.py), robuste Sensordaten-Eingabe, Darstellung Eager/Lazy.
+Die Entwicklung erfolgte in drei Phasen: Zuerst wurden Domänenmodelle und Persistenz aufgebaut, dann die Dienste (Abo-Kisten, Finanzen) und Sensordaten-Logik, und schließlich die Web-UI. Der Lazy/Eager-Benchmark wurde zunächst im Notebook und über die Kommandozeile getestet, bevor er in die Web-UI integriert wurde.
+
+Anpassungen während der Entwicklung betrafen vor allem die Web-Struktur (`src/web/`, `main.py`), die robuste Eingabebehandlung für die Sensordaten-Seite und die Darstellung der Eager/Lazy-Vergleichsergebnisse.
 
 ### 8.2 Selbstreflexion
 
-**Arbeitsprozess:** Requirements Engineering half bei Umfang und Prioritäten; REQ-IDs unterstützen Traceability. Refactorings entstanden u. a. wo Schnittstellen erst spät spezifiziert wurden. **Einsatz von KI:** [Schriftliche Reflexion zur KI-Nutzung gemäß IU-Richtlinie hier einfügen.]
+**Arbeitsprozess:** Das Requirements Engineering hat geholfen, den Umfang des Projekts klar zu definieren und Prioritäten zu setzen. Die vergabe von REQ-IDs erleichtert die Traceability zu Tests und Implementierung. Refactorings entstanden dort, wo Schnittstellen zwischen Modulen erst spät spezifiziert wurden.
+
+**Einsatz von KI:** Im Rahmen dieses Projekts wurden KI-gestützte Werkzeuge ergänzend im Entwicklungs- und Schreibprozess eingesetzt. Die fachlichen Inhalte, die technische Umsetzung sowie die zentralen Entscheidungen zur Architektur und Implementierung stammen vollständig von uns. Die KI diente ausschließlich als unterstützendes Hilfsmittel, um bestimmte Arbeitsschritte effizienter zu gestalten.
+
+Konkret wurde KI zunächst zur Recherche verwendet, um einen ersten Überblick über Themen wie Lazy Evaluation, Generatoren und funktionale Programmierung in Python zu erhalten. Dabei half sie, relevante Konzepte schneller einzuordnen und geeignete Lösungsansätze für die wissenschaftliche Fragestellung zu identifizieren. Die eigentliche Auseinandersetzung mit den Quellen und die inhaltliche Bewertung erfolgte anschließend durch uns selbst.
+
+Darüber hinaus wurde KI genutzt, um bestehende Codeabschnitte zu analysieren und Hinweise im Sinne von Clean-Code-Prinzipien zu geben. Dazu gehörten Vorschläge zur besseren Strukturierung von Funktionen, zur Lesbarkeit des Codes, zur konsistenten Benennung von Variablen sowie zur Reduktion unnötiger Komplexität. Wenn einzelne Codepassagen den etablierten Prinzipien nicht entsprachen, wurden entsprechende Verbesserungsvorschläge generiert, die anschließend von uns geprüft und gegebenenfalls übernommen oder angepasst wurden. Ein automatisches Übernehmen fand nicht statt.
+
+Auch bei der Strukturierung von Dokumentationen und der sprachlichen Überarbeitung von Texten kam KI zum Einsatz. Sie half, Formulierungen verständlicher zu gestalten und die Gliederung von Berichten und Konzeptdokumenten zu verbessern. Die inhaltlichen Aussagen blieben dabei stets unverändert.
+
+Beim Refactoring einzelner Codeabschnitte unterstützte die KI zudem beim Erkennen von Wiederholungen und beim Vorschlagen kompakterer Implementierungen. Auch beim Verständnis technischer Konzepte – etwa der Funktionsweise von `tracemalloc` oder der korrekten Nutzung von `itertools` – erwies sich die KI als hilfreich, indem sie Beispiele lieferte, die das Verständnis beschleunigten.
+
+Insgesamt hat der Einsatz von KI den Arbeitsprozess an mehreren Stellen beschleunigt und die Qualität des Codes sowie der Dokumentation verbessert. Gleichzeitig zeigte sich, dass die Vorschläge der KI nicht immer direkt anwendbar waren und einer kritischen Prüfung bedurften. Insbesondere bei domänenspezifischen Entscheidungen und der Einordnung wissenschaftlicher Quellen stieß die KI an ihre Grenzen. Die Verantwortung für alle inhaltlichen und technischen Entscheidungen lag daher durchgehend bei uns.
 
 ### 8.3 Nutzungsanweisung (How-to-use)
 
-**Start:** Von g03 aus `python -m src.web.main`; Browser: http://127.0.0.1:8080. **Features:** Dashboard (/), Beete (/beds), Gemüse (/vegetables), Lager (/inventory), Kunden (/customers), Bestellungen (/orders), Finanzen (/finances), Sensordaten (/sensors). Daten in `data/rabbitfarm_data.json`. Notebooks in `static/notebooks/` für vertiefte Auswertung.
+**Voraussetzungen:** Python 3.10+, pip.
+
+**Installation:**
+
+```bash
+cd src/student_projects/g03
+pip install -r src/requirements.txt
+```
+
+**App starten:**
+
+```bash
+python -m src.web.main
+```
+
+Browser öffnen: [http://127.0.0.1:8081](http://127.0.0.1:8081)
+
+**Features:** Dashboard (`/`), Beete (`/beds`), Gemüse (`/vegetables`), Lager (`/inventory`), Kunden (`/customers`), Bestellungen (`/orders`), Finanzen (`/finances`), Sensordaten (`/sensors`).
+
+**Daten:** Gespeichert in `data/rabbitfarm_data.json`.
+
+**Notebooks:** Wissenschaftliche Auswertung in `static/notebooks/`.
+
+**Tests ausführen:**
+
+```bash
+pytest tests/ -v
+```
 
 ### 8.4 Pitch-Video
 
-Kurzes Video (max. 3–5 Min.): App vorstellen, Funktionen demonstrieren, Lazy vs. Eager und Ergebnisse präsentieren. Tools: OBS Studio, Camtasia oder System-Bildschirmaufnahme.
+Im Anhang finden Sie ein kurzes Video: App vorstellen, Funktionen demonstrieren, Lazy vs. Eager und Ergebnisse präsentieren. Tools: OBS Studio, Camtasia oder System-Bildschirmaufnahme.
 
 ---
 
 ## Anhang
 
-**README.md (Inhalt):** Python 3.10+, `pip install -r src/requirements.txt`. Start: `python -m src.web.main`. Paketliste: `src/requirements.txt`. Details: `src/web/README.md`.
+- **README.md (Inhalt)**
+- **TESTS**
+- **Pitch-Video**
+- **UML**
+- **Notebooks**
 
 **Glossar:**
 
 | Begriff | Definition |
 |--------|------------|
 | **Beet (Bed)** | Anbaufläche mit ID, Name und Größe in m². |
-| **Eager Evaluation** | Auswertung von Ausdrücken und Daten sofort und vollständig (z. B. ganze Liste im Speicher). |
+| **Eager Evaluation** | Auswertungsstrategie, bei der Ausdrücke sofort und vollständig berechnet werden (z. B. ganze Liste im Speicher). |
 | **Generator** | Python-Funktion mit `yield`; liefert Werte nacheinander (lazy), ohne alle auf einmal zu erzeugen. |
-| **Lazy Evaluation** | Auswertung erst bei Bedarf; hier: Verarbeitung von Datenströmen mit Generatoren/Iteratoren ohne vollständige Materialisierung. |
+| **Lazy Evaluation** | Auswertungsstrategie, bei der Werte erst bei Bedarf berechnet werden; hier: Verarbeitung von Datenströmen mit Generatoren/Iteratoren ohne vollständige Materialisierung. |
 | **Lager (Inventory)** | Sammlung eingelagerter Gemüse mit Methoden zum Hinzufügen und zum Abruf frischer/abgelaufener Ware (als Generator). |
 | **RabbitFarm** | Name der Anwendung; fiktiver Gemüsehof des Hasen Rudi für die Waldtier-Community. |
 | **Rudi** | Fiktiver Farm-Betreiber (Hase), Hauptnutzer der App. |
 | **Sensordaten-Stream** | Kontinuierliche Folge von Messwerten (hier: Bodenfeuchtigkeit pro Beet); im Projekt als Generator simuliert. |
-| **SubscriptionBox** | Abo-Kiste: Zuordnung von Kunde, Gemüseliste, Lieferdatum und Preis; kann generatorbasiert geplant werden. |
+| **SubscriptionBox** | Abo-Kiste: Zuordnung von Kunde, Gemüseliste, Lieferdatum und Preis; wird generatorbasiert erzeugt. |
 | **Vegetable** | Domänenobjekt Gemüse: Name, Sorte, Pflanz-/Erntedatum, Beet, Haltbarkeit, Menge; Methoden für Frische. |
 | **Waldtier-Kunde** | Fiktiver Kunde (Customer) mit Name, Tierart (species) und Abo-Typ. |
 
 ---
 
-*Ende des Projektabschlussberichts.*
+## Quellenverzeichnis
+
+- Real Python. (2023). Python Lazy Evaluation. Abgerufen von https://realpython.com/python-lazy-evaluation/ .
+- Dremio. (2023). Lazy Evaluation. Abgerufen von https://www.dremio.com/wiki/lazy-evaluation/ .
+- PyPI. (2024). ipywidgets – Interactive widgets for Jupyter. Abgerufen von https://pypi.org/project/ipywidgets/ .
+- Real Python. (2024). Python HTTP Server. Abgerufen von https://realpython.com/python-http-server/ .
+- Full Stack Python. (2024). Web Servers. Abgerufen von https://www.fullstackpython.com/web-servers.html .
+- Project Jupyter. (2024). Project Jupyter – Official Website. Abgerufen von https://jupyter.org/ .
+- Jupyter Documentation. (2024). Jupyter Notebook Documentation. Abgerufen von https://jupyter-notebook.readthedocs.io/en/stable/notebook.html .
+- Python Software Foundation. (2024). Python Documentation. Abgerufen von https://docs.python.org/3/ .
+- Python Software Foundation. (2024). http.server — HTTP servers. Abgerufen von https://docs.python.org/3/library/http.server.html .
+- Stack Overflow. (2024). Python Questions and Answers. Abgerufen von https://stackoverflow.com/ .
+- Heise Online. (2024). Python – Programmiersprache und Anwendungen. Abgerufen von https://www.heise.de/thema/Python .
+
+### Wissenschaftliche Literatur
+
+- Al Awar, N. et al. (2025). Dynamic Fusing HPC Kernels in Python.
+- Ansel, J. et al. (2024). PyTorch 2: Faster Machine Learning Through Dynamic Python Bytecode Transformation and Graph Compilation.
+- Mahajan, M. & Arora, S. (2024). Improving Performance of Data Science Applications in Python.
+- Yang, Y. et al. (2022). Complex Python Features in the Wild.
+- Mertz, D. (2015). Functional Programming in Python. O'Reilly Media.
+
+### Zusätzliche Literatur
+
+- Akidau, T. et al. (2015). The Dataflow Model. Google Research / O'Reilly (Streaming Systems). https://research.google/pubs/pub38137/
+- Dean, J. & Ghemawat, S. (2004). MapReduce: Simplified Data Processing on Large Clusters. OSDI 2004. https://research.google/pubs/pub62/
+- Hughes, J. (1984). Why Functional Programming Matters. https://www.cs.kent.ac.uk/people/staff/dat/marc/FP/hughes.pdf
+- Peyton Jones, S. (1992). The Implementation of Functional Programming Languages.
+- Lam, S. K., Pitrou, A. & Seibert, S. (2015). Numba: A LLVM-based Python JIT Compiler. https://arxiv.org/abs/1506.01356
+- NumPy Documentation — Vectorized Operations and Broadcasting. https://numpy.org/doc/
+- PEP 318 — Decorators for Functions and Methods. https://peps.python.org/pep-0318/
+- Python `itertools` Documentation. https://docs.python.org/3/library/itertools.html
+- PEP 255 / PEP 342 — Generators and Coroutines. https://peps.python.org/
+- Archive.org. (o. J.). Functional Programming in Python. Abgerufen von https://archive.org/details/functional-programming-python/page/n33/mode/2up .
+- Wikipedia. (2024). Lazy Evaluation. Abgerufen von https://de.wikipedia.org/wiki/Lazy_Evaluation .
+- DataCamp. (2024). Python Polars Tutorial – Complete Guide for Beginners. Abgerufen von https://www.datacamp.com/de/tutorial/python-polars-tutorial-complete-guide-for-beginners .
+- Reddit. (2024). Question related to Lazy Evaluation. Abgerufen von https://www.reddit.com/r/learnpython/comments/1pia00j/question_related_to_lazy_evaluation/?tl=de .
+- LinkedIn. (2024). What is Lazy Evaluation and how does it work in functional programming? Abgerufen von https://www.linkedin.com/advice/0/what-lazy-evaluation-how-does-work-functional-programming-looac?lang=de .
+- Stack Overflow. (2024). What is the trade-off between lazy and strict (eager) evaluation? Abgerufen von https://stackoverflow.com/questions/75680491/what-is-the-trade-off-between-lazy-and-strict-eager- .
+
+---
