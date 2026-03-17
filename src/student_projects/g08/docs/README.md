@@ -19,23 +19,6 @@ Ziel ist es zu untersuchen, wie durch konsequente Typannotationen in Python:
 
 werden können.
 
-## Gruppenmitglieder
-
-Max Mannstein
-Philipp Donalies
-Cedric Gärtner
-
-## Konzept
-
-[Konzept](Konzept.md)
-
----
-
-## Anforderungen
-
-[Anforderungen](Anforderungen.md)
-
----
 
 ## Installation & Start
 
@@ -88,3 +71,59 @@ Die Statische Typprüfung kann mit folgendem Befehl ausgeführt werden:
 ```bash
 mypy
 ```
+--- 
+
+## CI / Qualitätssicherung
+
+Das Projekt verwendet automatisierte Qualitätssicherung über:
+
+- **mypy** zur statischen Typprüfung
+- **pytest** für Unit- und Integrationstests
+- **GitHub Actions** zur automatischen Ausführung der Checks bei Push und Pull Request
+
+### Lokale Ausführung
+
+```bash
+mypy
+PYTHONPATH=src pytest
+```
+--- 
+## Gruppenmitglieder
+
+Max Mannstein
+Philipp Donalies
+Cedric Gärtner
+--- 
+
+
+# Links zu den Dateien
+
+## Konzept
+
+[Konzept](Konzept.md)
+
+## Anforderungen
+
+[Anforderungen](Anforderungen.md)
+
+
+## Einarbeitungsphase
+
+[Einarbeitungsphase](Einarbeitungsphase.md)
+
+
+## Konzeptionsphase
+
+[Konzeptionsphase](Konzeptionsphase.md)
+
+
+## Finalisierungsphase
+
+[Finalisierungsphase](Finalisierungsphase.md)
+
+## Testbeschreibung
+
+[Testbeschreibung](../tests/Testbeschreibung.md)
+
+## Requirements
+[Requiremnets](../requirements.txt)

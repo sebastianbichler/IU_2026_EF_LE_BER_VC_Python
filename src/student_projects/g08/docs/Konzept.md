@@ -126,28 +126,38 @@ Der Fokus liegt ausschließlich auf Typensicherheit und Softwarequalität.
 
 ```mermaid
 flowchart LR
-    User["Fabrikleitung / Entwickler"]
+    User["Fabrikleitung"]
+    Dev["Entwickler"]
 
     subgraph APP["Bear Honeyworks Anwendung"]
+
+        %% Fachliche Use Cases
+        UC0(["Anwendung starten (CLI)"])
         UC1(["Honig produzieren"])
         UC2(["Lagerbestand anzeigen"])
         UC3(["Bestellung verarbeiten"])
         UC4(["Systemmeldungen einsehen"])
+
+        %% Technischer Use Case
         UC5(["Typprüfung mit mypy ausführen"])
+
     end
 
     %% User Interaktionen
+    User --> UC0
     User --> UC1
     User --> UC2
     User --> UC3
     User --> UC4
-    User --> UC5
 
-    %% Beziehungen (logisch, nicht zwingend)
-    UC1 -.->|führt zu| UC2
+    %% Entwickler Interaktion
+    Dev --> UC5
+
+    %% Beziehungen
+    UC1 -.->|aktualisiert| UC2
     UC3 -.->|verändert| UC2
 
-    %% Hinweis zu mypy
+    %% Hinweis
     Note["Statische Typprüfung vor Programmausführung"]
     UC5 -.-> Note
 ```
@@ -169,6 +179,7 @@ flowchart TB
     Root --> Src["src"]
     Root --> Tests["tests"]
     Root --> PyProj["pyproject.toml"]
+    Root --> Req["requirements.txt"]
 
     %% data
     Data --> InvJson["inventory.json"]
@@ -177,6 +188,7 @@ flowchart TB
     %% docs
     Docs --> Anforderungen["Anforderungen.md"]
     Docs --> Einarbeitung["Einarbeitungsphase.md"]
+    Docs --> Final["Finalisierungsphase.md"]
     Docs --> Konzept["Konzept.md"]
     Docs --> Konzeptionsphase["Konzeptionsphase.md"]
     Docs --> Quellen["Quellenverzeichnis.md"]
@@ -227,13 +239,13 @@ flowchart TB
     UI --> UIApp["app.py"]
 
     %% tests
-    Tests --> TestReadme["README.md oder test.md"]
+    Tests --> TestDesc["Testbeschreibung.md"]
+    Tests --> TestIntegration["test_integration_workflow.py"]
     Tests --> TestInv["test_inventory_service.py"]
     Tests --> TestMyPyFail["test_mypy_demo_fail.py"]
     Tests --> TestMyPyOk["test_mypy_demo_ok.py"]
     Tests --> TestOrder["test_order_service.py"]
     Tests --> TestProd["test_production_service.py"]
-
 ```
 ### Warum so?
 
@@ -268,28 +280,36 @@ flowchart LR
 
     %% Hauptsystem
     System["Bear Honeyworks
-    Web Anwendung mit typisiertem Domänenmodell"]:::system
+    Python Anwendung mit Streamlit UI und CLI
+    typisiertes Domänenmodell"]:::system
 
-    %% Externe Tools / Systeme
+    %% Externe Komponenten
     Browser["Browser mit Streamlit UI"]:::external
+    CLI["CLI Befehl honeyworks"]:::external
     MyPyTool["mypy Type Checker"]:::external
-    IDE["IDE"]:::external
+    IDE["IDE / Entwicklerumgebung"]:::external
     JsonStore["JSON Dateien
     inventory.json
     orders.json"]:::external
 
-    %% Beziehungen
-    User -->|Eingaben zu Produktion und Bestellung| Browser
+    %% User Interaktion
+    User -->|Bedient UI| Browser
     Browser -->|Interaktion| System
-    System -->|Lagerbestand Status Auswertungen| Browser
-    Browser -->|Anzeige der Ergebnisse| User
+    System -->|Anzeige Ergebnisse| Browser
+    Browser -->|Visualisierung| User
 
-    System -->|Speichert und laedt Daten| JsonStore
-    JsonStore -->|Persistente Daten| System
+    %% CLI Nutzung
+    User -->|Startet Anwendung| CLI
+    CLI -->|führt Code aus| System
 
-    IDE -->|Startet Typpruefung| MyPyTool
-    MyPyTool -->|Analysiert Typannotationen| System
-    MyPyTool -->|Meldet Typfehler| IDE
+    %% Persistenz
+    System -->|speichert / lädt| JsonStore
+    JsonStore -->|Daten| System
+
+    %% mypy Workflow
+    IDE -->|führt mypy aus| MyPyTool
+    MyPyTool -->|analysiert Code| System
+    MyPyTool -->|Fehler / Hinweise| IDE
  ```
 
 ## Klassendesign & Typverträge 

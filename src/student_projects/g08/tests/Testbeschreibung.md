@@ -4,6 +4,21 @@ Dieser Ordner enthält automatisierte Tests und Demo-Dateien zur statischen Typp
 
 ## Inhalt
 
+### Integrationstest
+
+- `test_integration_workflow.py`  
+  Prüft einen vollständigen End-to-End-Ablauf der Anwendung über mehrere Komponenten hinweg:
+
+  - Produktion eines Honigglases mit dem `ProductionService`
+  - Speicherung im Lager mit dem `InventoryService`
+  - Persistenz der Daten in JSON-Dateien
+  - erneutes Laden der Daten aus JSON
+  - Verarbeitung einer Bestellung mit dem `OrderService`
+  - Überprüfung, ob der Lagerbestand korrekt reduziert wird
+
+Dieser Test stellt sicher, dass die einzelnen Schichten der Anwendung
+(Domain, Services, Repositories und IO) korrekt zusammenarbeiten.
+
 ### Funktionale Tests mit pytest
 
 Diese Tests prüfen das Laufzeitverhalten der Anwendung:
