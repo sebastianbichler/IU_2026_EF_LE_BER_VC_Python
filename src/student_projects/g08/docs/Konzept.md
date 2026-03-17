@@ -159,52 +159,48 @@ flowchart LR
 Um die Typprüfung mit mypy sinnvoll und wartbar einzusetzen, wird Bear Honeyworks modular aufgebaut.
 Die fachliche Logik wird in klar getrennte Komponenten aufgeteilt, sodass jede Schicht eindeutige Typverträge besitzt.
 
-Ordnerstruktur (geplant)
-```mermaid 
+### Ordnerstruktur
+
+### Ordnerstruktur
+
+```mermaid
 flowchart TB
     Root["g08 bear honeyworks Projekt"]
 
-    %% Top level Ordner
-    Root --> Docs["docs"]
+    %% Top Level
+    Root --> Cache[".mypy_cache"]
     Root --> Data["data"]
+    Root --> Docs["docs"]
     Root --> Src["src"]
-    Root --> Templates["templates"]
     Root --> Static["static"]
+    Root --> Templates["templates"]
     Root --> Tests["tests"]
-    Root --> Scripts["scripts"]
-
-    %% Root Dateien
-    Root --> PyProj["pyproject.toml"]
-    Root --> Readme["README.md"]
-    Root --> Gitignore[".gitignore"]
 
     %% docs
-    Docs --> DKonzept["Konzept.md"]
-    Docs --> DReq["Anforderungen.md"]
-    Docs --> DReadme["README.md"]
-
-    %% data
-    Data --> SampleOrders["sample_orders.json"]
-    Data --> SampleInv["sample_inventory.json"]
-    Data --> DataReadme["README.md"]
+    Docs --> Konzept["Konzept.md"]
+    Docs --> Anforderungen["Anforderungen.md"]
+    Docs --> Kontext["Kontextdiagramm.md"]
+    Docs --> UseCase["UseCaseDiagramm.md"]
+    Docs --> Ein["Einarbeitungsphase.md"]
+    Docs --> KonzeptPhase["Konzeptionsphase.md"]
 
     %% src
-    Src --> Pkg["bear_honeyworks"]
     Src --> App["app.py"]
+    Src --> Pkg["bear_honeyworks"]
 
     %% package
-    Pkg --> InitPkg["__init__.py"]
     Pkg --> Domain["domain"]
     Pkg --> Services["services"]
     Pkg --> Repos["repositories"]
     Pkg --> IO["io"]
     Pkg --> CLI["cli"]
+    Pkg --> UI["ui"]
 
     %% domain
     Domain --> Bear["bear.py"]
     Domain --> Honey["honey.py"]
-    Domain --> Order["order.py"]
     Domain --> Inventory["inventory.py"]
+    Domain --> Order["order.py"]
 
     %% services
     Services --> ProdSvc["production_service.py"]
@@ -222,27 +218,24 @@ flowchart TB
     %% cli
     CLI --> Main["main.py"]
 
-    %% templates
-    Templates --> TIndex["index.html"]
-    Templates --> TReport["report.html"]
-
-    %% static
-    Static --> Styles["styles.css"]
-    Static --> Assets["diagram assets"]
+    %% ui
+    UI --> UIApp["app.py"]
 
     %% tests
-    Tests --> TInv["test_inventory_service.py"]
-    Tests --> TOrd["test_order_service.py"]
-    Tests --> TType["test_typing_examples.py"]
-
-    %% scripts
-    Scripts --> RunMyPy["run_mypy.sh"]
-    Scripts --> Demo["demo.sh"]
+    Tests --> Hinweis["Tests aktuell optional / später genutzt"]
 ```
 ### Warum so?
-- domain/ bleibt möglichst „clean“ (keine IO, keine Nebenwirkungen)
-- services/ kapseln Logik und validieren Typen/Schnittstellen
-- repositories/ machen späteres Erweitern leicht (Datei/DB), ohne Logik umzubauen
+
+### Einordnung der Struktur
+
+Die aktuelle Projektstruktur bildet den Stand der Einarbeitungs- und Konzeptionsphase ab.
+
+- `src/` enthält die eigentliche Anwendung mit klarer Trennung in Domain, Services und weitere Module.
+- `docs/` enthält sämtliche konzeptionellen Artefakte wie Anforderungen und Diagramme.
+- `data/`, `templates/` und `static/` sind als vorbereitende Struktur für mögliche Erweiterungen angelegt.
+- `tests/` ist bereits vorgesehen, wird jedoch im weiteren Projektverlauf ausgebaut.
+
+Der Ordner `.mypy_cache/` wird automatisch von mypy erzeugt und dient der Performance der Typprüfung.
 
 ## Kontextdiagramm
 
