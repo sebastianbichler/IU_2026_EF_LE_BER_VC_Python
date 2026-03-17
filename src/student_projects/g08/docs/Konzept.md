@@ -123,34 +123,32 @@ Fuer die Umsetzung von Bear Honeyworks werden folgende Ressourcen benoetigt:
 Der Fokus liegt ausschließlich auf Typensicherheit und Softwarequalität.
 
 ## Usecase Diagramm
+
 ```mermaid
 flowchart LR
     User["Fabrikleitung / Entwickler"]
 
     subgraph APP["Bear Honeyworks Anwendung"]
-        UC1(["Produktion konfigurieren"])
-        UC2(["Honig produzieren"])
-        UC3(["Lager verwalten"])
-        UC4(["Bestellungen verarbeiten"])
-        UC5(["Typpruefung mit mypy ausfuehren"])
-        UC6(["Typfehler analysieren"])
+        UC1(["Honig produzieren"])
+        UC2(["Lagerbestand anzeigen"])
+        UC3(["Bestellung verarbeiten"])
+        UC4(["Systemmeldungen einsehen"])
+        UC5(["Typprüfung mit mypy ausführen"])
     end
 
-    %% Beziehung zwischen Akteur und Use Cases
+    %% User Interaktionen
     User --> UC1
+    User --> UC2
     User --> UC3
     User --> UC4
     User --> UC5
 
-    %% Include Beziehungen
-    UC2 -.->|include| UC1
-    UC3 -.->|include| UC2
-    UC4 -.->|include| UC3
-    UC5 -.->|include| UC6
+    %% Beziehungen (logisch, nicht zwingend)
+    UC1 -.->|führt zu| UC2
+    UC3 -.->|verändert| UC2
 
-    %% Notiz als eigener Knoten
-    Note["Statische Typpruefung
-    vor Programmausfuehrung"]
+    %% Hinweis zu mypy
+    Note["Statische Typprüfung vor Programmausführung"]
     UC5 -.-> Note
 ```
 
@@ -161,125 +159,137 @@ Die fachliche Logik wird in klar getrennte Komponenten aufgeteilt, sodass jede S
 
 ### Ordnerstruktur
 
-### Ordnerstruktur
-
 ```mermaid
 flowchart TB
-    Root["g08 bear honeyworks Projekt"]
+    Root["Bear Honeyworks Projekt"]
 
     %% Top Level
-    Root --> Cache[".mypy_cache"]
     Root --> Data["data"]
     Root --> Docs["docs"]
     Root --> Src["src"]
-    Root --> Static["static"]
-    Root --> Templates["templates"]
     Root --> Tests["tests"]
+    Root --> PyProj["pyproject.toml"]
+
+    %% data
+    Data --> InvJson["inventory.json"]
+    Data --> OrderJson["orders.json"]
 
     %% docs
-    Docs --> Konzept["Konzept.md"]
     Docs --> Anforderungen["Anforderungen.md"]
-    Docs --> Kontext["Kontextdiagramm.md"]
-    Docs --> UseCase["UseCaseDiagramm.md"]
-    Docs --> Ein["Einarbeitungsphase.md"]
-    Docs --> KonzeptPhase["Konzeptionsphase.md"]
+    Docs --> Einarbeitung["Einarbeitungsphase.md"]
+    Docs --> Konzept["Konzept.md"]
+    Docs --> Konzeptionsphase["Konzeptionsphase.md"]
+    Docs --> Quellen["Quellenverzeichnis.md"]
+    Docs --> DocsReadme["README.md"]
 
     %% src
     Src --> App["app.py"]
-    Src --> Pkg["bear_honeyworks"]
+    Src --> Package["bear_honeyworks"]
 
     %% package
-    Pkg --> Domain["domain"]
-    Pkg --> Services["services"]
-    Pkg --> Repos["repositories"]
-    Pkg --> IO["io"]
-    Pkg --> CLI["cli"]
-    Pkg --> UI["ui"]
+    Package --> Init["__init__.py"]
+    Package --> CLI["cli"]
+    Package --> Domain["domain"]
+    Package --> IO["io"]
+    Package --> Repos["repositories"]
+    Package --> Services["services"]
+    Package --> UI["ui"]
+
+    %% cli
+    CLI --> CLIInit["__init__.py"]
+    CLI --> CLIMain["main.py"]
 
     %% domain
+    Domain --> DomainInit["__init__.py"]
     Domain --> Bear["bear.py"]
     Domain --> Honey["honey.py"]
     Domain --> Inventory["inventory.py"]
     Domain --> Order["order.py"]
 
-    %% services
-    Services --> ProdSvc["production_service.py"]
-    Services --> InvSvc["inventory_service.py"]
-    Services --> OrdSvc["order_service.py"]
-
-    %% repositories
-    Repos --> InvRepo["inventory_repository.py"]
-    Repos --> OrdRepo["order_repository.py"]
-
     %% io
+    IO --> IOInit["__init__.py"]
     IO --> JsonStore["json_store.py"]
     IO --> Loaders["loaders.py"]
 
-    %% cli
-    CLI --> Main["main.py"]
+    %% repositories
+    Repos --> RepoInit["__init__.py"]
+    Repos --> InvRepo["inventory_repository.py"]
+    Repos --> OrderRepo["order_repository.py"]
+
+    %% services
+    Services --> ServiceInit["__init__.py"]
+    Services --> InvService["inventory_service.py"]
+    Services --> OrderService["order_service.py"]
+    Services --> ProdService["production_service.py"]
 
     %% ui
+    UI --> UIInit["__init__.py"]
     UI --> UIApp["app.py"]
 
     %% tests
-    Tests --> Hinweis["Tests aktuell optional / später genutzt"]
+    Tests --> TestReadme["README.md oder test.md"]
+    Tests --> TestInv["test_inventory_service.py"]
+    Tests --> TestMyPyFail["test_mypy_demo_fail.py"]
+    Tests --> TestMyPyOk["test_mypy_demo_ok.py"]
+    Tests --> TestOrder["test_order_service.py"]
+    Tests --> TestProd["test_production_service.py"]
+
 ```
 ### Warum so?
 
 ### Einordnung der Struktur
 
-Die aktuelle Projektstruktur bildet den Stand der Einarbeitungs- und Konzeptionsphase ab.
+### Warum so?
 
-- `src/` enthält die eigentliche Anwendung mit klarer Trennung in Domain, Services und weitere Module.
-- `docs/` enthält sämtliche konzeptionellen Artefakte wie Anforderungen und Diagramme.
-- `data/`, `templates/` und `static/` sind als vorbereitende Struktur für mögliche Erweiterungen angelegt.
-- `tests/` ist bereits vorgesehen, wird jedoch im weiteren Projektverlauf ausgebaut.
+- `data/` enthält die JSON-basierte Persistenz für Lager und Bestellungen.
+- `docs/` bündelt alle konzeptionellen und dokumentierenden Artefakte des Projekts.
+- `src/` enthält die eigentliche Anwendung.
+- `domain/` bildet die fachlichen Kernobjekte der Honigfabrik ab.
+- `services/` kapseln die Geschäftslogik.
+- `repositories/` übernehmen den Datenzugriff auf die JSON-Dateien.
+- `io/` enthält Hilfsfunktionen für das Laden und Speichern von Daten.
+- `ui/` enthält die Streamlit-Oberfläche für die Browser-Demo.
+- `tests/` enthält funktionale Tests mit pytest sowie Demo-Dateien für mypy.
+- `static/` und `templates/` sind als Erweiterungspunkte vorbereitet, werden aktuell jedoch nicht aktiv genutzt.
 
-Der Ordner `.mypy_cache/` wird automatisch von mypy erzeugt und dient der Performance der Typprüfung.
+## Kontextdiagramm
 
 ## Kontextdiagramm
 
 ```mermaid
 flowchart LR
-    %% --- Styling Definitionen ---
+    %% Styling
     classDef system fill:#f96,stroke:#333,stroke-width:2px,color:white;
     classDef actor fill:#fff,stroke:#333,stroke-width:1px;
     classDef external fill:#eee,stroke:#333,stroke-dasharray: 5 5;
 
-    %% --- Knoten (Nodes) ---
+    %% Akteure
     User["Nutzer - Fabrikleitung"]:::actor
 
     %% Hauptsystem
     System["Bear Honeyworks
-    Python Anwendung mit typisiertem Domänenmodell"]:::system
+    Web Anwendung mit typisiertem Domänenmodell"]:::system
 
-    %% Externe Tools und Systeme
-    MyPyTool["mypy Type Checker
-    statische Typpruefung"]:::external
-    IDE["IDE
-    zeigt Typfehler und Hinweise"]:::external
-    CI["CI Pipeline optional
-    automatischer mypy Check"]:::external
-    FileSystem["Dateisystem optional
-    JSON CSV Logs"]:::external
+    %% Externe Tools / Systeme
+    Browser["Browser mit Streamlit UI"]:::external
+    MyPyTool["mypy Type Checker"]:::external
+    IDE["IDE"]:::external
+    JsonStore["JSON Dateien
+    inventory.json
+    orders.json"]:::external
 
-    %% --- Beziehungen (Data Flow) ---
-    %% User Interaktion
-    User -- "1 Eingaben Produktion Lager Bestellung" --> System
-    System -- "6 Ausgabe Status Bestand Ergebnisse" --> User
+    %% Beziehungen
+    User -->|Eingaben zu Produktion und Bestellung| Browser
+    Browser -->|Interaktion| System
+    System -->|Lagerbestand Status Auswertungen| Browser
+    Browser -->|Anzeige der Ergebnisse| User
 
-    %% System interne Verarbeitung
-    System -- "2 Fuehrt Produktions und Lagerlogik aus" --> System
+    System -->|Speichert und laedt Daten| JsonStore
+    JsonStore -->|Persistente Daten| System
 
-    %% mypy Check Ablauf
-    IDE -- "3 Startet mypy Check" --> MyPyTool
-    CI -- "3 Startet mypy Check" --> MyPyTool
-    MyPyTool -- "4 Analysiert Typannotationen" --> System
-    MyPyTool -- "5 Meldet Typfehler Hinweise" --> IDE
-
-    %% Persistenz optional
-    System -.-> |Optional| FileSystem
-    FileSystem -.-> |Optional| System
+    IDE -->|Startet Typpruefung| MyPyTool
+    MyPyTool -->|Analysiert Typannotationen| System
+    MyPyTool -->|Meldet Typfehler| IDE
  ```
 
 ## Klassendesign & Typverträge 

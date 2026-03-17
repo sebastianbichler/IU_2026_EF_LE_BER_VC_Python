@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# mypy
+.mypy_cache/
+
+# pytest
+.pytest_cache/
+
+# Build / Packaging
+dist/
+build/
+
+# IDE
+.vscode/

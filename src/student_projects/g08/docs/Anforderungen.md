@@ -44,12 +44,14 @@ Abnahme:
 
 ### F-05 – Bestellverarbeitung (Should)
 
-Bestellungen sollen eine definierte Menge Honig anfordern können.
+Bestellungen sollen eine definierte Menge einer Honigsorte anfordern können.
 
 Abnahme:
-	•	Bestellungen besitzen klar definierte Datentypen (Menge, Gewicht, Preis).
-	•	Ungültige Typen führen zu mypy-Fehlern.
-	•	Die Bestelllogik ist vollständig typgesichert.
+- Bestellungen besitzen klar definierte Datentypen, insbesondere Sorte und Menge.
+- Ungültige Typen führen zu mypy-Fehlern.
+- Die Bestelllogik ist vollständig typgesichert.
+- Bei erfolgreicher Verarbeitung wird der Lagerbestand korrekt reduziert.
+- Bei unzureichendem Bestand wird die Bestellung abgelehnt.
 
 ### F-06 – Fehlerhafte Typverwendung demonstrieren (Could)
 
@@ -69,6 +71,15 @@ Abnahme:
 	•	mypy prüft neue Komponenten ohne Anpassung der bestehenden Logik.
 	•	Bestehende Typverträge bleiben stabil.
 
+### F-08 – Browserbasierte Demo-Oberfläche (Could)
+
+Das System soll eine einfache Browseroberfläche zur Demonstration der Produktions-, Lager- und Bestelllogik bereitstellen.
+
+Abnahme:
+- Honigproduktion kann über Eingabefelder ausgelöst werden.
+- Bestellungen können über die Oberfläche verarbeitet werden.
+- Lagerbestand und Systemmeldungen werden im Browser angezeigt.
+
 ## 2. Nicht-funktionale Anforderungen (Qualität)
 
 ### NFA-01 – Codequalität & Wartbarkeit
@@ -86,6 +97,14 @@ Typfehler sollen bereits vor der Programmausführung erkannt werden.
 Abnahme:
 	•	Fehler werden von mypy gemeldet, bevor das Programm gestartet wird.
 	•	Laufzeitfehler durch falsche Typen treten nicht auf.
+
+### NFA-03 – Nachvollziehbarkeit
+
+Die Ergebnisse und Abläufe der Anwendung sollen für Nutzer und Entwickler verständlich nachvollziehbar sein.
+
+Abnahme:
+- Systemmeldungen dokumentieren wichtige Aktionen wie Produktion und Bestellung.
+- Lagerbestand und Auswertungen sind in der Oberfläche sichtbar.
 
 ### NFA-04 – Reproduzierbarkeit
 

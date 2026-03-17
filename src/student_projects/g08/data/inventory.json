@@ -1,0 +1,50 @@
+[
+  {
+    "weight": 0.5,
+    "sort": "Waldhonig",
+    "quality": 3,
+    "bear_name": "Balou"
+  },
+  {
+    "weight": 0.5,
+    "sort": "Waldhonig",
+    "quality": 3,
+    "bear_name": "Balou"
+  },
+  {
+    "weight": 0.5,
+    "sort": "Waldhonig",
+    "quality": 3,
+    "bear_name": "Balou"
+  },
+  {
+    "weight": 0.5,
+    "sort": "Waldhonig",
+    "quality": 4,
+    "bear_name": "Balou"
+  },
+  {
+    "weight": 0.5,
+    "sort": "Waldhonig",
+    "quality": 4,
+    "bear_name": "Balou"
+  },
+  {
+    "weight": 0.5,
+    "sort": "Kastanienhonig",
+    "quality": 4,
+    "bear_name": "Balou"
+  },
+  {
+    "weight": 0.5,
+    "sort": "Kastanienhonig",
+    "quality": 4,
+    "bear_name": "Frank"
+  },
+  {
+    "weight": 0.5,
+    "sort": "Kastanienhonig",
+    "quality": 4,
+    "bear_name": "Frank"
+  }
+]

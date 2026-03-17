@@ -36,3 +36,55 @@ Cedric Gärtner
 [Anforderungen](Anforderungen.md)
 
 ---
+
+## Installation & Start
+
+### Voraussetzungen
+
+- Python 3.10 oder höher
+- pip
+
+---
+
+### 1. Repository klonen
+
+```bash
+git clone <REPO-URL>
+cd g08
+```
+### 2. Virtuelle Umgebung erstellen (empfohlen)
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  
+```
+### 3. Abhängigkeiten installieren
+
+```bash
+pip install -e .
+pip install streamlit pandas
+```
+
+### 4. Anwendung starten
+
+```bash
+honeyworks
+```
+
+--- 
+
+## Alternative (ohne Installation)
+
+Falls das Projekt nicht installiert wurde:
+
+```bash
+PYTHONPATH=src streamlit run src/bear_honeyworks/ui/app.py
+```
+
+## Typprüfung
+
+Die Statische Typprüfung kann mit folgendem Befehl ausgeführt werden:
+
+```bash
+mypy
+```
