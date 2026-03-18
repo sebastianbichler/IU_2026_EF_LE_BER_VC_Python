@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}Kunden{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Kunden</h1>
+
+<div class="app-card">
+    <div class="card-header">Neuen Kunden anlegen</div>
+    <div class="card-body">
+        <form method="POST" class="form-app">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Tierart</label>
+                    <input type="text" name="species" class="form-control" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Abo-Typ</label>
+                    <input type="text" name="subscription_type" class="form-control" required>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary w-100">Hinzufügen</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="app-card">
+    <div class="card-header">Kundenliste</div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-app mb-0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Tierart</th>
+                        <th>Abo-Typ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for customer in customers %}
+                    <tr>
+                        <td>{{ customer.name }}</td>
+                        <td>{{ customer.species }}</td>
+                        <td>{{ customer.subscription_type }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="text-muted text-center py-4">Keine Kunden vorhanden.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

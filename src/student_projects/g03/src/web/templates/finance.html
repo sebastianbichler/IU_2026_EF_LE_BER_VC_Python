@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Finanzen{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Finanzen</h1>
+
+<div class="stat-box">
+    <div class="stat-value">{{ revenue }} €</div>
+    <div class="stat-label">Gesamteinnahmen</div>
+</div>
+
+<div class="app-card">
+    <div class="card-header">Einnahmen nach Bestellungen</div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-app mb-0">
+                <thead>
+                    <tr>
+                        <th>Kunde</th>
+                        <th>Betrag</th>
+                        <th>Lieferdatum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.customer.name }}</td>
+                        <td>{{ order.price }} €</td>
+                        <td>{{ order.delivery_date.strftime('%d.%m.%Y') }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="text-muted text-center py-4">Keine Transaktionen.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

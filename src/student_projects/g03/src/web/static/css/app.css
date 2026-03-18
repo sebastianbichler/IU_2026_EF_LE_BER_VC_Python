@@ -1,0 +1,280 @@
+/* RabbitFarm – App-Layout (Sidebar + Arbeitsbereich) */
+
+:root {
+    --sidebar-width: 240px;
+    --sidebar-bg: #1e3a2f;
+    --sidebar-text: rgba(255, 255, 255, 0.85);
+    --sidebar-active: #2d5a47;
+    --sidebar-hover: rgba(255, 255, 255, 0.08);
+    --app-bg: #f2f4f5;
+    --card-radius: 10px;
+}
+
+.app-body {
+    display: flex;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--app-bg);
+}
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1030;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-header {
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-brand {
+    color: #fff;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0.75rem 0;
+    margin: 0;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sidebar-nav li {
+    margin: 0;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1.5rem;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background 0.15s, color 0.15s;
+}
+
+.sidebar-link i {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    width: 1.5rem;
+    text-align: center;
+}
+
+.sidebar-link:hover {
+    background: var(--sidebar-hover);
+    color: #fff;
+}
+
+.sidebar-link.active {
+    background: var(--sidebar-active);
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Hauptbereich */
+.app-main {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-content {
+    flex: 1;
+    padding: 1.75rem 2rem;
+}
+
+/* Seiten-Überschriften */
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+}
+
+/* Karten im App-Stil */
+.app-card {
+    background: #fff;
+    border-radius: var(--card-radius);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    margin-bottom: 1.5rem;
+}
+
+.app-card .card-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+}
+
+.app-card .card-body {
+    padding: 1.25rem;
+}
+
+/* Buttons an Bootstrap anpassen, Grün als Primary */
+.btn-primary {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.btn-primary:hover {
+    background-color: #157347;
+    border-color: #146c43;
+}
+
+/* Tabellen */
+.table-app {
+    margin-bottom: 0;
+}
+
+.table-app thead th {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #5a6c7d;
+    border-bottom: 1px solid #e9ecef;
+    padding: 0.85rem 1rem;
+}
+
+.table-app tbody td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+}
+
+.table-app tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Formulare kompakter */
+.form-app .form-label {
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.35rem;
+}
+
+.form-app .form-control,
+.form-app .form-select {
+    border-radius: 6px;
+    border-color: #d1d5db;
+}
+
+.form-app .form-control:focus,
+.form-app .form-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.15);
+}
+
+/* Dashboard-Kacheln */
+.dashboard-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.dashboard-tile {
+    display: block;
+    padding: 1.25rem;
+    background: #fff;
+    border-radius: var(--card-radius);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    text-decoration: none;
+    color: #1a1a1a;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.dashboard-tile:hover {
+    border-color: #198754;
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.15);
+    color: #1a1a1a;
+}
+
+.dashboard-tile i {
+    font-size: 1.75rem;
+    color: #198754;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-tile span {
+    font-weight: 500;
+}
+
+/* Kennzahlen-Box */
+.stat-box {
+    background: linear-gradient(135deg, #198754 0%, #157347 100%);
+    color: #fff;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--card-radius);
+    margin-bottom: 1.5rem;
+}
+
+.stat-box .stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.stat-box .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Listen ohne Bullets, klar getrennt */
+.list-app {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-app li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.list-app li:last-child {
+    border-bottom: none;
+}
+
+/* Responsive: Sidebar auf kleinen Screens einklappbar wäre möglich – hier simpel belassen */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 64px;
+        min-width: 64px;
+    }
+    .sidebar-brand,
+    .sidebar-link span {
+        display: none;
+    }
+    .sidebar-link {
+        justify-content: center;
+        padding: 0.75rem;
+    }
+    .sidebar-link i {
+        margin: 0;
+    }
+    .app-main {
+        margin-left: 64px;
+    }
+    .app-content {
+        padding: 1rem;
+    }
+}

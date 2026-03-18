@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Dashboard</h1>
+<p class="text-muted mb-4">Willkommen in der RabbitFarm-Verwaltung. Wählen Sie einen Bereich.</p>
+
+<div class="dashboard-tiles">
+    <a href="{{ url_for('main.vegetables') }}" class="dashboard-tile">
+        <i class="bi bi-flower2 d-block"></i>
+        <span>Gemüse verwalten</span>
+    </a>
+    <a href="{{ url_for('main.beds') }}" class="dashboard-tile">
+        <i class="bi bi-grid-3x3-gap d-block"></i>
+        <span>Beete verwalten</span>
+    </a>
+    <a href="{{ url_for('main.inventory') }}" class="dashboard-tile">
+        <i class="bi bi-box-seam d-block"></i>
+        <span>Lagerbestand</span>
+    </a>
+    <a href="{{ url_for('main.customers') }}" class="dashboard-tile">
+        <i class="bi bi-people d-block"></i>
+        <span>Kunden</span>
+    </a>
+    <a href="{{ url_for('main.orders') }}" class="dashboard-tile">
+        <i class="bi bi-cart-check d-block"></i>
+        <span>Bestellung anlegen</span>
+    </a>
+    <a href="{{ url_for('main.finances') }}" class="dashboard-tile">
+        <i class="bi bi-currency-euro d-block"></i>
+        <span>Finanzen</span>
+    </a>
+    <a href="{{ url_for('main.sensors') }}" class="dashboard-tile">
+        <i class="bi bi-speedometer2 d-block"></i>
+        <span>Sensordaten (Lazy/Eager)</span>
+    </a>
+</div>
+{% endblock %}

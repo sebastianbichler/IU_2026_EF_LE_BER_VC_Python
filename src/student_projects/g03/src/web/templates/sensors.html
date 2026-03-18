@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block title %}Sensordaten{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Sensordaten – Lazy vs. Eager</h1>
+<p class="text-muted mb-4">Vergleiche Speicher und Laufzeit: Eager (Listen im Speicher) vs. Lazy (Generatoren). Simulierte Bodenfeuchtigkeits-Messwerte werden gefiltert und verarbeitet.</p>
+
+{% if error %}
+<div class="alert alert-danger" role="alert">{{ error }}</div>
+{% endif %}
+
+<div class="app-card">
+    <div class="card-header">Benchmark starten</div>
+    <div class="card-body">
+        <form method="POST" class="form-app">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label">Beet</label>
+                    <select name="bed_id" class="form-select">
+                        {% for bed in beds %}
+                        <option value="{{ bed.id }}">{{ bed.name }} (ID {{ bed.id }})</option>
+                        {% endfor %}
+                        {% if not beds %}
+                        <option value="1">Beet 1</option>
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Anzahl Messwerte</label>
+                    <input type="number" name="num_readings" class="form-control" value="10000" min="100" max="500000" step="1" placeholder="z. B. 10000">
+                    <small class="text-muted">Empfohlen: 10.000–100.000. Max. 500.000.</small>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-speedometer2 me-1"></i> Eager & Lazy testen
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if result_eager is not none and result_lazy is not none %}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="app-card">
+            <div class="card-header text-primary"><i class="bi bi-list-ul me-1"></i> Eager (Listen)</div>
+            <div class="card-body">
+                <ul class="list-app mb-0">
+                    <li><strong>Laufzeit:</strong> {{ "%.4f"|format(result_eager.time) }} s</li>
+                    <li><strong>RAM Peak:</strong> {{ "%.2f"|format(result_eager.peak_memory_mb) }} MB</li>
+                    <li><strong>Daten (Liste):</strong> {{ "%.2f"|format(result_eager.data_size_mb) }} MB</li>
+                    <li><strong>Gefilterte Einträge:</strong> {{ result_eager.result_count }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="app-card">
+            <div class="card-header text-success"><i class="bi bi-arrow-repeat me-1"></i> Lazy (Generatoren)</div>
+            <div class="card-body">
+                <ul class="list-app mb-0">
+                    <li><strong>Laufzeit:</strong> {{ "%.4f"|format(result_lazy.time) }} s</li>
+                    <li><strong>RAM Peak:</strong> {{ "%.2f"|format(result_lazy.peak_memory_mb) }} MB</li>
+                    <li><strong>Daten (Iterator):</strong> {{ "%.4f"|format(result_lazy.data_size_mb) }} MB</li>
+                    <li><strong>Gefilterte Einträge:</strong> {{ result_lazy.result_count }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="app-card mt-3">
+    <div class="card-header">Vergleich</div>
+    <div class="card-body">
+        {% set time_diff = result_eager.time - result_lazy.time %}
+        {% set mem_diff = result_eager.peak_memory_mb - result_lazy.peak_memory_mb %}
+        <ul class="list-app mb-0">
+            {% if time_diff > 0 %}
+            <li>Lazy ist <strong>{{ "%.1f"|format(time_diff / result_eager.time * 100) }} %</strong> schneller.</li>
+            {% else %}
+            <li>Eager ist <strong>{{ "%.1f"|format(-time_diff / result_lazy.time * 100) }} %</strong> schneller.</li>
+            {% endif %}
+            <li>Lazy spart <strong>{{ "%.2f"|format(mem_diff) }} MB</strong> RAM (Peak).</li>
+        </ul>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

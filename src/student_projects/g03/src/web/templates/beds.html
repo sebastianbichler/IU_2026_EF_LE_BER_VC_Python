@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}Beete{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Beete</h1>
+
+<div class="app-card">
+    <div class="card-header">Neues Beet anlegen</div>
+    <div class="card-body">
+        <form method="POST" class="form-app">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-5">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Größe (m²)</label>
+                    <input type="number" step="0.1" name="size" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Hinzufügen</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="app-card">
+    <div class="card-header">Vorhandene Beete</div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-app mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Größe (m²)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bed in beds %}
+                    <tr>
+                        <td>{{ bed.id }}</td>
+                        <td>{{ bed.name }}</td>
+                        <td>{{ bed.size_m2 }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="text-muted text-center py-4">Keine Beete vorhanden.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

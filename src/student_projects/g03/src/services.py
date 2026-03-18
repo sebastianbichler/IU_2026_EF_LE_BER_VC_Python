@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 from typing import List, Generator, Dict
 from itertools import islice, cycle
 
-# model Inventory was unused, so I removed it to avoid confusion. If you need it later, you can always add it back.
 from models import Vegetable, Customer, SubscriptionBox, Order
 
 
