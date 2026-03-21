@@ -132,7 +132,7 @@ Damit bleiben Domain-Objekte und Services unabhängig von Streamlit nutzbar (z. 
 
 - `gc`, `sys`, `datetime` als Grundlage für Experimente/Introspektion und Domain-Timestamps
 
-t.b.d. — Weakref-Ansatz: im Verlauf der Projektumsetzung wieder entfernt; bitte noch einmal prüfen.
+Hinweis: Ein Weakref-basierter Ansatz zur Vermeidung zyklischer Referenzen wurde konzeptionell diskutiert (u. a. in Diagrammen/Notizen), im Projekt jedoch nicht vollständig umgesetzt.
 
 ---
 
