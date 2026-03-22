@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>PenguEats Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 24px;
+            background: #f7f9fc;
+            color: #1f2937;
+        }
+
+        h1, h2 {
+            margin-bottom: 12px;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .saldo-box {
+            background: #ffffff;
+            border: 1px solid #dbe3ea;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .actions form {
+            margin: 0;
+            min-width: 220px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #dbe3ea;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .flash {
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+
+        .flash.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .flash.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .muted {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge.stabil {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge.beobachten {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.erhoeht,
+        .badge.kritisch {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 20px;
+        }
+
+        .delivery-row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .small-note {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: -4px;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .delivery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <h1>PenguEats – Restaurant Dashboard</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="saldo-box">
+        Saldo: {{ "%.2f"|format(saldo) }}
+    </div>
+
+    <div class="actions">
+        <form method="post" action="{{ url_for('load_mock_data') }}">
+            <button type="submit">Mock-Daten laden</button>
+        </form>
+
+        <form method="post" action="{{ url_for('rerun_analysis') }}">
+            <button type="submit">MCMC mit aktuellen Daten neu berechnen</button>
+        </form>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Großlieferung hinzufügen</h2>
+            <div class="small-note">
+                Trage für jeden Fisch die kg-Menge ein. Leere Felder oder 0 werden ignoriert.
+            </div>
+            <form method="post" action="{{ url_for('add_delivery') }}">
+                <div class="delivery-grid">
+                    {% for fish_name in fish_names %}
+                        <div class="delivery-row">
+                            <label for="delivery_{{ fish_name }}">{{ fish_name }} (kg)</label>
+                            <input
+                                type="number"
+                                step="0.1"
+                                min="0"
+                                name="delivery_{{ fish_name }}"
+                                id="delivery_{{ fish_name }}"
+                                placeholder="0.0"
+                            >
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit">Lieferung eintragen</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Essen bestellen</h2>
+            <form method="post" action="{{ url_for('order_food') }}">
+                <label for="customer_name">Kunde</label>
+                <input type="text" name="customer_name" id="customer_name" placeholder="z. B. Pinguin" required>
+
+                <label for="menu_item_name">Gericht</label>
+                <select name="menu_item_name" id="menu_item_name" required>
+                    {% for item in menu %}
+                        <option value="{{ item.name }}">{{ item.name }} — {{ "%.2f"|format(item.price) }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="quantity">Anzahl</label>
+                <input type="number" min="1" step="1" name="quantity" id="quantity" value="1" required>
+
+                <button type="submit">Bestellung aufgeben</button>
+            </form>
+        </div>
+
+        <div class="card full-width">
+            <h2>Inventar</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Fisch</th>
+                    <th>Menge (kg)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for fish_name, amount in inventory.items() %}
+                    <tr>
+                        <td>{{ fish_name }}</td>
+                        <td>{{ "%.2f"|format(amount) }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card full-width">
+            <h2>Rezeptempfehlungen basierend auf Inventar</h2>
+            {% if recommendations %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Gericht</th>
+                        <th>Fisch</th>
+                        <th>Benötigt pro Portion (kg)</th>
+                        <th>Verfügbar (kg)</th>
+                        <th>Max. Portionen</th>
+                        <th>Preis</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for rec in recommendations %}
+                        <tr>
+                            <td>{{ rec.dish }}</td>
+                            <td>{{ rec.fish }}</td>
+                            <td>{{ "%.2f"|format(rec.required_kg) }}</td>
+                            <td>{{ "%.2f"|format(rec.available_kg) }}</td>
+                            <td>{{ rec.max_portions }}</td>
+                            <td>{{ "%.2f"|format(rec.price) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="muted">Aktuell können keine Gerichte empfohlen werden.</p>
+            {% endif %}
+        </div>
+
+        <div class="card full-width">
+            <h2>MCMC Analyse der Lieferkette</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Fisch</th>
+                    <th>Erwartete Liefermenge</th>
+                    <th>95% HDI</th>
+                    <th>Engpassrisiko</th>
+                    <th>Preisfaktor</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for fish_name, data in analysis.items() %}
+                    <tr>
+                        <td>{{ fish_name }}</td>
+                        <td>{{ "%.2f"|format(data.expected_supply) }}</td>
+                        <td>[{{ "%.2f"|format(data.interval_low) }}, {{ "%.2f"|format(data.interval_high) }}]</td>
+                        <td>{{ "%.2f"|format(data.risk_percent) }} %</td>
+                        <td>{{ "%.2f"|format(data.price_multiplier) }}</td>
+                        <td>
+                            {% if data.risk_label == "Stabil" %}
+                                <span class="badge stabil">{{ data.risk_label }}</span>
+                            {% elif data.risk_label == "Beobachten" %}
+                                <span class="badge beobachten">{{ data.risk_label }}</span>
+                            {% elif data.risk_label == "Erhöht" %}
+                                <span class="badge erhoeht">{{ data.risk_label }}</span>
+                            {% else %}
+                                <span class="badge kritisch">{{ data.risk_label }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="small-note">
+                Die Neuberechnung verwendet die bisherige Lieferhistorie plus einen neuen Datenpunkt aus dem aktuell vorhandenen Inventar.
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <h2>Bisherige Lieferhistorie (aggregiert)</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Fisch</th>
+                    <th>Summe aus Lieferhistorie</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for fish_name, total in supply_totals.items() %}
+                    <tr>
+                        <td>{{ fish_name }}</td>
+                        <td>{{ "%.2f"|format(total) }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card full-width">
+            <h2>Bestellhistorie</h2>
+            {% if orders %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Kunde</th>
+                        <th>Bestellung</th>
+                        <th>Rechnung gesamt</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.customer }}</td>
+                            <td>
+                                {% for item in order.order_items %}
+                                    {{ item.quantity }}x {{ item.menu_item_name }} — {{ "%.2f"|format(item.total_price) }}<br>
+                                {% endfor %}
+                            </td>
+                            <td>{{ "%.2f"|format(order.bill_total) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="muted">Noch keine Bestellungen vorhanden.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
