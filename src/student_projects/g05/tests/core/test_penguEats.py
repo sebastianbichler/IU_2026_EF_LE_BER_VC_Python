@@ -1,7 +1,7 @@
 import unittest
 from datetime import date, timedelta
 
-from src.student_projects.g05.src.core.pengueats import PenguEats
+from src.student_projects.g05.src.core.penguEats import PenguEats
 from src.student_projects.g05.src.models.fish import Fish
 from src.student_projects.g05.src.models.recipe import Recipe
 from src.student_projects.g05.src.models.menu_item import MenuItem

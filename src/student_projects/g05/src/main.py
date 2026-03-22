@@ -2,7 +2,7 @@ import os
 import logging
 from datetime import datetime, timedelta
 
-from core.pengueats import PenguEats
+from core.penguEats import PenguEats
 
 from models.fish import Fish
 from models.recipe import Recipe
