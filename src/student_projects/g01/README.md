@@ -43,7 +43,7 @@ C:\tools\pypy3.11-vX\pypy3.exe
 streamlit run app.py
 ```
 
-Danach öffnet sich die Anwendung im Browser.
+Nach dem Start der Anwendung öffnet sich die Benutzeroberfläche im Browser. Dort kann ein Zielknoten ausgewählt werden, während der Startknoten fest auf das Postamt gesetzt ist und nicht verändert werden kann. Durch Klick auf „Lieferung starten“ wird die Berechnung ausgelöst. Anschließend wird der kürzeste Pfad vom Postamt zum gewählten Zielknoten sowie die Gesamtkosten der Route angezeigt. Zusätzlich wird ein Diagramm dargestellt, das die Laufzeiten von CPython, Numba und PyPy miteinander vergleicht.
 
 ---
 
