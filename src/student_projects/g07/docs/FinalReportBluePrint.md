@@ -129,6 +129,10 @@ und Benutzbarkeit.
 Wählen Sie 3-5 Kategorien aus und begründen Sie die Bewertung. Welche Maßnahmen wurden ergriffen, um die Qualität zu
 verbessern?
 
+### 7.1 Vorgehen zur Bewertung (Planung, keine Umsetzung)
+
+t.b.d.
+
 Examples:
 - https://dl.acm.org/doi/10.1145/3411764.3445651
 - https://dl.acm.org/doi/10.1145/2992154.2992174
@@ -148,11 +152,15 @@ Wie sind Sie vorgegangen? Welche Anpassungen mussten während der Entwicklung vo
 Analysieren Sie den Arbeitsprozess. Wo hat das Requirements Engineering geholfen, wo gab es bspw. durch "
 Drauflos-Programmieren" Probleme?
 
+- **Jannis:** Insgesamt ein effektiver Arbeitsprozess aus manueller Recherche und KI-gestützter Effizienz. In Teilen war ich jedoch nicht stark in die eigentliche codische Umsetzung eingebunden; rückblickend hätte man Aufgaben ggf. anders/gestaffelter verteilen können, um in jedem Arbeitsschritt ausgeglichenere Arbeitsanteile zu haben (mein Schwerpunkt lag primär auf Planung, Theorie und Dokumentation, weniger auf Umsetzung).
+
 #### Einsatz von KI
 
 Bitte denkt daran, dass ihr eine schriftliche Reflektion zu eurer KI-Nutzung im Projekt mit abgeben müsst. Da alle
 höchstwahrscheinlich KI-Tools verwenden werden, ist die Dokumentation des Lernfortschritts erforderlich (siehe IU
 Richtlinie zur Nutzung von KI im Studium (S. 13) https://mycampus-classic.iu.org/mod/resource/view.php?id=357067)
+
+- **Jannis:** KI wurde umfangreich zur Erschließung des Themas und seiner Teilbereiche/Disziplinen genutzt (v. a. zur schnellen Übersicht und Einordnung), sowie teilweise zur Erklärung einzelner Python-Grundlagen. Außerdem habe ich KI zur Zusammenfassung gefundener Papers eingesetzt, um schneller beurteilen zu können, ob sie im Rahmen des g07-Themas relevantes Wissen liefern. Die Planung und tiefere Erschließung der Theorie erfolgten manuell; die Ausformulierung und Strukturierung der gewonnenen Erkenntnisse (u. a. in den Markdown-Dateien) erfolgte aus Effizienzgründen großflächig unter Einsatz von KI (GPT 5.2 und Claude 4.5).
 
 ### 8.3 Nutzungsanweisung (How-to-use)
 
@@ -163,6 +171,8 @@ Kurze Anleitung für den Nutzer oder den Korrektor: Wie wird die App gestartet u
 Erstellen Sie ein kurzes Video (max. 3-5 Minuten), in dem Sie die App vorstellen, die wichtigsten Funktionen
 demonstrieren
 und die wissenschaftliche Fragestellung sowie die Ergebnisse präsentieren.
+
+- Pitch-Video: [Pitch.mp4](Pitch.mp4)
 
 Erstellt dazu bspw. einen Screencast mit einem Tool wie OBS Studio, Camtasia oder der System-eigenen Bildschirmaufnahme.
 
