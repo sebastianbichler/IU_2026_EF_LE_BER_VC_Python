@@ -382,7 +382,7 @@ sequenceDiagram
 
 ### 4.4 Design Patterns und Prinzipien
 
-Das Projekt implementiert das MVC-Pattern mit einer klaren Trennung zwischen Models für die Geschäftslogik in Dateien wie dijkstra.py, graph.py und benchmark.py, Views für die Präsentation in benchmark_view.py sowie Controllers in route_controller.py zur Orchestrierung. Bezüglich der SOLID-Prinzipien wird Single Responsibility erfüllt, da jede Datei eine klare, eigene Aufgabe hat, und Dependency Innovation wird beachtet, da Controller von konkreten Implementierungen abstrahiert werden. Das KISS-Prinzip ist durch den bewusst einfachen Code ohne unnötige Komplexität umgesetzt. Das DRY-Prinzip ist teilweise erfüllt, da die Route-Rekonstruktion nur einmalig in dijkstra.py vorkommt, jedoch weisen die Benchmark-Funktionen eine ähnliche Struktur auf. Das ürsprünglich geplante State Pattern wurde nicht umgesetzt.
+Das Projekt implementiert das MVC-Pattern mit einer klaren Trennung zwischen Models für die Geschäftslogik in Dateien wie dijkstra.py, graph.py und benchmark.py, Views für die Präsentation in benchmark_view.py sowie Controllers in route_controller.py zur Orchestrierung. Bezüglich der SOLID-Prinzipien wird Single Responsibility erfüllt, da jede Datei eine klare, eigene Aufgabe hat, und Dependency Inversion wird beachtet, da Controller von konkreten Implementierungen abstrahiert werden. Das KISS-Prinzip ist durch den bewusst einfachen Code ohne unnötige Komplexität umgesetzt. Das DRY-Prinzip ist teilweise erfüllt, da die Route-Rekonstruktion nur einmalig in dijkstra.py vorkommt, jedoch weisen die Benchmark-Funktionen eine ähnliche Struktur auf. Das ürsprünglich geplante State Pattern wurde nicht umgesetzt.
 
 ---
 
@@ -473,24 +473,32 @@ Kurzfristig sollten Integrationstests für Controller ergänzt sowie eine CI/CD-
 
 ### 8.1 Methodik und Anpassungen
 
-Wie sind Sie vorgegangen? Welche Anpassungen mussten während der Entwicklung vorgenommen werden und warum?
+Im Rahmen des Projekts wurde ein phasenorientierter Ansatz verfolgt, der sich in drei zentrale Abschnitte gliedert: Konzeptionsphase, Erarbeitungsphase und Finalisierungsphase.  
+In der Konzeptionsphase lag der Fokus zunächst auf dem Verständnis der Aufgabenstellung sowie der Definition der Zielsetzung der Anwendung. Es wurde erarbeitet, welche Funktionalitäten das System bereitstellen soll und welchem Zweck es dient. Darauf aufbauend wurden funktionale und nicht-funktionale Anforderungen definiert und mittels MoSCoW priorisiert. Zusätzlich wurde ein grundlegendes Softwaredesign erstellt, unter anderem in Form eines Use-Case-Diagramms. Außerdem wurden notwendige Ressourcen für die Umsetzung identifiziert, beispielsweise benötigte Bibliotheken und Datenstrukturen.  
+In der anschließenden Erarbeitungsphase wurde das Python-Projekt technisch aufgesetzt, inklusive grundlegender Projektstruktur und Dokumentation. Ziel war es, möglichst früh eine minimal lauffähige Anwendung zu entwickeln, um eine Basis für weitere Iterationen zu schaffen. Bereits in dieser Phase wurden erste zentrale Anforderungen umgesetzt, insbesondere die Kernfunktionalität zur Berechnung des kürzesten Pfades sowie grundlegende Benchmark-Strukturen. Parallel dazu wurde die Konzeption weiter dokumentiert, beispielsweise durch Diagramme und Beschreibungen.  
+In der Finalisierungsphase erfolgte die gezielte Umsetzung der priorisierten Anforderungen. Dabei lag der Fokus bewusst auf den Must-Anforderungen (F-01 bis F-03), um die Kernfunktionalität des Projekts vollständig und stabil bereitzustellen. Weitere Anforderungen wurden aufgrund von Zeit- und Prioritätsgründen nicht umgesetzt. Zusätzlich wurde die Projektdokumentation vervollständigt, einschließlich README und Beschreibung der implementierten Funktionen.  
+Während der Entwicklung waren mehrere Anpassungen erforderlich. Beispielsweise stellte sich heraus, dass die Integration von PyPy nicht direkt innerhalb der Hauptanwendung möglich ist, weshalb eine Lösung über Subprozesse implementiert werden musste. Darüber hinaus wurde die Benchmark-Logik angepasst, um reproduzierbare und vergleichbare Messergebnisse zu erzielen, beispielsweise durch wiederholte Ausführungen.  
+Insgesamt zeigte sich, dass die initiale Planung eine gute Orientierung bot, jedoch im Verlauf flexibel angepasst werden musste, insbesondere im Hinblick auf technische Einschränkungen und Priorisierungsentscheidungen.
 
 ### 8.2 Selbstreflexion
 
 #### Arbeitsprozess
 
-Analysieren Sie den Arbeitsprozess. Wo hat das Requirements Engineering geholfen, wo gab es bspw. durch "
-Drauflos-Programmieren" Probleme?
+Der Arbeitsprozess war eine Kombination aus strukturierter Planung und iterativer Umsetzung. Das Requirements Engineering hat insbesondere zu Beginn geholfen, die Zielsetzung klar zu definieren und die wichtigsten Anforderungen zu priorisieren. Durch die Fokussierung auf die Must-Anforderungen konnte sichergestellt werden, dass die Kernfunktionalitäten vollständig umgesetzt wurden.  
+Während der Erarbeitungsphase wurde teilweise auch explorativ gearbeitet („Drauflos-Programmieren“), insbesondere bei der Integration von Numba und PyPy. Dies führte dazu, dass einige Ansätze überarbeitet werden mussten, hat aber gleichzeitig das Verständnis für die Technologien verbessert.  
+Insgesamt hat die strukturierte Planung bei der Orientierung geholfen, während der experimentelle Ansatz bei technischen Herausforderungen notwendig war. Die Entscheidung, sich auf die Must-Anforderungen zu konzentrieren, erwies sich als sinnvoll, um eine stabile und funktionierende Anwendung zu gewährleisten.
 
 #### Einsatz von KI
 
-Bitte denkt daran, dass ihr eine schriftliche Reflektion zu eurer KI-Nutzung im Projekt mit abgeben müsst. Da alle
-höchstwahrscheinlich KI-Tools verwenden werden, ist die Dokumentation des Lernfortschritts erforderlich (siehe IU
-Richtlinie zur Nutzung von KI im Studium (S. 13) https://mycampus-classic.iu.org/mod/resource/view.php?id=357067)
+Im Rahmen dieses Projekts wurden KI-Tools, insbesondere ChatGPT, unterstützend eingesetzt. Der Einsatz erfolgte dabei gezielt in Situationen, in denen Unklarheiten bei der Umsetzung bestanden oder alternative Lösungsansätze benötigt wurden.  
+Konkret wurde die KI genutzt, um Vorschläge für mögliche Code-Strukturen zu erhalten sowie zur Unterstützung bei der Planung einzelner Implementierungsschritte. Die generierten Inhalte dienten dabei ausschließlich als Orientierungshilfe und wurden nicht ungeprüft übernommen.  
+Alle durch die KI vorgeschlagenen Lösungen wurden eigenständig analysiert, nachvollzogen und gegebenenfalls angepasst. Ein besonderer Fokus lag darauf, die Funktionsweise der vorgeschlagenen Ansätze vollständig zu verstehen, bevor sie in das Projekt integriert wurden.  
+Durch den Einsatz der KI konnten neue Perspektiven auf Problemstellungen gewonnen und alternative Lösungswege kennengelernt werden. Gleichzeitig wurde deutlich, dass die Vorschläge der KI nicht immer optimal oder direkt anwendbar waren, sodass eine kritische Bewertung und eigenständige Weiterentwicklung notwendig blieb.  
+Insgesamt diente die KI somit als unterstützendes Werkzeug zur Ideenfindung und Strukturierung, während die eigentliche Umsetzung und Bewertung der Lösungen eigenständig erfolgte.
 
 ### 8.3 Nutzungsanweisung (How-to-use)
 
-Kurze Anleitung für den Nutzer oder den Korrektor: Wie wird die App gestartet und welche Features sind wie zu nutzen?
+siehe [README.md](http://github.com/sebastianbichler/IU_2026_EF_LE_BER_VC_Python/blob/g01/src/student_projects/g01/README.md)
 
 ### 8.4 Pitch-Video
 
@@ -508,9 +516,21 @@ Examples:
 
 ---
 
+## Literaturverzeichnis
+
+Barany, G. (2014). *Analysis of performance overhead in CPython interpreter*.  
+
+Genchev, E., Rangelov, D., Waanders, K., & Waanders, S. (2025). Utilizing JIT Python runtime and parameter optimization for CPU-based Gaussian Splatting thumbnailer. *Array, 28*, 100611.  
+
+Lam, S. K., Pitrou, A., & Seibert, S. (2015). Numba: A LLVM-based Python JIT compiler. In *Proceedings of the Second Workshop on the LLVM Compiler Infrastructure in HPC* (pp. 1–6). ACM.  
+
+Tuominen, J. (2025). *JIT Compiling CPython with Numba & JAX* (Bachelor’s Thesis). Tampere University.
+
+---
+
 ## Anhang
 
-- **README.md (Inhalt):** Setup-Anleitung, Python-Umgebung, Paketliste.
+- **[README.md (Inhalt)](http://github.com/sebastianbichler/IU_2026_EF_LE_BER_VC_Python/blob/g01/src/student_projects/g01/README.md):** Setup-Anleitung, Python-Umgebung, Paketliste.
 
 - **Glossar:** Definition der fachlichen Begriffe der "Story".
 
