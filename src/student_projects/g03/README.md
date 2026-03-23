@@ -22,6 +22,15 @@ RabbitFarm ist eine Python-basierte Farmverwaltungsanwendung für den fiktiven G
 
 ---
 
+## Verweise
+
+- [Konzeptplan](docs/konzeptionsplan.md)
+- [Architektur und Tech-Stack](docs/ARCHITEKTUR_TECHSTACK.md)
+- [Theoretischer Hintergrund](docs/THEORETISCHERHINTERGRUND.md)
+- [Abschlussbericht](docs/finalReport.md)
+
+---
+
 ## Setup / Installation
 
 ### Voraussetzungen
