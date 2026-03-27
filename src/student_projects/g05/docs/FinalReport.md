@@ -269,7 +269,7 @@ Beziehungen:
 - Order → enthält OrderItems
 - Bill → berechnet Rechnungsbetrag
 
-![UML-Diagramm](https://github.com/user-attachments/assets/fe9e9be8-6372-4898-a184-e4667c8a5b3f)
+![restaurant_class_diagram.svg](restaurant_class_diagram.svg)
 
 ### 4.2 Verhaltensdiagramme: Activity- & State-Diagram
 
@@ -476,41 +476,101 @@ MCMC Sampling wird mit numpyro beschleunigt.
 
 ### 8.1 Methodik und Anpassungen
 
-Wie sind Sie vorgegangen? Welche Anpassungen mussten während der Entwicklung vorgenommen werden und warum?
+Die Entwicklung des Systems erfolgte iterativ und schrittweise. Zu Beginn wurden die zentralen Domänenmodelle definiert, um die grundlegende Struktur des Fischrestaurants abzubilden. Dazu gehörten insbesondere die Klassen `Fish`, `Recipe`, `MenuItem`, `Order`, `OrderItem`, `InventoryItem` und `Bill`. Diese bildeten die Basis für die Bestandsverwaltung, Bestellabwicklung und Abrechnung.
 
-Die Entwicklung erfolgte iterativ. Zunächst wurden Domänenmodelle entwickelt. Danach wurden die Analysemodelle integriert.
+Im nächsten Schritt wurde die Geschäftslogik in der zentralen Klasse `PenguEats` implementiert. Hier wurden Funktionen zur Inventarverwaltung, Bestellverarbeitung, Umsatzberechnung sowie zur Prüfung der Lagerverfügbarkeit integriert. Anschließend wurde das System um eine statistische Analyse erweitert. Dabei wurde ein bayesianisches MCMC-Modell zur Berechnung von Lieferwahrscheinlichkeiten und Versorgungsrisiken implementiert.
+
+Während der Entwicklung wurden mehrere Anpassungen notwendig. Beispielsweise wurde die ursprüngliche Struktur der Menüeinträge überarbeitet und durch die Einführung der Klasse `Recipe` erweitert. Dadurch konnte die Zuordnung zwischen Gericht und benötigter Fischmenge sauber modelliert werden. Ebenso wurde die Bestellstruktur angepasst, sodass Bestellungen nun mehrere `OrderItem`-Objekte enthalten und über eine separate `Bill`-Klasse abgerechnet werden.
+
+Zusätzlich wurde im späteren Projektverlauf ein Flask-Frontend integriert. Dieses ermöglicht die Visualisierung des Inventars, das Anlegen von Lieferungen, das Aufgeben von Bestellungen sowie die Darstellung der MCMC-Analyse. Diese Erweiterung erforderte kleinere Anpassungen an der Geschäftslogik, insbesondere bei der Preisberechnung und der Inventarverwaltung.
+
+Durch das iterative Vorgehen konnte das System schrittweise erweitert und verbessert werden, ohne die bestehende Funktionalität zu gefährden.
 
 ### 8.2 Selbstreflexion
 
 #### Arbeitsprozess
 
-Analysieren Sie den Arbeitsprozess. Wo hat das Requirements Engineering geholfen, wo gab es bspw. durch "
-Drauflos-Programmieren" Probleme?
+Der Arbeitsprozess begann mit der Definition der Anforderungen und der Modellierung der wichtigsten Domänenklassen. Das Requirements Engineering half dabei, eine klare Struktur für das System zu entwickeln und die zentralen Funktionen frühzeitig festzulegen. Insbesondere die Anforderungen an Inventarverwaltung, Bestellverarbeitung und Risikoanalyse konnten dadurch systematisch umgesetzt werden.
 
-Requirements Engineering half dabei, die Struktur des Systems zu definieren.
+Während der Implementierung zeigte sich jedoch, dass einige Anforderungen zunächst zu abstrakt formuliert waren. Dadurch mussten Anpassungen an der Klassenstruktur vorgenommen werden. Ein Beispiel hierfür ist die Einführung der `Recipe`-Klasse, da die direkte Zuordnung von Fisch zu Menüeinträgen zu unflexibel war. Ebenso wurde die Struktur der Bestellungen überarbeitet, um eine saubere Trennung zwischen Bestellung, Bestellposten und Rechnung zu ermöglichen.
 
-Einige Änderungen waren während der Implementierung notwendig, beispielsweise bei der Modellierung der Lieferkettenanalyse.
+Teilweise führte ein exploratives Vorgehen ("Drauflos-Programmieren") zu kleineren Umstrukturierungen im Code. Diese betrafen insbesondere die Preisstrategie, die Integration der MCMC-Analyse sowie die Inventarverwaltung mit Ablaufdaten. Diese Änderungen verbesserten jedoch langfristig die Architektur des Systems.
+
+Insgesamt hat das Requirements Engineering geholfen, eine stabile Grundstruktur zu schaffen, während iterative Anpassungen notwendig waren, um die Komplexität der Lieferkettenanalyse und Preisstrategie korrekt abzubilden.
 
 #### Einsatz von KI
 
-Bitte denkt daran, dass ihr eine schriftliche Reflektion zu eurer KI-Nutzung im Projekt mit abgeben müsst. Da alle
-höchstwahrscheinlich KI-Tools verwenden werden, ist die Dokumentation des Lernfortschritts erforderlich (siehe IU
-Richtlinie zur Nutzung von KI im Studium (S. 13) https://mycampus-classic.iu.org/mod/resource/view.php?id=357067)
+Im Rahmen des Projekts wurden KI-gestützte Tools unterstützend eingesetzt. Diese wurden insbesondere zur Strukturierung der Architektur, zur Verbesserung der Codequalität sowie zur Erstellung von Testfällen verwendet. Die KI wurde außerdem genutzt, um alternative Implementierungsansätze zu vergleichen und Fehler schneller zu identifizieren.
+
+Dabei lag der Fokus darauf, die vorgeschlagenen Lösungen zu verstehen und in die bestehende Systemarchitektur zu integrieren. Der Code wurde nicht ungeprüft übernommen, sondern an die Projektstruktur angepasst und eigenständig erweitert. Insbesondere bei der Integration des MCMC-Modells, der Flask-Oberfläche sowie der Teststruktur wurden KI-Vorschläge angepasst und weiterentwickelt.
+
+Durch den Einsatz von KI konnte der Entwicklungsprozess beschleunigt werden. Gleichzeitig wurde ein besseres Verständnis für Softwarearchitektur, Teststrategien und statistische Modellierung aufgebaut. Die KI diente somit als unterstützendes Werkzeug im Entwicklungsprozess.
 
 ### 8.3 Nutzungsanweisung (How-to-use)
 
-Kurze Anleitung für den Nutzer oder den Korrektor: Wie wird die App gestartet und welche Features sind wie zu nutzen?
+Die Anwendung kann sowohl über die Kommandozeile als auch über das Flask-Frontend gestartet werden.
 
-1. Python Umgebung erstellen
-2. Abhängigkeiten installieren
+#### Voraussetzungen
 
-pip install pymc numpy arviz
+* Python 3.10 oder neuer
+* Virtuelle Umgebung empfohlen
 
-3. Programm starten
+#### 1. Python Umgebung erstellen
 
+```bash
+python -m venv .venv
+```
+
+#### 2. Virtuelle Umgebung aktivieren
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Linux / Mac:
+
+```bash
+source .venv/bin/activate
+```
+
+#### 3. Abhängigkeiten installieren
+
+```bash
+pip install flask pymc numpy arviz
+```
+
+#### 4. Anwendung starten (Frontend)
+
+```bash
+python app.py
+```
+
+Danach ist die Anwendung im Browser erreichbar unter:
+
+http://127.0.0.1:5000
+
+#### Verfügbare Funktionen im Frontend
+
+* Anzeige des aktuellen Restaurant-Saldos
+* Anzeige des Fischinventars
+* Hinzufügen von Lieferungen für mehrere Fischarten
+* Aufgeben von Bestellungen über das Menü
+* Automatische Reduktion des Inventars bei Bestellungen
+* Rezeptempfehlungen basierend auf vorhandenem Bestand
+* Anzeige der MCMC-Lieferkettenanalyse
+* Dynamische Preisstrategie basierend auf Risiko
+* Laden von Mock-Daten zur Simulation
+* Neuberechnung der Analyse mit aktuellen Daten
+
+Alternativ kann die Simulation auch über die Kommandozeile gestartet werden:
+
+```bash
 python main.py
+```
 
-Das Programm führt anschließend eine Simulation des Restaurantbetriebs durch.
+Das Programm führt anschließend eine vollständige Simulation des Restaurantbetriebs mit Analyse und Bestellverarbeitung durch.
 
 
 ### 8.4 Pitch-Video
@@ -532,7 +592,5 @@ Examples:
 ## Anhang
 
 - **README.md (Inhalt):** Setup-Anleitung, Python-Umgebung, Paketliste.
-
-- **Glossar:** Definition der fachlichen Begriffe der "Story".
 
 ---
