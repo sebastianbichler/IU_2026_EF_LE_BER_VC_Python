@@ -363,51 +363,71 @@ Diese Werte werden zur Preisstrategie verwendet.
 
 ### 6.1 Code-Struktur und Dokumentation
 
-Der Code ist modular aufgebaut:
+Der Code ist modular aufgebaut und folgt einer klaren Trennung der Verantwortlichkeiten. Die einzelnen Komponenten sind in logisch getrennten Modulen organisiert, um Wartbarkeit, Erweiterbarkeit und Testbarkeit zu gewährleisten.
 
-core → Geschäftslogik
-models → Datenmodelle
-utils → Analysemodelle
+Die Struktur gliedert sich in folgende Hauptbereiche:
 
-Docstrings und Typannotationen verbessern die Lesbarkeit.
+- **core** → Enthält die zentrale Geschäftslogik des Systems, insbesondere die Klasse `PenguEats`, welche Bestellungen verarbeitet, Inventar verwaltet und Umsätze berechnet.
+- **models** → Beinhaltet alle Domänenmodelle wie `Fish`, `Recipe`, `MenuItem`, `Order`, `OrderItem`, `InventoryItem` und `Bill`. Diese Klassen definieren die Datenstruktur des Systems.
+- **utils** → Enthält Analyse- und Statistikmodelle, insbesondere das bayesianische MCMC-Modell zur Berechnung von Lieferwahrscheinlichkeiten und Versorgungsrisiken.
+- **templates** → Beinhaltet die Flask-Frontend-Komponenten zur Visualisierung von Inventar, Bestellungen, Lieferungen und Analyseergebnissen.
+- **tests** → Enthält Unit-Tests und Integrationstests zur Sicherstellung der korrekten Funktionalität.
+
+Durch diese modulare Struktur wird eine klare Trennung zwischen Datenmodell, Geschäftslogik, Analysekomponenten und Benutzeroberfläche erreicht.
+
+Zusätzlich wurde besonderer Wert auf Codequalität gelegt:
+
+- Verwendung von **Dataclasses** für kompakte und lesbare Datenmodelle  
+- Einsatz von **Typannotationen** zur besseren Nachvollziehbarkeit der Datenflüsse  
+- Nutzung von **Docstrings** zur Dokumentation von Klassen und Methoden  
+- Konsistente **Namenskonventionen** für Klassen, Variablen und Funktionen  
+- Klare Trennung zwischen Domain-Logik und Analyse-Logik  
+
+Diese Maßnahmen verbessern die Lesbarkeit, Wartbarkeit und Erweiterbarkeit des Systems und unterstützen eine strukturierte Weiterentwicklung des Projekts.
 
 ### 6.2 Test-Konzept: Unit-Tests
 
-noch Beispielhafte Daten:
-#### Test 1
+Zur Sicherstellung der korrekten Funktionsweise der einzelnen Softwarekomponenten wurden Unit-Tests für zentrale Klassen und Methoden des Systems implementiert. Ziel der Unit-Tests ist es, einzelne Einheiten isoliert zu prüfen und Fehler frühzeitig zu erkennen. Die Tests wurden insbesondere für die Domänenklassen des Fischrestaurants erstellt, da diese die Grundlage für Bestandsverwaltung, Bestellabwicklung und Abrechnung bilden.
 
-Inventory Reduction
+Die Unit-Tests konzentrieren sich auf drei zentrale Bereiche:
 
-Testet, ob der Bestand korrekt reduziert wird.
+#### Test 1: Inventory Reduction
 
-#### Test 2
+Dieser Test überprüft, ob der Fischbestand nach einer Bestellung korrekt reduziert wird. Dazu wird ein Inventareintrag mit definierter Menge angelegt und anschließend eine Bestellung verarbeitet. Nach der Bestellung wird kontrolliert, ob die verbleibende Menge im Inventar korrekt angepasst wurde.
 
-Bill Calculation
+#### Test 2: Bill Calculation
 
-Testet, ob der Rechnungsbetrag korrekt berechnet wird.
+Dieser Test prüft, ob der Rechnungsbetrag inklusive Steuer korrekt berechnet wird. Hierfür werden ein Menüeintrag, ein Bestellposten und eine Rechnung erstellt. Anschließend wird der berechnete Gesamtbetrag mit dem erwarteten Wert verglichen.
 
-#### Test 3
+#### Test 3: Fish Validation
 
-Fish Validation
+Dieser Test überprüft die Validierungslogik der Klasse `Fish`. Es wird getestet, ob ungültige Eingaben, beispielsweise ein negativer Preis pro Kilogramm oder eine negative Preisvarianz, korrekt erkannt und durch eine Exception abgefangen werden.
 
-Testet, ob ungültige Fischpreise abgefangen werden.
+Insgesamt stellen die Unit-Tests sicher, dass die Grundlogik des Systems zuverlässig funktioniert und einzelne Komponenten unabhängig voneinander korrekt arbeiten.
 
 ### 6.3 Integration-Tests und Traceability
 
-Dokumentieren Sie mindestens 3 Integration-Tests. Ordnen Sie diese explizit den Software-Requirements (aus Kap. 2.2) zu.
-auch noch Beispieldaten:
+Neben den Unit-Tests wurden Integrationstests durchgeführt, um das Zusammenspiel mehrerer Komponenten des Systems zu überprüfen. Dabei lag der Fokus auf der Verbindung zwischen Inventarverwaltung, Bestellverarbeitung, Abrechnung und Geschäftslogik. Die Integrationstests wurden explizit den in Kapitel 2.2 definierten Anforderungen zugeordnet, um die Nachvollziehbarkeit der Implementierung sicherzustellen.
 
-Test 1
-REQ-02
-Bestellung reduziert Inventar
+| Test-ID | Zugeordnete Anforderung | Beschreibung |
+|---------|-------------------------|--------------|
+| IT-01   | REQ-02                  | Eine Bestellung reduziert den vorhandenen Bestand des entsprechenden Fisches korrekt. |
+| IT-02   | REQ-04                  | Eine Bestellung schlägt fehl, wenn nicht genügend Bestand im Inventar vorhanden ist. |
+| IT-03   | REQ-05                  | Nach erfolgreicher Bestellverarbeitung wird der Umsatz korrekt im Restaurant erfasst. |
 
-Test 2
-REQ-04
-Bestellung schlägt fehl bei fehlendem Bestand
+#### Integrationstest 1: Bestellung reduziert Inventar
 
-Test 3
-REQ-05
-Umsatz wird korrekt berechnet
+Dieser Test überprüft das Zusammenspiel von `Order`, `OrderItem`, `Recipe`, `MenuItem`, `InventoryItem` und `PenguEats`. Nach dem Anlegen eines Anfangsbestands wird eine Bestellung ausgeführt. Anschließend wird geprüft, ob die korrekte Fischmenge aus dem Inventar entfernt wurde. Dieser Test deckt die Anforderung **REQ-02** ab.
+
+#### Integrationstest 2: Bestellung schlägt fehl bei fehlendem Bestand
+
+Dieser Test überprüft, ob das System Bestellungen korrekt ablehnt, wenn die vorhandene Menge eines Fisches nicht ausreicht. Dazu wird bewusst ein zu kleiner Bestand angelegt und anschließend eine Bestellung mit höherem Verbrauch ausgelöst. Das erwartete Verhalten ist eine Exception bzw. Fehlermeldung. Dieser Test deckt die Anforderung **REQ-04** ab.
+
+#### Integrationstest 3: Umsatz wird korrekt berechnet
+
+Dieser Test betrachtet das Zusammenspiel von Bestelllogik und Abrechnung. Nach dem Anlegen eines Menüeintrags und einer erfolgreichen Bestellung wird überprüft, ob der berechnete Rechnungsbetrag korrekt zum Umsatz des Restaurants addiert wurde. Damit wird die Anforderung **REQ-05** validiert.
+
+Durch die Kombination aus Unit-Tests und Integrationstests wird sowohl die Korrektheit einzelner Komponenten als auch die Konsistenz des Gesamtsystems sichergestellt.
 
 ### 6.4 CI-Pipeline
 
