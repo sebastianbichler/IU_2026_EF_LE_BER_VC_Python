@@ -7,24 +7,54 @@ Ein Python-basiertes Simulations- und Analysesystem für ein Fischrestaurant, in
 ## 📂 Projektstruktur
 
 ```text
-fish_restaurant/
+pengueats/
 │
-├── models/
-│   ├── fish.py
-│   ├── supplier.py
-│   ├── inventory.py
-│   ├── delivery.py
-│   ├── menu_item.py
-│   ├── order_item.py
-│   ├── order.py
-│   └── bill.py
+├── src/
+│   ├── app.py                  # Flask frontend
+│   ├── main.py                 # CLI simulation entry point
+│   ├── core/
+│   │   └── penguEats.py        # Restaurant management logic
+│   │
+│   ├── models/
+│   │   ├── fish.py
+│   │   ├── supplier.py
+│   │   ├── inventory_item.py
+│   │   ├── delivery.py
+│   │   ├── recipe.py
+│   │   ├── menu_item.py
+│   │   ├── order_item.py
+│   │   ├── order.py
+│   │   └── bill.py
+│   │
+│   ├── analytics/
+│   │   ├── restaurant_analytics.py
+│   │   └── supplier_reliability_model.py
+│   │
+│   ├── utils/
+│   │   └── mcmc_model.py
+│   │
+│   └── templates/
+│       └── index.html          # Flask UI
 │
-├── utils/
-│   ├── mcmc_model.py
-│   └── supplier_mcmc.py
+├── tests/
+│   ├── models/
+│   │   ├── test_fish.py
+│   │   ├── test_supplier.py
+│   │   ├── test_inventory_item.py
+│   │   ├── test_delivery.py
+│   │   ├── test_recipe.py
+│   │   ├── test_menu_item.py
+│   │   ├── test_order_item.py
+│   │   ├── test_order.py
+│   │   └── test_bill.py
+│   │
+│   ├── analytics/
+│   │   ├── test_restaurant_analytics.py
+│   │   └── test_supplier_reliability.py
+│   │
+│   └── core/
+│       └── test_pengueats.py
 │
-├── restaurant.py
-├── main.py
 └── docs/
     ├── PenguEats-Konzeptionsphase.pdf
     ├── restaurant_class_diagram.puml

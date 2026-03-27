@@ -26,7 +26,7 @@ class Supplier {
 class InventoryItem {
   - fish : Fish
   - amount_kg : float
-  - expiration_date : date
+  - expiry_date : date
   + is_expired(current_date: date) : bool
   + reduce_stock(amount: float) : void
 }
@@ -39,43 +39,50 @@ class Delivery {
   + add_item(item: InventoryItem) : void
 }
 
-class MenuItem {
+class Recipe {
   - name : str
   - fish : Fish
-  - price : float
   - fish_required_kg : float
+}
+
+class MenuItem {
+  - name : str
+  - recipe : Recipe
+  - price : float
 }
 
 class OrderItem {
   - menu_item : MenuItem
   - quantity : int
   + total_price() : float
-  + required_fish_kg() : float
 }
 
 class Order {
-  - order_id : int
+  - customer : str
   - items : List<OrderItem>
-  + add_item(item: OrderItem) : void
+  - bill : Bill
+  + total_items() : int
   + total_amount() : float
 }
 
 class Bill {
-  - order : Order
+  - order_items : List<OrderItem>
   - tax_rate : float
   + total_with_tax() : float
 }
 
 class Restaurant {
-  - name : str
   - inventory : List<InventoryItem>
+  - menu : List<MenuItem>
   - orders : List<Order>
-  - suppliers : List<Supplier>
-  - deliveries : List<Delivery>
-  + add_inventory(item: InventoryItem) : void
+  - balance : float
+  - rent : float
+  + apply_scientific_forecast(mean_supply: float, supply_risk: float) : float
+  + add_menu_item(menu_item: MenuItem) : void
+  + remove_expired_inventory() : void
   + place_order(order: Order) : void
-  + add_supplier(supplier: Supplier) : void
-  + register_delivery(delivery: Delivery) : void
+  + get_total_revenue() : float
+  + get_inventory_status() : Dict<String, float>
 }
 
 }
@@ -87,30 +94,29 @@ class Restaurant {
 package "Analytics Layer" {
 
 class DemandModel {
-  - historical_demand : ndarray
+  - observed_data : ndarray
   - model : pm.Model
   - trace : InferenceData
   + build_model() : void
-  + run_mcmc(draws: int, tune: int) : void
-  + predict_next_day() : int
+  + run_mcmc(draws: int, tune: int, chains: int, seed: int) : void
+  + get_risk_metrics(threshold: float) : tuple
 }
 
 class SupplierReliabilityModel {
-  - delivery_results : ndarray
+  - successes : int
+  - total : int
   - model : pm.Model
   - trace : InferenceData
   + build_model() : void
-  + run_mcmc() : void
-  + posterior_mean() : float
+  + run_mcmc(draws: int, tune: int, chains: int) : void
+  + get_reliability() : tuple
 }
 
 class RestaurantAnalytics {
   - restaurant : Restaurant
-  - demand_model : DemandModel
-  - supplier_model : SupplierReliabilityModel
-  + forecast_demand() : dict
-  + evaluate_supplier_risk() : dict
-  + compute_stockout_probability() : float
+  + total_revenue() : float
+  + inventory_status() : Dict<String, float>
+  + order_statistics() : Dict<String, int>
 }
 
 }
@@ -122,17 +128,18 @@ class RestaurantAnalytics {
 Supplier "1" -- "0..*" Delivery
 Delivery "1" *-- "1..*" InventoryItem
 InventoryItem "1" -- "1" Fish
-MenuItem "1" -- "1" Fish
+
+Recipe "1" -- "1" Fish
+MenuItem "1" -- "1" Recipe
+
 Order "1" *-- "1..*" OrderItem
 OrderItem "1" -- "1" MenuItem
-Bill "1" -- "1" Order
+Order "1" -- "1" Bill
+Bill "1" -- "1..*" OrderItem
 
 Restaurant "1" -- "0..*" InventoryItem
+Restaurant "1" -- "0..*" MenuItem
 Restaurant "1" -- "0..*" Order
-Restaurant "1" -- "0..*" Supplier
-Restaurant "1" -- "0..*" Delivery
 
 RestaurantAnalytics "1" -- "1" Restaurant
-RestaurantAnalytics "1" *-- "1" DemandModel
-RestaurantAnalytics "1" *-- "1" SupplierReliabilityModel
 @enduml
