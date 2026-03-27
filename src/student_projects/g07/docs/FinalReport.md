@@ -44,7 +44,28 @@ Untersucht wird dies an Domain-Entities wie `Elephant` (Parent/Child-Zyklus) und
 
 ### 2.1 Kontextdiagramm
 
-t.b.d.
+```mermaid
+graph LR
+    User[Ella Elephant<br/>End User]
+    Admin[System Admin<br/>Researcher]
+    GC[Python Runtime<br/>Garbage Collector]
+    OS[Operating System<br/>Resources]
+    JSON[JSON Storage<br/>Export File]
+
+    System((Elephant Memory<br/>Cloud System))
+
+    User -- "Ancestry data /<br/>Search queries" --> System
+    System -- "Genealogy trees /<br/>Search results" --> User
+
+    Admin -- "Cycle injection params /<br/>GC commands" --> System
+    System -- "Memory metrics /<br/>Hypothesis status" --> Admin
+
+    GC -- "Object counts /<br/>Collection stats" --> System
+
+    OS -- "Process Memory<br/>Usage (RSS)" --> System
+    
+    System -- "Export Data" --> JSON
+```
 
 ### 2.2 Funktionale Anforderungen
 
@@ -154,7 +175,53 @@ Diagramme:
 
 ### 4.2 Verhaltensdiagramme: Activity- & State-Diagram
 
-t.b.d.
+#### Activity-Diagram:
+
+```mermaid
+graph TD
+    Start((Start)) --> Gen[Generate dataset]
+    Gen --> Create[Create elephants & cycles]
+    Create --> Dashboard[Display on the dashboard]
+    
+    Dashboard --> Orphan[Break references]
+    Orphan --> CheckWR{Weakref?}
+    
+    CheckWR -- "Yes" --> Clean[Immediate deletion]
+    CheckWR -- "No" --> CheckGC{Cyclic GC?}
+    
+    CheckGC -- "Yes" --> GC[GC starts cleanup]
+    CheckGC -- "No" --> NoGC[Objects remain in RAM]
+    
+    NoGC --> ManualGC[Trigger GC manually]
+    
+    Clean --> End((End))
+    GC --> End
+    ManualGC --> End
+```
+
+#### State-Diagram:
+
+```mermaid
+stateDiagram-v2
+    [*] --> InStore: Instance created
+    
+    state InStore {
+        [*] --> Reachable: Strong reference exists
+        Reachable --> Unreachable: 'Break references' (User action)
+    }
+    
+    state Unreachable {
+        state join_node <<join>>
+        
+        [*] --> DeadIsland: Cycle detected
+        [*] --> join_node: No cycle / Weakref used
+        
+        DeadIsland --> join_node: 'Run GC' triggered
+    }
+    
+    join_node --> Finalized: __del__() executed / Memory free
+    Finalized --> [*]
+```
 
 ### 4.3 Interaktionsdiagramm: Sequence-Diagram
 
@@ -211,11 +278,25 @@ Es existieren zwei fokussierte Unit-Tests, die Kernlogik unabhängig von Streaml
 
 ### 6.3 Integration-Tests und Traceability
 
-t.b.d.
+| Nr. | Ziel                                                                                                               | Erwartetes Ergebnis                                                                                                 | REQs                   |
+|-----|--------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|------------------------|
+| 01  | Validierung der korrekten Erzeugung und Speicherung komplexer Verwandtschaftsverhältnisse mit Zyklen               | Elefanten-Objekte sind im Store vorhanden; Kinder referenzieren Eltern und umgekehrt (bestätigte Zirkularität)      | REQ-03, REQ-04, REQ-05 |
+| 02  | Nachweis der Messbarkeit von Speicherlecks durch deaktivierten GC bei vorhandenen Zyklen                           | Trotz geleertem Store bleibt die Objektanzahl im RAM konstant hoch                                                  | REQ-09, REQ-10         |
+| 03  | Sicherstellung, dass generierte Ereignisse korrekt indexiert und über räumliche/zeitliche Abfragen gefunden werden | Die Suchmaschine liefert das korrekte Objekt zurück, das sowohl zeitlich als auch räumlich den Kriterien entspricht | REQ-01, REQ-02, REQ-07 |
 
 ### 6.4 CI-Pipeline
 
-t.b.d.
+1. **Automatisierte Abhängigkeitsprüfung:**<br>
+   Sicherstellen, dass alle installierten Pakete keine Sicherheitslücken aufweisen.
+
+2. **Statische Code-Analyse & Linting:**<br>
+   Automatisierter Einsatz von Tools bei jedem Push, um Syntaxfehler zu finden und die Einhaltung von Richtlinien zu erzwingen, bevor der Code in den main-Branch gelangt.
+
+3. **Automatisierte Integrationstests:**<br>
+   Sicherstellen, dass die Kernlogik der Datenverarbeitung und die Suchalgorithmen auch nach Code-Änderungen konsistente Ergebnisse liefern.
+
+4. **Automatisierte Dokumentationsprüfung:**<br>
+   Validierung, ob Änderungen am Code auch eine Aktualisierung der Metadaten erfordern oder ob Docstrings in den Modellen vorhanden sind, um die Wartbarkeit des Systems zu garantieren.
 
 ---
 
