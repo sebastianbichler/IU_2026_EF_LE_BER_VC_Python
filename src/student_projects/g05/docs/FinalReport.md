@@ -100,17 +100,17 @@ Das System fungiert als zentrale Verwaltungs- und Analyseplattform.
 
 ### 2.2 Funktionale Anforderungen als Katalog
 
-| ID | Anforderung                  | Status  | Notizen                                         |
-|----|------------------------------|---------|-------------------------------------------------|
-| REQ-01 | Verwalten des Fischinventars | erfüllt | Implementiert über InventoryItem |
-| REQ-02 | Reduktion des Bestands bei Bestellung         | erfüllt | _consume_inventory() |
-| REQ-03 | Erstellung und Verwaltung von Bestellungen         | erfüllt | Order und OrderItem Klassen |
-| REQ-04 | Prüfung der Lagerverfügbarkeit vor Bestellung         | erfüllt | Fehler bei unzureichendem Inventar |
-| REQ-05 | Verwaltung von Einnahmen und Ausgaben         | erfüllt | Bill und Restaurant Balance |
-| REQ-06 | Berechnung der Lieferwahrscheinlichkeit      | erfüllt | Bayesianisches Modell mit PyMC |
-| REQ-07 | Warnung bei niedrigem Bestand         | teilweise | indirekt über Inventarprüfung |
-| REQ-08 | Simulation von Bestellungen        | erfüllt | simulate_order() in main |
-| REQ-09 | Preisstrategie basierend auf Risiko        | erfüllt | dynamischer Preisfaktor |
+| ID     | Anforderung                                   | Status              | Notizen |
+|--------|-----------------------------------------------|---------------------|---------|
+| REQ-01 | Verwalten des Fischinventars                  | erfüllt             | Implementiert über `InventoryItem` und `restaurant.inventory` |
+| REQ-02 | Reduktion des Bestands bei Bestellung         | erfüllt             | Über Bestandsverbrauch in `place_order()` |
+| REQ-03 | Erstellung und Verwaltung von Bestellungen    | erfüllt             | Über `Order`, `OrderItem`, `Bill` |
+| REQ-04 | Prüfung der Lagerverfügbarkeit vor Bestellung | erfüllt             | Fehler bei unzureichendem Inventar |
+| REQ-05 | Verwaltung von Einnahmen und Ausgaben         | teilweise erfüllt   | Einnahmen implementiert, Ausgaben bisher nur teilweise (z. B. Miete, aber keine vollständige Lieferkostenlogik) |
+| REQ-06 | Berechnung der Lieferwahrscheinlichkeit       | erfüllt             | Bayesianisches Modell mit PyMC / MCMC |
+| REQ-07 | Warnung bei niedrigem Bestand                 | teilweise erfüllt   | Bisher nur indirekt über Inventarprüfung und Fehlerbehandlung |
+| REQ-08 | Simulation von Bestellungen                   | erfüllt             | Über `main.py` und Flask-Frontend |
+| REQ-09 | Preisstrategie basierend auf Risiko           | erfüllt             | Dynamische Preisfaktoren basierend auf MCMC-Risikoanalyse |
 
 
 ### 2.3 Nicht-funktionale Anforderungen (Qualitätsanforderungen)
