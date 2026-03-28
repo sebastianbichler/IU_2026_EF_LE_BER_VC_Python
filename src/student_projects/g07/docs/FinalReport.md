@@ -316,11 +316,11 @@ t.b.d.
 
 #### Arbeitsprozess
 
-t.b.d.
+- **Jannis:** Insgesamt ein effektiver Arbeitsprozess aus manueller Recherche und KI-gestützter Effizienz. In Teilen war ich jedoch nicht stark in die eigentliche codische Umsetzung eingebunden; rückblickend hätte man Aufgaben ggf. anders/gestaffelter verteilen können, um in jedem Arbeitsschritt ausgeglichenere Arbeitsanteile zu haben (mein Schwerpunkt lag primär auf Planung, Theorie und Dokumentation, weniger auf Umsetzung).
 
 #### Einsatz von KI
 
-t.b.d.
+- **Jannis:** KI wurde umfangreich zur Erschließung des Themas und seiner Teilbereiche/Disziplinen genutzt (v. a. zur schnellen Übersicht und Einordnung), sowie teilweise zur Erklärung einzelner Python-Grundlagen. Außerdem habe ich KI zur Zusammenfassung gefundener Papers eingesetzt, um schneller beurteilen zu können, ob sie im Rahmen des g07-Themas relevantes Wissen liefern. Die Planung und tiefere Erschließung der Theorie erfolgten manuell; die Ausformulierung und Strukturierung der gewonnenen Erkenntnisse (u. a. in den Markdown-Dateien) erfolgte aus Effizienzgründen großflächig unter Einsatz von KI (GPT 5.2 und Claude 4.5).
 
 ### 8.3 Nutzungsanweisung (How-to-use)
 
