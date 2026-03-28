@@ -1,0 +1,19 @@
+## Reflexion der Projektdurchführung
+
+Im Rahmen des Projekts „FoxPost – Der Paketlieferdienst des Fuchses“ wurde eine Python-basierte Anwendung zur Verarbeitung von Paketdaten entwickelt. Ziel war es, grundlegende Konzepte des Data Engineerings praktisch umzusetzen und eine funktionierende Datenpipeline zu realisieren, die Daten einliest, verarbeitet, anreichert und speichert.
+
+Zu Beginn des Projekts stand die Konzeptionsphase im Fokus. Hier wurden zunächst die Anforderungen an die Anwendung definiert und priorisiert. Dabei wurde festgelegt, dass die Anwendung Paketdaten aus einer CSV-Datei einlesen, diese verarbeiten und in ein optimiertes Format überführen soll. Zusätzlich sollten bestimmte Daten angereichert werden, um einen Mehrwert für die spätere Analyse zu schaffen. In dieser Phase wurde außerdem eine grundlegende Architektur entworfen, die sich an einer klassischen ETL-Pipeline (Extract, Transform, Load) orientiert.
+
+In der anschließenden Erarbeitungsphase wurde die technische Umsetzung begonnen. Zunächst wurde die Projektstruktur erstellt und die Entwicklungsumgebung eingerichtet. Ein zentraler Bestandteil war die Integration von Dask, um auch größere Datenmengen effizient verarbeiten zu können. Im weiteren Verlauf wurden erste Funktionen implementiert, um Daten einzulesen und zu verarbeiten. Dabei wurde besonderer Wert auf eine modulare Struktur gelegt, sodass einzelne Komponenten wie das Einlesen, die Verarbeitung und die Ausgabe der Daten klar voneinander getrennt sind.
+
+Während der Umsetzung traten mehrere Herausforderungen auf. Eine der größten Schwierigkeiten bestand darin, die Projektstruktur korrekt aufzubauen, insbesondere im Hinblick auf das sogenannte „src-Layout“. Hier kam es zunächst zu Problemen beim Import von Modulen, da Python die Paketstruktur nicht direkt erkennen konnte. Dieses Problem konnte durch die Installation des Projekts im Entwicklungsmodus gelöst werden. Darüber hinaus stellte auch die Verarbeitung und Validierung der Daten eine Herausforderung dar, da unterschiedliche Datenformate und mögliche Fehlerfälle berücksichtigt werden mussten.
+
+Ein weiterer wichtiger Aspekt war die Einrichtung und Nutzung der virtuellen Umgebung sowie das Management von Abhängigkeiten. Gerade zu Beginn kam es hierbei zu kleineren Fehlern, die jedoch durch eine strukturierte Vorgehensweise und schrittweises Debugging behoben werden konnten. Diese Erfahrungen haben das Verständnis für typische Entwicklungsprozesse deutlich verbessert.
+
+In der Finalisierungsphase wurde das Projekt vervollständigt. Dazu gehörte insbesondere die Erstellung einer ausführlichen Dokumentation, einschließlich einer README-Datei mit Installations- und Nutzungsanleitung. Außerdem wurden Tests implementiert, um die Funktionalität der Anwendung sicherzustellen. Die Pipeline konnte erfolgreich ausgeführt werden und erzeugt die erwarteten Ausgabedaten im Parquet-Format.
+
+Rückblickend konnte das Projektziel erreicht werden. Die entwickelte Anwendung ist in der Lage, Paketdaten einzulesen, zu verarbeiten und strukturiert auszugeben. Besonders positiv hervorzuheben ist die klare Trennung der einzelnen Verarbeitungsschritte sowie die Erweiterbarkeit der Anwendung.
+
+Im Verlauf des Projekts konnten zahlreiche neue Kenntnisse erworben werden. Dazu zählen insbesondere der Umgang mit Datenpipelines, die Nutzung von Dask zur parallelen Datenverarbeitung sowie der Aufbau und die Strukturierung eines Python-Projekts. Darüber hinaus wurde das Verständnis für typische Fehlerquellen und deren Behebung deutlich verbessert.
+
+Zusammenfassend lässt sich sagen, dass das Projekt eine praxisnahe und lehrreiche Erfahrung darstellt. Für zukünftige Arbeiten könnten insbesondere die Erweiterung der Analysefunktionen sowie die Implementierung zusätzlicher Tests und Visualisierungen sinnvoll sein, um die Anwendung weiter auszubauen.

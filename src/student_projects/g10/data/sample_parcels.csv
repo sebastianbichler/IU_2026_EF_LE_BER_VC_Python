@@ -1,0 +1,6 @@
+parcel_id,origin,destination,weight_kg,shipped_at,delivered_at,status
+1,Berlin,München,2.4,2026-03-01T09:12:00,2026-03-02T14:23:00,delivered
+2,Hamburg,Berlin,5.0,2026-03-01T10:00:00,,in_transit
+3,Berlin,Bremen,1.2,2026-03-02T08:00:00,2026-03-02T18:10:00,delivered
+4,Stuttgart,Frankfurt,10.5,2026-03-01T11:45:00,2026-03-04T09:00:00,delivered
+5,Dresden,Leipzig,0.8,2026-03-03T13:00:00,,pending

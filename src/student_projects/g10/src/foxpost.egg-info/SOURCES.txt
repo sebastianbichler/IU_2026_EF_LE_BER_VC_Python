@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+src/foxpost/__init__.py
+src/foxpost/cli.py
+src/foxpost/etl.py
+src/foxpost/run.py
+src/foxpost/schema.py
+src/foxpost/utils.py
+src/foxpost.egg-info/PKG-INFO
+src/foxpost.egg-info/SOURCES.txt
+src/foxpost.egg-info/dependency_links.txt
+src/foxpost.egg-info/top_level.txt
+tests/test_etl.py
