@@ -308,7 +308,7 @@ Diese Qualitätsbewertung orientiert sich am ISO‑25010‑Modell (Produktqualit
 
 **Artefakte als Evidenz (Auszug):**
 - Architektur/Modularisierung: [app.py](../app.py), [models/](../models/), [memory/store.py](../memory/store.py), [search/engine.py](../search/engine.py), [data/generator.py](../data/generator.py)
-- Tests: [tests/test_search_and_store.py](../tests/test_search_and_store.py) (Annahme: Tests laufen erfolgreich)
+- Tests: [tests/test_search_and_store.py](../tests/test_search_and_store.py)
 - Abhängigkeiten: [requirements.txt](../requirements.txt)
 
 **Bewertungsskala (qualitativ):**
@@ -337,7 +337,7 @@ Diese Qualitätsbewertung orientiert sich am ISO‑25010‑Modell (Produktqualit
 - Die geforderten Demonstrations- und Nutzungsfunktionen sind als konsistenter Ablauf verfügbar (Daten generieren → Zustand im Store → Referenzen brechen → GC auslösen).
 - Kernlogik ist UI‑unabhängig in Module ausgelagert: Generierung [data/generator.py](../data/generator.py), Index‑Suche [search/engine.py](../search/engine.py), zentraler Objekt‑Container [memory/store.py](../memory/store.py), Domain‑Modelle [models/](../models/).
 
-#### 7.3.2 Maintainability (hoch relevant)
+#### 7.3.2 Maintainability
 
 **Stärken:**
 - Verständliche Modulgrenzen: Domain Models vs. Services vs. Storage; das erleichtert Unit‑Tests und gezielte Änderungen.
@@ -359,7 +359,7 @@ Diese Qualitätsbewertung orientiert sich am ISO‑25010‑Modell (Produktqualit
 - Es handelt sich nicht um eine produktive, langlaufende Server‑App; typische Reliability‑Metriken wie Verfügbarkeit/Fehlerraten über Zeit sind hier nicht sinnvoll.
 
 
-#### 7.3.4 Usability (mittel–hoch relevant)
+#### 7.3.4 Usability
 
 **Stärken:**
 - Der Nutzer wird über Tabs und klar benannte Aktionen geführt (Dashboard, Data Generation, Search Engine, Genealogy).
@@ -368,7 +368,7 @@ Diese Qualitätsbewertung orientiert sich am ISO‑25010‑Modell (Produktqualit
 **Schwächen:**
 - Kurze Tooltips/„How-to“‑Hinweise direkt an kritischen Stellen (z. B. welche Parameter „großes Dataset“ bedeuten) würden das Verständnis erhöhen, ohne die Implementierung zu vergrößern.
 
-#### 7.3.5 Performance efficiency (mittel relevant)
+#### 7.3.5 Performance efficiency
 
 **Stärken:**
 - Index‑Struktur in [search/engine.py](../search/engine.py) ist für Demo‑Skalierung passend (Dictionary‑Indizes, `defaultdict`).
