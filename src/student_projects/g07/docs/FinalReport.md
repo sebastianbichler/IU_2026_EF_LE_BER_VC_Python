@@ -376,6 +376,16 @@ Diese Qualitätsbewertung orientiert sich am ISO‑25010‑Modell (Produktqualit
 **Schwächen:**
 - Es gibt keine systematische Messkampagne (keine Benchmarks). Zudem ist die UI (Streamlit + Plotly) selbst ein erheblicher Overhead, der eine feingranulare Performancebewertung verzerren würde.
 
+### 7.4 Maßnahmen zur Qualitätsverbesserung
+
+Im Projekt wurden (innerhalb des bewusst kleinen Scopes) folgende Maßnahmen ergriffen, um die Produktqualität zu verbessern:
+
+- **Modularisierung und Separation of Concerns:** Die Kernlogik wurde UI‑unabhängig gehalten (Domain Models in [models/](../models/), Services in [data/generator.py](../data/generator.py) und [search/engine.py](../search/engine.py), Storage in [memory/store.py](../memory/store.py)); die UI in [app.py](../app.py) orchestriert primär Interaktion und Visualisierung.
+- **Testbarkeit der Kernlogik:** Kritische Funktionen (Indexing/Queries und Cleanup/Beziehungsauflösung) wurden über fokussierte Unit‑Tests abgesichert ([tests/test_search_and_store.py](../tests/test_search_and_store.py)).
+- **Explizite Cleanup‑Semantik:** Für nachvollziehbares Aufräumen und reproduzierbare Experimente existiert eine klare Cleanup‑API (`clear_and_cleanup`) im Store ([memory/store.py](../memory/store.py)).
+- **Reproduzierbarer Demo‑Ablauf:** Die Two‑Step‑GC‑Demo wurde so umgesetzt, dass der „orphaned“ Zustand zuverlässig beobachtbar bleibt (z. B. kontrollierter Umgang mit `gc.collect()` und bewusstes Entfernen externer Referenzen über Store und Search‑Indizes in [app.py](../app.py)).
+- **Dokumentation und Nachvollziehbarkeit:** Die Architektur/Story ist durch Diagramme (UML/Sequence/State) dokumentiert, und die Python‑Artefakte sind mit Docstrings/Typannotationen strukturiert, um das Verständnis und spätere Änderungen zu erleichtern.
+
 ---
 
 ## 8. Projektabschluss und Reflexion
