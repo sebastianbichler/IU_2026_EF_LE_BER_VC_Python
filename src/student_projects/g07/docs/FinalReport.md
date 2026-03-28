@@ -302,7 +302,79 @@ Es existieren zwei fokussierte Unit-Tests, die Kernlogik unabhängig von Streaml
 
 ## 7. Software-Qualität nach [ISO 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso-25010)
 
-t.b.d.
+Diese Qualitätsbewertung orientiert sich am ISO‑25010‑Modell (Produktqualität), wird jedoch **bewusst auf den Scope eines lokalen Lehr-/Demo‑Prototyps** zugeschnitten. Einige ISO‑Kriterien sind in diesem Projekt nur eingeschränkt sinnvoll bewertbar (z. B. Security im Sinne von Authentifizierung/Schutz vor Angriffen), weil keine Mehrbenutzer‑/Server‑/Produktiv‑Umgebung implementiert wird.
+
+### 7.1 Bewertungsansatz (Scope & Skala)
+
+**Artefakte als Evidenz (Auszug):**
+- Architektur/Modularisierung: [app.py](../app.py), [models/](../models/), [memory/store.py](../memory/store.py), [search/engine.py](../search/engine.py), [data/generator.py](../data/generator.py)
+- Tests: [tests/test_search_and_store.py](../tests/test_search_and_store.py) (Annahme: Tests laufen erfolgreich)
+- Abhängigkeiten: [requirements.txt](../requirements.txt)
+
+**Bewertungsskala (qualitativ):**
+- 5 = sehr gut / gut abgesichert
+- 3 = ausreichend / für Prototyp passend, mit klaren Verbesserungsoptionen
+- 1 = schwach / für Einsatz über Demo-Charakter hinaus nicht ausreichend
+- „n/a“ = nicht sinnvoll bewertbar bzw. außerhalb des Projekt‑Scopes
+
+### 7.2 Kurzbewertung nach ISO‑25010 (relativiert)
+
+| ISO‑Merkmal | Relevanz für g07 | Einschätzung | Kurze Begründung / Evidenz |
+|---|---:|---:|---|
+| **Functional suitability** | hoch | 4/5 | Kernfeatures umgesetzt: Daten erzeugen, Objektgraph mit Zyklen, GC‑Demo, Suche, Genealogie. Orchestrierung in [app.py](../app.py), Kernlogik in Services/Models. |
+| **Performance efficiency** | mittel | 3/5 | Suche nutzt Dictionary‑Indizes (O(1) Lookups) in [search/engine.py](../search/engine.py). Performance ist ausreichend für Demo, aber nicht systematisch gemessen. |
+| **Compatibility** | niedrig | n/a | Kein Integrations-/API‑Ziel, keine externen Systeme. Bewertung wäre spekulativ. |
+| **Usability** | mittel–hoch | 4/5 | Streamlit‑UI mit Tabs und klarer Two‑Step‑Demo („Break References“ → „Run GC“) in [app.py](../app.py). |
+| **Reliability** | mittel | 3/5 | Deterministische Kernlogik in Store/Search; 2 Unit‑Tests vorhanden [tests/test_search_and_store.py](../tests/test_search_and_store.py). Einschränkung: Random‑Generator ohne Seed kann Reproduzierbarkeit beeinflussen. |
+| **Security** | niedrig | n/a (Baseline) | Kein Auth/Netzwerk/Permissions‑Modell implementiert. Sinnvoll ist nur Baseline (Dependency‑Hygiene, keine Secrets im Repo). |
+| **Maintainability** | hoch | 3/5 | Gute Trennung UI/Domain/Services, aber [app.py](../app.py) ist sehr groß (Wartbarkeit/Testbarkeit reduziert). Globaler Singleton‑Store und Klassen‑Registries erhöhen Kopplung. |
+| **Portability** | mittel | 3/5 | Läuft mit Python + venv + wenigen Dependencies ([requirements.txt](../requirements.txt)). Windows‑Setup dokumentierbar; mehrere venv‑Ordner können verwirren (Workspace‑Root vs. g07). |
+
+### 7.3 Detaillierte Bewertung (fokussiert auf sinnvolle Kategorien)
+
+#### 7.3.1 Functional suitability
+
+- Die geforderten Demonstrations- und Nutzungsfunktionen sind als konsistenter Ablauf verfügbar (Daten generieren → Zustand im Store → Referenzen brechen → GC auslösen).
+- Kernlogik ist UI‑unabhängig in Module ausgelagert: Generierung [data/generator.py](../data/generator.py), Index‑Suche [search/engine.py](../search/engine.py), zentraler Objekt‑Container [memory/store.py](../memory/store.py), Domain‑Modelle [models/](../models/).
+
+#### 7.3.2 Maintainability (hoch relevant)
+
+**Stärken:**
+- Verständliche Modulgrenzen: Domain Models vs. Services vs. Storage; das erleichtert Unit‑Tests und gezielte Änderungen.
+- Tests fokussieren Kernlogik und vermeiden UI‑Abhängigkeit ([tests/test_search_and_store.py](../tests/test_search_and_store.py)).
+
+**Schwächen:**
+- [app.py](../app.py) bündelt sehr viel UI‑Logik (Charts, State‑Handling, Demo‑Steuerung). Das erschwert Änderungen und Wiederverwendung.
+- Globaler Singleton‑Store via `get_store()` und Klassen‑Registries (`Event._all_events`, `WaterSource._all_sources`) sind praktisch, erhöhen aber versteckte Kopplung und Seiteneffekte.
+- In [search/engine.py](../search/engine.py) wird in `_get_location_key` ein „bare except“ genutzt; das ist für Demo ok, aber erschwert Fehlersuche.
+
+
+#### 7.3.3 Reliability
+
+**Stärken:**
+- Cleanup‑Semantik ist explizit modelliert: `MemoryStore.clear_and_cleanup()` bricht Beziehungen und resetet Tracking ([memory/store.py](../memory/store.py)).
+- Search‑Indexing wird durch einen Unit‑Test nachvollziehbar geprüft ([tests/test_search_and_store.py](../tests/test_search_and_store.py)).
+
+**Grenzen:**
+- Es handelt sich nicht um eine produktive, langlaufende Server‑App; typische Reliability‑Metriken wie Verfügbarkeit/Fehlerraten über Zeit sind hier nicht sinnvoll.
+
+
+#### 7.3.4 Usability (mittel–hoch relevant)
+
+**Stärken:**
+- Der Nutzer wird über Tabs und klar benannte Aktionen geführt (Dashboard, Data Generation, Search Engine, Genealogy).
+- Der Two‑Step‑Ablauf der GC‑Demo ist explizit gemacht (Zustand vorher/nachher inkl. Metriken im Dashboard).
+
+**Schwächen:**
+- Kurze Tooltips/„How-to“‑Hinweise direkt an kritischen Stellen (z. B. welche Parameter „großes Dataset“ bedeuten) würden das Verständnis erhöhen, ohne die Implementierung zu vergrößern.
+
+#### 7.3.5 Performance efficiency (mittel relevant)
+
+**Stärken:**
+- Index‑Struktur in [search/engine.py](../search/engine.py) ist für Demo‑Skalierung passend (Dictionary‑Indizes, `defaultdict`).
+
+**Schwächen:**
+- Es gibt keine systematische Messkampagne (keine Benchmarks). Zudem ist die UI (Streamlit + Plotly) selbst ein erheblicher Overhead, der eine feingranulare Performancebewertung verzerren würde.
 
 ---
 
