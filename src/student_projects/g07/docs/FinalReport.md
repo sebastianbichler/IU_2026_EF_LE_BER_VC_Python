@@ -382,7 +382,11 @@ Diese Qualitätsbewertung orientiert sich am ISO‑25010‑Modell (Produktqualit
 
 ### 8.1 Methodik und Anpassungen
 
-t.b.d.
+Der Projektablauf wurde durch wöchentliche Projektmeetings strukturiert, in denen wir uns gegenseitig auf den aktuellen Stand gebracht, offene Punkte priorisiert und das weitere Vorgehen abgestimmt haben. Dadurch waren Abhängigkeiten (z. B. zwischen Modellierung, UI‑Demo und Dokumentation) früh sichtbar und konnten rechtzeitig geklärt werden.
+
+Im Verlauf des Projekts haben wir Aufgabenbereiche zugeteilt, die weitgehend unabhängig voneinander bearbeitet werden konnten (z. B. Dokumentation, Planung/Requirements, Umsetzung, Modellierung/Diagramme, Tests). Diese Arbeitsteilung hat insgesamt reibungslos funktioniert und zu einer stabilen Parallelisierung geführt.
+
+Als Anpassung/Learning aus dem Verlauf zeigte sich jedoch, dass die experimentelle Umsetzung ("einmal schnell ausprobieren") phasenweise der detaillierten Planung und theoretischen Recherche etwas vorausgegangen ist. Das war für schnelle Erkenntnisse in einem  Prototyp zwar hilfreich, hat aber gelegentlich zu Nacharbeit geführt (z. B. wenn sich Annahmen über Referenzen/GC‑Effekte als zu grob erwiesen oder im Code unabsichtlich zusätzliche starke Referenzen gehalten wurden). Rückblickend wäre es in diesen Fällen besser gewesen, erst die Hypothesen/Versuchsschritte noch klarer zu formulieren und danach die Umsetzung stringenter darauf auszurichten.
 
 ### 8.2 Selbstreflexion
 
@@ -390,9 +394,15 @@ t.b.d.
 
 - **Jannis:** Insgesamt ein effektiver Arbeitsprozess aus manueller Recherche und KI-gestützter Effizienz. In Teilen war ich jedoch nicht stark in die eigentliche codische Umsetzung eingebunden; rückblickend hätte man Aufgaben ggf. anders/gestaffelter verteilen können, um in jedem Arbeitsschritt ausgeglichenere Arbeitsanteile zu haben (mein Schwerpunkt lag primär auf Planung, Theorie und Dokumentation, weniger auf Umsetzung).
 
+- **Kevin:**
+- **Zichao:**
+
 #### Einsatz von KI
 
 - **Jannis:** KI wurde umfangreich zur Erschließung des Themas und seiner Teilbereiche/Disziplinen genutzt (v. a. zur schnellen Übersicht und Einordnung), sowie teilweise zur Erklärung einzelner Python-Grundlagen. Außerdem habe ich KI zur Zusammenfassung gefundener Papers eingesetzt, um schneller beurteilen zu können, ob sie im Rahmen des g07-Themas relevantes Wissen liefern. Die Planung und tiefere Erschließung der Theorie erfolgten manuell; die Ausformulierung und Strukturierung der gewonnenen Erkenntnisse (u. a. in den Markdown-Dateien) erfolgte aus Effizienzgründen großflächig unter Einsatz von KI (GPT 5.2 und Claude 4.5 Sonnet, Claude 4.6 Sonnet).
+
+- **Kevin:**
+- **Zichao:**
 
 ### 8.3 Nutzungsanweisung (How-to-use)
 
