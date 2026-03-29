@@ -574,19 +574,8 @@ Das Programm führt anschließend eine vollständige Simulation des Restaurantbe
 
 
 ### 8.4 Pitch-Video
-
-Erstellen Sie ein kurzes Video (max. 3-5 Minuten), in dem Sie die App vorstellen, die wichtigsten Funktionen
-demonstrieren
-und die wissenschaftliche Fragestellung sowie die Ergebnisse präsentieren.
-
-Erstellt dazu bspw. einen Screencast mit einem Tool wie OBS Studio, Camtasia oder der System-eigenen Bildschirmaufnahme.
-
-Examples:
-
-- https://dl.acm.org/doi/10.1145/3411764.3445651
-- https://dl.acm.org/doi/10.1145/2992154.2992174
-- https://dl.acm.org/conference/chi
-
+PenguEasts -Showcase (pitchvideo)
+https://youtu.be/vuc3L61X_CM
 ---
 
 ## Anhang
