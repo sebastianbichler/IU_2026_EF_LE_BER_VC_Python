@@ -502,17 +502,7 @@ siehe [README.md](http://github.com/sebastianbichler/IU_2026_EF_LE_BER_VC_Python
 
 ### 8.4 Pitch-Video
 
-Erstellen Sie ein kurzes Video (max. 3-5 Minuten), in dem Sie die App vorstellen, die wichtigsten Funktionen
-demonstrieren
-und die wissenschaftliche Fragestellung sowie die Ergebnisse präsentieren.
-
-Erstellt dazu bspw. einen Screencast mit einem Tool wie OBS Studio, Camtasia oder der System-eigenen Bildschirmaufnahme.
-
-Examples:
-
-- https://dl.acm.org/doi/10.1145/3411764.3445651
-- https://dl.acm.org/doi/10.1145/2992154.2992174
-- https://dl.acm.org/conference/chi
+https://www.youtube.com/watch?v=9G-JPnYkDUU
 
 ---
 
@@ -531,7 +521,5 @@ Tuominen, J. (2025). *JIT Compiling CPython with Numba & JAX* (Bachelor’s Thes
 ## Anhang
 
 - **[README.md (Inhalt)](http://github.com/sebastianbichler/IU_2026_EF_LE_BER_VC_Python/blob/g01/src/student_projects/g01/README.md):** Setup-Anleitung, Python-Umgebung, Paketliste.
-
-- **Glossar:** Definition der fachlichen Begriffe der "Story".
 
 ---
