@@ -456,7 +456,7 @@ Als Anpassung/Learning aus dem Verlauf zeigte sich jedoch, dass die experimentel
 
 - **Kevin:** Im Gesamten betrachtet war die Arbeitsverteilung in Bezug zum Aufwand gut. Aufteilung hätte möglicherweise mehr innerhalb der größeren Aufgabenbereiche geschehen können, aber das hätte eine gemeinsame zeitliche Basis vorausgesetzt, um sich öfters persönlich austauschen zu können.
 
-- **Zichao:**
+- **Zichao:** Insgesamt eine sehr positive Erfahrung. Nach der Festlegung des Themas konnten wir schnell mit der Arbeit beginnen. Mein Schwerpunkt lag primär auf der Implementierung und dem Coding. Durch den Einsatz moderner KI-Techniken hatte ich gleichzeitig die Gelegenheit, Vibe Coding in einem echten Projektkontext zu erlernen und anzuwenden. Darüber hinaus profitierte ich von der relativ häufigen Kommunikation im Team und dem schnellen Feedback zur Entwicklungsrichtung in verschiedenen Projektphasen – wofür ich meinen Teamkollegen danken möchte, die hervorragende Arbeit geleistet haben.
 
 #### Einsatz von KI
 
@@ -464,7 +464,7 @@ Als Anpassung/Learning aus dem Verlauf zeigte sich jedoch, dass die experimentel
 
 - **Kevin:** KI wurde für Verständnisfragen in Bezug auf technische Aspekte und Python-Logik sowie für Syntaxfragen zu Mermaid bzw. als Umsetzungshilfe für die Diagramme ins digitale Mermaid-Format genutzt (Gemini 3). Die Erarbeitung der Diagramme inhaltlich erfolgten manuell.
 
-- **Zichao:**
+- **Zichao:** KI wurde primär in Form von GitHub Copilot (Claude 4.6 Sonnet Modell) zur grundlegenden Code-Generierung eingesetzt. Anschließend erfolgten manuelle Anpassungen für spezifische Script-Optimierungen. Da das Projekt Teil des Python-Lernprozesses war, konnte ich durch das Studium des KI-generierten Codes erheblich von dieser Zusammenarbeit profitieren und mein Verständnis vertiefen.
 
 ### 8.3 Nutzungsanweisung (How-to-use)
 
