@@ -5,20 +5,21 @@ from ..stats.game_stats import GameStats
 from ..stats.player_stats import PlayerStats
 from ..stats.team_stats import TeamStats
 from bson import ObjectId
+from typing import Dict, List, Set, Any
 
 
 
-def get_game_stats(game_id):
-    game_oid = ObjectId(game_id)
+def get_game_stats(game_id: str) -> GameStats:
+    game_oid: ObjectId = ObjectId(game_id)
 
     cards_cursor = db.cards.find({"game_id": game_oid})
     goals_cursor = db.goals.find({"game_id": game_oid})
 
-    cards = [CardRecord.from_dict(c) for c in cards_cursor]
-    goals = [GoalRecord.from_dict(g) for g in goals_cursor]
+    cards: List[CardRecord] = [CardRecord.from_dict(c) for c in cards_cursor]
+    goals: List[GoalRecord] = [GoalRecord.from_dict(g) for g in goals_cursor]
 
-    player_ids = set()
-    team_ids = set()
+    player_ids: Set[ObjectId] = set()
+    team_ids: Set[ObjectId] = set()
 
     for goal in goals:
         player_ids.add(ObjectId(goal.player_id))
@@ -27,12 +28,12 @@ def get_game_stats(game_id):
     for card in cards:
         player_ids.add(ObjectId(card.player_id))
 
-    players = {
+    players: Dict[str, Dict[str, Any]] = {
         str(p["_id"]): p
         for p in db.players.find({"_id": {"$in": list(player_ids)}})
     }
 
-    teams = {
+    teams: Dict[str, Dict[str, Any]] = {
         str(t["_id"]): t
         for t in db.teams.find({"_id": {"$in": list(team_ids)}})
     }
@@ -51,12 +52,23 @@ def get_game_stats(game_id):
     )
 
 
-def get_player_stats_by_competition(player_id, competition_id):
-    cards_cursor = db.cards.find({"player_id": ObjectId(player_id), "competition_id": ObjectId(competition_id)})
-    goals_cursor = db.goals.find({"player_id": ObjectId(player_id), "competition_id": ObjectId(competition_id)})
+def get_player_stats_by_competition(
+    player_id: str,
+    competition_id: str
+) -> PlayerStats:
 
-    cards = [CardRecord.from_dict(c) for c in cards_cursor]
-    goals = [GoalRecord.from_dict(g) for g in goals_cursor]
+    cards_cursor = db.cards.find({
+        "player_id": ObjectId(player_id),
+        "competition_id": ObjectId(competition_id)
+    })
+
+    goals_cursor = db.goals.find({
+        "player_id": ObjectId(player_id),
+        "competition_id": ObjectId(competition_id)
+    })
+
+    cards: List[CardRecord] = [CardRecord.from_dict(c) for c in cards_cursor]
+    goals: List[GoalRecord] = [GoalRecord.from_dict(g) for g in goals_cursor]
 
     return PlayerStats(
         player_id=player_id,
@@ -66,12 +78,13 @@ def get_player_stats_by_competition(player_id, competition_id):
         goals=goals
     )
 
-def get_player_stats(player_id):
+
+def get_player_stats(player_id: str) -> PlayerStats:
     cards_cursor = db.cards.find({"player_id": ObjectId(player_id)})
     goals_cursor = db.goals.find({"player_id": ObjectId(player_id)})
 
-    cards = [CardRecord.from_dict(c) for c in cards_cursor]
-    goals = [GoalRecord.from_dict(g) for g in goals_cursor]
+    cards: List[CardRecord] = [CardRecord.from_dict(c) for c in cards_cursor]
+    goals: List[GoalRecord] = [GoalRecord.from_dict(g) for g in goals_cursor]
 
     return PlayerStats(
         player_id=player_id,
@@ -83,25 +96,28 @@ def get_player_stats(player_id):
 
 
 
-def get_team_stats(team_id, competition_id):
-    team_oid = ObjectId(team_id)
-    comp_oid = ObjectId(competition_id)
+def get_team_stats(team_id: str, competition_id: str) -> TeamStats:
+    team_oid: ObjectId = ObjectId(team_id)
+    comp_oid: ObjectId = ObjectId(competition_id)
 
     games_cursor = db.games.find({
         "$or": [{"team_1_id": team_oid}, {"team_2_id": team_oid}],
         "competition_id": comp_oid
     })
 
-    
-    wins = draws = losses = goals_for = goals_against = 0
+    wins: int = 0
+    draws: int = 0
+    losses: int = 0
+    goals_for: int = 0
+    goals_against: int = 0
 
     for game in games_cursor:
-        team_score = 0
-        opponent_score = 0
+        team_score: int = 0
+        opponent_score: int = 0
 
         goals_cursor = db.goals.find({"game_id": game["_id"]})
         for g in goals_cursor:
-            if g["team_id"] == team_id:
+            if str(g["team_id"]) == team_id:
                 team_score += 1
             else:
                 opponent_score += 1
@@ -116,8 +132,8 @@ def get_team_stats(team_id, competition_id):
         else:
             losses += 1
 
-    goal_difference = goals_for - goals_against
-    points = wins * 3 + draws
+    goal_difference: int = goals_for - goals_against
+    points: int = wins * 3 + draws
 
     return TeamStats(
         team_id=team_id,
@@ -131,23 +147,20 @@ def get_team_stats(team_id, competition_id):
         points=points
     )
 
-def get_competition_stats(competition_id):
-    comp_oid = ObjectId(competition_id)
+def get_competition_stats(competition_id: str) -> Dict[str, Any]:
+    comp_oid: ObjectId = ObjectId(competition_id)
 
-    games_cursor = db.games.find({"competition_id": comp_oid})
-    games = list(games_cursor)
+    games = list(db.games.find({"competition_id": comp_oid}))
 
-    total_goals = 0
-    total_cards = 0
-    game_stats_list = []
+    total_goals: int = 0
+    total_cards: int = 0
+    game_stats_list: List[Dict[str, Any]] = []
 
     for game in games:
-        cards_cursor = db.cards.find({"game_id": game["_id"]})
-        cards = [CardRecord.from_dict(c) for c in cards_cursor]
-        total_cards += len(cards)
+        cards = [CardRecord.from_dict(c) for c in db.cards.find({"game_id": game["_id"]})]
+        goals = [GoalRecord.from_dict(g) for g in db.goals.find({"game_id": game["_id"]})]
 
-        goals_cursor = db.goals.find({"game_id": game["_id"]})
-        goals = [GoalRecord.from_dict(g) for g in goals_cursor]
+        total_cards += len(cards)
         total_goals += len(goals)
 
         game_stats_list.append({
