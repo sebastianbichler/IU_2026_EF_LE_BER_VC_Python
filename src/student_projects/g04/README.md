@@ -1,3 +1,8 @@
+### Activate virtual environment
+```bash
+.\.venv\Scripts\activate
+```
+
 ### Install dependencies
 ```bash
 pip install -r requirements.txt
@@ -10,7 +15,7 @@ pip freeze > requirements.txt
 
 ### Start project
 ```bash
-flask run --debug
+flask run
 ```
 
 ### Check types

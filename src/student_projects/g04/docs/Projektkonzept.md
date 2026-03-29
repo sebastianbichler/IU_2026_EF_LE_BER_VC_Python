@@ -8,39 +8,103 @@ Die Anwendung "Football League" wird als zentrales Informationsportal für Fußb
 
 ### 2.1 Funktionale Anforderungen
 
-| ID  | Beschreibung | Priorität |
-| :-: | ------------ | :-------: |
-| FK1 | Turnierverwaltung: Auflistung aller verfügbaren Turniere. | Muss |
-| FK2 | Teamverwaltung: Erfassen von Namen, Positionen und Trikotnummern. | Muss |
-| FK3 | Ergebnis-Erfassung: Protokollierung von Toren, Karten und Torschützen während eines Spiels. | Muss |
-| FK4 | Tabellenberechnung: Automatische Berechnung der Punkte und Ranglisten pro Turnier. | Muss |
-| FK5 | Spielplan-Logik: Automatische Erstellung von Hin- und Rückrunden sowie Terminen. | Könnte |
-| FK6 | Finanzen: Tracking von Einnahmen (Tickets) und Ausgaben (Miete, Schiedsrichter). | Könnte |
-| FK7 | Spieler-Statistiken: Visualisierung der besten Spieler und Fairplay-Wertungen. | Könnte |
+| ID  | Beschreibung                                                                                    | Priorität |
+| :-: | ----------------------------------------------------------------------------------------------- | :-------: |
+| FK1 | Turnierverwaltung: Auflistung aller verfügbaren Turniere.                                       | Muss      |
+| FK2 | Teamverwaltung: Erfassen von Namen, Positionen und Trikotnummern.                               | Muss      |
+| FK3 | Ergebnis-Erfassung: Protokollierung von Toren, Karten und Torschützen während eines Spiels.     | Muss      |
+| FK4 | Tabellenberechnung: Automatische Berechnung der Punkte und Ranglisten pro Turnier.              | Muss      |
+| FK5 | Spielplan-Logik: Automatische Erstellung von Hin- und Rückrunden sowie Terminen.                | Könnte    |
+| FK6 | Finanzen: Tracking von Einnahmen (Tickets) und Ausgaben (Miete, Schiedsrichter).                | Könnte    |
+| FK7 | Spieler-Statistiken: Visualisierung der besten Spieler und Fairplay-Wertungen.                  | Könnte    | 
 
 ### 2.2 Nicht-funktionale Anforderungen
 
-* **Typ-Sicherheit:** Alle mathematischen Operationen müssen durch **MyPy** strikt typisiert sein, um Rechenfehler zu verhindern.
-* **Performance:** Schnelle Ladezeiten der Spieldaten durch effiziente MongoDB-Abfragen.
-* **Skalierbarkeit:** Das Schema in MongoDB sollte flexibel genug sein, um später zusätzliche Statistiken hinzufügen zu können.
-* **Wartbarkeit:** Der Code muss modular aufgebaut sein, damit neue Funktionen ohne große Umstrukturierung des Kernsystems hinzugefügt werden können. 
+Neben den funktionalen Anforderungen muss das System bestimmte Qualitätsanforderungen erfüllen.
+
+Das System soll Datenbankabfragen effizient durchführen.
+Spieler-, Team- und Spielinformationen sollen schnell aus der MongoDB-Datenbank geladen werden.
+
+Wartbarkeit (Maintainability)
+
+Der Code folgt einer modularen Struktur:
+
+- Models definieren Datenstrukturen
+
+- Services enthalten Geschäftslogik
+
+- Database Layer verwaltet Datenbankzugriffe
+
+Durch diese Struktur kann die Anwendung leichter erweitert werden.
+
+Das System muss sicherstellen, dass fehlerhafte Datenbankabfragen korrekt behandelt werden.
+Falls ein Objekt nicht existiert, soll das System None zurückgeben, anstatt einen Fehler zu verursachen.
+
+Durch die Nutzung einer NoSQL-Datenbank (MongoDB) kann das System leicht erweitert werden, wenn neue Spiele, Teams oder Wettbewerbe hinzugefügt werden.
 
 ## 3. Use-Cases
 
-| ID  | Name | Beschreibung |
-| :-: | ---- | ------------ |
-| UC1 | Turnier auswählen | User navigiert durch die Liste der verfügbaren Turniere. |
-| UC2 | Spieldetails einsehen | User klickt auf einen Turnier und sieht die Tabelle der anstehenden/beendeten Spiele. |
-| UC3 | Spielergebnisse prüfen | User vergleicht Scores und Spieldaten in der Detailansicht. |
-| UC4 | Teamdetails einsehen | User klickt auf eine Team und sieht alle Spieler mit Positionen und Trikotnummern. |
+### UC1. Teams anzeigen
+
+| Feld | Beschreibung |
+|-----|-------------|
+| **Name** | Teams anzeigen |
+| **Akteur** | Benutzer |
+| **Beschreibung** | Der Benutzer möchte eine Liste aller Teams der Liga sehen. |
+| **Vorbedingung** | Die Anwendung ist gestartet und die Datenbank enthält Teamdaten. |
+| **Hauptablauf** | 1. Benutzer öffnet die Teamseite.<br>2. Das System sendet eine Anfrage an die Datenbank.<br>3. Die Teams werden aus MongoDB geladen.<br>4. Die Teamliste wird angezeigt. |
+| **Ergebnis** | Alle Teams der Liga werden im Interface angezeigt. |
+
+### UC2. Spieler eines Teams anzeigen
+
+| Feld | Beschreibung |
+|-----|-------------|
+| **Name** | Spieler eines Teams anzeigen |
+| **Akteur** | Benutzer |
+| **Beschreibung** | Der Benutzer möchte alle Spieler eines bestimmten Teams sehen. |
+| **Vorbedingung** | Das Team existiert in der Datenbank. |
+| **Hauptablauf** | 1. Benutzer wählt ein Team aus.<br>2. Das System ruft alle Spieler mit entsprechender `team_id` ab.<br>3. Die Spieler werden geladen.<br>4. Die Spieler werden im Interface angezeigt. |
+| **Ergebnis** | Die Liste der Spieler des ausgewählten Teams wird angezeigt. |
+
+### UC3. Spielerprofil anzeigen
+
+| Feld | Beschreibung |
+|-----|-------------|
+| **Name** | Spielerprofil anzeigen |
+| **Akteur** | Benutzer |
+| **Beschreibung** | Der Benutzer möchte detaillierte Informationen über einen Spieler sehen. |
+| **Vorbedingung** | Der Spieler existiert in der Datenbank. |
+| **Hauptablauf** | 1. Benutzer klickt auf einen Spieler.<br>2. Das System ruft die Spielerdaten aus der Datenbank ab.<br>3. Die Daten werden verarbeitet.<br>4. Das Spielerprofil wird angezeigt. |
+| **Ergebnis** | Der Benutzer sieht Informationen über den Spieler (Name, Position, Nummer, Team). |
+
+### UC4. Spiele eines Wettbewerbs anzeigen
+
+| Feld | Beschreibung |
+|-----|-------------|
+| **Name** | Spiele anzeigen |
+| **Akteur** | Benutzer |
+| **Beschreibung** | Der Benutzer möchte alle Spiele eines Wettbewerbs sehen. |
+| **Vorbedingung** | Der Wettbewerb existiert in der Datenbank. |
+| **Hauptablauf** | 1. Benutzer öffnet einen Wettbewerb.<br>2. Das System lädt alle Spiele mit entsprechender `competition_id`.<br>3. Die Spiele werden angezeigt. |
+| **Ergebnis** | Der Benutzer sieht eine Liste der Spiele des Wettbewerbs. |
+
+### UC5. Spielstatistiken anzeigen
+
+| Feld | Beschreibung |
+|-----|-------------|
+| **Name** | Spielstatistiken anzeigen |
+| **Akteur** | Benutzer |
+| **Beschreibung** | Der Benutzer möchte Statistiken eines Spiels sehen. |
+| **Vorbedingung** | Das Spiel existiert in der Datenbank. |
+| **Hauptablauf** | 1. Benutzer öffnet ein Spiel.<br>2. Das System lädt die Spieldaten.<br>3. Tore und Karten werden aus der Datenbank geladen.<br>4. Die Statistiken werden angezeigt. |
+| **Ergebnis** | Der Benutzer sieht Tore, Karten und weitere Statistiken des Spiels. |
 
 ## 4. Tech-Stack
 
-* **Backend:** Flask
-* **Frontend:** Bootstrap 5.3
-* **Datenbank:** MongoDB
-* **DB-Anbindung:** PyMongo
-* **Type-Checker:** MyPy
+- **Python, Flask:** Diese bilden das Grundgerüst des Backends, da Flask sehr schnell für Web-Projekte einsatzbereit ist.
+- **MongoDB, PyMongo:** Als Datenbank wurde eine NoSQL-Datenbank MongoDB gewählt, da sie eine flexible Datenspeicherung ermöglicht. Dadurch können zusätzliche Informationen, beispielsweise neue Statistiken, leicht hinzugefügt werden, ohne bereits vorhandene Daten zu beeinträchtigen.
+- **MyPy:** Dieses Tool überprüft statische Typen in Python, wodurch potenzielle Fehler und Bugs erkannt werden können, noch bevor das Programm startet.
+- **Bootstrap:** Diese Style-Bibliothek wird verwendet, um das Frontend modern zu gestalten, ohne alle Styles manuell erstellen zu müssen.
 
 ## 5. Statische Typisierung
 

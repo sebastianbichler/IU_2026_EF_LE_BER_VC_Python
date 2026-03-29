@@ -40,8 +40,8 @@ class Game(Entity):
     def to_dict(self, for_db=False):
         # Converts Game object to dictionary (for MongoDB if for_db=True)
         data = {
-            'score_1': self.score_1,
-            'score_2': self.score_2,
+            'score_1': self.score_1 if self.score_1 is not None else 0,
+            'score_2': self.score_2 if self.score_2 is not None else 0,
             'start_date': self.start_date,
             'end_date': self.end_date,
             'status': self.status.value,
