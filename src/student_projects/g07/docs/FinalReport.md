@@ -249,11 +249,61 @@ Die Codebasis nutzt gezielt wenige, leichtgewichtige Strukturmuster, passend zum
 
 ### 5.1 Methodik der Untersuchung
 
-t.b.d.
+**Forschungsfrage / Ziel**
+
+Wir untersuchen, ob zyklische Objektgraphen (Parent↔Child, Herd↔Member) nach dem Entfernen externer Referenzen ohne zyklische GC im Speicher verbleiben (H1) und ob sie nach Aktivierung/Triggern der zyklischen GC freigegeben werden (H2).
+
+**Umsetzung statt klassischem Notebook**
+
+Die Aufgabenstellung verlangt ein Jupyter Notebook. Inhaltlich identisch wurde der Versuch in diesem Projekt als reproduzierbarer, interaktiver Ablauf in einer **Streamlit-App** umgesetzt, weil (a) der Versuchsablauf dadurch in klaren, wiederholbaren UI-Schritten ausgeführt werden kann und (b) Metriken und Visualisierungen direkt nebeneinander sichtbar sind.
+
+**Versuchsobjekt / Datenmodell (Cycle Injection)**
+
+- `Elephant`: bidirektionale Beziehungen über `.children` und `.parent` (starke Referenzen)
+- `Herd`: Mitgliedschaft erzeugt zusätzliche Referenzen Elephant↔Herd
+- Generierung skalierbarer Objektgraphen über Parameter (Familien, Generationen, Kinderzahl)
+
+**Versuchsbedingungen (Treatments)**
+
+1) **Baseline (GC aktiv):** Erzeugen eines großen Objektgraphen.
+2) **Orphaned Cycles (GC deaktiviert):** Entfernen *externer* Referenzen (Store leeren + Indizes leeren), anschließend `gc.disable()`.
+3) **Cleanup (GC aktiv):** `gc.enable()` und erzwingende Bereinigung via `gc.collect()`.
+
+**Messgrößen (Operationalisierung)**
+
+- **Objekt-Liveness (Kernmetrik):** `Elephant.get_instance_count()` als Proxy für „noch lebende“ Elefanteninstanzen.
+- **Prozessspeicher:** RSS in MB (`psutil`) als grobe Speicher-Metrik.
+- **GC-Effekt:** Rückgabewert von `gc.collect()` (Anzahl eingesammelter Objekte) als zusätzliche Evidenz.
+
+**Gültigkeit & Grenzen (kurz)**
+
+- RSS ist eine grobe Metrik (Framework-Overhead durch Streamlit/Plotly); die Hypothesenprüfung stützt sich primär auf die Liveness-Metrik.
+- Die Datengenerierung nutzt Zufall; für eine Messkampagne wäre ein fixer Seed sinnvoll. Für die Hypothesenlogik ist dies unkritisch, da nur die Existenz/Skalierung von Zyklen demonstriert wird.
 
 ### 5.2 Analyse und Demonstration
 
-t.b.d.
+**Reproduzierbarer Ablauf (Demo-Protokoll)**
+
+1) **Dataset erzeugen** (Tab „Data Generation“): Parameter erhöhen → größerer Objektgraph mit mehr Zyklen.
+2) **Beobachtung im aktiven Zustand:** Store enthält Elefanten; `Elephant.get_instance_count()` ist hoch; Circular-Refs werden angezeigt.
+3) **„Break References“** (Tab „Dashboard“): Store wird geleert und Search-Indizes werden zurückgesetzt; zyklische GC wird deaktiviert.
+4) **Analyse Orphaned-Zustand (H1):** Store zeigt 0 Elefanten, aber „Orphaned in Memory“ bleibt > 0 und steigt mit der Graphgröße.
+5) **„Run GC“**: zyklische GC wird aktiviert und eine Collection erzwungen.
+6) **Analyse nach GC (H2):** `Elephant.get_instance_count()` sinkt deutlich; zusätzlich werden „Objects Collected“ und „Memory Freed“ ausgewiesen.
+
+**Visualisierung / Evidenz**
+
+Die Visualisierung erfolgt in der Streamlit-App (Plotly) direkt neben den Messwerten, u. a.:
+
+- Metriken für „Orphaned in Memory“, Prozessspeicher und GC-Resultate (vor/nach `gc.collect()`).
+- „Live Memory Distribution“ (Tortendiagramm) als qualitative Einordnung, welche Anteile auf Datenobjekte vs. Runtime entfallen.
+
+**Interpretation (kurz)**
+
+- **H1 wird unterstützt:** Nach Entfernen externer Referenzen bleiben zyklisch referenzierende Objekte ohne zyklische GC „am Leben“ (leak-ähnlicher Zustand durch Dead-Islands).
+- **H2 wird bestätigt:** Nach Aktivierung und Triggern der zyklischen GC werden die zuvor orphaned Zyklen bereinigt und die Instanzanzahl fällt.
+
+Hinweis: Es handelt sich dabei nicht um einen „klassischen“ Leak, sondern um das demonstrierte Zusammenspiel von Reference Counting und zyklischer GC bei unreachable Zyklen.
 
 ---
 
