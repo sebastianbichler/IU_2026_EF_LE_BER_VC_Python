@@ -6,6 +6,8 @@
 - DataCamp. (2024). Python Polars Tutorial – Complete Guide for Beginners. Abgerufen von https://www.datacamp.com/de/tutorial/python-polars-tutorial-complete-guide-for-beginners .
 - Dremio. (2023). Lazy Evaluation. Abgerufen von https://www.dremio.com/wiki/lazy-evaluation/ .
 - Full Stack Python. (2024). Web Servers. Abgerufen von https://www.fullstackpython.com/web-servers.html .
+- Google DeepMind. (2025). Gemini – Google AI. Abgerufen von https://gemini.google.com/ .
+- Google DeepMind. (2025). Veo – AI Video Generation. Abgerufen von https://deepmind.google/technologies/veo/ .
 - Heise Online. (2024). Python – Programmiersprache und Anwendungen. Abgerufen von https://www.heise.de/thema/Python .
 - Jupyter Documentation. (2024). Jupyter Notebook Documentation. Abgerufen von https://jupyter-notebook.readthedocs.io/en/stable/notebook.html .
 - LinkedIn. (2024). What is Lazy Evaluation and how does it work in functional programming? Abgerufen von https://www.linkedin.com/advice/0/what-lazy-evaluation-how-does-work-functional-programming-looac?lang=de .
@@ -19,6 +21,7 @@
 - Stack Overflow. (2024). Python Questions and Answers. Abgerufen von https://stackoverflow.com/ .
 - Stack Overflow. (2024). What is the trade-off between lazy and strict (eager) evaluation? Abgerufen von https://stackoverflow.com/questions/75680491/what-is-the-trade-off-between-lazy-and-strict-eager- .
 - Wikipedia. (2024). Lazy Evaluation. Abgerufen von https://de.wikipedia.org/wiki/Lazy_Evaluation .
+
 
 ## Wissenschaftliche Literatur
 

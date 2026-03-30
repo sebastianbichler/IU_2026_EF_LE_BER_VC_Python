@@ -506,7 +506,7 @@ Darüber hinaus wurde KI genutzt, um bestehende Codeabschnitte zu analysieren un
 
 Auch bei der Strukturierung von Dokumentationen und der sprachlichen Überarbeitung von Texten kam KI zum Einsatz. Sie half, Formulierungen verständlicher zu gestalten und die Gliederung von Berichten und Konzeptdokumenten zu verbessern. Die inhaltlichen Aussagen blieben dabei stets unverändert.
 
-Beim Refactoring einzelner Codeabschnitte unterstützte die KI zudem beim Erkennen von Wiederholungen und beim Vorschlagen kompakterer Implementierungen. Auch beim Verständnis technischer Konzepte – etwa der Funktionsweise von `tracemalloc` oder der korrekten Nutzung von `itertools` – erwies sich die KI als hilfreich, indem sie Beispiele lieferte, die das Verständnis beschleunigten.
+Das Pitch-Video wurde vollständig mithilfe von KI-Tools erstellt. Zur Erstellung und Aufbereitung der Inhalte wurde Google Gemini / Veo verwendet.
 
 Insgesamt hat der Einsatz von KI den Arbeitsprozess an mehreren Stellen beschleunigt und die Qualität des Codes sowie der Dokumentation verbessert. Gleichzeitig zeigte sich, dass die Vorschläge der KI nicht immer direkt anwendbar waren und einer kritischen Prüfung bedurften. Insbesondere bei domänenspezifischen Entscheidungen und der Einordnung wissenschaftlicher Quellen stieß die KI an ihre Grenzen. Die Verantwortung für alle inhaltlichen und technischen Entscheidungen lag daher durchgehend bei uns.
 
@@ -545,10 +545,6 @@ pytest tests/ -v
 
 Im Anhang finden Sie ein kurzes Video: App vorstellen, Funktionen demonstrieren, Lazy vs. Eager und Ergebnisse präsentieren. Tools: OBS Studio, Camtasia oder System-Bildschirmaufnahme.
 
-**Link zum Pitch-Video (YouTube):** 
-[G03_Pitch_RudisHasenhof.mp4 ansehen](https://youtu.be/PIPbBWOSbjs)
-
-
 ---
 
 ## Anhang
@@ -584,6 +580,8 @@ Im Anhang finden Sie ein kurzes Video: App vorstellen, Funktionen demonstrieren,
 - PyPI. (2024). ipywidgets – Interactive widgets for Jupyter. Abgerufen von https://pypi.org/project/ipywidgets/ .
 - Real Python. (2024). Python HTTP Server. Abgerufen von https://realpython.com/python-http-server/ .
 - Full Stack Python. (2024). Web Servers. Abgerufen von https://www.fullstackpython.com/web-servers.html .
+- Google DeepMind. (2025). Gemini – Google AI. Abgerufen von https://gemini.google.com/ .
+- Google DeepMind. (2025). Veo – AI Video Generation. Abgerufen von https://deepmind.google/technologies/veo/ .
 - Project Jupyter. (2024). Project Jupyter – Official Website. Abgerufen von https://jupyter.org/ .
 - Jupyter Documentation. (2024). Jupyter Notebook Documentation. Abgerufen von https://jupyter-notebook.readthedocs.io/en/stable/notebook.html .
 - Python Software Foundation. (2024). Python Documentation. Abgerufen von https://docs.python.org/3/ .
