@@ -1,8 +1,8 @@
 """
-Integrationstests für RabbitFarm.
+Integration tests for RabbitFarm.
 
-Jeder Test deckt einen modulübergreifenden Workflow ab und ist
-den Anforderungen aus dem Bericht (REQ-01 bis REQ-15) zugeordnet.
+Each test covers a cross-module workflow and is explicitly mapped
+to the software requirements from the final report (REQ-01 to REQ-15).
 """
 
 from datetime import datetime, timedelta
@@ -22,7 +22,7 @@ from sensor_benchmark import (
 class TestIntegration01BedVegetableWorkflow:
     """INT-01: Beet anlegen -> Gemüse anlegen -> bed_id korrekt.
 
-    Deckt ab: REQ-01 (Beet-Verwaltung), REQ-02 (Gemüsekatalog), REQ-03 (Pflanzplanung).
+    Covers: REQ-01 (Beet-Verwaltung), REQ-02 (Gemüsekatalog), REQ-03 (Pflanzplanung).
     """
 
     def test_vegetable_linked_to_bed(self):
@@ -63,7 +63,7 @@ class TestIntegration01BedVegetableWorkflow:
 class TestIntegration02InventoryWorkflow:
     """INT-02: Gemüse anlegen -> Ernte einlagern -> Frische prüfen -> Gesamtmenge.
 
-    Deckt ab: REQ-04 (Bestandsüberwachung), REQ-05 (Haltbarkeitslogik), REQ-06 (Bestandsabfrage).
+    Covers: REQ-04 (Bestandsüberwachung), REQ-05 (Haltbarkeitslogik), REQ-06 (Bestandsabfrage).
     """
 
     def test_harvest_and_freshness(self):
@@ -110,7 +110,7 @@ class TestIntegration02InventoryWorkflow:
 class TestIntegration03OrderFinanceWorkflow:
     """INT-03: Kunde anlegen -> Bestellung aufgeben -> Gewinn berechnen.
 
-    Deckt ab: REQ-07 (Kunden-Datenbank), REQ-09 (Bestellabwicklung),
+    Covers: REQ-07 (Kunden-Datenbank), REQ-09 (Bestellabwicklung),
             REQ-10 (Einnahmen-Berechnung), REQ-11 (Gewinn-/Verlustrechnung).
     """
 
@@ -165,7 +165,7 @@ class TestIntegration03OrderFinanceWorkflow:
 class TestIntegration04SensorBenchmarkWorkflow:
     """INT-04: Sensordaten streamen -> Eager + Lazy Benchmark -> Ergebnisse vergleichen.
 
-    Deckt ab: REQ-13 (Sensordaten-Stream), REQ-14 (Generatorbasierte Verarbeitung),
+    Covers: REQ-13 (Sensordaten-Stream), REQ-14 (Generatorbasierte Verarbeitung),
             REQ-15 (Performance-Benchmark).
     """
 
@@ -189,7 +189,7 @@ class TestIntegration04SensorBenchmarkWorkflow:
         assert lazy_result["peak_memory_mb"] >= 0
 
     def test_eager_lazy_produce_comparable_counts(self):
-        """Beide Ansätze filtern ungefähr dieselbe Menge an Elementen."""
+        """Both approaches should filter roughly the same number of items."""
         bed_id = 1
         num_readings = 5_000
 
@@ -203,7 +203,7 @@ class TestIntegration04SensorBenchmarkWorkflow:
 class TestIntegration05SubscriptionBoxWorkflow:
     """INT-05: Abo-Kisten generieren -> Korrekte Zuordnung und Anzahl.
 
-    Deckt ab: REQ-07 (Kunden-Datenbank), REQ-08 (Abo-Kisten-System).
+    Covers: REQ-07 (Kunden-Datenbank), REQ-08 (Abo-Kisten-System).
     """
 
     def test_subscription_box_generation(self):

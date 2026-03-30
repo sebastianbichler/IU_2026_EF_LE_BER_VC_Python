@@ -22,15 +22,6 @@ RabbitFarm ist eine Python-basierte Farmverwaltungsanwendung für den fiktiven G
 
 ---
 
-## Verweise
-
-- [Konzeptplan](docs/konzeptionsplan.md)
-- [Architektur und Tech-Stack](docs/ARCHITEKTUR_TECHSTACK.md)
-- [Theoretischer Hintergrund](docs/THEORETISCHERHINTERGRUND.md)
-- [Abschlussbericht](docs/finalReport.md)
-
----
-
 ## Setup / Installation
 
 ### Voraussetzungen
@@ -163,17 +154,6 @@ g03/
 | **tracemalloc** für Speichermessung | Standardbibliothek; liefert Peak-Memory ohne externe Tools |
 | **pytest** für Tests | Standard-Testframework; einfach, erweiterbar, CI-kompatibel |
 | **Modularer Kern** ohne Flask-Abhängigkeit | Kern (`models`, `services`, `sensors`, `sensor_benchmark`) importiert kein Flask; erweiterbar für andere Oberflächen |
-
----
-
-## CI-Pipeline
-
-Die CI-Pipeline (`.github/workflows/python-check.yml`) führt bei jedem Push folgende Schritte aus:
-
-1. `pip install -r requirements.txt`
-2. `ruff format --check .` – Formatierungsprüfung
-3. `ruff check .` – Linting
-4. `pytest` – Tests ausführen
 
 ---
 

@@ -1,4 +1,4 @@
-"""Unit-Tests für services.py – Abokisten und Gewinnberechnung."""
+"""Unit tests for services.py – subscription boxes and profit calculation."""
 
 from datetime import datetime, timedelta
 
@@ -27,10 +27,10 @@ def _make_vegetables(count=3):
 
 
 class TestGenerateSubscriptionBoxes:
-    """Tests für generate_subscription_boxes()."""
+    """Tests for generate_subscription_boxes()."""
 
     def test_returns_generator(self):
-        """Liefert einen Generator zurück anstatt einer Liste."""
+        """Should return a generator, not a list."""
         import types
 
         customer = _make_customer()
@@ -39,7 +39,7 @@ class TestGenerateSubscriptionBoxes:
         assert isinstance(result, types.GeneratorType)
 
     def test_correct_number_of_boxes(self):
-        """Erstellt genau die geforderte Anzahl an Boxen (`weeks`)."""
+        """Should generate exactly `weeks` boxes."""
         customer = _make_customer()
         vegs = _make_vegetables()
         boxes = list(
@@ -48,7 +48,7 @@ class TestGenerateSubscriptionBoxes:
         assert len(boxes) == 5
 
     def test_box_has_correct_customer(self):
-        """Weist jeder Kiste den richtigen Kunden zu."""
+        """Each box should reference the correct customer."""
         customer = _make_customer()
         vegs = _make_vegetables()
         boxes = list(
@@ -58,7 +58,7 @@ class TestGenerateSubscriptionBoxes:
             assert box.customer.name == "Max"
 
     def test_box_vegetables_count(self):
-        """Die erste Kiste enthält 3 Gemüsesorten, danach fortlaufend mehr (durch 0 % 3 bedingt)."""
+        """First box should have 3 vegetables (3 + (0 % 3))."""
         customer = _make_customer()
         vegs = _make_vegetables(5)
         boxes = list(
@@ -69,7 +69,7 @@ class TestGenerateSubscriptionBoxes:
         assert len(boxes[2].vegetables) == 5
 
     def test_box_price_scales_with_vegetables(self):
-        """Steigert den Preis für jedes weitere Gemüse nach dem dritten."""
+        """Price should increase with extra vegetables beyond 3."""
         customer = _make_customer()
         vegs = _make_vegetables(5)
         boxes = list(
@@ -82,7 +82,7 @@ class TestGenerateSubscriptionBoxes:
         assert boxes[2].price == 19.0
 
     def test_delivery_dates_weekly(self):
-        """Setzt die Lieferdaten jeweils eine Woche auseinander."""
+        """Delivery dates should be one week apart."""
         customer = _make_customer()
         vegs = _make_vegetables()
         start = datetime(2026, 1, 1)
@@ -95,10 +95,10 @@ class TestGenerateSubscriptionBoxes:
 
 
 class TestCalculateProfit:
-    """Tests für calculate_profit()."""
+    """Tests for calculate_profit()."""
 
     def test_profit_with_orders(self):
-        """Berechnet Umsatz, Ausgaben, Reingewinn und Gewinnmarge."""
+        """Should calculate revenue, expenses, profit, and margin correctly."""
         now = datetime.now()
         customer = _make_customer()
         vegs = _make_vegetables(1)
@@ -115,14 +115,14 @@ class TestCalculateProfit:
         assert round(result["profit_margin"], 2) == 81.25
 
     def test_profit_no_orders(self):
-        """Ohne Bestellungen sind Umsatz und Gewinn 0 bzw. im Minus."""
+        """With no orders, revenue and profit should be 0."""
         result = calculate_profit([], {"Saatgut": 10.0})
         assert result["revenue"] == 0.0
         assert result["profit"] == -10.0
         assert result["profit_margin"] == 0.0
 
     def test_profit_no_costs(self):
-        """Ohne Ausgaben entspricht der Gewinn dem Umsatz."""
+        """With no costs, profit equals revenue."""
         now = datetime.now()
         customer = _make_customer()
         vegs = _make_vegetables(1)

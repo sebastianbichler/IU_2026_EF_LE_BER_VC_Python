@@ -1,6 +1,6 @@
 """
-Web-Anwendung für RabbitFarm.
-Enthält App-Logik. Jupyter-Notebooks bleiben separiert.
+RabbitFarm Web-App: Flask-Anwendung.
+Nur App-Logik; Jupyter-Notebooks bleiben an ihrem ursprünglichen Ort.
 """
 import os
 import sys

@@ -1,4 +1,4 @@
-"""Unit-Tests für sensors.py – Bodenfeuchte-Streamgenerator."""
+"""Unit tests for sensors.py – soil moisture stream generator."""
 
 from itertools import islice
 from datetime import datetime
@@ -7,17 +7,17 @@ from sensors import stream_soil_moisture
 
 
 class TestStreamSoilMoisture:
-    """Tests für stream_soil_moisture()."""
+    """Tests for stream_soil_moisture()."""
 
     def test_returns_generator(self):
-        """Liefert einen Generator zurück."""
+        """Should return a generator."""
         import types
 
         gen = stream_soil_moisture(bed_id=1)
         assert isinstance(gen, types.GeneratorType)
 
     def test_yields_valid_dict(self):
-        """Jeder gelieferte Wert stellt ein Dictionary mit bed_id, moisture und timestamp dar."""
+        """Each yielded value should be a dict with bed_id, moisture, timestamp."""
         gen = stream_soil_moisture(bed_id=42)
         reading = next(gen)
 
@@ -27,13 +27,13 @@ class TestStreamSoilMoisture:
         assert "timestamp" in reading
 
     def test_bed_id_matches(self):
-        """Die bed_id in jedem Eintrag entspricht der Eingabe."""
+        """The bed_id in each reading should match the input."""
         gen = stream_soil_moisture(bed_id=7)
         reading = next(gen)
         assert reading["bed_id"] == 7
 
     def test_moisture_range(self):
-        """Die Feuchtigkeit bewegt sich zwischen 0 und 100."""
+        """Moisture should be between 0 and 100."""
         gen = stream_soil_moisture(bed_id=1, base_moisture=50.0)
         readings = list(islice(gen, 100))
 
@@ -41,19 +41,19 @@ class TestStreamSoilMoisture:
             assert 0.0 <= r["moisture"] <= 100.0
 
     def test_timestamp_type(self):
-        """Der Zeitstempel ist ein Datetime-Objekt."""
+        """Timestamp should be a datetime object."""
         gen = stream_soil_moisture(bed_id=1)
         reading = next(gen)
         assert isinstance(reading["timestamp"], datetime)
 
     def test_multiple_readings(self):
-        """Erzeugt problemlos viele Messwerte hintereinander."""
+        """Should be able to generate many readings without error."""
         gen = stream_soil_moisture(bed_id=1)
         readings = list(islice(gen, 1000))
         assert len(readings) == 1000
 
     def test_base_moisture_influence(self):
-        """Die Messwerte bündeln sich um den Basiswert (base_moisture)."""
+        """Readings should cluster around base_moisture."""
         gen = stream_soil_moisture(bed_id=1, base_moisture=80.0)
         readings = list(islice(gen, 200))
         avg = sum(r["moisture"] for r in readings) / len(readings)

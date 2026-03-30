@@ -1,4 +1,4 @@
-"""Unit-Tests für models.py – Vegetable, Bed, Customer, Inventory."""
+"""Unit tests for models.py – Vegetable, Bed, Customer, Inventory."""
 
 from datetime import datetime, timedelta
 
@@ -6,10 +6,10 @@ from models import Vegetable, Bed, Customer, Inventory, Order, SubscriptionBox
 
 
 class TestVegetable:
-    """Tests für die Vegetable-Klasse."""
+    """Tests for Vegetable dataclass."""
 
     def _make_vegetable(self, harvest_days_ago=5, shelf_life_days=10):
-        """Hilfsfunktion: Erstellt ein Gemüse, das vor N Tagen geerntet wurde."""
+        """Helper: create a Vegetable harvested N days ago."""
         now = datetime.now()
         return Vegetable(
             name="Karotte",
@@ -22,39 +22,39 @@ class TestVegetable:
         )
 
     def test_is_fresh_true(self):
-        """Frisch geerntetes Gemüse ist frisch."""
+        """Freshly harvested vegetable should be fresh."""
         veg = self._make_vegetable(harvest_days_ago=2, shelf_life_days=10)
         assert veg.is_fresh() is True
 
     def test_is_fresh_false(self):
-        """Gemüse nach Ablauf der Haltbarkeit ist nicht frisch."""
+        """Vegetable past shelf life should not be fresh."""
         veg = self._make_vegetable(harvest_days_ago=15, shelf_life_days=10)
         assert veg.is_fresh() is False
 
     def test_is_fresh_boundary(self):
-        """Gemüse genau an der Haltbarkeitsgrenze ist nicht frisch."""
+        """Vegetable exactly at shelf life boundary should not be fresh."""
         veg = self._make_vegetable(harvest_days_ago=10, shelf_life_days=10)
         assert veg.is_fresh() is False
 
     def test_freshness_ratio_fresh(self):
-        """Frisches Gemüse hat ein Frischeverhältnis > 0."""
+        """Fresh vegetable should have ratio > 0."""
         veg = self._make_vegetable(harvest_days_ago=2, shelf_life_days=10)
         ratio = veg.freshness_ratio()
         assert 0.0 < ratio <= 1.0
 
     def test_freshness_ratio_expired(self):
-        """Abgelaufenes Gemüse hat ein Frischeverhältnis von 0,0."""
+        """Expired vegetable should have ratio == 0."""
         veg = self._make_vegetable(harvest_days_ago=20, shelf_life_days=10)
         assert veg.freshness_ratio() == 0.0
 
     def test_freshness_ratio_half(self):
-        """Gemüse bei halber Haltbarkeit hat ein Frischeverhältnis von ~0,5."""
+        """Vegetable at half shelf life should have ratio ~0.5."""
         veg = self._make_vegetable(harvest_days_ago=5, shelf_life_days=10)
         ratio = veg.freshness_ratio()
         assert 0.4 <= ratio <= 0.6
 
     def test_freshness_ratio_before_harvest(self):
-        """Gemüse mit zukünftigem Erntedatum hat ein Frischeverhältnis von 1,0."""
+        """Vegetable with future harvest date should have ratio 1.0."""
         now = datetime.now()
         veg = Vegetable(
             name="Tomate",
@@ -69,7 +69,7 @@ class TestVegetable:
 
 
 class TestBed:
-    """Tests für die Bed-Dataclass."""
+    """Tests for Bed dataclass."""
 
     def test_bed_creation(self):
         bed = Bed(id=1, name="Karottenbeet", size_m2=12.5)
@@ -79,7 +79,7 @@ class TestBed:
 
 
 class TestCustomer:
-    """Tests für die Customer-Dataclass."""
+    """Tests for Customer dataclass."""
 
     def test_customer_str(self):
         customer = Customer(name="Max", species="Hase", subscription_type="weekly")
@@ -88,7 +88,7 @@ class TestCustomer:
 
 
 class TestInventory:
-    """Tests für die Inventory-Dataclass."""
+    """Tests for Inventory dataclass."""
 
     def _make_fresh_vegetable(self):
         now = datetime.now()
@@ -115,7 +115,7 @@ class TestInventory:
         )
 
     def test_add_harvest(self):
-        """Fügt eine Kopie des Gemüses zum Bestand hinzu."""
+        """add_harvest should add a Vegetable copy to inventory."""
         inv = Inventory()
         veg = self._make_fresh_vegetable()
         inv.add_harvest(veg, 10.0)
@@ -124,7 +124,7 @@ class TestInventory:
         assert inv.items[0].name == veg.name
 
     def test_get_fresh_items_returns_generator(self):
-        """Liefert einen Generator für frisches Gemüse zurück."""
+        """get_fresh_items should return a generator."""
         inv = Inventory()
         result = inv.get_fresh_items()
         import types
@@ -132,7 +132,7 @@ class TestInventory:
         assert isinstance(result, types.GeneratorType)
 
     def test_get_fresh_items(self):
-        """Gibt ausschließlich frisches Gemüse zurück."""
+        """get_fresh_items should yield only fresh items."""
         inv = Inventory()
         fresh = self._make_fresh_vegetable()
         expired = self._make_expired_vegetable()
@@ -143,7 +143,7 @@ class TestInventory:
         assert fresh_list[0].name == "Gurke"
 
     def test_get_expired_items(self):
-        """Gibt ausschließlich abgelaufenes Gemüse zurück."""
+        """get_expired_items should yield only expired items."""
         inv = Inventory()
         fresh = self._make_fresh_vegetable()
         expired = self._make_expired_vegetable()
@@ -154,7 +154,7 @@ class TestInventory:
         assert expired_list[0].name == "Salat"
 
     def test_get_total_amount(self):
-        """Summiert die Mengen aller Bestandselemente."""
+        """get_total_amount should sum all item amounts."""
         inv = Inventory()
         veg1 = self._make_fresh_vegetable()
         veg2 = self._make_expired_vegetable()
@@ -164,13 +164,13 @@ class TestInventory:
         assert total == veg1.amount + veg2.amount
 
     def test_get_total_amount_empty(self):
-        """Ein leerer Bestand hat eine Gesamtmenge von 0,0."""
+        """Empty inventory should have total amount 0."""
         inv = Inventory()
         assert inv.get_total_amount() == 0.0
 
 
 class TestOrderStr:
-    """Tests für die String-Repräsentation von Order und SubscriptionBox."""
+    """Tests for Order and SubscriptionBox string representation."""
 
     def test_order_str(self):
         now = datetime.now()

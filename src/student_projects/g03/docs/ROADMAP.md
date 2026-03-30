@@ -19,7 +19,7 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 ## 2. Wissenschaftlicher Fokus: Funktionales Programmieren & Lazy Evaluation
 
 - [x] Forschungsfrage präzisieren
-      *„Speichereffizienz von Lazy Evaluation: Vergleich von Eager- vs. Lazy-Datenverarbeitung in Stream-Processing-Systemen.“*
+      *„Speichereffizienz von Lazy Evaluation: Vergleich von Eager- vs. Lazy-Datenverarbeitung in Stream-Processing-Systemen."*
 - [x] Implementierung der Vergleichsfunktionen:
   - [x] `process_eager()` - Listen-basierte Verarbeitung in `main.py`
   - [x] `process_lazy()` - Generator-basierte Verarbeitung in `main.py`
@@ -29,9 +29,9 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
   - [x] Lazy-Berechnung von Bewässerungsplänen (Filterung und Map-Operationen)
 - [x] Jupyter Notebook für Demonstration:
   - [x] Notebook in `static/notebooks/layz_vs_eager.ipynb` vorhanden
-  - [x] Vollständiges Notebook mit Visualisierungen erstellt: `static/notebooks/lazy_vs_eager_complete.ipynb`
-- [ ] Literaturverweis aufnehmen:
-  - [ ] *Functional Programming in Python* (David Mertz)
+  - [ ] Vollständiges Notebook mit Visualisierungen erstellt: `static/notebooks/lazy_vs_eager_complete.ipynb`
+- [x] Literaturverweis aufnehmen:
+  - [x] *Functional Programming in Python* (David Mertz)
 
 ---
 
@@ -43,7 +43,7 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 - [x] **Gewinne und Ausgaben** werden erfasst und ausgewertet (`calculate_profit()` in `services.py`).
 - [ ] **Ernteerträge** vergangener Saisons werden visualisiert (Diagramme) - noch zu implementieren.
 - [x] Sensordaten werden als **endlose Streams** verarbeitet (Lazy Evaluation - `stream_soil_moisture()`).
-- [ ] Die Anwendung ist gut strukturiert, getestet und dokumentiert (Portfolio-Anforderungen) - Tests fehlen noch.
+- [x] Die Anwendung ist gut strukturiert, getestet und dokumentiert (Portfolio-Anforderungen).
 
 ---
 
@@ -51,26 +51,26 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 
 ### 4.1 Muss-Anforderungen (MVP)
 
-- [ x ] **SR1 – Gemüseverwaltung**
-  - [ x ] Rudi kann Gemüsesorten anlegen, bearbeiten, löschen.
-  - [ x ] Attribute: Name, Sorte (z.B. Karotte, Salat), Pflanzdatum, voraussichtlicher Erntetermin, Beet.
+- [x] **SR1 – Gemüseverwaltung**
+  - [x] Rudi kann Gemüsesorten anlegen, bearbeiten, löschen.
+  - [x] Attribute: Name, Sorte (z.B. Karotte, Salat), Pflanzdatum, voraussichtlicher Erntetermin, Beet.
 
-- [ x ] **SR2 – Beet-Management**
-  - [ x ] Beete können angelegt werden (z.B. „Beet A“, „Tunnel 1“).
-  - [ x ] Jedem Beet können mehrere Gemüsesorten zugeordnet werden.
+- [x] **SR2 – Beet-Management**
+  - [x] Beete können angelegt werden (z.B. „Beet A", „Tunnel 1").
+  - [x] Jedem Beet können mehrere Gemüsesorten zugeordnet werden.
 
-- [ x ] **SR3 – Lagerbestände**
-  - [ x ] Ernte kann vom Beet ins Lager übernommen werden.
-  - [ x ] Attribute: Gemüsesorte, Menge (Stück / kg), Erntedatum, Haltbarkeit / Frische-Status.
+- [x] **SR3 – Lagerbestände**
+  - [x] Ernte kann vom Beet ins Lager übernommen werden.
+  - [x] Attribute: Gemüsesorte, Menge (Stück / kg), Erntedatum, Haltbarkeit / Frische-Status.
 
-- [ x ] **SR4 – Kunden & Abo-Kisten**
-  - [ x ] Kunden (Waldtiere) können angelegt werden (Name, Art, bevorzugtes Gemüse).
-  - [ x ] Abo-Kisten können definiert werden (z.B. wöchentlich, Inhalt, Preis).
-  - [ x ] Bestellungen werden mit Lieferdatum und Lieferstatus gespeichert.
+- [x] **SR4 – Kunden & Abo-Kisten**
+  - [x] Kunden (Waldtiere) können angelegt werden (Name, Art, bevorzugtes Gemüse).
+  - [x] Abo-Kisten können definiert werden (z.B. wöchentlich, Inhalt, Preis).
+  - [x] Bestellungen werden mit Lieferdatum und Lieferstatus gespeichert.
 
-- [ x ] **SR5 – Einnahmen & Ausgaben**
-  - [ x ] Einnahmen aus Abo-Kisten und Einzelverkäufen erfassen.
-  - [ x ] Ausgaben für Saatgut, Dünger, Wasser etc. erfassen.
+- [x] **SR5 – Einnahmen & Ausgaben**
+  - [x] Einnahmen aus Abo-Kisten und Einzelverkäufen erfassen.
+  - [x] Ausgaben für Saatgut, Dünger, Wasser etc. erfassen.
 
 - [ ] **SR6 – Ernte-Visualisierung**
   - [ ] Diagramm für Ernteerträge pro Saison und Gemüsesorte erstellen
@@ -79,16 +79,16 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 
 ### 4.2 Erweiterte Anforderungen (Science & Lazy Evaluation)
 
-- [ x ] **SR7 – Vergleich Eager vs. Lazy**
-  - [ x ] Eager-Variante der Sensordatenverarbeitung (Liste im Speicher).
-  - [ x ] Lazy-Variante (Generator/Iterator).
-  - [ x ] Einfacher Vergleich der Speicher-/Performance-Kennzahlen
+- [x] **SR7 – Vergleich Eager vs. Lazy**
+  - [x] Eager-Variante der Sensordatenverarbeitung (Liste im Speicher).
+  - [x] Lazy-Variante (Generator/Iterator).
+  - [x] Einfacher Vergleich der Speicher-/Performance-Kennzahlen
         (z.B. mit `sys.getsizeof`, grober Zeitvergleich).
 
 ### 4.3 Kann-Anforderungen (Nice to Have)
 
 - [ ] Rezeptvorschläge je nach Lagerbestand generieren.
-- [ ] Saisonale Angebote („Herbstkiste“, „Vitamin-C-Woche“) automatisch erstellen.
+- [ ] Saisonale Angebote („Herbstkiste", „Vitamin-C-Woche") automatisch erstellen.
 - [ ] Export von Berichten als CSV/JSON.
 
 ---
@@ -148,40 +148,40 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 
 ## 7. Tests
 
-- [ ] **Unit-Tests**
-  - [ ] Für zentrale Domänenklassen (z.B. `Gemuese`, `Beet`, `LagerEintrag`, `Bestellung`).
-  - [ ] Tests für Generatorfunktionen (z.B. erste *n* Sensordaten prüfen).
+- [x] **Unit-Tests**
+  - [x] Für zentrale Domänenklassen (z.B. `Gemuese`, `Beet`, `LagerEintrag`, `Bestellung`).
+  - [x] Tests für Generatorfunktionen (z.B. erste *n* Sensordaten prüfen).
 
-- [ ] **Integrationstests (mind. 3)**
-  - [ ] Test 1: „Vom Beet ins Lager“ – Pflanzung → Ernte → Lagerbestand.
-  - [ ] Test 2: „Abo-Kiste“ – Erstellung Bestellung → Lager wird korrekt reduziert.
-  - [ ] Test 3: „Lazy Stream“ – Sensordaten-Stream → Bewässerungsentscheidungen.
+- [x] **Integrationstests (mind. 3)**
+  - [x] Test 1: „Vom Beet ins Lager" – Pflanzung → Ernte → Lagerbestand.
+  - [x] Test 2: „Abo-Kiste" – Erstellung Bestellung → Lager wird korrekt reduziert.
+  - [x] Test 3: „Lazy Stream" – Sensordaten-Stream → Bewässerungsentscheidungen.
 
-- [ ] **Test-Setup**
-  - [ ] `pytest` einrichten.
-  - [ ] Testdaten / Fixtures anlegen.
+- [x] **Test-Setup**
+  - [x] `pytest` einrichten.
+  - [x] Testdaten / Fixtures anlegen.
 
 ---
 
 ## 8. Dokumentation
 
-- [ ] **README.md**
-  - [ ] Projektbeschreibung (Story + Fachteil).
-  - [ ] Installationsanleitung (Python-Version, virtuelles Environment).
-  - [ ] `requirements.txt` / `pyproject.toml` dokumentieren.
-  - [ ] How-To-Use (Beispiele für typische Workflows).
+- [x] **README.md**
+  - [x] Projektbeschreibung (Story + Fachteil).
+  - [x] Installationsanleitung (Python-Version, virtuelles Environment).
+  - [x] `requirements.txt` / `pyproject.toml` dokumentieren.
+  - [x] How-To-Use (Beispiele für typische Workflows).
 
-- [ ] **Developer-Dokumentation (Markdown im Repo)**
-  - [ ] Software Requirements (dieses Dokument verlinken).
-  - [ ] Architekturübersicht (Domänenmodell, wichtige Module).
-  - [ ] Sequenz-/Use-Case-Diagramme (Mermaid o.Ä.) für typische Abläufe:
-    - [ ] Bestellung einer Abo-Kiste
-    - [ ] Verarbeitung von Sensordaten (Lazy Stream)
+- [x] **Developer-Dokumentation (Markdown im Repo)**
+  - [x] Software Requirements (dieses Dokument verlinken).
+  - [x] Architekturübersicht (Domänenmodell, wichtige Module).
+  - [x] Sequenz-/Use-Case-Diagramme (Mermaid o.Ä.) für typische Abläufe:
+    - [x] Bestellung einer Abo-Kiste
+    - [x] Verarbeitung von Sensordaten (Lazy Stream)
 
-- [ ] **Wissenschaftlicher Teil**
-  - [ ] Kurzes Kapitel zur Forschungsfrage & Methodik.
-  - [ ] Beschreibung Eager vs. Lazy in der eigenen Implementierung.
-  - [ ] Kurze Diskussion von Ergebnissen (z.B. Speichervergleich).
+- [x] **Wissenschaftlicher Teil**
+  - [x] Kurzes Kapitel zur Forschungsfrage & Methodik.
+  - [x] Beschreibung Eager vs. Lazy in der eigenen Implementierung.
+  - [x] Kurze Diskussion von Ergebnissen (z.B. Speichervergleich).
 
 ---
 
@@ -205,17 +205,17 @@ Sensordaten der Beete werden als endlose Datenströme per **Generatoren** und **
 ## 10. Zeitplanung (Portfolio-Phasen)
 
 > **Konzeptionsphase**
-- [ ] Anforderungen finalisieren (dieses Dokument).
-- [ ] Grobes Domänenmodell als Skizze/Mermaid-Diagramm.
+- [x] Anforderungen finalisieren (dieses Dokument).
+- [x] Grobes Domänenmodell als Skizze/Mermaid-Diagramm.
 - [ ] Konzept-Präsentation vorbereiten.
 
 > **Erarbeitungsphase**
 - [x] Minimale lauffähige App (MVP) implementiert.
-- [x] Alle Software-Requirements (SR1-SR7) vollständig umgesetzt.
-- [ ] Erste Tests & Dokumentation im Projekt - Tests fehlen noch.
+- [ ] Alle Software-Requirements (SR1-SR7) vollständig umgesetzt.
+- [x] Erste Tests & Dokumentation im Projekt.
 
 > **Finalisierungsphase**
 - [ ] Alle geplanten Features (so weit möglich) implementieren.
-- [ ] Testsuite vollständig.
-- [ ] Dokumentation + wissenschaftlicher Teil final.
-- [ ] Projekt-Reflexion (Abstract) schreiben.
+- [x] Testsuite vollständig.
+- [x] Dokumentation + wissenschaftlicher Teil final.
+- [x] Projekt-Reflexion (Abstract) schreiben.

@@ -1,153 +1,304 @@
 {
-  "vegetables": [
-    {
-      "name": "Gurke",
-      "sort": "Deutsch",
-      "plant_date": "2025-01-26T00:00:00",
-      "harvest_date": "2025-01-26T00:00:00",
-      "bed_id": 1,
-      "shelf_life_days": 10,
-      "amount": 100.0
-    },
-    {
-      "name": "Cherry",
-      "sort": "Tomate",
-      "plant_date": "2026-02-23T00:00:00",
-      "harvest_date": "2026-02-23T00:00:00",
-      "bed_id": 2,
-      "shelf_life_days": 10,
-      "amount": 300.0
-    },
-    {
-      "name": "Gurke-test1",
-      "sort": "gurke",
-      "plant_date": "2026-02-16T00:00:00",
-      "harvest_date": "2026-02-17T00:00:00",
-      "bed_id": 1,
-      "shelf_life_days": 1,
-      "amount": 20.0
-    }
-  ],
   "beds": [
     {
       "id": 1,
-      "name": "Gurke",
-      "size_m2": 100.0
+      "name": "Nordbeet",
+      "size_m2": 14.5
     },
     {
       "id": 2,
+      "name": "Suedbeet",
+      "size_m2": 9.0
+    },
+    {
+      "id": 3,
+      "name": "Hochbeet 1",
+      "size_m2": 18.0
+    },
+    {
+      "id": 4,
+      "name": "Gewaechshaus",
+      "size_m2": 6.5
+    }
+  ],
+  "vegetables": [
+    {
+      "name": "Karotte",
+      "sort": "Nantes",
+      "plant_date": "2025-11-10T08:00:00",
+      "harvest_date": "2026-03-01T10:00:00",
+      "bed_id": 1,
+      "shelf_life_days": 30,
+      "amount": 4.5
+    },
+    {
+      "name": "Kopfsalat",
+      "sort": "Butterhead",
+      "plant_date": "2026-01-15T09:00:00",
+      "harvest_date": "2026-03-10T08:30:00",
+      "bed_id": 3,
+      "shelf_life_days": 10,
+      "amount": 2.0
+    },
+    {
       "name": "Tomate",
-      "size_m2": 200.0
+      "sort": "Beefsteak",
+      "plant_date": "2025-12-01T07:00:00",
+      "harvest_date": "2026-03-18T09:00:00",
+      "bed_id": 2,
+      "shelf_life_days": 14,
+      "amount": 3.2
+    },
+    {
+      "name": "Zucchini",
+      "sort": "Black Beauty",
+      "plant_date": "2026-01-05T10:00:00",
+      "harvest_date": "2026-03-20T11:00:00",
+      "bed_id": 1,
+      "shelf_life_days": 12,
+      "amount": 5.0
+    },
+    {
+      "name": "Spinat",
+      "sort": "Matador",
+      "plant_date": "2025-12-20T08:00:00",
+      "harvest_date": "2026-03-05T07:30:00",
+      "bed_id": 4,
+      "shelf_life_days": 7,
+      "amount": 1.8
+    },
+    {
+      "name": "Radieschen",
+      "sort": "Cherry Belle",
+      "plant_date": "2026-02-01T09:30:00",
+      "harvest_date": "2026-03-22T10:00:00",
+      "bed_id": 3,
+      "shelf_life_days": 8,
+      "amount": 2.5
+    },
+    {
+      "name": "Paprika",
+      "sort": "Yolo Wonder",
+      "plant_date": "2025-11-25T08:00:00",
+      "harvest_date": "2026-03-15T09:00:00",
+      "bed_id": 2,
+      "shelf_life_days": 21,
+      "amount": 2.8
+    },
+    {
+      "name": "Kartoffel",
+      "sort": "Linda",
+      "plant_date": "2025-10-01T07:00:00",
+      "harvest_date": "2026-02-28T10:00:00",
+      "bed_id": 1,
+      "shelf_life_days": 60,
+      "amount": 8.0
     }
   ],
   "customers": [
     {
-      "name": "Max",
+      "name": "Ruediger von Moehrenstein",
       "species": "Hase",
-      "subscription_type": "wöchentlich"
+      "subscription_type": "weekly"
+    },
+    {
+      "name": "Walburga Krautkopf",
+      "species": "Igel",
+      "subscription_type": "monthly"
+    },
+    {
+      "name": "Sigismund Ruebenfresser",
+      "species": "Wildschwein",
+      "subscription_type": "weekly"
+    },
+    {
+      "name": "Brunhilde Salatlieb",
+      "species": "Reh",
+      "subscription_type": "monthly"
     }
   ],
   "inventory": [
     {
-      "name": "Gurke",
-      "sort": "Deutsch",
-      "plant_date": "2025-01-26T00:00:00",
-      "harvest_date": "2025-01-26T00:00:00",
+      "name": "Karotte",
+      "sort": "Nantes",
+      "plant_date": "2025-11-10T08:00:00",
+      "harvest_date": "2026-03-01T10:00:00",
       "bed_id": 1,
-      "shelf_life_days": 10,
-      "amount": 50.0
+      "shelf_life_days": 30,
+      "amount": 4.5
     },
     {
-      "name": "Cherry",
-      "sort": "Tomate",
-      "plant_date": "2026-02-23T00:00:00",
-      "harvest_date": "2026-02-23T00:00:00",
+      "name": "Kopfsalat",
+      "sort": "Butterhead",
+      "plant_date": "2026-01-15T09:00:00",
+      "harvest_date": "2026-03-10T08:30:00",
+      "bed_id": 3,
+      "shelf_life_days": 10,
+      "amount": 2.0
+    },
+    {
+      "name": "Tomate",
+      "sort": "Beefsteak",
+      "plant_date": "2025-12-01T07:00:00",
+      "harvest_date": "2026-03-18T09:00:00",
       "bed_id": 2,
-      "shelf_life_days": 10,
-      "amount": 100.0
+      "shelf_life_days": 14,
+      "amount": 3.2
     },
     {
-      "name": "Gurke-test1",
-      "sort": "gurke",
-      "plant_date": "2026-02-16T00:00:00",
-      "harvest_date": "2026-02-17T00:00:00",
+      "name": "Zucchini",
+      "sort": "Black Beauty",
+      "plant_date": "2026-01-05T10:00:00",
+      "harvest_date": "2026-03-20T11:00:00",
       "bed_id": 1,
-      "shelf_life_days": 1,
-      "amount": 10.0
+      "shelf_life_days": 12,
+      "amount": 5.0
+    },
+    {
+      "name": "Spinat",
+      "sort": "Matador",
+      "plant_date": "2025-12-20T08:00:00",
+      "harvest_date": "2026-03-05T07:30:00",
+      "bed_id": 4,
+      "shelf_life_days": 7,
+      "amount": 1.8
+    },
+    {
+      "name": "Radieschen",
+      "sort": "Cherry Belle",
+      "plant_date": "2026-02-01T09:30:00",
+      "harvest_date": "2026-03-22T10:00:00",
+      "bed_id": 3,
+      "shelf_life_days": 8,
+      "amount": 2.5
+    },
+    {
+      "name": "Paprika",
+      "sort": "Yolo Wonder",
+      "plant_date": "2025-11-25T08:00:00",
+      "harvest_date": "2026-03-15T09:00:00",
+      "bed_id": 2,
+      "shelf_life_days": 21,
+      "amount": 2.8
+    },
+    {
+      "name": "Kartoffel",
+      "sort": "Linda",
+      "plant_date": "2025-10-01T07:00:00",
+      "harvest_date": "2026-02-28T10:00:00",
+      "bed_id": 1,
+      "shelf_life_days": 60,
+      "amount": 8.0
     }
   ],
   "orders": [
     {
-      "customer_name": "Max",
+      "customer_name": "Ruediger von Moehrenstein",
       "customer_species": "Hase",
-      "customer_subscription_type": "wöchentlich",
+      "customer_subscription_type": "weekly",
       "vegetables": [
         {
-          "name": "Gurke",
-          "sort": "Deutsch",
-          "plant_date": "2025-01-26T00:00:00",
-          "harvest_date": "2025-01-26T00:00:00",
+          "name": "Karotte",
+          "sort": "Nantes",
+          "plant_date": "2025-11-10T08:00:00",
+          "harvest_date": "2026-03-01T10:00:00",
           "bed_id": 1,
-          "shelf_life_days": 10,
-          "amount": 100.0
-        }
-      ],
-      "delivery_date": "2026-01-28T09:18:28.941905",
-      "price": 20.0
-    },
-    {
-      "customer_name": "Max",
-      "customer_species": "Hase",
-      "customer_subscription_type": "wöchentlich",
-      "vegetables": [
-        {
-          "name": "Gurke",
-          "sort": "Deutsch",
-          "plant_date": "2025-01-26T00:00:00",
-          "harvest_date": "2025-01-26T00:00:00",
-          "bed_id": 1,
-          "shelf_life_days": 10,
-          "amount": 100.0
-        }
-      ],
-      "delivery_date": "2026-01-30T09:10:16.103315",
-      "price": 12.0
-    },
-    {
-      "customer_name": "Max",
-      "customer_species": "Hase",
-      "customer_subscription_type": "wöchentlich",
-      "vegetables": [
-        {
-          "name": "Gurke",
-          "sort": "Deutsch",
-          "plant_date": "2025-01-26T00:00:00",
-          "harvest_date": "2025-01-26T00:00:00",
-          "bed_id": 1,
-          "shelf_life_days": 10,
-          "amount": 100.0
+          "shelf_life_days": 30,
+          "amount": 1.5
         },
         {
-          "name": "Cherry",
-          "sort": "Tomate",
-          "plant_date": "2026-02-23T00:00:00",
-          "harvest_date": "2026-02-23T00:00:00",
+          "name": "Radieschen",
+          "sort": "Cherry Belle",
+          "plant_date": "2026-02-01T09:30:00",
+          "harvest_date": "2026-03-22T10:00:00",
+          "bed_id": 3,
+          "shelf_life_days": 8,
+          "amount": 0.8
+        }
+      ],
+      "delivery_date": "2026-03-17T10:00:00",
+      "price": 12.90
+    },
+    {
+      "customer_name": "Sigismund Ruebenfresser",
+      "customer_species": "Wildschwein",
+      "customer_subscription_type": "weekly",
+      "vegetables": [
+        {
+          "name": "Kartoffel",
+          "sort": "Linda",
+          "plant_date": "2025-10-01T07:00:00",
+          "harvest_date": "2026-02-28T10:00:00",
+          "bed_id": 1,
+          "shelf_life_days": 60,
+          "amount": 3.0
+        },
+        {
+          "name": "Zucchini",
+          "sort": "Black Beauty",
+          "plant_date": "2026-01-05T10:00:00",
+          "harvest_date": "2026-03-20T11:00:00",
+          "bed_id": 1,
+          "shelf_life_days": 12,
+          "amount": 2.0
+        }
+      ],
+      "delivery_date": "2026-03-18T11:00:00",
+      "price": 18.50
+    },
+    {
+      "customer_name": "Walburga Krautkopf",
+      "customer_species": "Igel",
+      "customer_subscription_type": "monthly",
+      "vegetables": [
+        {
+          "name": "Kopfsalat",
+          "sort": "Butterhead",
+          "plant_date": "2026-01-15T09:00:00",
+          "harvest_date": "2026-03-10T08:30:00",
+          "bed_id": 3,
+          "shelf_life_days": 10,
+          "amount": 1.0
+        },
+        {
+          "name": "Spinat",
+          "sort": "Matador",
+          "plant_date": "2025-12-20T08:00:00",
+          "harvest_date": "2026-03-05T07:30:00",
+          "bed_id": 4,
+          "shelf_life_days": 7,
+          "amount": 0.5
+        }
+      ],
+      "delivery_date": "2026-03-20T09:00:00",
+      "price": 9.80
+    },
+    {
+      "customer_name": "Brunhilde Salatlieb",
+      "customer_species": "Reh",
+      "customer_subscription_type": "monthly",
+      "vegetables": [
+        {
+          "name": "Tomate",
+          "sort": "Beefsteak",
+          "plant_date": "2025-12-01T07:00:00",
+          "harvest_date": "2026-03-18T09:00:00",
           "bed_id": 2,
-          "shelf_life_days": 10,
-          "amount": 300.0
+          "shelf_life_days": 14,
+          "amount": 1.2
         },
         {
-          "name": "Gurke-test1",
-          "sort": "gurke",
-          "plant_date": "2026-02-16T00:00:00",
-          "harvest_date": "2026-02-17T00:00:00",
-          "bed_id": 1,
-          "shelf_life_days": 1,
-          "amount": 20.0
+          "name": "Paprika",
+          "sort": "Yolo Wonder",
+          "plant_date": "2025-11-25T08:00:00",
+          "harvest_date": "2026-03-15T09:00:00",
+          "bed_id": 2,
+          "shelf_life_days": 21,
+          "amount": 1.0
         }
       ],
-      "delivery_date": "2026-03-05T13:02:45.486215",
-      "price": 100.0
+      "delivery_date": "2026-03-21T10:00:00",
+      "price": 14.20
     }
   ]
 }

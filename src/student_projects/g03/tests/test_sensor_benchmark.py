@@ -1,4 +1,4 @@
-"""Unit-Tests für sensor_benchmark.py – Eager/Lazy-Verarbeitung und Benchmarks."""
+"""Unit tests for sensor_benchmark.py – eager/lazy processing and benchmarks."""
 
 from sensor_benchmark import (
     process_eager,
@@ -11,10 +11,10 @@ from itertools import islice
 
 
 class TestProcessEager:
-    """Tests für process_eager()."""
+    """Tests for process_eager()."""
 
     def test_filters_correctly(self):
-        """Behält nur Messwerte, bei denen die Feuchtigkeit < 35 oder > 80 ist."""
+        """Should only keep readings with moisture < 35 or > 80."""
         data = [
             {"bed_id": 1, "moisture": 20.0, "timestamp": None},
             {"bed_id": 1, "moisture": 50.0, "timestamp": None},
@@ -24,17 +24,17 @@ class TestProcessEager:
         assert len(result) == 2
 
     def test_irrigation_need_calculation(self):
-        """Der Bewässerungsbedarf errechnet sich aus 100 - Feuchtigkeit und bleibt im Bereich [0, 100]."""
+        """irrigation_need should be 100 - moisture, clamped to [0, 100]."""
         data = [{"bed_id": 1, "moisture": 20.0, "timestamp": None}]
         result = process_eager(data)
         assert result[0]["irrigation_need"] == 80
 
     def test_empty_input(self):
-        """Eine leere Eingabe liefert eine leere Liste zurück."""
+        """Empty input should return empty list."""
         assert process_eager([]) == []
 
     def test_all_normal_filtered_out(self):
-        """Messwerte im Normalbereich erzeugen eine leere Ausgabe."""
+        """Readings all in normal range should result in empty output."""
         data = [
             {"bed_id": 1, "moisture": 50.0, "timestamp": None},
             {"bed_id": 1, "moisture": 60.0, "timestamp": None},
@@ -43,10 +43,10 @@ class TestProcessEager:
 
 
 class TestProcessLazy:
-    """Tests für process_lazy()."""
+    """Tests for process_lazy()."""
 
     def test_filters_correctly(self):
-        """Erzeugt die gleichen gefilterten Ergebnisse wie der Eager-Ansatz."""
+        """Should produce same filtered results as eager."""
         data = [
             {"bed_id": 1, "moisture": 20.0, "timestamp": None},
             {"bed_id": 1, "moisture": 50.0, "timestamp": None},
@@ -56,7 +56,7 @@ class TestProcessLazy:
         assert len(result) == 2
 
     def test_max_items_limit(self):
-        """Berücksichtigt den max_items-Parameter."""
+        """Should respect max_items parameter."""
         data = [
             {"bed_id": 1, "moisture": 10.0, "timestamp": None},
             {"bed_id": 1, "moisture": 15.0, "timestamp": None},
@@ -66,7 +66,7 @@ class TestProcessLazy:
         assert len(result) == 2
 
     def test_consistent_with_eager(self):
-        """Lazy- und Eager-Ausführung liefern bei gleicher Eingabe dieselben Resultate."""
+        """Lazy and eager should produce the same results for the same input."""
         data = [
             {"bed_id": 1, "moisture": 10.0, "timestamp": None},
             {"bed_id": 1, "moisture": 50.0, "timestamp": None},
@@ -82,10 +82,10 @@ class TestProcessLazy:
 
 
 class TestBenchmarkEager:
-    """Tests für benchmark_eager()."""
+    """Tests for benchmark_eager()."""
 
     def test_returns_valid_dict(self):
-        """Liefert ein Dictionary mit time, peak_memory_mb, data_size_mb und result_count zurück."""
+        """Should return a dict with time, peak_memory_mb, data_size_mb, result_count."""
         result = benchmark_eager(bed_id=1, num_readings=100)
         assert isinstance(result, dict)
         assert "time" in result
@@ -94,21 +94,21 @@ class TestBenchmarkEager:
         assert "result_count" in result
 
     def test_time_is_positive(self):
-        """Die Verarbeitungszeit liegt über 0."""
+        """Processing time should be > 0."""
         result = benchmark_eager(bed_id=1, num_readings=100)
         assert result["time"] > 0
 
     def test_result_count_non_negative(self):
-        """Die Anzahl der Ergebnisse ist mindestens 0."""
+        """Result count should be >= 0."""
         result = benchmark_eager(bed_id=1, num_readings=100)
         assert result["result_count"] >= 0
 
 
 class TestBenchmarkLazy:
-    """Tests für benchmark_lazy()."""
+    """Tests for benchmark_lazy()."""
 
     def test_returns_valid_dict(self):
-        """Gibt ein Dictionary mit denselben Schlüsseln wie benchmark_eager zurück."""
+        """Should return a dict with the same keys as benchmark_eager."""
         result = benchmark_lazy(bed_id=1, num_readings=100)
         assert isinstance(result, dict)
         assert "time" in result
@@ -117,12 +117,12 @@ class TestBenchmarkLazy:
         assert "result_count" in result
 
     def test_time_is_positive(self):
-        """Die Verarbeitungszeit liegt über 0."""
+        """Processing time should be > 0."""
         result = benchmark_lazy(bed_id=1, num_readings=100)
         assert result["time"] > 0
 
     def test_lazy_uses_less_memory_for_large_n(self):
-        """Für große Datenmengen beansprucht Lazy weniger Speicher als Eager."""
+        """For large N, lazy should use less peak memory than eager."""
         eager = benchmark_eager(bed_id=1, num_readings=50_000)
         lazy = benchmark_lazy(bed_id=1, num_readings=50_000)
         assert lazy["peak_memory_mb"] < eager["peak_memory_mb"]
