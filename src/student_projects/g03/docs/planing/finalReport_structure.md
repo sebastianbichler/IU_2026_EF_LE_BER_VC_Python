@@ -166,6 +166,9 @@ und die wissenschaftliche Fragestellung sowie die Ergebnisse präsentieren.
 
 Erstellt dazu bspw. einen Screencast mit einem Tool wie OBS Studio, Camtasia oder der System-eigenen Bildschirmaufnahme.
 
+**Link zum Pitch-Video (SharePoint):** 
+[G03_Pitch_RudisHasenhof.mp4 ansehen](https://iubhfs-my.sharepoint.com/:f:/g/personal/tim-oliver_strauss_iu-study_org/IgCGdNy_U84ZRZqu-qwHAjM-AeFYZhKFqA1wW0f12p489Lk?e=uDXPWs)
+
 ---
 
 ## Anhang
