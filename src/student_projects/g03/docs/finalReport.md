@@ -545,8 +545,8 @@ pytest tests/ -v
 
 Im Anhang finden Sie ein kurzes Video: App vorstellen, Funktionen demonstrieren, Lazy vs. Eager und Ergebnisse präsentieren. Tools: OBS Studio, Camtasia oder System-Bildschirmaufnahme.
 
-**Link zum Pitch-Video (SharePoint):** 
-[G03_Pitch_RudisHasenhof.mp4 ansehen](https://iubhfs-my.sharepoint.com/:f:/g/personal/tim-oliver_strauss_iu-study_org/IgCGdNy_U84ZRZqu-qwHAjM-AeFYZhKFqA1wW0f12p489Lk?e=uDXPWs)
+**Link zum Pitch-Video (YouTube):** 
+[G03_Pitch_RudisHasenhof.mp4 ansehen](https://youtu.be/PIPbBWOSbjs)
 
 
 ---
